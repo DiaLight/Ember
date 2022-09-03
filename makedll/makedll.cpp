@@ -18,6 +18,8 @@
 #define VAL(str) #str
 #define TOSTRING(str) VAL(str)
 
+#define dk2_image_base 0x00400000
+
 void print(const char *msg, size_t len) {
   WriteConsoleA(GetStdHandle(STD_OUTPUT_HANDLE), msg, len, NULL, NULL);
 }
@@ -294,17 +296,17 @@ char *read_line(char *line, size_t &len, const char *end) {
   }
   return pos;
 }
-bool parse_offs_name(char *line, size_t line_len, DWORD &offs, char *&name, size_t &len) {
+bool parse_offs_name(char *line, size_t line_len, DWORD &out_value, char *&name, size_t &len) {
   if(line[0] == '#') return false;  // #...
   if(line_len < 10) return false;  // XXXXXXXX n...
-  DWORD textOffs = 0;
+  DWORD value = 0;
   for (int i = 0; i < 8; ++i) {
     char ch = line[7 - i];
     int d = hex2int(ch);
     if(d == -1) return false;
-    textOffs |= d << (i * 4);
+    value |= d << (i * 4);
   }
-  offs = textOffs;
+  out_value = value;
   if(line[8] != ' ') return false;
   char *name_start = line + 9;
   char *name_end = name_start;
@@ -480,10 +482,10 @@ int main() {
       size_t line_len;
       pos = read_line(pos, line_len, map_end);
 
-      DWORD rva;
+      DWORD va;
       char *name_start;
       size_t name_len;
-      if(!parse_offs_name(line, line_len, rva, name_start, name_len)) continue;
+      if(!parse_offs_name(line, line_len, va, name_start, name_len)) continue;
 
 //      {
 //        char *name = (char *) malloc(name_len + 1);
@@ -500,7 +502,7 @@ int main() {
       }
       exports.prepare(sizeof(Export));
       auto *exp = (Export *) exports.tail;
-      exp->rva = rva;
+      exp->rva = va - dk2_image_base;
       exp->name = (char *) malloc(name_len + 1);
       strncopy(exp->name, name_start, name_len);
       exports.tail = (uint8_t *) (exp + 1);
@@ -612,6 +614,8 @@ int main() {
         continue;
       }
       if(kind != VA32) continue;
+      src -= dk2_image_base;  // va -> rva
+      dst -= dk2_image_base;  // va -> rva
 
 //      printf("%08X\n", src);
       if(src >= page_end) {

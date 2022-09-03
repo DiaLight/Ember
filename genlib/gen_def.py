@@ -13,7 +13,7 @@ def main():
         line = line.rstrip('\r\n')
         if line.startswith('#'):
           continue
-        rva, name = line.split(" ", 1)
+        va, name = line.split(" ", 1)
         of.write("%s\n" % name)
 
 

@@ -27,24 +27,24 @@ enum SideEffectKind {
   SE_MOV_SP_BP,
 };
 
-bool parse_fun_chunk(char *line, size_t line_len, uint32_t &out_rva, char *&name, size_t &name_len) {
+bool parse_fun_chunk(char *line, size_t line_len, uint32_t &out_va, char *&name, size_t &name_len) {
   if(line[0] == '#') return false;  // #...
   char *line_end = line + line_len;
-  uint32_t rva = 0;
-  if(!parse_hex32(line, line_end, rva)) return false;
-  out_rva = rva;
+  uint32_t va = 0;
+  if(!parse_hex32(line, line_end, va)) return false;
+  out_va = va;
   if(*line != ' ') return false;
   line++;
   name = line;
   name_len = line_end - name;
   return true;
 }
-bool parse_stack_op(char *line, size_t line_len, uint32_t &out_rva, SpOpKind &kind, int32_t &out_stack_offs, int32_t &out_value, SideEffectKind &se_kind, int32_t &out_se_value) {
+bool parse_stack_op(char *line, size_t line_len, uint32_t &out_va, SpOpKind &kind, int32_t &out_stack_offs, int32_t &out_value, SideEffectKind &se_kind, int32_t &out_se_value) {
   if(line[0] == '#') return false;  // #...
   char *line_end = line + line_len;
-  uint32_t rva = 0;
-  if(!parse_hex32(line, line_end, rva)) return false;
-  out_rva = rva;
+  uint32_t va = 0;
+  if(!parse_hex32(line, line_end, va)) return false;
+  out_va = va;
   if(*line != ' ') return false;
   line++;
 
@@ -73,9 +73,9 @@ bool parse_stack_op(char *line, size_t line_len, uint32_t &out_rva, SpOpKind &ki
   }
 
   if(kind == JMP) {
-    rva = 0;
-    if(!parse_hex32(line, line_end, rva)) return false;
-    out_value = rva;
+    va = 0;
+    if(!parse_hex32(line, line_end, va)) return false;
+    out_value = va;
   } else {
     int32_t stack_change = 0;
     if(!parse_int32(line, line_end, stack_change)) return false;
@@ -203,31 +203,31 @@ bool loadStack() {
     pos = read_line(pos, line_len, map_end);
     if(line_len == 0) continue;
     if(line[0] != ' ') {
-      uint32_t rva;
+      uint32_t va;
       char *name;
       size_t name_len;
-      if(!parse_fun_chunk(line, line_len, rva, name, name_len)) continue;
+      if(!parse_fun_chunk(line, line_len, va, name, name_len)) continue;
       std::string nameStr;
       nameStr.append(name, name_len);
 //      trg = nameStr == "CGameComponent_mainGuiLoop";
-//      if(trg) printf("%08X %s\n", rva, nameStr.c_str());
-      curArea = std::make_shared<stacktrace::Area>(rva, nameStr);
+//      if(trg) printf("%08X %s\n", va, nameStr.c_str());
+      curArea = std::make_shared<stacktrace::Area>(va - dk2_virtual_base, nameStr);
       stacktrace::visit(curArea);
     } else {
-      uint32_t rva;
+      uint32_t va;
       SpOpKind kind;
       int32_t stack_offs;
       int32_t value;
       SideEffectKind se_kind = SE_Invalid;
       int32_t se_value = 0;
-      if(!parse_stack_op(line + 1, line_len - 1, rva, kind, stack_offs, value, se_kind, se_value)) {
+      if(!parse_stack_op(line + 1, line_len - 1, va, kind, stack_offs, value, se_kind, se_value)) {
         char tmp[MAX_PATH];
         strncpy(tmp, line, line_len);
         tmp[line_len] = '\0';
         printf("ignore %s\n", tmp);
         continue;
       }
-      curArea->visitOp(rva, kind, stack_offs, value, se_kind, se_value);
+      curArea->visitOp(va - dk2_virtual_base, kind, stack_offs, value, se_kind, se_value);
 //      if(trg) printf("  %08X %d %d\n", rva, kind, value);
     }
   }
@@ -451,7 +451,16 @@ bool visit_dk2_frame(CONTEXT *ctx, StackLimits &limits) {
       }
       case JMP: {
         printf("    va=%08X jmp %08X\n", op.rva + dk2_virtual_base, (uint32_t) op.value);
-        ctx->Eip = (uint32_t) (dk2_base + (uint32_t) op.value);
+        if(op.value == 0) {
+          // force exit such frame
+          ctx->Esp -= op.stack_offs;
+          auto *sp = (uint32_t *) ctx->Esp;
+          ctx->Eip = sp[0];
+          ctx->Esp += op.value + 4;
+          return true;
+        }
+        uint32_t jmp_rva = (uint32_t) op.value - dk2_virtual_base;
+        ctx->Eip = (uint32_t) (dk2_base + jmp_rva);
         return visit_dk2_frame(ctx, limits);
       }
       case SP_Invalid:

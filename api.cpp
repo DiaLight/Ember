@@ -106,6 +106,9 @@ bool loadRefs() {
       printf("\n");
       continue;
     }
+    src -= dk2_virtual_base;  // va -> rva
+    dst -= dk2_virtual_base;  // va -> rva
+
     auto it = xrefs.find(dst);
     std::shared_ptr<std::vector<ref_t>> list;
     if(it == xrefs.end()) {
