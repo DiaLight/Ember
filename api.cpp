@@ -14,6 +14,7 @@
 #include <api/stacktrace.h>
 #include <api/game_loop.h>
 #include <api/patch.h>
+#include <api/window.h>
 
 #ifndef REFERENCES_MAPPING
 #error "REFERENCES_MAPPING not defined"
@@ -183,8 +184,6 @@ namespace api {
   std::vector<std::function<int(int &argc, char **&argv)>> BEFORE_MAIN;
   std::vector<std::function<void(int argc, char *argv[], int &exitCode)>> AFTER_MAIN;
 
-  bool initWindow();
-
   int __cdecl proxy_main(int argc, char *argv[]) {
     int exitCode = -1;
 
@@ -201,7 +200,11 @@ namespace api {
 
   bool initialize() {
     {
+#ifdef REVERSE_MODE
+      dk2_base = (uint8_t *) dk2_virtual_base;
+#else
       dk2_base = (uint8_t *) LoadLibraryA("dk2.dll");
+#endif
       auto *dos = (IMAGE_DOS_HEADER *) dk2_base;
       auto *nt = (IMAGE_NT_HEADERS *) (dk2_base + dos->e_lfanew);
       dk2_size = nt->OptionalHeader.SizeOfImage;

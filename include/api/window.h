@@ -10,6 +10,8 @@ namespace api {
   extern std::vector <std::function<bool(HWND & , UINT & , WPARAM & , LPARAM & )>> BEFORE_WINDOW_PROC;
   extern std::vector <std::function<void(HWND, UINT, WPARAM, LPARAM, LRESULT & )>> AFTER_WINDOW_PROC;
 
+  bool initWindow();
+
 }
 
 #endif //EMBER_WINDOW_H

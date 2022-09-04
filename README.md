@@ -10,7 +10,7 @@ Allow users to check with api that your patch was applied or not.
 - You can work with `dk2.dll` instead of exe file. `DKII.exe` just has no `relocation table`, so exe is always loading at `0x400000` base address.
 But, dll has the `relocation table`, built from the `chunk references` file!
 - You can link your code directly to `dk2.dll`. Ember has manually written `include/dk2/*.h` header files to link with `dk2.dll` symbols.
-A lot of researching work was made to build function/data name mapping(`mappings/exports.map`).
+A lot of researching work was made to build function/data name mapping(`mappings/names.map`).
 Based on this mapping, dll has an `export table`. So, another exe/dll can use those symbols to call/patch/hook them.
 As dll has `export table`, you can generate lib file with Visual Studio tool `lib` and use it in build process.
 - You can collect the stack trace! `DKII.exe` does not use ebp register as frame stack bottom location. So you can't walk DKII stack frames using this register.

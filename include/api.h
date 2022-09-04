@@ -19,9 +19,18 @@ uint8_t *follow(T &&ptr) {
       .fun = &ptr
   };
   uint8_t *pos = *val.ptr;
+#ifdef REVERSE_MODE
+  if(*pos++ != 0xE9) return nullptr;
+  pos = (pos + 4) + *(uint32_t *) pos;
+  if(*pos++ != 0xB8) return nullptr;
+  pos = *(uint8_t **) pos;
+#else
   if(*pos++ != 0xFF) return nullptr;
   if(*pos++ != 0x25) return nullptr;
-  return **(uint8_t ***) pos;
+  pos = *(uint8_t **) pos;
+  pos = *(uint8_t **) pos;
+#endif
+  return pos;
 }
 template<auto Fun>
 uint8_t *funptr() { return follow(Fun); }
