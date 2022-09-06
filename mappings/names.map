@@ -322,7 +322,7 @@
 0043D970 CBridge::fun_43D970 fun
 0043E020 unknown_libname_7 fun
 0043E030 CBridge::fun_43E030 fun
-0043E0F0 CBridge::fun_43E0F0 fun
+0043E0F0 CBridge_loadPng fun
 0043E2F0 CBridge::fun_43E2F0 fun
 0044018C def_4400E9 
 0044032C jpt_4400E9 
@@ -1682,6 +1682,7 @@
 005568A0 CFileManager::fun_5568A0 fun
 005568C0 ??1CFileManager@@UAE@XZ fun
 00556980 CFileManager::fun_556980 fun
+00556A20 CFileManager_sub_556A20 fun
 00556B70 CFileManager::fun_556B70 fun
 00556C90 CFileManager_sub_556C90 fun
 00557390 ?static_init@MyGame@@SAXXZ fun
@@ -1874,10 +1875,10 @@
 0057A7D0 CDirectIFFFile::fun_57A7D0 fun
 0057A960 CMemLoadIFFFile::fun_57A960 fun
 0057C270 Arrp31x400_static_init fun
-0057C2D0 MySurfaceWrapper_constructor fun
+0057C2D0 MyDblNamedSurface_constructor fun
 0057C420 Arrp31x400Item_init fun
 0057C700 Arrp31x400Item_sub_57C700 fun
-0057C850 MySurfaceWrapper_registerInArrp31x400 fun
+0057C850 MyDblNamedSurface_registerInArrp31x400 fun
 0057CB70 Arrp31x400_resize fun
 0057CEB0 MyHeap::alloc fun
 0057D0B0 MyHeap::free fun
@@ -1979,9 +1980,13 @@
 00590A40 CEngineDDSurface::fun_590A40 fun
 00590AC0 CEngineDDSurface::fun_590AC0 fun
 00590B20 CEngineDDSurface::fun_590B20 fun
+00590B40 MySurfaceWrapper_init fun
 00590BF0 MyCESurfHandle_init fun
+00590EC0 MyCESurfHandle_sub_590EC0 fun
 00591070 ??0CEngineCompressedSurface@@QAE@H@Z fun
-00591820 ??0CEngineCompressedSurface@@QAE@HHH@Z fun
+005911E0 MyCESurfHandle_sub_5911E0 fun
+005914E0 Obj792D48_convertCopyFrom fun
+00591820 Obj792D48_createCEngineCompressedSurface fun
 00591BF0 ??0CEngineSurfaceBase@@QAE@HHH@Z fun
 00591C20 ??0CEngineSurface@@QAE@XZ fun
 00591DA0 ?create@CEngineSurface@@SAPAU1@HHH@Z fun
@@ -2025,6 +2030,7 @@
 00599C60 CPCEngineInterface::fun_599C60 fun
 0059A050 CPCEngineInterface::fun_59A050 fun
 0059A200 CPCEngineInterface::fun_59A200 fun
+0059A4B0 MyResources_static_loadPng fun
 0059A650 CPCEngineInterface::fun_59A650 fun
 0059A6A0 CPCEngineInterface::fun_59A6A0 fun
 0059AC60 def_59A6F2 
@@ -2155,6 +2161,7 @@
 005B5E90 getTimeMs fun
 005B5EE0 TbPNGLoader::fun_5B5EE0 fun
 005B6030 TbPNGLoader::fun_5B6030 fun
+005B65E0 j_Obj79DC68_destructor fun
 005B66FC def_5B667D 
 005B671C jpt_5B667D 
 005B6750 TbPNGLoader::fun_5B6750 fun
@@ -2267,8 +2274,9 @@
 005BA4E0 setDebugStringFun fun
 005BAAD0 TbWadFileStorage_readAndParse fun
 005BABA0 TbDiscFileStorage_openDirectory fun
-005BAC70 unknown_libname_49 fun
-005BAC90 unknown_libname_50 fun
+005BAC70 Obj79DC68_static_constructor fun
+005BAC90 Obj79DC68_static_destructor fun
+005BACA0 MySurface_static_convertPixelType fun
 005BAE70 createMutex fun
 005BAEF0 Obj6723A0_scalar_destructor fun
 005BAF10 Obj6723A0_destructor fun
@@ -2341,20 +2349,79 @@
 005D1050 AABB_normalize fun
 005D1230 GObj_79D250_constructor fun
 005D1250 llist_insert fun
+005D1290 libpng::png_set_sig_bytes fun
+005D12C0 libpng::png_sig_cmp fun
+005D1320 libpng::png_check_sig fun
+005D1340 libpng::png_zalloc fun
+005D13B0 libpng::png_zfree fun
+005D13D0 libpng::png_reset_crc fun
+005D13F0 libpng::png_calculate_crc fun
+005D1450 libpng::png_create_info_struct fun
+005D1480 libpng::png_destroy_info_struct fun
+005D14C0 libpng::png_info_init fun
+005D14D0 libpng::png_info_destroy fun
+005D1590 libpng::png_get_io_ptr fun
+005D15A0 libpng::png_create_read_struct fun
 005D1699 def_5D1684 
 005D16D0 jpt_5D1684 
+005D16F0 libpng::png_read_info fun
+005D1A70 libpng::png_read_update_info fun
+005D1AA0 libpng::png_read_row fun
 005D1C0B def_5D1AE0 
 005D1ED8 jpt_5D1AE0 
+005D1F00 libpng::png_read_image fun
+005D1F60 libpng::png_read_end fun
+005D2230 libpng::png_destroy_read_struct fun
+005D22D0 libpng::png_read_destroy fun
+005D2520 Obj79DC68_constructor fun
+005D2530 Obj79DC68_sub_5D2530 fun
+005D2810 Obj00672520Interface_destructor fun
 005D2820 ??_Gfacet@locale@std@@UAEPAXI@Z_12 fun
+005D2840 Obj672520Interface_scalar_destructor fun
+005D2890 Obj79DC68_convertPixels fun
+005D2920 Obj79DC68_destructor fun
+005D2940 libpng::png_set_strip_16 fun
+005D2950 libpng::png_set_expand fun
+005D2960 libpng::png_set_gray_to_rgb fun
+005D2970 libpng::png_init_read_transformations fun
 005D2A7F def_5D29B2 
 005D3394 jpt_5D29B2 
+005D33C0 libpng::png_read_transform_info fun
+005D3510 libpng::png_do_read_transformations fun
+005D38C0 libpng::png_do_unpack fun
+005D39D0 libpng::png_do_unshift fun
 005D3B88 def_5D3AB9 
 005D3B90 jpt_5D3AB9 
+005D3BC0 libpng::png_do_chop fun
+005D3C10 libpng::png_do_read_swap_alpha fun
+005D3D10 libpng::png_do_read_invert_alpha fun
+005D3E20 libpng::png_do_read_filler fun
+005D4070 libpng::png_do_gray_to_rgb fun
+005D41C0 libpng::png_do_background fun
 005D51CC def_5D420A 
 005D5208 jpt_5D420A 
 005D5224 jpt_5D4228 
+005D5250 libpng::png_do_gamma fun
 005D55F2 def_5D5293 
 005D55FC jpt_5D5293 
+005D5620 libpng::png_do_expand_palette fun
+005D5830 libpng::png_do_expand fun
+005D5BA0 libpng::png_do_dither fun
+005D5CC0 libpng::png_build_gamma_table fun
+005D6250 libpng::png_get_valid fun
+005D6270 libpng::png_get_IHDR fun
+005D6360 libpng::png_get_PLTE fun
+005D63A0 libpng::png_set_bgr fun
+005D63B0 libpng::png_set_packing fun
+005D63D0 libpng::png_set_interlace_handling fun
+005D6400 libpng::png_do_invert fun
+005D6430 libpng::png_do_swap fun
+005D6460 libpng::png_do_packswap fun
+005D64B0 libpng::png_do_strip_filler fun
+005D66C0 libpng::png_do_bgr fun
+005D6780 libpng::png_read_data fun
+005D67B0 libpng::png_set_read_fn fun
+005D6810 libpng::png_default_read_data fun
 005D6850 DiscFileBaseEx_openStream fun
 005D71E0 MyInputStream_constructor fun
 005D7200 MyInputStream_scalar_destructor fun
@@ -2596,14 +2663,79 @@
 005F80F0 ControlSurf_destructor fun
 005F8100 ControlSurf_create fun
 005F8160 ControlSurf_release fun
-005F82E0 libpng_sub_5F82E0 fun
-005F8310 libpng fun
+005F8190 libpng::png_error fun
+005F81C0 libpng::png_warning fun
+005F81F0 libpng::png_chunk_error fun
+005F8220 libpng::png_format_buffer fun
+005F82B0 libpng::png_chunk_warning fun
+005F82E0 libpng::png_default_error fun
+005F8310 libpng::png_default_warning fun
+005F8330 libpng::png_set_error_fn fun
+005F8350 libpng::png_create_struct fun
+005F83A0 libpng::png_destroy_struct fun
+005F83C0 libpng::png_malloc fun
+005F8400 libpng::png_free fun
+005F8420 libpng::png_memcpy_check fun
+005F8450 libpng::png_memset_check fun
+005F8490 zlib::crc32 fun
+005F85D0 zlib::inflateReset fun
+005F8620 zlib::inflateEnd fun
+005F8670 zlib::inflateInit2_ fun
+005F8780 zlib::inflateInit_ fun
+005F87A0 zlib::inflate fun
 005F8BA2 def_5F87F0 
 005F8BAC jpt_5F87F0 
+005F8BF0 libpng::png_get_uint_32 fun
+005F8C20 libpng::png_get_uint_16 fun
+005F8C40 libpng::png_crc_read fun
+005F8C70 libpng::png_crc_finish fun
+005F8D20 libpng::png_crc_error fun
+005F8D90 libpng::png_handle_IHDR fun
 005F8F8A def_5F8F61 
 005F8FD8 jpt_5F8F61 
+005F9000 libpng::png_handle_PLTE fun
+005F9170 libpng::png_handle_IEND fun
+005F91D0 libpng::png_handle_gAMA fun
+005F9340 libpng::png_handle_sBIT fun
+005F94B0 libpng::png_handle_cHRM fun
+005F9B50 libpng::png_handle_sRGB fun
+005F9DB0 libpng::png_handle_tRNS fun
+005FA000 libpng::png_handle_bKGD fun
+005FA1E0 libpng::png_handle_hIST fun
+005FA330 libpng::png_handle_pHYs fun
+005FA440 libpng::png_handle_oFFs fun
+005FA550 libpng::png_handle_pCAL fun
+005FA7A0 libpng::png_handle_tIME fun
+005FA8A0 libpng::png_handle_tEXt fun
+005FA960 libpng::png_handle_zTXt fun
+005FACE0 libpng::png_handle_unknown fun
+005FAD30 libpng::png_check_chunk_name fun
+005FADA0 libpng::png_combine_row fun
+005FB0C0 libpng::png_do_read_interlace fun
+005FB4F0 libpng::png_read_filter_row fun
 005FB6A3 def_5FB501 
 005FB6BC jpt_5FB501 
+005FB6D0 libpng::png_read_finish_row fun
+005FB990 libpng::png_read_start_row fun
+005FBBD0 Obj672510_init fun
+005FBCA0 Obj672510_convertPixel fun
+005FC460 Obj672510_selfConvertPixel fun
+005FCC20 Obj672510_sub_5FCC20 fun
+005FCCD0 Obj672500_init fun
+005FCD60 Obj672500_convertPixel fun
+005FCF70 Obj672500_selfConvertPixel fun
+005FD150 Obj672E70_constructor fun
+005FD1B0 Obj672E70_scalar_destructor fun
+005FD1D0 Obj672E70_destructor fun
+005FD220 Obj672E70_init fun
+005FD3C0 Obj672E70_sub_5FD3C0 fun
+005FD3E0 Obj672E70_convertPixel fun
+005FD510 Obj672E70_selfConvertPixel fun
+005FD7B0 Obj672E80_constructor fun
+005FD800 Obj672E80_scalar_destructor fun
+005FD820 Obj672E80_destructor fun
+005FD830 Obj672E80_init fun
+005FDAE0 Obj672E80_convertPixel fun
 005FDC60 Another_stream_sub_5FDC60_constructor fun
 005FDE70 DiscFileBase_getSize fun
 005FDFA0 MyLocalStr_scalar_destructor fun
@@ -2692,10 +2824,32 @@
 00600860 __cfltcvt_init_13 fun
 006008A0 j___cfltcvt_init_14 fun
 006008B0 __cfltcvt_init_14 fun
+00600F80 zlib::inflate_blocks_reset fun
+00601000 zlib::inflate_blocks_new fun
+006010B0 zlib::inflate_blocks fun
 006010F2 def_601161 
 00601D16 def_6010FD 
 00601D5C jpt_6010FD 
 00601D84 jpt_601161 
+00601DA0 zlib::inflate_blocks_free fun
+00601DF0 zlib::adler32 fun
+00601F20 zlib::zcalloc fun
+00601F40 zlib::zcfree fun
+00601F50 libpng::png_set_bKGD fun
+00601F90 libpng::png_set_cHRM fun
+00602000 libpng::png_set_gAMA fun
+00602030 libpng::png_set_hIST fun
+00602060 libpng::png_set_IHDR fun
+00602120 libpng::png_set_oFFs fun
+00602150 libpng::png_set_pCAL fun
+006022A0 libpng::png_set_pHYs fun
+006022D0 libpng::png_set_PLTE fun
+00602300 libpng::png_set_sBIT fun
+00602330 libpng::png_set_sRGB fun
+00602360 libpng::png_set_sRGB_gAMA_and_cHRM fun
+00602400 libpng::png_set_text fun
+00602510 libpng::png_set_tIME fun
+00602540 libpng::png_set_tRNS fun
 006030F0 MyCachedOffsStream_constructor fun
 00603110 MyCachedOffsStream_close fun
 00603120 MyCachedOffsStream_readBytes_redirect fun
@@ -2703,8 +2857,17 @@
 00603180 MyCachedOffsStream_seek_redirect fun
 006031A0 MyCachedOffsStream_getSize_redirect fun
 00603A30 ??_Gfacet@locale@std@@UAEPAXI@Z_15 fun
+00603AC0 zlib::inflate_codes_new fun
+00603B00 zlib::inflate_codes fun
 0060424B def_603B4D 
 00604288 jpt_603B4D 
+006042B0 zlib::inflate_codes_free fun
+006042D0 zlib::inflate_trees_bits fun
+00604380 zlib::huft_build fun
+00604830 zlib::inflate_trees_dynamic fun
+006049C0 zlib::inflate_trees_fixed fun
+006049F0 zlib::inflate_flush fun
+00605010 zlib::inflate_fast fun
 006067E0 nullsub_20 fun
 006082E0 TbSysCommand::Process::fun_6082E0 fun
 00608300 TbSysCommand::StopAll::fun_608300 fun
@@ -2782,7 +2945,7 @@
 00624B10 jpt_624839 
 006289C0 ??1stdiobuf@@UAE@XZ_1 fun
 00628B70 ret_0_4args fun
-00628BB0 CEngineSurface::fun_628BB0 fun
+00628BB0 CEngineSurface_getPixels fun
 00628BC0 CPlayerInterface::fun_628BC0 fun
 00628C20 ??1stdiobuf@@UAE@XZ_2 fun
 00628E30 CEngineInterface::fun_628E30 fun
@@ -5091,6 +5254,9 @@
 006724F4 aOct_0 str
 006724F8 aNov_0 str
 006724FC aDec_0 str
+00672500 ??_7Obj672500@@6B@ 
+00672510 ??_7Obj672510@@6B@ 
+00672520 ??_7Obj672520Interface@@6B@ 
 006725D8 ??_7MyInputStream@@6B@ 
 00672708 ??_7MyDirectory@@6B@ 
 00672740 ??_7MyWadDirectory@@6B@ 
@@ -5122,6 +5288,27 @@
 00672910 ??_7MySysKeyboard@@6B@ 
 00672920 ??_7MyDxKeyboard@@6B@ 
 006729F8 ??_7ControlSurf@@6B@ 
+00672A00 libpng::png_digit 
+00672A10 zlib::crc_table 
+00672E18 libpng::flt_672E18 
+00672E1C libpng::flt_672E1C 
+00672E20 libpng::dbl_672E20 
+00672E28 libpng::dbl_672E28 
+00672E30 libpng::flt_672E30 
+00672E34 libpng::flt_672E34 
+00672E38 libpng::flt_672E38 
+00672E40 libpng::dbl_672E40 
+00672E48 libpng::flt_672E48 
+00672E4C libpng::flt_672E4C 
+00672E50 libpng::flt_672E50 
+00672E54 libpng::flt_672E54 
+00672E58 libpng::flt_672E58 
+00672E5C libpng::flt_672E5C 
+00672E60 libpng::flt_672E60 
+00672E64 libpng::flt_672E64 
+00672E68 libpng::dbl_672E68 
+00672E70 ??_7Obj672E70@@6B@ 
+00672E80 ??_7Obj672E80@@6B@ 
 00672EC0 ??_7MyLocalStr@@6B@ 
 00672EE4 __off_672EE4_vt 
 00672EE8 __off_672EE8_vt 
@@ -5130,8 +5317,14 @@
 00673018 ??_7MyMemoryMapStream@@6B@ 
 00673048 ??_7MyDirectInput@@6B@ 
 00673060 ??_7MyDxDeviceEx@@6B@ 
+00673070 zlib::border 
 006730C0 ??_7MyCachedOffsStream@@6B@ 
 00673130 aInflate113Copy str
+00673160 zlib::cplens 
+006731E0 zlib::cplext 
+00673260 zlib::cpdist 
+006732D8 zlib::cpdext 
+00673350 zlib::deflate_copyright str
 00673390 funcs_6057F7 
 00673E48 ??_7MyTbAudioSystem@@6B@ 
 00673EB0 ??_7MyUnk673EB0@@6B@ 
@@ -9590,13 +9783,36 @@
 006C3D00 Caption str
 006C3D10 aRetryToDebugAb str
 006C3D80 aActivateMessag str
-006C40E8 libPng_version str
-006C40F8 arr_6C40F8 
+006C40E8 libpng::png_libpng_ver str
+006C40F8 libpng::png_sig 
+006C4100 libpng::png_IHDR 
+006C4108 libpng::png_IDAT 
+006C4110 libpng::png_IEND 
+006C4118 libpng::png_PLTE 
+006C4120 libpng::png_bKGD 
+006C4128 libpng::png_cHRM 
+006C4130 libpng::png_gAMA 
+006C4138 libpng::png_hIST 
+006C4140 libpng::png_oFFs 
+006C4148 libpng::png_pCAL 
+006C4150 libpng::png_pHYs 
+006C4158 libpng::png_sBIT 
+006C4160 libpng::png_sRGB 
+006C4168 libpng::png_tEXt 
+006C4170 libpng::png_tIME 
+006C4178 libpng::png_tRNS 
+006C4180 libpng::png_zTXt 
+006C4188 libpng::png_pass_start 
+006C41A8 libpng::png_pass_inc 
+006C41C8 libpng::png_pass_ystart 
+006C41E8 libpng::png_pass_yinc 
+006C4208 libpng::png_pass_mask 
+006C4228 libpng::png_pass_dsp_mask 
 006C4244 aTooManyBytesFo str
 006C4268 aUnknownZlibErr str
 006C427C aZlibVersionErr str
 006C4290 aZlibMemoryErro str
-006C42A4 a113 str
+006C42A4 zlib::ZLIB_VERSION str
 006C42AC aIncompatibleLi str
 006C42E4 aMissingPlteBef str
 006C4300 aMissingIhdrBef str
@@ -9607,9 +9823,13 @@
 006C4380 aNotEnoughImage str
 006C4398 aInvalidAttempt str
 006C43BC aTooManyIdatSFo str
+006C43D8 libpng::png_gamma_shift 
 006C43F8 aPngDoDitherRet str
 006C441C aNullRowBufferF str
 006C4444 aWidthTooLargeF str
+006C4478 libpng::onebppswaptable 
+006C4578 libpng::twobppswaptable 
+006C4678 libpng::fourbppswaptable 
 006C4778 aCallToNullRead str
 006C4794 aSameStructureR str
 006C47C8 aItSAnErrorToSe str
@@ -9744,6 +9964,10 @@
 006C5860 aWidthTooLargeT str
 006C5CA0 aInvalidDistanc str
 006C5CB8 aInvalidLiteral str
+006C5CD8 zlib::fixed_bl 
+006C5CDC zlib::fixed_bd 
+006C5CE0 zlib::fixed_tl 
+006C6CE0 zlib::fixed_td 
 006C6DE0 aIncompleteDyna str
 006C6E04 aOversubscribed str
 006C6E2C aIncompleteLite str
@@ -9751,6 +9975,7 @@
 006C6E70 aEmptyDistanceT str
 006C6E94 aIncompleteDist str
 006C6EB0 aOversubscribed_0 str
+006C6ED0 zlib::inflate_mask 
 006C6FE0 aWSdt str
 006C6FE8 aDSdt str
 006C6FF0 aSf2 str
@@ -9777,6 +10002,7 @@
 006C8F68 aAvbadCast str
 006C8F88 aPow_0 str
 006C8FD8 File 
+006C8FF8 crt::stderr 
 006C9300 dwTlsIndex_ThreadCtx 
 006C9490 __ctype 
 006C9694 SrcSizeInBytes 
@@ -9887,6 +10113,7 @@
 006D39B8 Obj6D39B8_instance 
 006D3CC8 CBridge_instance 
 006D6458 sceneLightningObjects 
+006DA8A8 g_empty_string 
 006E4FD8 funcs_4A8BE5 
 006EB988 Stream 
 006ECA60 Obj6ECA60_instance 
@@ -9972,6 +10199,7 @@
 00741584 g_pMyFontText7 
 00741588 g_pMyFontText8 
 0074158C g_pMyFontText9 
+007415C0 Buffer 
 007416C8 TbBMPLoader_instance 
 00741C28 TbPNGLoader_instance 
 00742070 TbTQILoader_instance 
@@ -10039,7 +10267,9 @@
 0076F32C my_buf_3000_height_512 
 0076F330 my_buf_3000 
 007793A8 arr_7793A8 
+00792920 MySurfDesc_792920 
 00792938 MyNameObjMap_instance_of_MyCESurfHandle 
+00792D48 Obj792D48_instance 
 00793388 CPCEngineInterface_instance_start 
 00795700 g_pCBridge 
 00796294 cmd_flag_NOSOUND 
@@ -10082,6 +10312,7 @@
 0079D981 aGamesDungeonKe str
 0079DA88 aFGamesDungeonK str
 0079DBD0 SharedArr79DBD0_instance 
+0079DC68 Obj79DC68_instance 
 0079F174 isBullfrogWindowCreated 
 0079F630 ?initialized@CursorDrawer@dk2@@2_NA 
 0079F638 ?instance@CursorDrawer@dk2@@2U12@A 
