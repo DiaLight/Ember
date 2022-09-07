@@ -29,6 +29,19 @@ namespace dk2 {
   };
   static_assert(sizeof(AABB) == 0x10);
 
+  struct Area2i {
+    int x;
+    int y;
+    int w;
+    int h;
+  };
+  static_assert(sizeof(Area2i) == 0x10);
+
+  struct CComponent {
+    uint32_t is_component_destroy;
+    int field_4;
+  };
+
 }
 
 #endif //EMBER_DKII_UTILS_H

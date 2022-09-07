@@ -12,6 +12,12 @@
 #include <dk2/window.h>
 #include <dk2/dinput.h>
 #include <dk2/input.h>
+#include <dk2/resources.h>
+#include <dk2/gui.h>
+#include <dk2/StaticListeners.h>
+#include <dk2/CDefaultPlayerInterface.h>
+#include <dk2/CFrontEndComponent.h>
+#include <dk2/CGameComponent.h>
 
 namespace dk2 {
 
@@ -29,14 +35,6 @@ namespace dk2 {
 
     /*005B2E50*/ static void __cdecl setAppExitStatus(bool shouldExit);
     /*005B2E40*/ static bool __cdecl isAppExitStatusSet();
-  };
-
-  class CFrontEndComponent {
-
-  public:
-
-    /*005340F0*/ void showTitleScreen();
-
   };
 
   /*00557FD0*/ bool __stdcall checkOsCompatible(int maxVersion, int minVersion, uint16_t CSDVersion);
@@ -260,19 +258,6 @@ namespace dk2 {
     virtual ~MyDxInputManagerCb();
   };
   static_assert(sizeof(MyDxInputManagerCb) == 0x6C);
-
-  struct CComponent {
-    uint32_t is_component_destroy;
-    int field_4;
-  };
-
-  struct StaticListeners {
-    int (__cdecl *f0_onKeyboardAction)(int, int, CComponent *);
-    int (__cdecl *f4_onMouseAction)(int, int, int, int, CComponent *);
-    int (__cdecl *f8_onWindowMsg)(__int16 uMsg, WPARAM wParam, LPARAM lParam, CComponent *comp);
-    int (__cdecl *fC_onKeyboardActionWithCtrl)(int, int, int, CComponent *);
-    void (__cdecl *f10_onMouseActionWithCtrl)(int, int, int, int, int, CComponent *);
-  };
 
   struct MyInputListenersHolder : MyComEx {  // vft=006723E8
 //    MyInputListenersHolder_vtbl *__vftable /*VFT*/;

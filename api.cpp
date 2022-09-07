@@ -184,6 +184,9 @@ namespace api {
   std::vector<std::function<int(int &argc, char **&argv)>> BEFORE_MAIN;
   std::vector<std::function<void(int argc, char *argv[], int &exitCode)>> AFTER_MAIN;
 
+  HookHandle *allReadyToStart = nullptr;
+  std::vector<std::function<void()>> ALL_READY_TO_START;
+
   int __cdecl proxy_main(int argc, char *argv[]) {
     int exitCode = -1;
 
@@ -216,6 +219,14 @@ namespace api {
     if(!initWindow()) return false;
     if(!initGameLoop()) return false;
     if(!replaceXrefs(funptr<&dk2::main>(), proxy_main)) return false;
+
+    // .text:005A631C  mov esi, offset CGameComponent_instance
+    allReadyToStart = HookHandle::create(dk2_base + (0x005A631C - dk2_virtual_base), 5);
+    allReadyToStart->addHandler([](HookHandler &handle, Regs &regs, void *target) {
+      for(auto &cb : api::ALL_READY_TO_START) {
+        cb();
+      }
+    });
     return true;
   }
 

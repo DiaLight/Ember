@@ -194,7 +194,8 @@
 0041A410 CDefaultPlayerInterface_sub_41A410 fun
 0041A7D0 BtnHandler_sub_41A7D0 fun
 0041FFA0 ?load@TbPNGLoader@@SAPAXPAHPBDHPBX@Z fun
-004205B0 BtnHandler_sub_4205B0 fun
+00420570 ButtonCfg_ExitGameAction fun
+004205B0 ButtonCfg_ConfirmYesAction fun
 0042073B def_4206DF 
 00420754 jpt_4206DF 
 00421BE1 def_421886 
@@ -269,7 +270,7 @@
 00434480 ??1?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@std@@QAE@XZ_0 fun
 004346A0 ??0CPlayerInterface@@QAE@XZ fun
 004346C0 ??_GCGameManagerInterface@@UAEPAXI@Z fun
-004346E0 CDefaultPlayerInterface_sub_4346E0 fun
+004346E0 CDefaultPlayerInterface_onClick fun
 00434700 ??0CEffect@@QAE@XZ fun
 00434770 CEffect::fun_434770 fun
 00434780 CEffect::fun_434780 fun
@@ -1210,6 +1211,7 @@
 00521B40 CCommunicationInterface::fun_521B40 fun
 00521B50 ??_GCCommunicationInterface@@UAEPAXI@Z fun
 00521B70 ??1CCommunicationInterface@@UAE@XZ fun
+00521F40 MyClickListItem_constructor fun
 00522650 ?static_init@CLocalCommunication@@SAXXZ fun
 00522670 ?static_destroy@CLocalCommunication@@SAXXZ fun
 00522680 ??0CLocalCommunication@@QAE@XZ fun
@@ -1266,6 +1268,7 @@
 00525350 CGameComponent_setExit0 fun
 00525360 unknown_libname_14 fun
 00525370 CGameComponent_mainGuiLoop fun
+00525F00 MyClickList_onClick fun
 00526020 MyProfiler_init_empty fun
 00526090 probably_Profiler_constructor fun
 00526280 MyProfiler_dumpStats fun
@@ -1278,6 +1281,7 @@
 005270C0 MyProfiler_clearCWorld fun
 005270E0 MyProfiler_attachCommunicationInterface fun
 00527110 MyProfiler_clearCommunicationInterface fun
+00527130 MyProfiler_onClick fun
 00527150 MyProfiler_sub_527150 fun
 00527440 ?static_init@CNetworkComponent@@SAXXZ fun
 00527460 ?static_destroy@CNetworkComponent@@SAXXZ fun
@@ -1377,7 +1381,7 @@
 0052B870 ??0CGuiManager@@QAE@XZ fun
 0052B8C0 ??_GCGuiManager@@UAEPAXI@Z fun
 0052B8E0 ??1CGuiManager@@UAE@XZ fun
-0052B8F0 CGuiManager_createElements fun
+0052B8F0 ?createElements@CGuiManager@dk2@@QAEHPAPAUWindowCfg@2@PAVCDefaultPlayerInterface@2@@Z fun
 0052BB30 CButton::createEx fun
 0052BBD0 CGuiManager_doDraw2dGui fun
 0052BC50 CGuiManager_sub_52BC50 fun
@@ -1386,7 +1390,7 @@
 0052C402 def_52C3FB 
 0052C464 jpt_52C3FB 
 0052C520 CGuiManager_sub_52C520 fun
-0052C540 CGuiManager_findWindowByF40 fun
+0052C540 CGuiManager_findGameWindowById fun
 0052C5A0 CGuiManager_sub_52C5A0 fun
 0052C5F0 CGuiManager_sub_52C5F0 fun
 0052C630 CGuiManager_sub_52C630 fun
@@ -1625,9 +1629,13 @@
 00552F10 loadResources fun
 00553731 def_5536F4 
 00553738 jpt_5536F4 
-00553A60 MyTextText_idx1091_getString fun
-00553A80 ?instance@MyTextText@@SAPAU1@XZ fun
-00553B90 MBToUni_convert fun
+00553A60 ?idx1091_getMbString@MyTextText@dk2@@SAPBDI@Z fun
+00553A80 MyTextText_getinstance_idx1091 fun
+00553A90 MyTextText_getMbString_idx1056_1081 fun
+00553AC0 MyTextText_getMbString_idx1000_1023 fun
+00553AF0 ?idx1090_getMbString@MyTextText@dk2@@SAPBDI@Z fun
+00553B90 ?convert@MBToUni@dk2@@SA_NPBDPA_WH@Z fun
+00553DD0 MyTextText_getMbString_idx1024_1029 fun
 00553E48 def_553DED 
 00553E50 jpt_553DED 
 00553F00 unknown_libname_32 fun
@@ -2030,7 +2038,7 @@
 00599C60 CPCEngineInterface::fun_599C60 fun
 0059A050 CPCEngineInterface::fun_59A050 fun
 0059A200 CPCEngineInterface::fun_59A200 fun
-0059A4B0 MyResources_static_loadPng fun
+0059A4B0 ?loadPng@MyResources@dk2@@SAPAUMySurface@2@PBD@Z fun
 0059A650 CPCEngineInterface::fun_59A650 fun
 0059A6A0 CPCEngineInterface::fun_59A6A0 fun
 0059AC60 def_59A6F2 
@@ -6516,7 +6524,7 @@
 0068FBA8 aSmallpointPng str
 0068FBB8 aPointPng str
 0068FBC4 aDDevDk2Project_35 str
-00693EF8 GuiElements_off_693EF8 
+00693EF8 ?view00693EF8@gui_globals@dk2@@0PAPAUWindowCfg@2@A 
 00693FEC aGuiSpellsRtD str
 00694000 aGuiIconsLoD str
 00694010 aGuiIconsManaSD str
@@ -8694,7 +8702,7 @@
 006AD5E4 aMaps str
 006AD5EC aMpd7_0 str
 006AD5F4 aVLuLu str
-006AE4E0 GuiElements_main 
+006AE4E0 ?view006AE4E0@gui_globals@dk2@@0PAPAUWindowCfg@2@A 
 006AE568 ??_R0?AVCFrontEndComponent3D@@@8 
 006AE570 aAvcfrontendcom_0 str
 006AF250 aMpdU_0 str
@@ -10108,7 +10116,7 @@
 006CD0F0 myDdSurface_end 
 006CE850 my_surf 
 006CE998 ObjCIME6CE998_instance 
-006CEA10 CDefaultPlayerInterface_instance 
+006CEA10 ?instance@CDefaultPlayerInterface@dk2@@0V12@A 
 006D3954 S2 
 006D39B8 Obj6D39B8_instance 
 006D3CC8 CBridge_instance 
@@ -10135,7 +10143,7 @@
 006FCDCB strId 
 006FCEC0 CLocalCommunication_instance 
 006FD120 CNetworkCommunication_instance 
-0070D138 CGameComponent_instance 
+0070D138 ?instance@CGameComponent@dk2@@0V12@A 
 0070D418 worldHighestTickTime 
 0070D41C engineFrames_counter 
 0070D420 impsCalls_counter 
@@ -10158,7 +10166,7 @@
 0070D608 g_lazy_off_70D608 
 0070D688 buttonHighlight_x30 
 0070D6D0 g_lazyInitFlags 
-0070D6D8 CFrontEndComponent_instance_start 
+0070D6D8 ?instance@CFrontEndComponent@dk2@@0V12@A 
 0070D6DC do_exit_game 
 0073E5F4 CFrontEndComponent_f30f1C_static_listeners 
 0073E61C CGuiManager_instance_start 
@@ -10189,6 +10197,8 @@
 007414B0 g_FontObj7_instance 
 00741500 g_FontObj5_instance 
 00741550 g_pMyTextText_idx1091 
+00741554 g_pMyTextText_idx1056_1081 
+00741558 g_pMyTextText_idx1000_1023 
 0074155C g_pMyTextText_idx1090 
 0074156C g_pMyFontText1 
 00741570 g_pMyFontText2 
@@ -10199,6 +10209,12 @@
 00741584 g_pMyFontText7 
 00741588 g_pMyFontText8 
 0074158C g_pMyFontText9 
+00741594 g_pMyTextText_idx1024 
+00741598 g_pMyTextText_idx1025 
+0074159C g_pMyTextText_idx1026 
+007415A0 g_pMyTextText_idx1027 
+007415A4 g_pMyTextText_idx1028 
+007415A8 g_pMyTextText_idx1029 
 007415C0 Buffer 
 007416C8 TbBMPLoader_instance 
 00741C28 TbPNGLoader_instance 
