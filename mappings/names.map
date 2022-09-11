@@ -37,7 +37,7 @@
 00402470 cmd_D3DDevices_list fun
 004024C0 cmd_Spec_set fun
 00402670 ??0CDefaultPlayerInterface@@QAE@XZ fun
-00402AD0 CPlayerInterface::fun_402AD0 fun
+00402AD0 ret_0_0args fun
 00402AE0 create_dword_arr_x3 fun
 00402B50 CDefaultPlayerInterface::fun_402B50 fun
 00402B60 CDefaultPlayerInterface::fun_402B60 fun
@@ -270,7 +270,7 @@
 00434480 ??1?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@std@@QAE@XZ_0 fun
 004346A0 ??0CPlayerInterface@@QAE@XZ fun
 004346C0 ??_GCGameManagerInterface@@UAEPAXI@Z fun
-004346E0 CDefaultPlayerInterface_onClick fun
+004346E0 ?pushAction@CDefaultPlayerInterface@dk2@@QAE_NAAUGameAction@2@@Z fun
 00434700 ??0CEffect@@QAE@XZ fun
 00434770 CEffect::fun_434770 fun
 00434780 CEffect::fun_434780 fun
@@ -311,7 +311,7 @@
 0043ACF0 CBridge::fun_43ACF0 fun
 0043AD70 CBridge::fun_43AD70 fun
 0043B0B0 CBridge::fun_43B0B0 fun
-0043B150 CBridge::fun_43B150 fun
+0043B150 CBridge_isActionHasHandler fun
 0043B180 CBridge::fun_43B180 fun
 0043B1E0 CBridge::fun_43B1E0 fun
 0043B220 CBridge::fun_43B220 fun
@@ -600,7 +600,7 @@
 00480F3C jpt_480D62 
 00483949 def_483928 
 00483990 jpt_483928 
-00484940 CShot::fun_484940 fun
+00484940 ret_0_0args_0 fun
 00485596 ?Win95IsDebuggerPresent@@YGHXZ_0 fun
 00486DF0 ??0Iostream_init@@QAE@XZ_0 fun
 00488520 CCreature::fun_488520 fun
@@ -767,7 +767,7 @@
 004B47C0 CRenderInfo::fun_4B47C0 fun
 004B4B50 CThing::fun_4B4B50 fun
 004B4BB0 CThing::fun_4B4BB0 fun
-004B4C20 CMap::fun_4B4C20 fun
+004B4C20 ret_1_0args_0 fun
 004B56A0 CThing::fun_4B56A0 fun
 004B5700 CThing::fun_4B5700 fun
 004B59D0 MyCreatureCollection_constructor fun
@@ -1016,6 +1016,26 @@
 00504E9C jpt_504D9E 
 00505250 CWorld::fun_505250 fun
 005052F0 CWorldShortEntry2_constructor fun
+00505830 GameActionHandler_N42 fun
+00505A10 GameActionHandler_N43 fun
+00505AA0 GameActionHandler_N44 fun
+00505AD0 GameActionHandler_N45 fun
+00505B30 GameActionHandler_N46 fun
+00505BB0 GameActionHandler_N47 fun
+00505C30 GameActionHandler_N48 fun
+00505C90 GameActionHandler_N49 fun
+00505D00 GameActionHandler_N4A fun
+00505D70 GameActionHandler_N4B fun
+00505DA0 GameActionHandler_N4C fun
+00505DD0 GameActionHandler_N4D fun
+00505E20 GameActionHandler_N4E fun
+00505E80 GameActionHandler_N4F fun
+00505EC0 GameActionHandler_N50 fun
+00505F00 GameActionHandler_N51 fun
+00505F80 GameActionHandler_N52 fun
+00506050 GameActionHandler_N53 fun
+005060E0 GameActionHandler_N54 fun
+00506100 GameActionHandler_N55 fun
 00506120 ??0CCreaturePool@@QAE@XZ fun
 00506140 ??1CCreaturePool@@UAE@XZ fun
 00506220 CCreaturePool::fun_506220 fun
@@ -1033,6 +1053,126 @@
 005089D0 ?static_init@CWorld@@SAXXZ fun
 005089F0 ?static_destroy@CWorld@@SAXXZ fun
 00508A10 ??0CWorld@@QAE@XZ fun
+00508C00 CWorld_508C00 fun
+00508C10 CWorld_508C10 fun
+00508C40 CWorld_508C40 fun
+00508C60 CWorld_508C60 fun
+00508C70 CWorld_508C70 fun
+00508C80 CWorld_508C80 fun
+00508CA0 CWorld_508CA0 fun
+00508CC0 CWorld_508CC0 fun
+00508CF0 CWorld_508CF0 fun
+00508D00 CWorld_508D00 fun
+00508D10 CWorld_508D10 fun
+00508D40 CWorld_508D40 fun
+00508D60 CWorld_508D60 fun
+00508D70 CWorld_508D70 fun
+00508D80 CWorld_508D80 fun
+00508D90 CWorld_508D90 fun
+00508DA0 CWorld_508DA0 fun
+00508DB0 CWorld_508DB0 fun
+00508DD0 CWorld_508DD0 fun
+00508DF0 CWorld_508DF0 fun
+00508E00 CWorld_508E00 fun
+00508E10 CWorld_508E10 fun
+00508E20 CWorld_508E20 fun
+00508E30 CWorld_508E30 fun
+00508E40 CWorld_508E40 fun
+00508E50 CWorld_508E50 fun
+00508E60 CWorld_508E60 fun
+00508E70 CWorld_508E70 fun
+00508E80 CWorld_508E80 fun
+00508E90 CWorld_508E90 fun
+00508EA0 CWorld_508EA0 fun
+00508EB0 CWorld_508EB0 fun
+00508EC0 CWorld_508EC0 fun
+00508ED0 CWorld_508ED0 fun
+00508EE0 CWorld_508EE0 fun
+00508EF0 CWorld_508EF0 fun
+00508F00 CWorld_508F00 fun
+00508F10 CWorld_508F10 fun
+00508F20 CWorld_508F20 fun
+00508F30 CWorld_508F30 fun
+00508F40 CWorld_508F40 fun
+00508F50 CWorld_508F50 fun
+00508F60 CWorld_508F60 fun
+00508F70 CWorld_508F70 fun
+00508F80 CWorld_508F80 fun
+00508F90 CWorld_508F90 fun
+00508FA0 CWorld_508FA0 fun
+00508FB0 CWorld_508FB0 fun
+00508FC0 CWorld_508FC0 fun
+00508FE0 CWorld_508FE0 fun
+00509010 CWorld_509010 fun
+00509050 CWorld_509050 fun
+00509090 CWorld_509090 fun
+005090C0 CWorld_5090C0 fun
+00509100 CWorld_509100 fun
+00509160 CWorld_509160 fun
+005091C0 CWorld_5091C0 fun
+00509200 CWorld_509200 fun
+00509230 CWorld_509230 fun
+00509260 CWorld_509260 fun
+00509280 CWorld_509280 fun
+005092B0 CWorld_5092B0 fun
+005092D0 CWorld_5092D0 fun
+005092F0 CWorld_5092F0 fun
+00509310 CWorld_509310 fun
+00509340 CWorld_509340 fun
+00509370 CWorld_509370 fun
+005093A0 CWorld_5093A0 fun
+005093C0 CWorld_5093C0 fun
+005093E0 CWorld_5093E0 fun
+00509410 CWorld_509410 fun
+00509430 CWorld_509430 fun
+00509450 CWorld_509450 fun
+00509480 CWorld_509480 fun
+005094B0 CWorld_5094B0 fun
+005094D0 CWorld_5094D0 fun
+005094F0 CWorld_5094F0 fun
+00509520 CWorld_509520 fun
+00509530 CWorld_509530 fun
+00509540 CWorld_509540 fun
+00509560 CWorld_509560 fun
+00509570 CWorld_509570 fun
+00509580 CWorld_509580 fun
+005095B0 CWorld_5095B0 fun
+005095D0 CWorld_5095D0 fun
+005095F0 CWorld_5095F0 fun
+00509610 CWorld_509610 fun
+00509630 CWorld_509630 fun
+00509640 CWorld_509640 fun
+00509650 CWorld_509650 fun
+00509660 CWorld_509660 fun
+00509670 CWorld_509670 fun
+00509680 CWorld_509680 fun
+00509690 CWorld_509690 fun
+005096A0 CWorld_5096A0 fun
+005096C0 CWorld_5096C0 fun
+005096F0 CWorld_5096F0 fun
+00509700 CWorld_509700 fun
+00509710 CWorld_509710 fun
+00509730 CWorld_509730 fun
+00509740 CWorld_509740 fun
+00509750 CWorld_509750 fun
+00509780 CWorld_509780 fun
+005097A0 CWorld_5097A0 fun
+005097B0 CWorld_5097B0 fun
+005097D0 CWorld_5097D0 fun
+005097F0 CWorld_5097F0 fun
+00509800 CWorld_509800 fun
+00509820 CWorld_509820 fun
+00509830 CWorld_509830 fun
+00509840 CWorld_509840 fun
+00509850 CWorld_509850 fun
+00509860 CWorld_509860 fun
+00509870 CWorld_509870 fun
+00509880 CWorld_509880 fun
+00509890 CWorld_509890 fun
+005098A0 CWorld_5098A0 fun
+005098B0 CWorld_5098B0 fun
+005098C0 CWorld_5098C0 fun
+005098D0 CWorld_5098D0 fun
 005099A0 CWorld::create_objects fun
 0050A2F0 CWorld::fun_50A2F0 fun
 0050A450 CWorld::tick fun
@@ -1131,13 +1271,66 @@
 00510E20 CWorld::fun_510E20 fun
 00510E60 nullsub_23 fun
 00510E90 CWorld::fun_510E90 fun
+00510F90 ?handleAction@CWorld@dk2@@QAEHAAUGameAction@2@@Z fun
 00511020 showLoadingScreen fun
 00511280 CWorld_sub_511280 fun
 00511610 CWorld::fun_511610 fun
 00511630 CWorld::fun_511630 fun
 00511640 CWorld::fun_511640 fun
 00511650 CWorld::fun_511650 fun
-00513870 editor::load_level fun
+005119C0 GameActionHandler138_5119C0 fun
+005127B0 GameActionHandler_N2D fun
+00512800 GameActionHandler_N2E fun
+00512850 GameActionHandler_N2F fun
+00512890 GameActionHandler_N30 fun
+005128F0 GameActionHandler_N31 fun
+00512930 GameActionHandler_N01 fun
+00512940 GameActionHandler_N7D fun
+00512950 GameActionHandler_N86 fun
+005129A0 GameActionHandler_N28 fun
+005129E0 GameActionHandler_N29 fun
+00512EE0 GameActionHandler_N2A fun
+00513210 GameActionHandler_N32 fun
+00513240 GameActionHandler_N33 fun
+00513270 GameActionHandler_N34 fun
+005132A0 GameActionHandler_N35 fun
+005132D0 GameActionHandler_N36 fun
+00513340 GameActionHandler_N37 fun
+00513370 GameActionHandler_N38 fun
+005133A0 GameActionHandler_N87 fun
+00513480 GameActionHandler_N39 fun
+005134E0 GameActionHandler_N3A fun
+005135B0 GameActionHandler_N3B fun
+00513600 GameActionHandler_N3C fun
+00513650 GameActionHandler_N3D fun
+00513690 GameActionHandler_N3E fun
+005136E0 GameActionHandler_N3F fun
+00513730 GameActionHandler_N40 fun
+00513760 GameActionHandler_N58 fun
+005137E0 GameActionHandler_N5C fun
+00513800 GameActionHandler_N5D fun
+00513850 GameActionHandler_N64 fun
+00513860 GameActionHandler_N65 fun
+00513870 GameActionHandler_N66__editor::load_level fun
+00513CE0 GameActionHandler_N69 fun
+00513DC0 GameActionHandler_N6A fun
+00513E50 GameActionHandler_N71 fun
+00513EB0 GameActionHandler_N72 fun
+00513EE0 GameActionHandler_N76 fun
+00513F60 GameActionHandler_N7A fun
+00513FF0 GameActionHandler_N7B fun
+00514100 GameActionHandler_N77 fun
+005141B0 GameActionHandler_N78 fun
+00514240 GameActionHandler_N79 fun
+00514280 GameActionHandler_N7C fun
+005142E0 GameActionHandler_N81 fun
+00514320 GameActionHandler_N82 fun
+00514420 GameActionHandler_N88 fun
+00514470 GameActionHandler_N89 fun
+00514560 GameActionHandler_N14 fun
+00514590 GameActionHandler_N15 fun
+005146B0 GameActionHandler_N19 fun
+00514830 GameActionHandler_N1A fun
 00514D8D def_5149B4 
 005153D0 jpt_5149B4 
 00515420 CWorld::fun_515420 fun
@@ -1146,7 +1339,18 @@
 00516204 def_5160B3 
 0051620C jpt_5160B3 
 00516288 jpt_516196 
-005172B0 TbTQILoader::fun_5172B0 fun
+005163C0 GameActionHandler_N1B fun
+005169E0 GameActionHandler_N24 fun
+00516A20 GameActionHandler_N25 fun
+00516E40 GameActionHandler_N26 fun
+00516EC0 GameActionHandler_N1C fun
+00517190 GameActionHandler_N1E fun
+005171D0 GameActionHandler_N27 fun
+00517220 GameActionHandler_N1F fun
+00517270 GameActionHandler_N1D fun
+005172B0 GameActionHandler_N20_N2C__TbTQILoader::fun_5172B0 fun
+005172C0 GameActionHandler_N21 fun
+00517310 GameActionHandler_N22 fun
 00517360 ??0CWorldInterface@@QAE@XZ fun
 00517370 CWorldInterface::fun_517370 fun
 00517380 nullsub_24 fun
@@ -1211,15 +1415,18 @@
 00521B40 CCommunicationInterface::fun_521B40 fun
 00521B50 ??_GCCommunicationInterface@@UAEPAXI@Z fun
 00521B70 ??1CCommunicationInterface@@UAE@XZ fun
-00521F40 MyClickListItem_constructor fun
+00521BA0 CCommunicationInterface_521BA0 fun
+00521CC0 CCommunicationInterface_updateTime_to__ fun
+00521F40 GameAction_constructor fun
 00522650 ?static_init@CLocalCommunication@@SAXXZ fun
 00522670 ?static_destroy@CLocalCommunication@@SAXXZ fun
 00522680 ??0CLocalCommunication@@QAE@XZ fun
 005226D0 ??_GCLocalCommunication@@UAEPAXI@Z fun
 005226F0 ??1CLocalCommunication@@UAE@XZ fun
 00522740 CLocalCommunication::fun_522740 fun
-00522750 CLocalCommunication::fun_522750 fun
+00522750 ?pushAction@CLocalCommunication@dk2@@QAE_NAAUGameAction@2@@Z fun
 00522760 CLocalCommunication::fun_522760 fun
+00522790 CLocalCommunication_collectGameActions fun
 00522990 ?static_init@CNetworkCommunication@@SAXXZ fun
 005229B0 ?static_destroy@CNetworkCommunication@@SAXXZ fun
 005229C0 ??0CNetworkCommunication@@QAE@XZ fun
@@ -1268,7 +1475,9 @@
 00525350 CGameComponent_setExit0 fun
 00525360 unknown_libname_14 fun
 00525370 CGameComponent_mainGuiLoop fun
-00525F00 MyClickList_onClick fun
+00525EB0 GameActionArray_init fun
+00525F00 GameActionArray_add fun
+00525F80 GameActionArray_pop fun
 00526020 MyProfiler_init_empty fun
 00526090 probably_Profiler_constructor fun
 00526280 MyProfiler_dumpStats fun
@@ -1281,8 +1490,11 @@
 005270C0 MyProfiler_clearCWorld fun
 005270E0 MyProfiler_attachCommunicationInterface fun
 00527110 MyProfiler_clearCommunicationInterface fun
-00527130 MyProfiler_onClick fun
+00527130 MyProfiler_pushAction fun
 00527150 MyProfiler_sub_527150 fun
+00527180 MyProfiler_handleActions fun
+005272C0 GameActionCtx_5272C0 fun
+00527330 GameActionCtx_addAction fun
 00527440 ?static_init@CNetworkComponent@@SAXXZ fun
 00527460 ?static_destroy@CNetworkComponent@@SAXXZ fun
 00527470 ??0CNetworkComponent@@QAE@XZ fun
@@ -1761,8 +1973,11 @@
 0055CC40 ??_G?$TbTList@V?$TbDynamicStringTemplate@D@@AAV1@@@UAEPAXI@Z fun
 0055DD70 ___sub_55DD70_newCampagin fun
 0055E0C0 string_appendIpWithHostname fun
+0055E5A0 MyResources_f2E38Obj_constructor fun
 0055E630 save_sav_file fun
 0055E7D0 load_sav_file fun
+0055EA10 MyResources_f2E38Obj_55EA10 fun
+0055EAB0 MyResources_f2E38Obj_55EAB0 fun
 0055EC20 MyKeyboard_init fun
 005604C0 init_keyboard fun
 005609C0 MyKeyboard_getLayoutName fun
@@ -1902,7 +2117,7 @@
 0057E840 ??_GCPolyMeshResource@@UAEPAXI@Z fun
 0057E860 ??0CPolyMeshResource@@QAE@HHHPAH0HHHHHH@Z fun
 0057EAA0 CPolyMeshResource::fun_57EAA0 fun
-0057EB60 CMeshGroup::fun_57EB60 fun
+0057EB60 ret_2_0args fun
 0057EB70 ??_GCMeshGroup@@UAEPAXI@Z fun
 0057EB90 CMeshGroup::fun_57EB90 fun
 0057EC90 ??1CMeshGroup@@UAE@XZ fun
@@ -1964,42 +2179,49 @@
 0058A4D0 nullsub_38 fun
 0058A4E0 nullsub_39 fun
 0058DE00 MyNameObjMap_put fun
-0058DF40 MyNameObjMap_contains fun
+0058DF40 MyNameObjMap_getSlotIdx fun
 0058E000 BufCx400_resize fun
 0058EE40 nullsub_40 fun
 0058EE50 nullsub_41 fun
 0058F640 draw3dScene fun
 0058F9A0 __cfltcvt_init_5 fun
+0058FA20 MyTextures_static_constructor fun
+0058FA40 MyTextures_static_destructor fun
+0058FAA0 MyTextures_constructor fun
 0058FAF0 nullsub_42 fun
-00590520 CEngineSurfaceBase::fun_590520 fun
+00590360 MyCEngineSurfDesc_constructor fun
+00590450 CEngineSurfaceBase_590450 fun
+00590520 CEngineSurfaceBase_fill fun
 00590580 ??0CEngineSurface@@QAE@HHH@Z fun
-00590610 ??1CEngineSurfaceBase@@UAE@XZ fun
-00590630 CEngineSurface::fun_590630 fun
-00590650 CEngineSurface::fun_590650 fun
+00590610 CEngineSurfaceBase_scalar_destructor fun
+00590630 CEngineSurface_getBufWithSize fun
+00590650 CEngineSurface_scalar_destructor fun
 00590670 ??1CEngineSurface@@UAE@XZ fun
-005906C0 CEngineCompressedSurface::fun_5906C0 fun
-005906D0 CEngineCompressedSurface::fun_5906D0 fun
+005906C0 CEngineCompressedSurface_getBufWithSize fun
+005906D0 CEngineCompressedSurface_scalar_destructor fun
 005906F0 ??1CEngineCompressedSurface@@UAE@XZ fun
-00590740 CEngineCompressedSurface::fun_590740 fun
-005907D0 CEngineCompressedSurface::fun_5907D0 fun
+00590740 CEngineCompressedSurface_copySurf fun
+005907D0 CEngineCompressedSurface_paintSurf fun
 00590880 ??0CEngineDDSurface@@QAE@HHHH@Z fun
 005909C0 CEngineDDSurface::fun_5909C0 fun
 005909E0 ??1CEngineDDSurface@@UAE@XZ fun
-00590A40 CEngineDDSurface::fun_590A40 fun
-00590AC0 CEngineDDSurface::fun_590AC0 fun
-00590B20 CEngineDDSurface::fun_590B20 fun
+00590A40 CEngineDDSurface_paintSurf fun
+00590AC0 CEngineDDSurface_lockBuf fun
+00590B20 CEngineDDSurface_unlockBuf fun
 00590B40 MySurfaceWrapper_init fun
 00590BF0 MyCESurfHandle_init fun
 00590EC0 MyCESurfHandle_sub_590EC0 fun
-00591070 ??0CEngineCompressedSurface@@QAE@H@Z fun
+00591070 MyTextures_loadAll fun
 005911E0 MyCESurfHandle_sub_5911E0 fun
 005914E0 Obj792D48_convertCopyFrom fun
 00591820 Obj792D48_createCEngineCompressedSurface fun
 00591BF0 ??0CEngineSurfaceBase@@QAE@HHH@Z fun
-00591C20 ??0CEngineSurface@@QAE@XZ fun
+00591C20 CEngineSurface_create fun
 00591DA0 ?create@CEngineSurface@@SAPAU1@HHH@Z fun
 005924A0 MyNameObjMap_createPrescaled fun
+00592720 __fillTextures_path fun
 00593F3E ??__F?m_badAllocExceptionPtr@__ExceptionPtr@@0V?$shared_ptr@V__ExceptionPtr@@@tr1@std@@A@@YAXXZ 
+00594FA0 CBridge_594FA0 fun
 005964B8 def_5964B1 
 00596523 def_596437 
 00596534 jpt_596437 
@@ -2069,6 +2291,9 @@
 005A2570 CPCEngineInterface::fun_5A2570 fun
 005A2BE0 CPCEngineInterface::fun_5A2BE0 fun
 005A2F10 CPCEngineInterface::fun_5A2F10 fun
+005A4730 mpeg2::_putpict fun
+005A58A0 mpeg2::putbits fun
+005A5980 mpeg2::putintrablk fun
 005A5DA0 ?main@dk2@@YAHHQAPAD@Z fun
 005A63B0 parse_command_line fun
 005A6CD0 probably_cleanupScene fun
@@ -2084,6 +2309,8 @@
 005AA95D def_5AA808 
 005AAA28 jpt_5AA808 
 005AE220 fun_5AE220_no_stack_no_return fun
+005B2450 tqia_init fun
+005B26F0 tqia_decompressJpeg fun
 005B29F0 DirectDrawEnumerateA fun
 005B29F6 DirectDrawCreate fun
 005B2A00 MyInputManagerCb_static_init fun
@@ -2953,10 +3180,10 @@
 00624B10 jpt_624839 
 006289C0 ??1stdiobuf@@UAE@XZ_1 fun
 00628B70 ret_0_4args fun
-00628BB0 CEngineSurface_getPixels fun
-00628BC0 CPlayerInterface::fun_628BC0 fun
+00628BB0 CEngineSurface_getBuf fun
+00628BC0 ret_1_0args fun
 00628C20 ??1stdiobuf@@UAE@XZ_2 fun
-00628E30 CEngineInterface::fun_628E30 fun
+00628E30 ret_0_1args fun
 00628E90 ??1stdiobuf@@UAE@XZ_3 fun
 00629E10 unknown_libname_58 fun
 0062A210 ret_void_1args_0 fun
@@ -3350,6 +3577,7 @@
 00637EF0 __fseek_lk fun
 00637F90 _fclose fun
 00637FD0 __fclose_lk fun
+00638040 readFromFile fun
 00638080 _fread fun
 00638200 _fwrite fun
 00638350 _free fun
@@ -8433,6 +8661,7 @@
 006A543C aLoadingscreenM str
 006A5460 aLoadingscreenJ_0 str
 006A548C aLoadingscreenJ str
+006A54B8 actionRecords 
 006A5B8C aSav_1 str
 006A5B90 aQuicksaveQsav str
 006A5BA0 aSMapsSKwd str
@@ -9614,6 +9843,13 @@
 006BE8DC aD_5 str
 006BE8E0 aSDPng str
 006BE8F4 aDDevDk2Project_69 str
+006BE930 mpeg2::zig_zag_scan 
+006BEA30 mpeg2::DClumtab 
+006BEA58 mpeg2::DCchromtab 
+006BEA80 mpeg2::dct_code_tab1 
+006BEB20 mpeg2::dct_code_tab2 
+006BEC50 mpeg2::dct_code_tab1a 
+006BECF0 mpeg2::dct_code_tab2a 
 006BEE1C aWarningAcValue str
 006BEE58 aWarningDcOutOf str
 006BEE78 aWarningDcValue str
@@ -10283,11 +10519,16 @@
 0076F32C my_buf_3000_height_512 
 0076F330 my_buf_3000 
 007793A8 arr_7793A8 
+007820D0 mpeg2::_image_buf 
+007920D8 MyTextures_instance 
 00792920 MySurfDesc_792920 
 00792938 MyNameObjMap_instance_of_MyCESurfHandle 
 00792D48 Obj792D48_instance 
+00792D68 myDdCopy 
+00792D98 MyCEngineSurfDesc_argb32_instance 
 00793388 CPCEngineInterface_instance_start 
 00795700 g_pCBridge 
+00796170 mpeg2::dc_dct_pred 
 00796294 cmd_flag_NOSOUND 
 00796298 cmd_flag_FrontEnd3D_unk7 
 007962A8 cmd_flag_FrontEnd3D_unk8 
@@ -10379,3 +10620,16 @@
 007A6DC0 Count 
 007A6DC4 g_commandLineA 
 007ACAAC jpt_5AC905 
+007AF058 tqia_src_pos 
+007AF08C tqia_offs 
+007AF0D4 tqia_is32BitPair 
+007AF0E0 jpeg_zigzag 
+007AF1E0 jpeg_007AF1E0 
+007AF200 tqia_ge2048 
+007AF2E0 tqia_ge1024 
+007AF320 tqia_ge256 
+007AF360 tqia_ge128 
+007AF3A0 tqia_ge64 
+007AF3E0 tqia_ge32 
+007AF680 jpeg_zigzag2 
+007AF780 jpeg_007AF780 

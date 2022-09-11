@@ -18,6 +18,8 @@
 #include <dk2/CDefaultPlayerInterface.h>
 #include <dk2/CFrontEndComponent.h>
 #include <dk2/CGameComponent.h>
+#include <dk2/CWorld.h>
+#include <dk2/CLocalCommunication.h>
 
 namespace dk2 {
 

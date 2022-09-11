@@ -7,8 +7,11 @@
 
 #include <dk2/utils.h>
 #include <dk2/frontend_common.h>
+#include <dk2/action.h>
 
 namespace dk2 {
+
+  struct MyProfiler;
 
 #pragma pack(push, 1)
   struct CRenderInfo {
@@ -109,8 +112,8 @@ namespace dk2 {
     inline static CDefaultPlayerInterface *getInstance() { return (CDefaultPlayerInterface *) funptr<&instance>(); }
     virtual ~CDefaultPlayerInterface();
 
-    DWORD f4_punk;
-    __int16 field_8;
+    MyProfiler *f4_profiler;
+    __int16 f8__cpyToF10;
     int fA;
     BYTE gapE[44];
     DWORD f3A;
@@ -352,6 +355,8 @@ namespace dk2 {
     DWORD field_4E6D;
     BYTE gap4E71[188];
     int field_4F2D;
+
+    /*004346E0*/ bool pushAction(GameAction &actionStruc);
 
   };
 #pragma pack(pop)
