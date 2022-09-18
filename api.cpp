@@ -15,16 +15,49 @@
 #include <api/game_loop.h>
 #include <api/patch.h>
 #include <api/window.h>
+#include <ios>
+#include <io.h>
+#include <fcntl.h>
 
-#ifndef REFERENCES_MAPPING
-#error "REFERENCES_MAPPING not defined"
-#endif
-#ifndef STACK_MAPPING
-#error "STACK_MAPPING not defined"
-#endif
+std::wstring g_curExeDir;
 
-#define VAL(str) #str
-#define TOSTRING(str) VAL(str)
+void RedirectStandardIo() {
+  /* This clever code have been found at:
+  Adding Console I/O to a Win32 GUI App
+  Windows Developer Journal, December 1997
+  http://dslweb.nwnexus.com/~ast/dload/guicon.htm
+  Andrew Tucker's Home Page */
+
+  // redirect unbuffered STDOUT to the console
+  long lStdHandle = (long)GetStdHandle(STD_OUTPUT_HANDLE);
+  int hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
+  if(hConHandle > 0) {
+    FILE *fp = _fdopen(hConHandle, "w");
+    *stdout = *fp;
+    setvbuf(stdout, NULL, _IONBF, 0);
+  }
+
+  // redirect unbuffered STDIN to the console
+  lStdHandle = (long)GetStdHandle(STD_INPUT_HANDLE);
+  hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
+  if(hConHandle > 0) {
+    FILE *fp = _fdopen( hConHandle, "r" );
+    *stdin = *fp;
+    setvbuf(stdin, NULL, _IONBF, 0);
+  }
+
+  // redirect unbuffered STDERR to the console
+  lStdHandle = (long)GetStdHandle(STD_ERROR_HANDLE);
+  hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
+  if(hConHandle > 0) {
+    FILE *fp = _fdopen(hConHandle, "w");
+    *stderr = *fp;
+    setvbuf(stderr, NULL, _IONBF, 0 );
+  }
+
+  // make cout, wcout, cin, wcin, wcerr, cerr, wclog and clog point to console as well
+  std::ios::sync_with_stdio();
+}
 
 enum RelocKind {
   Invalid,
@@ -88,8 +121,9 @@ std::map<DWORD, std::shared_ptr<std::vector<ref_t>>> xrefs;
 std::map<DWORD, bool> lockedRva;
 
 bool loadRefs() {
+  std::wstring refsPath = g_curExeDir + L"/references.map";
   Buf refsMap;
-  if(!readFile(refsMap, TOSTRING(REFERENCES_MAPPING))) return false;
+  if(!readFile(refsMap, refsPath.c_str())) return false;
 
   char *map_end = (char *) refsMap.tail;
   char *pos = (char *) refsMap.start;
@@ -202,6 +236,10 @@ namespace api {
   }
 
   bool initialize() {
+#ifdef REVERSE_MODE
+    AllocConsole();
+#endif
+    RedirectStandardIo();
     {
 #ifdef REVERSE_MODE
       dk2_base = (uint8_t *) dk2_virtual_base;
@@ -213,6 +251,15 @@ namespace api {
       dk2_size = nt->OptionalHeader.SizeOfImage;
     }
     printf("dk2 base: %p\n", dk2_base);
+
+    g_curExeDir.resize(MAX_PATH, L'\0');
+    if(GetModuleFileNameW(NULL, &*g_curExeDir.begin(), MAX_PATH) == 0) return false;
+    wchar_t *p1 = wcsrchr(&*g_curExeDir.begin(), '/');
+    wchar_t *p2 = wcsrchr(&*g_curExeDir.begin(), '\\');
+    wchar_t *sep = p1 > p2 ? p1 : p2;
+    if(sep) *sep = L'\0';
+    g_curExeDir.resize(wcslen(&*g_curExeDir.begin()));
+
     if(!loadRefs()) return false;
     if(!initPatchApi()) return false;
     if(!initStacktrace()) return false;

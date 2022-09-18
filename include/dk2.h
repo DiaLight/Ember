@@ -26,9 +26,11 @@ namespace dk2 {
   __analysis_noreturn
   /*00638440*/ void __cdecl start();
   /*005A5DA0*/ int __cdecl main(int argc, char *argv[]);
+  /*005B74A0*/ void __cdecl resolveDk2HomeDir();
 
   class globals {
     /*0079D01C*/ static HINSTANCE hInstance;
+    /*0079D980*/ static char dk2HomeDir[MAX_PATH];
   public:
     /*005B2DA0*/ static void __cdecl setHInstance(HINSTANCE hInst);
     /*005B2D90*/ static HINSTANCE __cdecl getHInstance();
@@ -37,9 +39,13 @@ namespace dk2 {
 
     /*005B2E50*/ static void __cdecl setAppExitStatus(bool shouldExit);
     /*005B2E40*/ static bool __cdecl isAppExitStatusSet();
+
+    inline static char *getDk2HomeDir() { return (char *) funptr<&dk2HomeDir>(); }
+
   };
 
-  /*00557FD0*/ bool __stdcall checkOsCompatible(int maxVersion, int minVersion, uint16_t CSDVersion);
+  // use BOOL instead of bool!  sizeof(bool) == 1    sizeof(BOOL) == 4
+  /*00557FD0*/ BOOL __stdcall isOsVersionGE(int maxVersion, int minVersion, uint16_t CSDVersion);
 
 
   struct CursorDrawer {
@@ -427,6 +433,7 @@ namespace dk2 {
     __int16 field_F51;
 
     /*005581B0*/ void prepareScreen(int dwWidth, int dwHeight, int dwRGBBitCount, int isWindowed, int a6, int a7);
+    /*005595C0*/ void debugMsg(char *format, ...);
 
   };
 #pragma pack(pop)

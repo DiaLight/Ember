@@ -5,10 +5,12 @@
 #ifndef EMBER_PARSE_H
 #define EMBER_PARSE_H
 
+#include <string>
 #include <cstdint>
 #include <api/Buf.h>
 
-bool readFile(Buf &buf, const char *file);
+extern std::wstring g_curExeDir;
+bool readFile(Buf &buf, const wchar_t *file);
 char *read_line(char *line, size_t &len, const char *end);
 
 int hex2int(char ch);

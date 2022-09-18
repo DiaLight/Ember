@@ -84,6 +84,7 @@ private:
   static void __fastcall _call(HookHandle *self, Regs *regs);
   void call_proxy(Regs *regs, void *target);
   void call(Regs *regs);
+  static HookHandle *_create(uint8_t *orig_addr, size_t orig_size, size_t reloc_offs, bool overwrite);
 
 public:
 
@@ -98,6 +99,7 @@ public:
   //   .text:00525839  add esp, 8
   //   .text:0052583C  cmp eax, ebx
   static HookHandle *create(uint8_t *orig_addr, size_t orig_size, size_t reloc_offs = 0);
+  static HookHandle *overwrite(uint8_t *orig_addr, size_t orig_size);
 
 };
 

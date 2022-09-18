@@ -8,6 +8,7 @@
 namespace patch {
 
   bool reduce_title_screen_time();
+  bool use_cwd_as_dk2_home_dir();
   bool force_windowed_mode();
   bool add_win10_support();
   bool fix_relative_mouse_data();

@@ -139,7 +139,7 @@ HookHandle *HookHandle::replaceCall(uint8_t *orig_addr) {
   write_call(orig_addr, handle->code);
   return handle;
 }
-HookHandle *HookHandle::create(uint8_t *orig_addr, size_t orig_size, size_t reloc_offs) {
+HookHandle *HookHandle::_create(uint8_t *orig_addr, size_t orig_size, size_t reloc_offs, bool overwrite) {
   PatchBuilder pb;
   // call handlers
   pb.writeAsm(saveRegs_asm);
@@ -152,7 +152,7 @@ HookHandle *HookHandle::create(uint8_t *orig_addr, size_t orig_size, size_t relo
 
   // exec orig code
   size_t copy = pb.offs();
-  pb.write(orig_addr, orig_size);
+  if(!overwrite) pb.write(orig_addr, orig_size);
 
   // jump back
   pb.write<uint8_t>(0xE9);
@@ -166,7 +166,7 @@ HookHandle *HookHandle::create(uint8_t *orig_addr, size_t orig_size, size_t relo
   *(uint32_t *) (handle->code + proxy) = (intptr_t) handle;
   *(uint32_t *) (handle->code + run) = /*dst=*/((uint8_t *) &HookHandle::_call) - /*src=*/(handle->code + run + 4);
   *(uint32_t *) (handle->code + back) = /*dst=*/(orig_addr + orig_size) - /*src=*/(handle->code + back + 4);
-  if(reloc_offs != 0) {
+  if(!overwrite && reloc_offs != 0) {
     DWORD reloc = *(DWORD *) (orig_addr + reloc_offs);
     uint8_t *copy_addr = handle->code + copy;
     DWORD &copy_reloc = *(DWORD *) (copy_addr + reloc_offs);
@@ -176,6 +176,12 @@ HookHandle *HookHandle::create(uint8_t *orig_addr, size_t orig_size, size_t relo
   // jump proxy
   write_jump(orig_addr, handle->code);
   return handle;
+}
+HookHandle *HookHandle::create(uint8_t *orig_addr, size_t orig_size, size_t reloc_offs) {
+  return _create(orig_addr, orig_size, reloc_offs, false);
+}
+HookHandle *HookHandle::overwrite(uint8_t *orig_addr, size_t orig_size) {
+  return _create(orig_addr, orig_size, 0, true);
 }
 
 void HookHandle::call_proxy(Regs *regs, void *target) {

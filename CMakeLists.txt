@@ -18,14 +18,37 @@ option(REVERSE_MODE "Build bootstrap_patcher as dll for dynamic load by debugger
 
 find_package(Python REQUIRED)
 
-set(DK2_EXPORTS "${CMAKE_CURRENT_BINARY_DIR}/exports.map")
+set(DK2_NAMES_SRC "${CMAKE_CURRENT_LIST_DIR}/mappings/names.map")
+set(DK2_REFERENCES_SRC "${CMAKE_CURRENT_LIST_DIR}/mappings/references.map")
+set(DK2_STACK_SRC "${CMAKE_CURRENT_LIST_DIR}/mappings/stack.map")
+
+set(BIN_DIR "${CMAKE_BINARY_DIR}/bin")
+file(MAKE_DIRECTORY ${BIN_DIR})
+set(DK2_REFERENCES "${BIN_DIR}/references.map")
+set(DK2_STACK "${BIN_DIR}/stack.map")
+set(DK2_EXPORTS "${BIN_DIR}/exports.map")
+add_custom_command(
+        OUTPUT ${DK2_REFERENCES}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${DK2_REFERENCES_SRC} ${DK2_REFERENCES}
+        DEPENDS ${DK2_REFERENCES_SRC}
+        COMMENT "Copy references.map"
+)
+add_custom_target(references_map DEPENDS ${DK2_REFERENCES})
+add_custom_command(
+        OUTPUT ${DK2_STACK}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${DK2_STACK_SRC} ${DK2_STACK}
+        DEPENDS ${DK2_STACK_SRC}
+        COMMENT "Copy stack.map"
+)
+add_custom_target(stack_map DEPENDS ${DK2_STACK})
 add_custom_command(
         OUTPUT ${DK2_EXPORTS}
-        COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_LIST_DIR}/gen_exports.py ${CMAKE_CURRENT_LIST_DIR}/mappings/names.map ${DK2_EXPORTS}
+        COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_LIST_DIR}/gen_exports.py ${DK2_NAMES_SRC} ${DK2_EXPORTS}
         DEPENDS
-        ${CMAKE_CURRENT_LIST_DIR}/mappings/names.map
+        ${DK2_NAMES_SRC}
         COMMENT "Generating exports.map"
 )
+add_custom_target(dll_exports DEPENDS ${DK2_EXPORTS})
 
 set(DK2_LIB "${CMAKE_CURRENT_BINARY_DIR}/dk2.lib")
 add_custom_command(
@@ -48,13 +71,13 @@ add_custom_command(
 )
 
 add_subdirectory(makedll)
-set(DK2_DLL "${DK2_DIR}/dk2.dll")
+set(DK2_DLL "${BIN_DIR}/dk2.dll")
 add_custom_command(
         OUTPUT ${DK2_DLL}
-        COMMAND $<TARGET_FILE:makedll>
+        COMMAND $<TARGET_FILE:makedll> "${DK2_DLL}" "${DK2_DIR}/DKII.exe" "${DK2_EXPORTS}" "${DK2_REFERENCES}"
         DEPENDS
         ${DK2_EXPORTS}
-        ${CMAKE_CURRENT_LIST_DIR}/mappings/references.map
+        ${DK2_REFERENCES}
         makedll
         WORKING_DIRECTORY ${DK2_DIR}
         COMMENT "Generating dk2.dll"
@@ -77,6 +100,7 @@ set(SOURCES
         patches/mouse_dinput/replace_mouse_dinput_to_user32.cpp
         patches/mouse_user32/fix_mouse_pos_on_resized_window.cpp
         patches/fix_close_window.cpp
+        patches/use_cwd_as_dk2_home_dir.cpp
 )
 if(REVERSE_MODE)
     enable_language(ASM_MASM)
@@ -86,21 +110,21 @@ if(REVERSE_MODE)
     )
     target_compile_definitions(bootstrap_patcher PRIVATE REVERSE_MODE=1)
 else()
-    add_executable(bootstrap_patcher
+    add_executable(bootstrap_patcher WIN32
             ${SOURCES}
             ${DK2_LIB}
             ${DK2_DLL}
     )
     target_link_libraries(bootstrap_patcher PRIVATE ${DK2_LIB})
 endif()
-set_target_properties(bootstrap_patcher PROPERTIES DEBUG_POSTFIX d)
+add_dependencies(bootstrap_patcher dll_exports stack_map references_map)
 target_include_directories(bootstrap_patcher PRIVATE include)
 target_link_libraries(bootstrap_patcher PRIVATE Dbghelp)
 target_compile_definitions(bootstrap_patcher PRIVATE DIRECTINPUT_VERSION=0x0500)
-target_compile_definitions(
-        bootstrap_patcher PRIVATE
-        REFERENCES_MAPPING=${CMAKE_CURRENT_LIST_DIR}/mappings/references.map
-        STACK_MAPPING=${CMAKE_CURRENT_LIST_DIR}/mappings/stack.map
-)
 
-set_target_properties(bootstrap_patcher PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${DK2_DIR}")
+set_target_properties(bootstrap_patcher PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BIN_DIR}")
+
+if(NOT REVERSE_MODE)
+    add_subdirectory(launcher)
+    add_subdirectory(unpacker)
+endif()

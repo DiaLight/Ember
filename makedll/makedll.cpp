@@ -5,23 +5,16 @@
 #include <WinUser.h>
 #include <cstdint>
 
-#define DKII_EXE "DKII.EXE"
-#define DKII_DLL "dk2.dll"
-
-#ifndef EXPORTS_MAPPING
-#error "EXPORTS_MAPPING not defined"
-#endif
-#ifndef REFERENCES_MAPPING
-#error "REFERENCES_MAPPING not defined"
-#endif
-
-#define VAL(str) #str
-#define TOSTRING(str) VAL(str)
-
 #define dk2_image_base 0x00400000
 
 void print(const char *msg, size_t len) {
-  WriteConsoleA(GetStdHandle(STD_OUTPUT_HANDLE), msg, len, NULL, NULL);
+  HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+  DWORD mode;
+  if(GetConsoleMode(hStdout, &mode)) {
+    WriteConsoleA(hStdout, msg, len, NULL, NULL);
+  } else {
+    WriteFile(hStdout, msg, len, NULL, NULL);
+  }
 }
 void print(const char *msg) {
   const char *p = msg;
@@ -96,6 +89,9 @@ bool strneq(const char *s1, const char *s2, size_t len) {
 void strcopy(char *to, const char *fr) {
   for(;(*to = *fr);++to,++fr);
 }
+void wcscopy(wchar_t *to, const wchar_t *fr) {
+  for(;(*to = *fr);++to,++fr);
+}
 void strncopy(char *to, const char *fr, size_t len) {
   for(;len && (*to = *fr);--len,++to,++fr);
   *to = '\0';
@@ -163,11 +159,11 @@ bool readHandle(HANDLE hFile, Buf &buf) {
   return true;
 }
 
-bool readFile(Buf &buf, const char *file) {
-  printf("Read %s\n", file);
-  HANDLE hFile = CreateFileA(file, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+bool readFile(Buf &buf, const wchar_t *file) {
+  printf("Read %S\n", file);
+  HANDLE hFile = CreateFileW(file, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
   if (hFile == INVALID_HANDLE_VALUE) {
-    printf("Could not open %s\n", file);
+    printf("Could not open %S\n", file);
     return false;
   }
   bool res = readHandle(hFile, buf);
@@ -175,11 +171,11 @@ bool readFile(Buf &buf, const char *file) {
   return res;
 }
 
-bool writeDk2(Buf &buf) {
-  print("Write " DKII_DLL "\n");
-  HANDLE hFile = CreateFileA(DKII_DLL, GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+bool writeFile(Buf &buf, wchar_t *path) {
+  printf("Write %S\n", path);
+  HANDLE hFile = CreateFileW(path, GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
   if (hFile == INVALID_HANDLE_VALUE) {
-    print("Could not create " DKII_DLL "\n");
+    printf("Could not create %S\n", path);
     return false;
   }
   uint8_t *pos = buf.start;
@@ -371,13 +367,33 @@ bool parse_reloc(char *line, size_t line_len, DWORD &src, DWORD &dst, RelocKind 
   return true;
 }
 
+bool parseArgs(int argc, wchar_t **argv, wchar_t *dk2DllPath, wchar_t *dk2ExePath, wchar_t *exportsMapPath, wchar_t *referencesMapPath) {
+  if(argc != 5) {
+    print("invalid args count\n");
+    return false;
+  }
+  wcscopy(dk2DllPath, argv[1]);
+  wcscopy(dk2ExePath, argv[2]);
+  wcscopy(exportsMapPath, argv[3]);
+  wcscopy(referencesMapPath, argv[4]);
+  return true;
+}
 int main() {
+  int argc;
+  wchar_t **argv = CommandLineToArgvW(GetCommandLineW(), &argc);
+  wchar_t dk2DllPath[MAX_PATH];
+  wchar_t dk2ExePath[MAX_PATH];
+  wchar_t exportsMapPath[MAX_PATH];
+  wchar_t referencesMapPath[MAX_PATH];
+  bool parsed = parseArgs(argc, argv, dk2DllPath, dk2ExePath, exportsMapPath, referencesMapPath);
+  LocalFree(argv);
+  if(!parsed) return -1;
   Buf dk2;
-  if(!readFile(dk2, DKII_EXE)) return -1;
+  if(!readFile(dk2, dk2ExePath)) return -1;
   Buf exportsMap;
-  if(!readFile(exportsMap, TOSTRING(EXPORTS_MAPPING))) return -1;
+  if(!readFile(exportsMap, exportsMapPath)) return -1;
   Buf refsMap;
-  if(!readFile(refsMap, TOSTRING(REFERENCES_MAPPING))) return -1;
+  if(!readFile(refsMap, referencesMapPath)) return -1;
   auto *dos = (IMAGE_DOS_HEADER *) dk2.start;
   auto *nt = (IMAGE_NT_HEADERS *) (dk2.start + dos->e_lfanew);
 
@@ -685,6 +701,6 @@ int main() {
   memcpy(dk2.start + write2_offs, entry.start, entry.size());
   memcpy(dk2.start + write3_offs, reloc.start, reloc.size());
 
-  bool result = writeDk2(dk2);
+  bool result = writeFile(dk2, dk2DllPath);
   return result ? 0 : -1;
 }

@@ -11,9 +11,6 @@
 #include <api.h>
 #include <dk2.h>
 
-#define VAL(str) #str
-#define TOSTRING(str) VAL(str)
-
 enum SpOpKind {
   SP_Invalid,
   SP,
@@ -190,8 +187,9 @@ namespace stacktrace {
   }
 }
 bool loadStack() {
+  std::wstring stackPath = g_curExeDir + L"/stack.map";
   Buf stackMap;
-  if(!readFile(stackMap, TOSTRING(STACK_MAPPING))) return false;
+  if(!readFile(stackMap, stackPath.c_str())) return false;
 
   std::shared_ptr<stacktrace::Area> curArea;
 //  bool trg = false;
