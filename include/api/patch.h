@@ -89,7 +89,7 @@ private:
 public:
 
   // call any_dk_fun
-  static HookHandle *replaceCall(uint8_t *orig_addr);
+  static HookHandle *replaceCall(uint8_t *orig_addr, int clear_stack_args);
 
   // original code to hook should NOT:
   // - have relative operations(short jump, ...)

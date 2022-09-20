@@ -25,14 +25,17 @@ extern "C" __declspec(dllexport) bool __cdecl ember_initialize() {
 }
 
 #ifndef REVERSE_MODE
+int main() {
+  if(!ember_initialize()) return -1;
+  printf("start dk2 code\n");
+  dk2::start();
+  return 0;
+}
 int WINAPI WinMain(
     HINSTANCE hInstance,
     HINSTANCE hPrevInstance,
     LPSTR lpCmdLine,
     int nCmdShow) {
-  if(!ember_initialize()) return -1;
-  printf("start dk2 code\n");
-  dk2::start();
-  return 0;
+  return main();
 }
 #endif

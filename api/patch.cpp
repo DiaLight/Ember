@@ -102,11 +102,9 @@ void __fastcall HookHandle::_call(HookHandle *self, Regs *regs) {
 }
 
 
-HookHandle *HookHandle::replaceCall(uint8_t *orig_addr) {
-  int stack_args = 2;
-
+HookHandle *HookHandle::replaceCall(uint8_t *orig_addr, int clear_stack_args) {
   assert(*orig_addr == 0xE8);
-  uint8_t *target = (orig_addr + 4) + *(uint32_t *) (orig_addr + 1);
+  uint8_t *target = (orig_addr + 5) + *(uint32_t *) (orig_addr + 1);
 
   PatchBuilder pb;
   // call handlers
@@ -120,11 +118,11 @@ HookHandle *HookHandle::replaceCall(uint8_t *orig_addr) {
   pb.writeAsm(loadRegs_asm);
 
   // ret back
-  if(stack_args == 0) {
+  if(clear_stack_args == 0) {
     pb.write<uint8_t>(0xC3);
   } else {
     pb.write<uint8_t>(0xC2);
-    pb.write<uint16_t>(stack_args * 0x4);
+    pb.write<uint16_t>(clear_stack_args * 0x4);
   }
 
   // create proxy

@@ -21,10 +21,10 @@ bool readHandle(HANDLE hFile, Buf &buf) {
 }
 
 bool readFile(Buf &buf, const wchar_t *file) {
-  printf("Read %s\n", file);
+  printf("Read %S\n", file);
   HANDLE hFile = CreateFileW(file, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
   if (hFile == INVALID_HANDLE_VALUE) {
-    printf("Could not open %s\n", file);
+    printf("Could not open %S\n", file);
     return false;
   }
   bool res = readHandle(hFile, buf);

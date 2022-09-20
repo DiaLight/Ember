@@ -253,7 +253,7 @@ namespace api {
     printf("dk2 base: %p\n", dk2_base);
 
     g_curExeDir.resize(MAX_PATH, L'\0');
-    if(GetModuleFileNameW(NULL, &*g_curExeDir.begin(), MAX_PATH) == 0) return false;
+    if(GetModuleFileNameW(GetModuleHandleW(L"bootstrap_patcher.dll"), &*g_curExeDir.begin(), MAX_PATH) == 0) return false;
     wchar_t *p1 = wcsrchr(&*g_curExeDir.begin(), '/');
     wchar_t *p2 = wcsrchr(&*g_curExeDir.begin(), '\\');
     wchar_t *sep = p1 > p2 ? p1 : p2;

@@ -39,6 +39,7 @@ extern uint8_t *dk2_base;
 extern size_t dk2_size;
 #define dk2_virtual_base 0x00400000
 bool dk2_contains(uint8_t *pos);
+inline void *dk2_toVirt(void *pos) { return (void *) ((((uint8_t *) pos) - dk2_base) + dk2_virtual_base); }
 
 namespace api {
 

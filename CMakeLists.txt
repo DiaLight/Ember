@@ -14,6 +14,10 @@ if(NOT EXISTS "${DK2_DIR}/DKII.EXE")
     message(FATAL_ERROR "\"${DK2_DIR}/DKII.EXE\" is not found")
 endif()
 
+if(MSVC)
+    add_compile_options(/we4715)
+endif()
+
 option(REVERSE_MODE "Build bootstrap_patcher as dll for dynamic load by debugger")
 
 find_package(Python REQUIRED)
