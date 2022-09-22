@@ -93,6 +93,7 @@ set(SOURCES
         api.cpp
         api/window.cpp
         api/stacktrace.cpp
+        api/stacktrace_window.cpp
         api/parse.cpp
         api/game_loop.cpp
         api/Buf.cpp
@@ -123,7 +124,7 @@ else()
 endif()
 add_dependencies(bootstrap_patcher dll_exports stack_map references_map)
 target_include_directories(bootstrap_patcher PRIVATE include)
-target_link_libraries(bootstrap_patcher PRIVATE Dbghelp)
+target_link_libraries(bootstrap_patcher PRIVATE Dbghelp Shcore)
 target_compile_definitions(bootstrap_patcher PRIVATE DIRECTINPUT_VERSION=0x0500)
 
 set_target_properties(bootstrap_patcher PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BIN_DIR}")

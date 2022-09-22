@@ -110,6 +110,8 @@ struct ref_t {
 
 };
 
+HINSTANCE g_bootstrap_patcher = NULL;
+
 uint8_t *dk2_base = nullptr;
 size_t dk2_size = 0;
 
@@ -240,6 +242,8 @@ namespace api {
     AllocConsole();
 #endif
     RedirectStandardIo();
+    g_bootstrap_patcher = GetModuleHandleW(L"bootstrap_patcher.dll");
+    if(!g_bootstrap_patcher) g_bootstrap_patcher = GetModuleHandleW(NULL);
     {
 #ifdef REVERSE_MODE
       dk2_base = (uint8_t *) dk2_virtual_base;
@@ -250,10 +254,11 @@ namespace api {
       auto *nt = (IMAGE_NT_HEADERS *) (dk2_base + dos->e_lfanew);
       dk2_size = nt->OptionalHeader.SizeOfImage;
     }
+    printf("bootstrap patcher base: %p\n", g_bootstrap_patcher);
     printf("dk2 base: %p\n", dk2_base);
 
     g_curExeDir.resize(MAX_PATH, L'\0');
-    if(GetModuleFileNameW(GetModuleHandleW(L"bootstrap_patcher.dll"), &*g_curExeDir.begin(), MAX_PATH) == 0) return false;
+    if(GetModuleFileNameW(g_bootstrap_patcher, &*g_curExeDir.begin(), MAX_PATH) == 0) return false;
     wchar_t *p1 = wcsrchr(&*g_curExeDir.begin(), '/');
     wchar_t *p2 = wcsrchr(&*g_curExeDir.begin(), '\\');
     wchar_t *sep = p1 > p2 ? p1 : p2;

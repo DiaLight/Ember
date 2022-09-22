@@ -17,6 +17,8 @@ namespace api {
 
 }
 
+#define DK2_fps_limit 60
+DWORD lastTime = 0;
 bool initGameLoop() {
   // .text:00525839  add esp, 8
   // .text:0052583C  cmp eax, ebx
@@ -42,6 +44,14 @@ bool initGameLoop() {
     for(auto &cb : api::TICK_GAME_LOOP) {
       cb();
     }
+    DWORD time = GetTickCount();
+    int mspf = 1000 / DK2_fps_limit;
+    int freeTime = mspf - (time - lastTime);
+    if(freeTime > 0) {
+      SleepEx(freeTime, FALSE);
+    }
+
+    lastTime = time;
   });
   // .text:00525A2D  cmp MyResources_instance.field_2B6B, ebx
   gameLoop_after = HookHandle::create(dk2_base + (0x00525A2D - dk2_virtual_base), 6);

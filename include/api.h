@@ -35,6 +35,8 @@ uint8_t *follow(T &&ptr) {
 template<auto Fun>
 uint8_t *funptr() { return follow(Fun); }
 
+extern HINSTANCE g_bootstrap_patcher;
+
 extern uint8_t *dk2_base;
 extern size_t dk2_size;
 #define dk2_virtual_base 0x00400000

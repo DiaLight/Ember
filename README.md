@@ -15,7 +15,7 @@ Based on this mapping, dll has an `export table`. So, another exe/dll can use th
 As dll has `export table`, you can generate lib file with Visual Studio tool `lib` and use it in build process.
 - You can collect the stack trace! `DKII.exe` does not use ebp register as frame stack bottom location. So you can't walk DKII stack frames using this register.
 I've collected all the `esp register modification instruction locations`, so you can walk the stack based on this mapping(`mappings/stack.map`).
-- (Planned for the future) Make launcher gui, where users can enable/disable/configure patches
+- Launcher with gui. (Planned for the future) users can enable/disable/configure patches in launcher
 
 Requirements:
 - Python 3
@@ -27,4 +27,4 @@ How to build:
 - `"D:\Program Files\Visual Studio Community\2022\VC\Auxiliary\Build\vcvars32.bat"`
 - `cmake -DCMAKE_BUILD_TYPE=Debug -GNinja -DDK2_DIR="D:/Games/Dungeon Keeper 2" ..`
 - `cmake --build .`
-- `"D:\Games\Dungeon Keeper 2\bootstrap_patcherd.exe" -32BITEVERYTHING`
+- `"bin\launcher.exe"`

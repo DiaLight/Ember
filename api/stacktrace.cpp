@@ -10,6 +10,9 @@
 #include <DbgHelp.h>
 #include <api.h>
 #include <dk2.h>
+#include <api/stacktrace_window.h>
+#include <sstream>
+#include <iomanip>
 
 enum SpOpKind {
   SP_Invalid,
@@ -381,18 +384,21 @@ private:
   }
 };
 
-bool visit_dk2_frame(CONTEXT *ctx, StackLimits &limits) {
+#define hex32(val) std::uppercase << std::setfill(L'0') << std::setw(8) << std::hex << (val) << std::dec
+#define hex16(val) std::uppercase << std::setfill(L'0') << std::setw(4) << std::hex << (val) << std::dec
+
+bool visit_dk2_frame(CONTEXT *ctx, StackLimits &limits, std::wstringstream &ss) {
   uint32_t rva = (uint8_t *) ctx->Eip - dk2_base;
   auto it = stacktrace::find_le(rva);
   if(it == stacktrace::stack.end()) {
-    printf("  area not found %08X\n", rva);
+    ss << "  area not found " << hex32(rva) << "\n";
     return false;
   }
   auto &area = **it;
-  printf("  - dk2 sp=%08X va=%08X %s\n", ctx->Esp, rva + dk2_virtual_base, area.name.c_str());
+  ss << "  - dk2 sp=" << hex32(ctx->Esp) << " va=" << hex32(rva + dk2_virtual_base) << " " << area.name.c_str() << "\n";
   auto opit = area.find_ge(rva);
   if(opit == area.ops.end()) {
-    printf("  va=%08X op not found\n", rva + dk2_virtual_base);
+    ss << "  va=" << hex32(rva + dk2_virtual_base) << " op not found" << "\n";
     return false;
   }
   uint32_t esp_start = ctx->Esp;
@@ -403,9 +409,8 @@ bool visit_dk2_frame(CONTEXT *ctx, StackLimits &limits) {
     switch(op.kind) {
       case SP: {
         if((ctx->Esp - op.stack_offs) != sp_base) {
-          printf("    sp=%08X spd=%04X va=%08X sp_base change %08X %08X\n",
-                 ctx->Esp, -op.stack_offs, op.rva + dk2_virtual_base, ctx->Esp - op.stack_offs, sp_base
-          );
+          ss << "    sp=" << hex32(ctx->Esp) << " spd=" << hex16(-op.stack_offs) << " va=" << hex32(op.rva + dk2_virtual_base);
+          ss << " sp_base change " << hex32(ctx->Esp - op.stack_offs) << " " << hex32(sp_base) << "\n";
         }
         if(op.se_kind == SE_POP_BP) {
           uint32_t value = *(uint32_t *) (ctx->Esp + op.se_value);
@@ -427,28 +432,29 @@ bool visit_dk2_frame(CONTEXT *ctx, StackLimits &limits) {
         ctx->Eip = sp[0];
 //          printf("    sp=%08X spd=%04X va=%08X ret %d\n", ctx->Esp, -op.stack_offs, op.rva + dk2_virtual_base, op.value);
         if((ctx->Esp - esp_start) != -check_offs) {
-          printf("sp change %04X(%d) %04X(%d)\n", ctx->Esp - esp_start, ctx->Esp - esp_start, -check_offs, -check_offs);
+          ss << "sp change " << hex16(ctx->Esp - esp_start) << "(" << (ctx->Esp - esp_start) << ") ";
+          ss << hex16(-check_offs) << "(" << (-check_offs) << ")" << "\n";
         }
         if(ctx->Esp != sp_base) {
-          printf("sp_base change %08X %08X\n", ctx->Esp, sp_base);
+          ss << "sp_base change " << hex32(ctx->Esp) << " " << hex32(sp_base) << "\n";
         }
         if(ctx->Eip < 0x10000 || ctx->Eip == 0xFFFFFFFF || !limits.contains(ctx->Esp)) {
-          printf("sp[-4] %08X\n", sp[-4]);
-          printf("sp[-3] %08X\n", sp[-3]);
-          printf("sp[-2] %08X\n", sp[-2]);
-          printf("sp[-1] %08X\n", sp[-1]);
-          printf("sp[0] %08X\n", sp[0]);
-          printf("sp[1] %08X\n", sp[1]);
-          printf("sp[2] %08X\n", sp[2]);
-          printf("sp[3] %08X\n", sp[3]);
-          printf("sp[4] %08X\n", sp[4]);
+          ss << "sp[-4] " << hex32(sp[-4]) << "\n";
+          ss << "sp[-3] " << hex32(sp[-3]) << "\n";
+          ss << "sp[-2] " << hex32(sp[-2]) << "\n";
+          ss << "sp[-1] " << hex32(sp[-1]) << "\n";
+          ss << "sp[0] " << hex32(sp[0]) << "\n";
+          ss << "sp[1] " << hex32(sp[1]) << "\n";
+          ss << "sp[2] " << hex32(sp[2]) << "\n";
+          ss << "sp[3] " << hex32(sp[3]) << "\n";
+          ss << "sp[4] " << hex32(sp[4]) << "\n";
           return false;
         }
         ctx->Esp += op.value + 4;
         return true;
       }
       case JMP: {
-        printf("    va=%08X jmp %08X\n", op.rva + dk2_virtual_base, (uint32_t) op.value);
+        ss << "    va=" << hex32(op.rva + dk2_virtual_base) << " jmp " << hex32((uint32_t) op.value) << "\n";
         if(op.value == 0) {
           // force exit such frame
           ctx->Esp -= op.stack_offs;
@@ -459,21 +465,21 @@ bool visit_dk2_frame(CONTEXT *ctx, StackLimits &limits) {
         }
         uint32_t jmp_rva = (uint32_t) op.value - dk2_virtual_base;
         ctx->Eip = (uint32_t) (dk2_base + jmp_rva);
-        return visit_dk2_frame(ctx, limits);
+        return visit_dk2_frame(ctx, limits, ss);
       }
       case SP_Invalid:
       default:
-        printf("    va=%08X invalid op\n", op.rva + dk2_virtual_base);
+        ss << "    va=" << hex32(op.rva + dk2_virtual_base) << " invalid op" << "\n";
         return false;
     }
     opit++;
     if(opit == area.ops.end()) {
-      printf("    va=%08X ret not found\n", op.rva + dk2_virtual_base);
+      ss << "    va=" << hex32(op.rva + dk2_virtual_base) << " ret not found" << "\n";
       for(auto &op : area.ops) {
         switch (op->kind) {
-          case SP: printf("- %08X sp %d\n", op->rva, op->value); break;
-          case RET: printf("- %08X ret %d\n", op->rva, op->value); break;
-          case JMP: printf("- %08X jmp %d\n", op->rva, op->value); break;
+          case SP: ss << "- " << hex32(op->rva) << " sp " << op->value << "\n"; break;
+          case RET: ss << "- " << hex32(op->rva) << " ret " << op->value << "\n"; break;
+          case JMP: ss << "- " << hex32(op->rva) << " jmp " << op->value << "\n"; break;
         }
       }
       return false;
@@ -481,33 +487,36 @@ bool visit_dk2_frame(CONTEXT *ctx, StackLimits &limits) {
     op = **opit;
   }
 }
-bool trace_the_stack(CONTEXT *ctx) {
+bool trace_the_stack(CONTEXT *ctx, std::wstringstream &ss) {
   StackLimits limits;
   LoadedModules modules;
-  printf("stack limits: %08X-%08X\n", limits.low, limits.high);
+  ss << "stack limits: " << hex32(limits.low) << "-" << hex32(limits.high) << "\n";
   while(true) {
     if(dk2_contains((uint8_t *) ctx->Eip)) {
-      if(!visit_dk2_frame(ctx, limits)) return false;
+      if(!visit_dk2_frame(ctx, limits, ss)) return false;
       continue;
     }
 
     {
       if(auto *mod = modules.find(ctx->Eip)) {
         if(auto *exp = mod->find_export_le(ctx->Eip)) {
-          printf("  - lib sp=%08X bp=%08X ip=%08X %s:%s+%04X\n", ctx->Esp, ctx->Ebp, ctx->Eip, mod->name.c_str(), exp->name.c_str(), ctx->Eip - exp->addr);
+          ss << "  - lib sp=" << hex32(ctx->Esp) << " bp=" << hex32(ctx->Ebp) << " ip=" << hex32(ctx->Eip);
+          ss << " " << mod->name.c_str() << ":" << exp->name.c_str() << "+" << hex16(ctx->Eip - exp->addr) << "\n";
         } else {
-          printf("  - lib sp=%08X bp=%08X ip=%08X %s+%04X\n", ctx->Esp, ctx->Ebp, ctx->Eip, mod->name.c_str(), ctx->Eip - mod->base);
+          ss << "  - lib sp=" << hex32(ctx->Esp) << " bp=" << hex32(ctx->Ebp) << " ip=" << hex32(ctx->Eip);
+          ss << " " << mod->name.c_str() << "+" << hex16(ctx->Eip - mod->base) << "\n";
         }
       } else {
-        printf("  - lib sp=%08X bp=%08X ip=%08X\n", ctx->Esp, ctx->Ebp, ctx->Eip);
+        ss << "  - lib sp=" << hex32(ctx->Esp) << " bp=" << hex32(ctx->Ebp) << " ip=" << hex32(ctx->Eip);
+        ss << "\n";
       }
     }
     if(!limits.contains(ctx->Esp)) {
-      printf("bad esp=%08X\n", ctx->Esp);
+      ss << "bad esp=" << hex32(ctx->Esp) << "\n";
       return false;
     }
     if(!limits.contains(ctx->Ebp)) {
-      printf("bad ebp=%08X\n", ctx->Ebp);
+      ss << "bad ebp=" << hex32(ctx->Ebp) << "\n";
       return false;
     }
     auto *bp = (uint32_t *) ctx->Ebp;
@@ -520,31 +529,45 @@ bool trace_the_stack(CONTEXT *ctx) {
 }
 
 LONG ExceptionFilter(PEXCEPTION_POINTERS pep) {
-  printf("caught exception %08X at %08X in thread %d", pep->ExceptionRecord->ExceptionCode, pep->ExceptionRecord->ExceptionAddress, GetCurrentThreadId());
+  std::wstringstream ss;
+  ss << "caught exception " << hex32(pep->ExceptionRecord->ExceptionCode) << " at " << hex32(pep->ExceptionRecord->ExceptionAddress) << " in thread " << GetCurrentThreadId();
   PWSTR threadDesc = nullptr;
   if(SUCCEEDED(GetThreadDescription(GetCurrentThread(), &threadDesc)) && (*threadDesc != L'\0')) {
-    wprintf(L"(%ls)", threadDesc);
+    ss << threadDesc;
     LocalFree(threadDesc);
   }
-  printf("\n");
-  printf("  eax=%08X ebx=%08X ecx=%08X edx=%08X\n",
-         pep->ContextRecord->Eax,
-         pep->ContextRecord->Ebx,
-         pep->ContextRecord->Ecx,
-         pep->ContextRecord->Edx
-  );
-  printf("  esi=%08X edi=%08X\n", pep->ContextRecord->Esi, pep->ContextRecord->Edi);
-  printf("  esp=%08X ebp=%08X\n", pep->ContextRecord->Esp, pep->ContextRecord->Ebp);
-  printf("  eip=%08X\n", pep->ContextRecord->Eip);
+  ss << "\n";
+
+  ss << "  process id: " << GetCurrentProcessId() << "\n";
+  ss << "  bootstrap patcher base: " << hex32(g_bootstrap_patcher) << "\n";
+  ss << "  dk2 base: " << hex32(dk2_base) << "\n";
+  ss << "  eax=" << hex32(pep->ContextRecord->Eax);
+  ss << " ebx=" << hex32(pep->ContextRecord->Ebx);
+  ss << " ecx=" << hex32(pep->ContextRecord->Ecx);
+  ss << " edx=" << hex32(pep->ContextRecord->Edx);
+  ss << "\n";
+  ss << "  esi=" << hex32(pep->ContextRecord->Esi);
+  ss << " edi=" << hex32(pep->ContextRecord->Edi);
+  ss << "\n";
+  ss << "  esp=" << hex32(pep->ContextRecord->Esp);
+  ss << " ebp=" << hex32(pep->ContextRecord->Ebp);
+  ss << "\n";
+  ss << "  eip=" << hex32(pep->ContextRecord->Eip);
+  ss << "\n";
   CONTEXT ctx = *pep->ContextRecord;  // make ctx copy
-  if(!trace_the_stack(&ctx)) {
-    printf("  trace stack failed\n");
+  if(!trace_the_stack(&ctx, ss)) {
+    ss << "  trace stack failed" << "\n";
   }
-#ifndef NDEBUG
-  if(MessageBoxA(NULL, "Debug?", "Debug", MB_OKCANCEL) == IDOK) {
-    return EXCEPTION_CONTINUE_EXECUTION;
+
+  std::wstring trace = ss.str();
+  wprintf(L"%ls", trace.c_str());
+
+  bool throwAgain = false;
+  if(stacktrace::show(g_bootstrap_patcher, throwAgain, trace.c_str())) {
+    if(throwAgain) {
+      return EXCEPTION_CONTINUE_EXECUTION;
+    }
   }
-#endif
   return EXCEPTION_CONTINUE_SEARCH;
 }
 LONG WINAPI TopLevelExceptionFilter(struct _EXCEPTION_POINTERS *ExceptionInfo) {

@@ -10,7 +10,7 @@
 #include <ShlObj.h>
 #include <windowsx.h>
 #include <sstream>
-#include "layout.h"
+#include "../win32_gui_layout.h"
 #include "CItemIterator.h"
 #include <thread>
 
@@ -22,7 +22,6 @@ std::wstring g_dk2Dir;
 std::wstring g_curExeDir;
 std::wstring g_cwdDir;
 std::wstring g_pathEnv;
-HWND g_hWnd = NULL;
 
 std::wstring utf8ToUtf16(const std::string& utf8Str) {
   std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> conv;
@@ -113,43 +112,18 @@ bool fileExist(LPCWSTR pszFilename) {
 #include "open_directory.h"
 #include "md5_hash.h"
 
-struct edit_elem_t : public gui_elem_t {
-
-  explicit edit_elem_t(const wchar_t *text, DWORD style) : gui_elem_t(L"EDIT", text, style) {}
-
-  int getText(wchar_t *lpch, int cchMax) { return GetWindowTextW(hwnd, lpch, cchMax); }
-  int getTextLength() { return GetWindowTextLengthW(hwnd); }
-  bool setText(const wchar_t *lpsz) { return SetWindowTextW(hwnd, lpsz); }
-
-  int getLineCount() { return (int)(DWORD)SendMessageW(hwnd, EM_GETLINECOUNT, 0L, 0L); }
-  int getLine(int line, wchar_t *lpch, int cchMax) {
-    *((int *)lpch) = cchMax;
-    return (int)(DWORD)SendMessageW(hwnd, EM_GETLINE, (WPARAM)(int)(line), (LPARAM)(LPTSTR)(lpch)); }
-
-  void limitText(int cchMax) { SendMessageW(hwnd, EM_LIMITTEXT, (WPARAM)(cchMax), 0L); }
-  bool setReadOnly(bool fReadOnly) { return (BOOL)(DWORD)SendMessageW(hwnd, EM_SETREADONLY, (WPARAM)(BOOL)(fReadOnly), 0L); }
-
-  void setWordBreakProc(EDITWORDBREAKPROCW lpfn) { SendMessageW(hwnd, EM_SETWORDBREAKPROC, 0L, (LPARAM) lpfn); }
-  EDITWORDBREAKPROCW getWordBreakProc() { return (EDITWORDBREAKPROCW) SendMessageW(hwnd, EM_GETWORDBREAKPROC, 0L, 0L); }
-
-  void lineScroll(int hor, int ver) {
-    SendMessageW(hwnd, EM_LINESCROLL, (WPARAM) hor, (LPARAM) ver);
-  }
-
-};
-
-edit_elem_t DirPath(L"", WS_VISIBLE | WS_BORDER);
-gui_elem_t SelectDir(L"BUTTON", L"select", WS_VISIBLE | WS_BORDER);
-edit_elem_t TextField(
+gui::edit_elem_t DirPath(L"", WS_VISIBLE | WS_BORDER);
+gui::button_elem_t SelectDir(L"select", WS_VISIBLE | WS_BORDER);
+gui::edit_elem_t TextField(
     L"",
     WS_VISIBLE | WS_BORDER |
     ES_READONLY |
     WS_HSCROLL | WS_VSCROLL | ES_LEFT |
     ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL
 );
-gui_elem_t StartBtn(L"BUTTON", L"start", WS_VISIBLE | WS_BORDER);
+gui::button_elem_t StartBtn(L"start", WS_VISIBLE | WS_BORDER);
 
-struct : layout_t {
+struct : gui::layout_t {
   void operator()(HWND hwnd, int width, int height) {
     layout_t::operator()(hwnd, width, height);
     hor(-1, -1, [this] {
@@ -213,6 +187,7 @@ bool CreateProcess_runAndWait(const wchar_t *cmd, const wchar_t *dir, DWORD &las
   PROCESS_INFORMATION	pi;
   ZeroMemory(&pi, sizeof(pi));
 
+  printStatus("");
   printStatus(L"CreateProcessW(%s) cwd=%s", cmd, dir);
   int cmdLen = wcslen(cmd);
   wchar_t *mcmd = (wchar_t *) malloc((cmdLen + 1) * sizeof(wchar_t));
@@ -280,16 +255,17 @@ void genDll() {
   else if(exitCode) printStatus("makedll exited with: %08X", exitCode);
 }
 
-void startEmber() {
+void startEmber(HWND hwnd) {
   DWORD exitCode = 0;
   DWORD lastError = 0;
   std::wstringstream wss;
   wss << L'\"' << g_curExeDir << L"/bootstrap_patcher.exe" << L'\"';
   wss << " -32BITEVERYTHING";
   std::wstring cmd = wss.str();
-  ShowWindow(g_hWnd, SW_HIDE);
+  ShowWindow(hwnd, SW_HIDE);
   bool created = CreateProcess_runAndWait(cmd.c_str(), g_dk2Dir.c_str(), lastError, exitCode);
-  ShowWindow(g_hWnd, SW_SHOW);
+  ShowWindow(hwnd, SW_SHOW);
+  SetForegroundWindow(hwnd);
   if(created && exitCode == 0) return;
   if(lastError) printStatus("start bootstrap patcher failed: %08X", lastError);
   else if(exitCode) printStatus("bootstrap patcher exited with: %08X", exitCode);
@@ -367,7 +343,7 @@ bool validateDk2Path() {
   }
   return true;
 }
-void startAction() {
+void startAction(HWND hwnd) {
 //  status.clear();
 //  if(!validateDk2Path()) return;
 
@@ -390,7 +366,7 @@ void startAction() {
       return;
     }
   }
-  startEmber();
+  startEmber(hwnd);
 }
 
 bool guiLocked = false;
@@ -442,12 +418,21 @@ LRESULT CALLBACK DirPath_WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
   switch (message) {
     case WM_CREATE: {
-      g_hWnd = hwnd;
       auto *create = (CREATESTRUCT *) lParam;
-      size2i_t size = {create->cx, create->cy};
+      gui::size2i_t size = {create->cx, create->cy};
       layout(hwnd, size.w, size.h);
-      resizeWin(hwnd, size.w, size.h);
+      gui::resizeWin(hwnd, size.w, size.h);
       DirPath.setWndProc(DirPath_WndProc);
+
+      SendMessage(TextField.hwnd, WM_SETFONT, WPARAM(CreateFont(
+          -MulDiv(11, GetDeviceCaps(GetDC(hwnd), LOGPIXELSY), 72),
+          0, 0, 0,
+          FW_NORMAL,
+          FALSE, FALSE, FALSE,
+          ANSI_CHARSET,
+          OUT_STROKE_PRECIS, CLIP_DEFAULT_PRECIS, DRAFT_QUALITY, FIXED_PITCH | FF_MODERN,
+          TEXT("Courier New")
+      )), TRUE);
 
       loadDk2Path();
       onDK2DirUpdated();
@@ -456,11 +441,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
     case WM_SIZE: {
       UINT width = LOWORD(lParam);
       UINT height = HIWORD(lParam);
-      layout(hwnd, revertDpi(width), revertDpi(height));
+      layout(hwnd, gui::revertDpi(width), gui::revertDpi(height));
       break;
     }
     case WM_DPICHANGED: {
-      g_dpi = HIWORD(wParam);
+      gui::g_dpi = HIWORD(wParam);
       auto *rect = (RECT *) lParam;
       layout(hwnd, rect->right - rect->left, rect->bottom - rect->top);
       break;
@@ -475,9 +460,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
       } else if (hm == StartBtn.id) {
         lockGui(true);
 
-        std::thread thr([] {
+        std::thread thr([hwnd] {
           try {
-            startAction();
+            startAction(hwnd);
           } catch(...) {
 
           }
@@ -488,6 +473,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
         thr.detach();
       }
       break;
+    }
+    case WM_CTLCOLORSTATIC: {
+      HDC hdcStatic = (HDC) wParam;
+      HBRUSH BGColorBrush = CreateSolidBrush(RGB(255,255,255));
+//        SetBkMode(hdcStatic, TRANSPARENT);
+      return (INT_PTR)(HBRUSH)BGColorBrush;
     }
     case WM_DESTROY:
       PostQuitMessage(0);
@@ -508,7 +499,7 @@ int WINAPI WinMain(
   AllocConsole();
 #endif
 
-  initLayout(hInstance);
+  gui::initLayout(hInstance);
 
   g_cwdDir.resize(MAX_PATH);
   GetCurrentDirectoryW(MAX_PATH, &*g_cwdDir.begin());
