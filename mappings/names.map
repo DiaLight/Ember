@@ -50,7 +50,6 @@
 00402C00 CDefaultPlayerInterface::fun_402C00 fun
 00402C20 ??1CDefaultPlayerInterface@@UAE@XZ fun
 00402D00 CDefaultPlayerInterface::fun_402D00 fun
-00403058 j_CPlayer::fun_4C1FB0 fun
 00403350 ??1TbGraphicFileLoader@@UAE@XZ fun
 00403360 ??_GTbGraphicFileLoader@@UAEPAXI@Z fun
 00403380 ??_GTbPNGLoader@@UAEPAXI@Z fun
@@ -79,6 +78,7 @@
 00409618 jpt_4094F6 
 00409640 CDefaultPlayerInterface_onWindowMsg fun
 004096B0 CDefaultPlayerInterface::fun_4096B0 fun
+00409740 isGameKeyPressed fun
 00409880 CDefaultPlayerInterface::fun_409880 fun
 004098A0 CDefaultPlayerInterface::fun_4098A0 fun
 004098D0 CDefaultPlayerInterface::fun_4098D0 fun
@@ -88,6 +88,7 @@
 0040A280 CDefaultPlayerInterface_sub_40A280 fun
 0040A322 def_40A2B6 
 0040A334 jpt_40A2B6 
+0040A600 CDefaultPlayerInterface_40A600 fun
 0040A680 CDefaultPlayerInterface_onWmChar fun
 0040A760 CDefaultPlayerInterface_sub_40A760 fun
 0040A9AB def_40A78C 
@@ -179,7 +180,6 @@
 0041714E def_4170CA 
 00417158 jpt_4170CA 
 00417827 def_4177E3 
-00417832 nullsub_79 fun
 00417834 jpt_4177E3 
 00417C8D def_417BC5 
 00417D8D def_417D4A 
@@ -247,7 +247,6 @@
 0042FCE0 _wmemset fun
 004300A0 _wmemmove fun
 00430110 _wmemcpy fun
-00430140 nullsub_80 fun
 004305D1 def_4304AE 
 00430618 jpt_4304AE 
 0043063C jpt_4304C5 
@@ -281,7 +280,6 @@
 004347A0 CEffect::fun_4347A0 fun
 004347B0 ??_GCEffect@@UAEPAXI@Z fun
 004347D0 ??1CEffect@@UAE@XZ fun
-00435890 a5 fun
 00435E70 ??0CEffectElement@@QAE@XZ fun
 00435EB0 CBridgeThing::fun_435EB0 fun
 00435EC0 CEffectElement::fun_435EC0 fun
@@ -306,10 +304,10 @@
 0043A610 ?static_init@Obj6D39B8@@SAXXZ fun
 0043A630 ?static_destroy@Obj6D39B8@@SAXXZ fun
 0043A6B0 ??0Obj6D39B8@@QAE@XZ fun
-0043A720 a4 fun
 0043A740 ??0CBridge@@QAE@XZ fun
 0043A8A0 ret_0_8args fun
 0043A960 CBridge_get_field_ fun
+0043A970 CBridge_43A970 fun
 0043A980 CBridge_get_field_3E5 fun
 0043AA30 ??1CBridge@@UAE@XZ fun
 0043AAD0 CBridge::connectEngine fun
@@ -512,6 +510,7 @@
 0044AE33 def_44AE2C 
 0044AE39 def_44AE18 
 0044B19A def_44B16B 
+0044B3CB def_44B39C 
 0044BB7D def_44AF98 
 0044BB8C jpt_44AD67 
 0044BBC0 jpt_44AD90 
@@ -539,7 +538,6 @@
 0044F3F0 CMap::fun_44F3F0 fun
 0044F4B0 CMap::fun_44F4B0 fun
 0044F580 ?classic@locale@std@@SAABV12@XZ_7 fun
-004536F0 jpt_453558 
 004541E2 def_454154 
 004541F4 jpt_454154 
 00454634 def_454604 
@@ -549,11 +547,8 @@
 00454AFC jpt_454677 
 00454B2C jpt_454714 
 00454B58 jpt_454A50 
-00454C90 nullsub_81 fun
-0045507C jpt_454F1E 
 00455858 def_45554F 
 00455868 jpt_45554F 
-00457840 jpt_4575A3 
 0045D67A def_45D613 
 0045E174 jpt_45D613 
 00460197 def_45FB5E 
@@ -587,15 +582,10 @@
 0046E37C jpt_46E079 
 0046F149 def_46F02D 
 0046F1B4 jpt_46F02D 
-00470470 nullsub_82 fun
-004727C8 jpt_47277E 
-00472A38 jpt_4729EE 
-00475758 jpt_4755AD 
 00476B10 ??0CState@@QAE@XZ fun
 00476B30 ??1CState@@UAE@XZ fun
 00476CB0 CState::fun_476CB0 fun
 00476CF0 CState::fun_476CF0 fun
-00476F18 jpt_476D6D 
 004780C0 CompareFunction fun
 00478997 def_478882 
 004789A8 jpt_478882 
@@ -614,7 +604,6 @@
 00483949 def_483928 
 00483990 jpt_483928 
 00484940 ret_0_0args_0 fun
-00484BB8 jpt_484AE6 
 00486DF0 ??0Iostream_init@@QAE@XZ_0 fun
 00488520 CCreature::fun_488520 fun
 00488640 CCreature::fun_488640 fun
@@ -624,7 +613,6 @@
 0048AF80 CCreature::fun_48AF80 fun
 0048B9FC def_48B9F1 
 0048BD88 jpt_48B9F1 
-0048C800 nullsub_83 fun
 0048D000 CCreature::fun_48D000 fun
 0048D010 CCreature::fun_48D010 fun
 0048D050 CCreature::fun_48D050 fun
@@ -640,7 +628,6 @@
 0048EDC4 jpt_48ED78 
 0048FCA1 def_48FB4C 
 0048FCC0 jpt_48FB4C 
-0048FE08 jpt_48F7D8 
 00490230 CCreature::fun_490230 fun
 00490240 CCreature::fun_490240 fun
 004943E0 nullsub_3 fun
@@ -737,7 +724,6 @@
 004AC924 jpt_4AC7E3 
 004AC940 probably_process_creature_damage fun
 004ACAF0 probably_process_creature_damage_2 fun
-004B0270 nullsub_84 fun
 004B0460 CActionPoint::fun_4B0460 fun
 004B0550 CActionPoint::fun_4B0550 fun
 004B05E0 CActionPoint::fun_4B05E0 fun
@@ -870,7 +856,6 @@
 004C55F0 jpt_4C5567 
 004C571F def_4C5681 
 004C5724 jpt_4C5681 
-004C7380 nullsub_85 fun
 004C856C def_4C7B44 
 004C8580 jpt_4C7B44 
 004C8A3E def_4C865B 
@@ -920,7 +905,6 @@
 004D33A0 Avoid_Obstacle::fun_4D33A0 fun
 004D35C0 Avoid_Walls::fun_4D35C0 fun
 004D3C40 Follow_Path::fun_4D3C40 fun
-004D4760 nullsub_86 fun
 004D5F50 ??0Obj6ECAE0@@QAE@XZ fun
 004D9142 def_4D8EB0 
 004D9267 def_4D917D 
@@ -936,7 +920,6 @@
 004DC8D4 jpt_4DC851 
 004DE1CD def_4DE112 fun
 004DE1D0 jpt_4DE112 
-004DE620 nullsub_87 fun
 004DF016 def_4DEFFC 
 004DF10B def_4DF0E9 
 004DF600 jpt_4DEFFC 
@@ -951,7 +934,6 @@
 004E0A40 jpt_4E08DA 
 004E13DA def_4E1371 
 004E1580 jpt_4E1371 
-004E1AC0 nullsub_88 fun
 004E3790 ??0CRoom@@QAE@XZ fun
 004E37F0 ??1CRoom@@UAE@XZ fun
 004E3B10 CRoom::fun_4E3B10 fun
@@ -972,7 +954,6 @@
 004E7F6C jpt_4E7E40 
 004E7FBA def_4E7FAB 
 004E7FC0 jpt_4E7FAB 
-004E7FE0 nullsub_89 fun
 004E8192 def_4E7FFF 
 004E81E0 jpt_4E7FFF 
 004E8876 def_4E8676 
@@ -1073,11 +1054,10 @@
 005079F0 CTag::fun_5079F0 fun
 005089D0 ?static_init@CWorld@@SAXXZ fun
 005089F0 ?static_destroy@CWorld@@SAXXZ fun
-00508A00 nullsub_90 fun
 00508A10 ??0CWorld@@QAE@XZ fun
 00508C00 CWorld_508C00 fun
 00508C10 CWorld_508C10 fun
-00508C40 CWorld_508C40 fun
+00508C40 CWorld_getCTag fun
 00508C60 CWorld_508C60 fun
 00508C70 CWorld_508C70 fun
 00508C80 CWorld_508C80 fun
@@ -1397,6 +1377,8 @@
 00517C80 jpt_517C26 
 00517D96 def_517D51 
 00517DAC jpt_517D51 
+00517EC6 def_517E81 
+00517EDC jpt_517E81 
 00517F60 _DllMain@12_2 fun
 00518929 def_518296 
 00518941 def_5182BB 
@@ -1881,6 +1863,7 @@
 00553FB0 ?static_destroy@TbBMPLoader@@SAXXZ fun
 00553FC0 ??0TbBMPLoader@@QAE@XZ fun
 00553FE0 TbTQILoader::fun_553FE0 fun
+00554000 DiscFileBase_554000 fun
 005540B0 loadArtToSurface fun
 00554350 ??0TbPNGLoader@@QAE@XZ fun
 00554380 probably_Console_static_init fun
@@ -2338,6 +2321,8 @@
 005B2A00 MyInputManagerCb_static_init fun
 005B2A10 MyInputManagerCb_static_constructor fun
 005B2A30 MyInputManagerCb_static_destroy fun
+005B2A40 MyInputManager_static_getKeyState fun
+005B2A50 MyInputManagerCb_static_buildControlFlags fun
 005B2AE0 MyInputManagerCb_static_processInputs_setStaticListenersAndHandleDxActions fun
 005B2B10 unknown_libname_42 fun
 005B2B20 MyInputManagerCb_static_initKeyInputs fun
@@ -2433,7 +2418,7 @@
 005B6E40 DiscFileBase_constructor_empty fun
 005B6E50 DiscFileBase_scalar_destructor fun
 005B6E70 DiscFileBase_destructor fun
-005B6E80 DiscFileBase_super_destructor fun
+005B6E80 DiscFileBase_super_destructor 
 005B6EA0 DiscFileBase_readBytes fun
 005B6EC0 DiscFileBase_writeBytes fun
 005B6EE0 DiscFileBase_seek fun
@@ -2546,6 +2531,7 @@
 005BB1A0 MyInputManagerCb_windowMsgW fun
 005BB1C0 ?initMouse@MyInputManagerCb@dk2@@QAEAAHAAH@Z fun
 005BB220 MyInputManagerCb_initKeyInputs fun
+005BB280 MyInputManager_getKeyState fun
 005BB2A0 MyInputManagerCb_sub_5BB2A0 fun
 005BB2F0 MyInputManagerCb_resolveChildCb fun
 005BB420 MyCallback_scalar_destructor fun
@@ -3497,7 +3483,7 @@
 00635BA8 jpt_635A95 
 00635C38 def_635C44 
 00635CF0 jpt_635C22 
-00635D40 jpt_635C17 
+00635D40 jpt_635C44 
 00635DA0 ___for_each_destruct fun
 00635E50 ?__ArrayUnwind@@YGXPAXIHP6EX0@Z@Z fun
 00635EC0 ___for_each_construct fun
@@ -3805,6 +3791,7 @@
 0063CEA4 __rtzeropop 
 0063CEA6 __rtzeronpop 
 0063CEAB __rtonepop 
+0063CEAD __rtonenpop 
 0063CEB2 __tosnan1 fun
 0063CECF _tossnan1 
 0063CEDD __nosnan2 fun
@@ -6718,7 +6705,7 @@
 0068F3C0 aAvtbpngloader str
 0068F3D4 aFsmapLoadFaile str
 0068F3F0 aMaprock str
-0068F3F8 Str str
+0068F3F8 aMapback str
 0068F400 aDDevDk2Project_34 str
 0068F440 ??_R0?AVCommand@TbSysCommand@@@8 
 0068F448 aAvcommandTbsys str
@@ -7053,7 +7040,6 @@
 0069A0F0 aUnhappyatD str
 0069A104 aAnger str
 0069A110 aJcnDat str
-0069A8E8 BufferCount 
 0069A904 aIki str
 0069A90C aBo str
 0069A914 aPoe str
@@ -8604,7 +8590,7 @@
 006A4BD0 ??_R0?AVProcess@TbSysCommand@@@8 
 006A4BD8 aAvprocessTbsys str
 006A4BF4 aSmapsSKwd str
-006A4C04 OutputString str
+006A4C04 aFinishedLoggin str
 006A4C1C aEndWorldLog str
 006A4C2C aLevelIntroOver str
 006A4C50 aCurrentRewardI str
@@ -9198,7 +9184,6 @@
 006B83B0 aLuLu_0 str
 006B83C8 aLuLu str
 006B83DC aS_2 str
-006B83EC lpWideCharStr 
 006B8468 g_surfaceStrings 
 006B8E28 a3dmaplevel1Arr str
 006B8F38 a3dmaplevel2Arr str
@@ -10274,7 +10259,7 @@
 006C8FF8 crt::stderr 
 006C9300 dwTlsIndex_ThreadCtx 
 006C9490 __ctype 
-006C9694 cbMultiByte 
+006C9694 SrcSizeInBytes 
 006C96DB aExp_0 str
 006C9A10 asdf 
 006C9AB4 lpMem 
@@ -10384,8 +10369,6 @@
 006D6458 sceneLightningObjects 
 006DA8A8 g_empty_string 
 006E4FD8 funcs_4A8BE5 
-006E5084 a222n str
-006E5090 a2h23 str
 006EB988 Stream 
 006ECA60 Obj6ECA60_instance 
 006ECA70 Obj6ECA70_instance 
@@ -10439,14 +10422,12 @@
 0073EDDC p_IDirectDrawSurface2 
 0073EDE0 p_IDirectDrawSurface2_2 
 0073F580 CFrontEndComponent_ShowMovie_static_listeners 
-0073F5C8 Destination 
 0073FC24 SrcStr 
 0073FE78 Block 
-007401A0 src 
 0074033C lpMultiByteStr 
 00740340 BtnSize 
 0074035C is_welcome_shown 
-00740780 WideCharStr str
+00740780 Destination str
 00740B80 g_FontObj6_instance 
 00740BD0 g_FontObj3_instance 
 00740C20 temp_string 
@@ -10484,7 +10465,6 @@
 007416C8 TbBMPLoader_instance 
 00741C28 TbPNGLoader_instance 
 00742070 TbTQILoader_instance 
-007424A0 MultiByteStr 
 007428A0 probably_Console_instance 
 00756EE8 ?instance@MyGame@dk2@@0V12@A 
 00758040 isCreateDDState 
@@ -10517,7 +10497,6 @@
 007656E8 MyNameObjMap_instance 
 00765AF8 Arrp31x400_instance 
 00766228 CMemLoadIFFFile_instance 
-007683C0 ___alloca_probe fun
 00769A78 arr_769A78 
 0076AA78 arr_769A78_itemsCount 
 0076C280 my_buf_4800_width_512 
@@ -10541,10 +10520,7 @@
 0076F328 my_buf_3000_width_512 
 0076F32C my_buf_3000_height_512 
 0076F330 my_buf_3000 
-00770A65 def_770A46 
-00770A68 jpt_770A46 
 007793A8 arr_7793A8 
-007804CB dk2_?create@MyDiscFile@@SAPAU1@PAHPAPAHHH@Z_SEH 
 007820D0 mpeg2::_image_buf 
 007920D8 MyTextures_instance 
 00792920 MySurfDesc_792920 
@@ -10593,7 +10569,7 @@
 0079D830 g_confSurfDesc 
 0079D980 ?pathBuf@dk2@@3PADA str
 0079D981 aGamesDungeonKe str
-0079DA88 ?dk2HomeDir@globals@dk2@@0PADA 
+0079DA88 ?dk2HomeDir@globals@dk2@@0PADA str
 0079DBD0 SharedArr79DBD0_instance 
 0079DC68 Obj79DC68_instance 
 0079F174 isBullfrogWindowCreated 
@@ -10645,20 +10621,7 @@
 007A5DB0 Addend 
 007A6DC0 Count 
 007A6DC4 g_commandLineA 
-007AC2A4 aMicrosoftVisua_0 str
-007AC2CC aRuntimeErrorPr_0 str
-007AC2EC aProgramNameUnk_0 str
-007AC9C4 aGetlastactivep_0 str
-007AC9D8 aGetactivewindo_0 str
-007AC9E8 aMessageboxa_0 str
-007AC9F4 aUser32Dll_0 str
 007ACAAC jpt_5AC905 
-007ACFA8 ??_R2StopHandle@TbSysCommand@@8_0 
-007ACFB8 ??_R3StopHandle@TbSysCommand@@8_0 
-007ACFC8 ??_R4StopHandle@TbSysCommand@@6B@_0 
-007AE8D0 ??_R2TbDiscFile@@8_0 
-007AE8E0 ??_R3TbDiscFile@@8_0 
-007AE8F0 ??_R4TbDiscFile@@6B@_0 
 007AF058 tqia_src_pos 
 007AF08C tqia_offs 
 007AF0D4 tqia_is32BitPair 
@@ -10672,6 +10635,3 @@
 007AF3E0 tqia_ge32 
 007AF680 jpeg_zigzag2 
 007AF780 jpeg_007AF780 
-007AFAB8 ??_R2type_info@@8_0 
-007AFAC0 ??_R3type_info@@8_0 
-007AFAD0 ??_R4type_info@@6B@_0 
