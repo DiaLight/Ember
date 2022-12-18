@@ -10,9 +10,16 @@
 #include <ShlObj.h>
 #include <windowsx.h>
 #include <sstream>
+#include <iomanip>
 #include "../win32_gui_layout.h"
 #include "CItemIterator.h"
 #include <thread>
+#include <ddraw.h>
+#include <algorithm>
+
+#define hex32(val) std::hex << std::uppercase << std::setfill(L'0') << std::setw(8) << ((uint32_t) val) << std::dec
+#define hex16(val) std::hex << std::uppercase << std::setfill(L'0') << std::setw(4) << ((uint16_t) val) << std::dec
+#define hex8(val) std::hex << std::uppercase << std::setfill(L'0') << std::setw(2) << ((uint8_t) val) << std::dec
 
 #define EmberLauncher_title _T("Ember - DK2 patching launcher")
 #define EmberLauncher_class _T("EmberLauncher")
@@ -24,8 +31,21 @@ std::wstring g_cwdDir;
 std::wstring g_pathEnv;
 
 std::wstring utf8ToUtf16(const std::string& utf8Str) {
-  std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> conv;
-  return conv.from_bytes(utf8Str);
+  try {
+    std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> conv;
+    return conv.from_bytes(utf8Str);
+  } catch(...) {
+    std::wstringstream wss;
+//    wss << L"failed to convert len=" << utf8Str.size();
+//    for (int i = 0; i < utf8Str.length(); ++i) {
+//      wss << " " << hex8(utf8Str[i]);
+//    }
+//    wss << " ";
+    for (int i = 0; i < utf8Str.length(); ++i) {
+      wss << (char) utf8Str[i];
+    }
+    return wss.str();
+  }
 }
 
 std::vector<std::wstring> status;
@@ -122,6 +142,12 @@ gui::edit_elem_t TextField(
     ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL
 );
 gui::button_elem_t StartBtn(L"start", WS_VISIBLE | WS_BORDER);
+gui::label_elem_t MenuLabel(L"Menu resolution:", WS_VISIBLE | WS_TABSTOP);
+gui::combobox_elem_t MenuModesCombo(L"", CBS_DISABLENOSCROLL | CBS_DROPDOWNLIST | CBS_DROPDOWN | WS_OVERLAPPED | WS_VISIBLE);
+gui::label_elem_t GameLabel(L"Game resolution:", WS_VISIBLE | WS_TABSTOP);
+gui::combobox_elem_t GameModesCombo(L"", CBS_DISABLENOSCROLL | CBS_DROPDOWNLIST | CBS_DROPDOWN | WS_OVERLAPPED | WS_VISIBLE);
+gui::button_elem_t DPIBtn(L"DPI aware:", BS_CHECKBOX | BS_AUTOCHECKBOX | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
+gui::button_elem_t FullscreenBtn(L"Fullscreen:", BS_CHECKBOX | BS_AUTO3STATE | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
 
 struct : gui::layout_t {
   void operator()(HWND hwnd, int width, int height) {
@@ -139,6 +165,20 @@ struct : gui::layout_t {
         });
         gap(10);
         visit(TextField, -1, -1);
+        gap(10);
+        hor(-1, 20, [this] {
+          visit(MenuLabel, 100, size.h);
+          visit(MenuModesCombo, 150, 50000);
+          gap(10);
+          visit(GameLabel, 100, size.h);
+          visit(GameModesCombo, 150, 50000);
+        });
+        gap(10);
+        hor(-1, 20, [this] {
+          visit(DPIBtn, 80, size.h);
+          gap(20);
+          visit(FullscreenBtn, 80, size.h);
+        });
         // body end
 
         gap(10);
@@ -157,6 +197,51 @@ struct : gui::layout_t {
     });
   }
 } layout;
+
+
+class DDClose {
+  LPDIRECTDRAW lpDD;
+public:
+  explicit DDClose(LPDIRECTDRAW lpDD) : lpDD(lpDD) {}
+  ~DDClose() {
+    lpDD->Release();
+  }
+};
+
+struct screen_mode {
+  int width;
+  int height;
+  screen_mode(int width, int height) : width(width), height(height) {}
+};
+std::vector<screen_mode> screenModeList;
+
+HRESULT FAR PASCAL enumDDModesCallback(LPDDSURFACEDESC desc, LPVOID arg) {
+  auto *list = (std::vector<screen_mode> *) arg;
+  if(desc->ddpfPixelFormat.dwRGBBitCount == 32) {
+    list->emplace_back(desc->dwWidth, desc->dwHeight);
+  }
+  return DDENUMRET_OK;
+}
+
+bool enumModes(HWND hWnd, std::vector<screen_mode> &list) {
+  LPDIRECTDRAW lpDD;
+  if(DirectDrawCreate(NULL, &lpDD, NULL) != DD_OK) {
+    printStatus("failed to create dd");
+    return false;
+  }
+  DDClose ddc(lpDD);
+  if (lpDD->SetCooperativeLevel(hWnd, DDSCL_ALLOWMODEX | DDSCL_EXCLUSIVE | DDSCL_NOWINDOWCHANGES | DDSCL_FULLSCREEN) != DD_OK) {
+    printStatus("failed to set coop level");
+    return false;
+  }
+  if (lpDD->EnumDisplayModes(0, NULL, &list, (LPDDENUMMODESCALLBACK) enumDDModesCallback) != DD_OK) {
+    printStatus("failed to enum modes");
+    return false;
+  }
+  lpDD->SetCooperativeLevel(hWnd, DDSCL_NORMAL);
+  return true;
+}
+
 
 bool CreateProcess_runAndWait(const wchar_t *cmd, const wchar_t *dir, DWORD &lastError, DWORD &exitCode) {
   SECURITY_ATTRIBUTES saAttr;
@@ -261,6 +346,28 @@ void startEmber(HWND hwnd) {
   std::wstringstream wss;
   wss << L'\"' << g_curExeDir << L"/bootstrap_patcher.exe" << L'\"';
   wss << " -32BITEVERYTHING";
+  int check = DPIBtn.getCheck();
+  if(check == BST_CHECKED) {
+    wss << " -ember:dpi_aware";
+  }
+  check = FullscreenBtn.getCheck();
+  if(check != BST_INDETERMINATE) {
+    wss << " -ember:fullscreen=";
+    wss << (check == BST_CHECKED ? "true" : "false");
+  }
+  check = MenuModesCombo.getCurSel();
+  if(check != 0) {
+    auto &mode = screenModeList[check];
+    wss << " -ember:menu_resolution=";
+    wss << mode.width << "x" << mode.height;
+  }
+  check = GameModesCombo.getCurSel();
+  if(check != 0) {
+    auto &mode = screenModeList[check];
+    wss << " -ember:game_resolution=";
+    wss << mode.width << "x" << mode.height;
+  }
+
   std::wstring cmd = wss.str();
   ShowWindow(hwnd, SW_HIDE);
   bool created = CreateProcess_runAndWait(cmd.c_str(), g_dk2Dir.c_str(), lastError, exitCode);
@@ -269,6 +376,72 @@ void startEmber(HWND hwnd) {
   if(created && exitCode == 0) return;
   if(lastError) printStatus("start bootstrap patcher failed: %08X", lastError);
   else if(exitCode) printStatus("bootstrap patcher exited with: %08X", exitCode);
+}
+
+bool persistence_getStr(const std::wstring &name, std::wstring &value) {
+  value.resize(MAX_PATH);
+  LSTATUS status;
+  DWORD BufferSize = MAX_PATH;
+  status = RegGetValueW(
+      HKEY_CURRENT_USER,
+      L"SOFTWARE\\Ember Launcher",
+      name.c_str(), RRF_RT_REG_SZ, NULL, (PVOID) &*value.begin(), &BufferSize
+  );
+  if(status != ERROR_SUCCESS) {
+    return false;
+  }
+  value.resize(wcslen(&*value.begin()));
+  return true;
+}
+
+bool persistence_setStr(const std::wstring &name, const std::wstring &value) {
+  LSTATUS status;
+  HKEY hKey = NULL;
+  status = RegOpenKeyExW(HKEY_CURRENT_USER, L"SOFTWARE\\Ember Launcher", REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, &hKey);
+  if(status == ERROR_FILE_NOT_FOUND) {
+    status = RegCreateKeyExW(HKEY_CURRENT_USER, L"SOFTWARE\\Ember Launcher", 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, NULL);
+  }
+  bool ret = false;
+  if(status == ERROR_SUCCESS) {
+    status = RegSetValueExW(hKey, name.c_str(), 0, REG_SZ, (BYTE *) value.c_str(), value.length() * sizeof(wchar_t));
+    if(status == ERROR_SUCCESS) {
+      ret = true;
+    }
+    RegCloseKey(hKey);
+  }
+  return ret;
+}
+
+bool persistence_getDword(const std::wstring &name, DWORD &value) {
+  LSTATUS status;
+  DWORD BufferSize = sizeof(DWORD);
+  status = RegGetValueW(
+      HKEY_CURRENT_USER,
+      L"SOFTWARE\\Ember Launcher",
+      name.c_str(), RRF_RT_REG_DWORD, NULL, (PVOID) &value, &BufferSize
+  );
+  if(status != ERROR_SUCCESS) {
+    return false;
+  }
+  return true;
+}
+
+bool persistence_setDword(const std::wstring &name, DWORD value) {
+  LSTATUS status;
+  HKEY hKey = NULL;
+  status = RegOpenKeyExW(HKEY_CURRENT_USER, L"SOFTWARE\\Ember Launcher", REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, &hKey);
+  if(status == ERROR_FILE_NOT_FOUND) {
+    status = RegCreateKeyExW(HKEY_CURRENT_USER, L"SOFTWARE\\Ember Launcher", 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, NULL);
+  }
+  bool ret = false;
+  if(status == ERROR_SUCCESS) {
+    status = RegSetValueExW(hKey, name.c_str(), 0, REG_DWORD, (BYTE *) &value, sizeof(value));
+    if(status == ERROR_SUCCESS) {
+      ret = true;
+    }
+    RegCloseKey(hKey);
+  }
+  return ret;
 }
 
 void loadDk2Path() {
@@ -436,6 +609,56 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
 
       loadDk2Path();
       onDK2DirUpdated();
+
+      {
+        DWORD isFullscreen = 0;
+        if(persistence_getDword(L"fullscreen", isFullscreen)) {
+          FullscreenBtn.setCheck((int) isFullscreen);
+        } else {
+          FullscreenBtn.setCheck(BST_INDETERMINATE);
+        }
+      }
+      {
+        DWORD isDpiAware = 0;
+        if(persistence_getDword(L"dpi_aware", isDpiAware)) {
+          DPIBtn.setCheck((int) isDpiAware);
+        } else {
+          FullscreenBtn.setCheck(BST_UNCHECKED);
+        }
+      }
+      std::wstring menu_resolution;
+      persistence_getStr(L"menu_resolution", menu_resolution);
+      std::wstring game_resolution;
+      persistence_getStr(L"game_resolution", game_resolution);
+
+      screenModeList.emplace_back(0, 0);
+      enumModes(hwnd, screenModeList);
+      std::sort(screenModeList.begin(), screenModeList.end(), [](screen_mode &i1, screen_mode &i2) -> bool {
+        return (i1.width * i1.height < i2.width * i2.height);
+      });
+      int menuSel = 0;
+      int gameSel = 0;
+      int i = 0;
+      for(auto &mode : screenModeList) {
+        std::wstringstream ss;
+        if(mode.width == 0 && mode.height == 0) {
+          ss << "let dk2 decide";
+        } else {
+          ss << mode.width << "x" << mode.height;
+        }
+        std::wstring value = ss.str();
+        MenuModesCombo.addString(value.c_str());
+        GameModesCombo.addString(value.c_str());
+        if(menu_resolution == value) {
+          menuSel = i;
+        }
+        if(game_resolution == value) {
+          gameSel = i;
+        }
+        i++;
+      }
+      MenuModesCombo.setCurSel(menuSel);
+      GameModesCombo.setCurSel(gameSel);
       break;
     }
     case WM_SIZE: {
@@ -464,13 +687,31 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
           try {
             startAction(hwnd);
           } catch(...) {
-
+            printStatus("launcher exception");
+            ShowWindow(hwnd, SW_SHOW);
           }
 
           lockGui(false);
           updateStatus();
         });
         thr.detach();
+//      } else if (hm == GameModesCombo.id) {
+//        if(HIWORD(wParam) == CBN_SELCHANGE) {
+//          auto &mode = screenModeList[GameModesCombo.getCurSel()];
+//          std::stringstream ss;
+//          ss << mode.width << "x" << mode.height;
+//          std::string value = ss.str();
+//          printStatus("selected %s", value.c_str());
+//          updateStatus();
+//        }
+//      } else if (hm == DPIBtn.id) {
+//        if(HIWORD(wParam) == BN_CLICKED) {
+//          std::stringstream ss;
+//          ss << DPIBtn.getCheck();
+//          std::string value = ss.str();
+//          printStatus("selected %s", value.c_str());
+//          updateStatus();
+//        }
       }
       break;
     }
@@ -481,6 +722,20 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
       return (INT_PTR)(HBRUSH)BGColorBrush;
     }
     case WM_DESTROY:
+      persistence_setDword(L"fullscreen", (DWORD) FullscreenBtn.getCheck());
+      persistence_setDword(L"dpi_aware", (DWORD) DPIBtn.getCheck());
+      {
+        auto &mode = screenModeList[MenuModesCombo.getCurSel()];
+        std::wstringstream ss;
+        ss << mode.width << "x" << mode.height;
+        persistence_setStr(L"menu_resolution", ss.str());
+      }
+      {
+        auto &mode = screenModeList[GameModesCombo.getCurSel()];
+        std::wstringstream ss;
+        ss << mode.width << "x" << mode.height;
+        persistence_setStr(L"game_resolution", ss.str());
+      }
       PostQuitMessage(0);
       break;
     default:

@@ -1539,7 +1539,7 @@
 00528430 CButton_visitCursor fun
 005284B0 CButton_containsPoint fun
 00528570 CButton_getScreenAABB fun
-00528610 handleClick fun
+00528610 CClickButton_handleClick fun
 005286E0 CRadioButton::fun_5286E0 fun
 005287E0 CRadioButton::fun_5287E0 fun
 00528800 CVerticalSlider::fun_528800 fun
@@ -1607,7 +1607,7 @@
 0052C540 CGuiManager_findGameWindowById fun
 0052C5A0 CGuiManager_sub_52C5A0 fun
 0052C5F0 CGuiManager_sub_52C5F0 fun
-0052C630 CGuiManager_sub_52C630 fun
+0052C630 CGuiManager_scaleAabb fun
 0052C6D0 ?create@CButton@@SAPAU1@HPADH@Z fun
 0052C9F2 def_52C6FD 
 0052CA3C jpt_52C6FD 
@@ -1623,7 +1623,7 @@
 0052CDC0 CWindow_sub_52CDC0 fun
 0052CE50 CWindow_getScreenPos fun
 0052CED0 CWindow_configure fun
-0052CF90 probably_copySurface fun
+0052CF90 MySurface_static_copy fun
 0052D3A0 AABB_contains fun
 0052D3E0 MySurfDesc_init fun
 0052D410 probably_copySurface_16bpp_noAlpha fun
@@ -1642,7 +1642,7 @@
 0052F140 CFrontEndComponent::launchGame fun
 0052F550 CFrontEndComponent::fun_52F550 fun
 0052F9E0 CFrontEndComponent::maybe_update_textures fun
-0052FAF0 CFrontEndComponent_onKeyboardActionWithCtrl fun
+0052FAF0 ?onKeyboardActionWithCtrl@CFrontEndComponent@dk2@@SAHHHHPAV12@@Z fun
 0052FBF0 CFrontEndComponent_onMouseAction fun
 0052FE40 nullsub_8 fun
 0052FE50 CFrontEndComponent_onWindowMsg fun
@@ -1650,11 +1650,12 @@
 00530402 def_530233 
 0053040C jpt_530233 
 00530440 CListBox_sub_530440 fun
-005306F0 execute_action fun
+005306F0 ?execute@CFrontEndComponent@dk2@@SAHIHPAV12@@Z fun
 005318F9 def_5318BB 
 00531CFB def_530728 
 00531D28 jpt_530728 
 00531EC0 jpt_5318BB 
+00532170 CFrontEndComponent_findBtnBySomeId fun
 00532226 def_5321C7 
 00532288 jpt_5321C7 
 005322D0 CFrontEndComponent_getCurrentWindow fun
@@ -1692,6 +1693,8 @@
 005352B0 jpt_5351DF 
 00535950 CFrontEndComponent_sub_535950 fun
 00535A30 CFrontEndComponent_sub_535A30 fun
+00535F50 ?renderApplyBtn@CClickButton@dk2@@SAXPAU12@PAVCFrontEndComponent@2@@Z fun
+00536070 ?renderExitBtn@CClickButton@dk2@@SAXPAU12@PAVCFrontEndComponent@2@@Z fun
 00536370 CFrontEndComponent_sub_536370 fun
 00536517 def_5364A1 
 00536686 def_53640C 
@@ -1720,7 +1723,7 @@
 005392C8 jpt_53924D 
 00539A31 def_539737 
 00539A38 jpt_539737 
-00539E00 __saveAddressBookWinsock fun
+00539E00 CFrontEndComponent_saveAddressBookWinsock fun
 0053B6F0 def_53B61B 
 0053B704 jpt_53B61B 
 0053B840 show_cond_movie fun
@@ -1753,6 +1756,7 @@
 005444FC jpt_5440AF 
 00544BC4 def_544B3A 
 00544DC0 jpt_544B3A 
+005457A0 CFrontEndComponent_static_sub_5457A0 fun
 005476F7 def_547642 
 005476FC jpt_547642 
 0054787A def_5477C2 
@@ -1791,6 +1795,9 @@
 0054AA34 jpt_54A947 
 0054BCA5 def_54BC4C 
 0054BCE0 jpt_54BC4C 
+0054C2A0 ResolutionBtn_pressFun_54C2A0 fun
+0054C3F0 ResolutionBtn_releaseFun_54C3F0 fun
+0054DB20 CFrontEndComponent_54DB20 fun
 0054EE30 _malloc_0 fun
 0054EE50 ?_Term@?$ctype@D@std@@KAXXZ_1 fun
 0054F160 CListBox_LoadGame_SaveList_render fun
@@ -1815,6 +1822,7 @@
 005524E0 ??1CGlow@@UAE@XZ fun
 00552BC0 CComponent_constructor fun
 00552C60 CComponent_release fun
+00552C70 CFrontEndComponent_552C70 fun
 00552CA0 MyLangObj_static_init fun
 00552CC0 MyLangObj_static_destroy fun
 00552CD0 FontObj_3_static_constructor fun
@@ -1891,6 +1899,7 @@
 00555BD0 ??1CWindowTest@@UAE@XZ fun
 00555CC0 ?create@CWindowTest@dk2@@QAEAAHAAHPAUAABB@2@@Z fun
 00555F30 ?recreateBullfrog@CWindowTest@dk2@@QAEAAHAAH@Z fun
+00555FF0 CWindowTest_getClientRect fun
 00556030 CWindowTest::createSurface fun
 00556170 nullsub_9 fun
 00556180 CWindowTest_sub_556180 fun
@@ -1898,6 +1907,7 @@
 00556330 CWindowTest::_probably_do_show_window_ev0_7 fun
 00556590 AABB_appendPoint fun
 005565E0 CWindowTest::getSurface fun
+005565F0 CWindowTest_recreate fun
 00556650 ?proc@CWindowTest@dk2@@SGJPAUHWND__@@IIJ@Z fun
 005566CF def_5566AF 
 00556704 jpt_5566AF 
@@ -1909,6 +1919,7 @@
 00556A20 CFileManager_sub_556A20 fun
 00556B70 CFileManager::fun_556B70 fun
 00556C90 CFileManager_sub_556C90 fun
+00557230 calc_moon_age fun
 00557390 ?static_init@MyGame@@SAXXZ fun
 005573B0 ?static_destroy@MyGame@@SAXXZ fun
 005573C0 collect_devices_DDEnumCB fun
@@ -1922,7 +1933,7 @@
 00557FB0 MyGame_isOsCompatible fun
 00557FD0 ?isOsVersionGE@dk2@@YGHHHG@Z fun
 005580E0 MyGame_release fun
-005581B0 ?prepareScreen@MyGame@dk2@@QAEXHHHHHH@Z fun
+005581B0 ?prepareScreen@MyGame@dk2@@QAEHHHHHHH@Z fun
 005586E0 MyGame_sub_5586E0 fun
 00558770 MyGame_sub_558770 fun
 005587C0 MyGame_sub_5587C0 fun
@@ -1946,6 +1957,7 @@
 005596D0 MyGame_sub_5596D0 fun
 00559710 MyGame_static_callback fun
 00559770 MyGame_sub_559770 fun
+005597F0 MyGame_5597F0 fun
 00559BB0 unknown_libname_38 fun
 00559D00 MldPlay_reinitializeNetworkSystem fun
 00559F57 def_559EE5 
@@ -1997,8 +2009,24 @@
 00561BF0 MyKeyboard_sub_561BF0_totalEvilRating fun
 00561E40 MyKeyboard_sub_561E40 fun
 005626C0 settings_fun fun
-00563A20 set_music fun
-00563AB0 set_speech fun
+00562960 MyResources_f29CB_constructor fun
+005629C0 MyResources_f29CB_resolveValues fun
+00562C30 MyResources_f29CB_setDefaults fun
+00563170 MyResources_f29CB_loadFromSettings fun
+00563490 MyResources_f29CB_setSpeechVolume fun
+00563520 MyResources_f29CB_setSoundEffectVolume fun
+005635B0 MyResources_f29CB_setMusicVolume fun
+00563640 MyResources_f29CB_setMasterVolume fun
+005636D0 MyResources_f29CB_setMasterBalance fun
+00563750 MyResources_f29CB_setEnvironmentslEffects fun
+005637E0 MyResources_f29CB_setSoundQuality fun
+00563870 MyResources_f29CB_setHeadphones fun
+00563900 MyResources_f29CB_setFlipSpeakers fun
+00563990 MyResources_f29CB_setQSound fun
+00563A20 MyResources_f29CB_setMusic fun
+00563AB0 MyResources_f29CB_setSpeech fun
+00563B40 MyResources_f29CB_setSfx fun
+00563BD0 MyResources_f29CB_setNumberOfVoices fun
 00563C50 MyVideoSettings_constructor fun
 00565CF0 set_spec fun
 005663A0 set_shadows_type fun
@@ -2008,6 +2036,7 @@
 00566860 set_bump_mapping_enabled fun
 00566A48 def_566A09 
 00566A50 jpt_566A09 
+00566A70 MyVideoSettings_textIdToResolutionId fun
 00566ABA def_566A86 
 00566AC4 jpt_566A86 
 00566DA0 MyVideoSettings_sub_566DA0 fun
@@ -2044,7 +2073,7 @@
 00567B80 CSoundSystem::set_listener_direction fun
 00567BC0 CSoundSystem::fun_567BC0 fun
 00567BE0 CSoundSystem::fun_567BE0 fun
-00567BF0 CSoundSystem::set_volume fun
+00567BF0 CSoundSystem::setProperty fun
 00567D55 def_567C14 
 00567D5C jpt_567C14 
 00567DA0 CSoundSystem::set_view fun
@@ -2391,6 +2420,7 @@
 005B5410 ?setSurfaceDD@dd@dk2@@SAXPAUIDirectDraw@@@Z fun
 005B5420 MyDdSurface_constructor fun
 005B5460 MyDdSurfaceEx::restoreSurf_if_unk fun
+005B5490 __surface_init_blt fun
 005B567B def_5B54C7 
 005B56D0 jpt_5B54C7 
 005B5700 createSurface fun
@@ -3146,6 +3176,7 @@
 00608B70 TbAudioSystem::fun_608B70 fun
 00608C20 TbAudioSystem::fun_608C20 fun
 00608DA0 TbAudioSystem::fun_608DA0 fun
+00608E40 MyTbAudioSystem_applyAction fun
 00608FB0 TbAudioSystem::fun_608FB0 fun
 006091B0 ??0MyUnk673EB0@@QAE@H@Z fun
 006092C0 ??_GMyUnk673EB0@@UAEPAXI@Z fun
@@ -6761,7 +6792,7 @@
 0068FBA8 aSmallpointPng str
 0068FBB8 aPointPng str
 0068FBC4 aDDevDk2Project_35 str
-00693EF8 ?view00693EF8@gui_globals@dk2@@0PAPAUWindowCfg@2@A 
+00693EF8 ?gameView@gui_globals@dk2@@0PAPAUWindowCfg@2@A 
 00693FEC aGuiSpellsRtD str
 00694000 aGuiIconsLoD str
 00694010 aGuiIconsManaSD str
@@ -6802,6 +6833,24 @@
 00694590 aUnableToLoadPn str
 006945B4 aDk str
 006945BC aD str
+006945C8 Game_EscMenu_BtnArr 
+00694898 Game_Load_BtnArr 
+00694A28 Game_Save_BtnArr 
+00694C08 Game_Options_BtnArr 
+00694E88 Game_GraphicsOptions_BtnArr 
+006952E8 Game_SoundOptions_BtnArr 
+00695A18 Game_AdvancedSoundOptions_BtnArr 
+00696828 Game_EndGame_BtnArr 
+00696A08 Game_Confirm_BtnArr 
+00696BE8 Game_EscMenu_WinCfg 
+00696C30 Game_Load_WinCfg 
+00696C78 Game_Save_WinCfg 
+00696CC0 Game_Options_WinCfg 
+00696D08 Game_GraphicsOptions_WinCfg 
+00696D50 Game_SoundOptions_WinCfg 
+00696D98 Game_AdvancedSoundOptions_WinCfg 
+00696F48 Game_EndGame_WinCfg 
+00696F90 Game_Confirm_WinCfg 
 00696FD8 ??_R0?AVSetEAX@TbSysCommand@@@8 
 00696FE0 aAvseteaxTbsysc str
 00697000 ??_R0?AVStopHandle@TbSysCommand@@@8 
@@ -8941,7 +8990,13 @@
 006AD5E4 aMaps str
 006AD5EC aMpd7_0 str
 006AD5F4 aVLuLu str
-006AE4E0 ?view006AE4E0@gui_globals@dk2@@0PAPAUWindowCfg@2@A 
+006AD610 Main_Main_WinCfg 
+006AD658 Main_SinglePlayer_WinCfg 
+006AD6A0 Main_Scrimish_WinCfg 
+006AD7C0 Main_Main_BtnArr 
+006ADAE0 Main_SinglePlayer_BtnArr 
+006ADD10 Main_Scrimish_BtnArr 
+006AE4E0 ?mainView@gui_globals@dk2@@0PAPAUWindowCfg@2@A 
 006AE568 ??_R0?AVCFrontEndComponent3D@@@8 
 006AE570 aAvcfrontendcom_0 str
 006AF250 aMpdU_0 str
@@ -9142,6 +9197,10 @@
 006B1FB0 aLu str
 006B1FB8 a02lu02lu str
 006B1FD4 aDD_2 str
+006B1FE8 Main_Extras_WinCfg 
+006B2030 Main_TodaysTopKeepers_WinCfg 
+006B2078 Main_Extras_BtnArr 
+006B22A8 Main_TodaysTopKeepers_BtnArr 
 006B2A28 a2 str
 006B2A2C a6a str
 006B2A34 a8_0 str
@@ -9180,7 +9239,16 @@
 006B5A60 aRoomsKwd str
 006B5A6C aCreaturesKwd str
 006B5A7C aD_4 str
+006B5AD0 Main_GraphicsOptions_WinCfg 
+006B5B18 Main_SoundOptions_WinCfg 
+006B5B60 Main_ControlOptions_WinCfg 
+006B5D88 Main_GraphicsOptions_BtnArr 
+006B63C8 Main_SoundOptions_BtnArr 
+006B6AF8 Main_ControlOptions_BtnArr 
 006B7048 aDirect3d str
+006B7060 Main_Multiplayer_WinCfg 
+006B70A8 Main_MultiplayerWinsock_WinCfg 
+006B7310 Main_MultiplayerWinsock_BtnArr 
 006B83B0 aLuLu_0 str
 006B83C8 aLuLu str
 006B83DC aS_2 str
@@ -9397,6 +9465,8 @@
 006BB194 aObjective02 str
 006BB1A4 aObjective01 str
 006BB1B4 aObjective00 str
+006BB1C8 Main_LoadGame_WinCfg 
+006BB210 Main_LoadGame_BtnArr 
 006BB490 aU str
 006BB49C aLd_0 str
 006BBFF8 ??_R0?AVCGlow@@@8 
@@ -10483,10 +10553,10 @@
 007581D4 pGuaranteedDataCallback_owner 
 007581D8 pSystemCallback 
 007581DC pSystemCallback_owner 
-00758340 MyResources_instance 
+00758340 ?instance@MyResources@dk2@@0V12@A 
 0075B310 formattedString 
 0075B418 Data 
-0075B468 MySound_instance 
+0075B468 MySound_ptr 
 0075B880 CSoundSystem_instance 
 0075BA60 String 
 00760B0C dd_gamma_control 
@@ -10569,7 +10639,7 @@
 0079D830 g_confSurfDesc 
 0079D980 ?pathBuf@dk2@@3PADA str
 0079D981 aGamesDungeonKe str
-0079DA88 ?dk2HomeDir@globals@dk2@@0PADA str
+0079DA88 ?dk2HomeDir@globals@dk2@@0PADA 
 0079DBD0 SharedArr79DBD0_instance 
 0079DC68 Obj79DC68_instance 
 0079F174 isBullfrogWindowCreated 

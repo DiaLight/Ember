@@ -67,6 +67,12 @@ void __fastcall proxy_fun3_xyzAction(dk2::MyMouse *this_, void *edx, dk2::MouseX
 }
 
 bool patch::fix_relative_mouse_data() {
+  std::string arg = api::findArgValue("fullscreen");
+  if(arg.empty()) return true;
+  if(arg != "false" && arg != "true") return false;
+  bool isFullscreen = arg == "true";
+  if(isFullscreen) return true; // ignore patch in fullscreen
+
   if(!replaceXrefs(funptr<&dk2::MyMouse::fun3_xyzAction>(), proxy_fun3_xyzAction)) return false;
   return true;
 }

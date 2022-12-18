@@ -432,7 +432,7 @@ namespace dk2 {
     int field_F4D;
     __int16 field_F51;
 
-    /*005581B0*/ void prepareScreen(int dwWidth, int dwHeight, int dwRGBBitCount, int isWindowed, int a6, int a7);
+    /*005581B0*/ int prepareScreen(int dwWidth, int dwHeight, int dwRGBBitCount, int isWindowed, int a6, int a7);
     /*005595C0*/ void debugMsg(char *format, ...);
 
   };

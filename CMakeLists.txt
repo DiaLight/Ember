@@ -98,13 +98,23 @@ set(SOURCES
         api/Buf.cpp
         api/patch.cpp
         patches/reduce_title_screen_time.cpp
-        patches/force_windowed_mode.cpp
+        patches/control_windowed_mode.cpp
         patches/add_win10_support.cpp
         patches/mouse_dinput/fix_relative_mouse_data.cpp
         patches/mouse_dinput/replace_mouse_dinput_to_user32.cpp
         patches/mouse_user32/fix_mouse_pos_on_resized_window.cpp
         patches/fix_close_window.cpp
         patches/use_cwd_as_dk2_home_dir.cpp
+        patches/screen_resolution/patch_menu_resolution.cpp
+        patches/screen_resolution/patch_game_resolution.cpp
+        patches/screen_resolution/expand_surf_idx_array.cpp
+        patches/screen_resolution/expand_surf_hash_list.cpp
+        patches/screen_resolution/patch_draw_buffer_extra_size.cpp
+        patches/screen_resolution/replace_custom_heap.cpp
+        patches/screen_resolution/dpi_aware.cpp
+        reimpl/SurfHashList__probablySort.cpp
+        reimpl/draw3dScene.cpp
+        stdex.cpp
 )
 if(REVERSE_MODE)
     enable_language(ASM_MASM)

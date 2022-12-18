@@ -13,6 +13,11 @@ namespace {
 }
 
 bool patch::fix_mouse_pos_on_resized_window() {
+  std::string arg = api::findArgValue("fullscreen");
+  if(arg.empty()) return true;
+  if(arg != "false" && arg != "true") return false;
+  bool isFullscreen = arg == "true";
+  if(isFullscreen) return true; // ignore patch in fullscreen
   api::BEFORE_WINDOW_PROC.emplace_back([](HWND &hWnd, UINT &Msg, WPARAM &wParam, LPARAM &lParam) {
     switch(Msg) {
       case WM_CREATE: {

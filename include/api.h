@@ -49,10 +49,18 @@ namespace api {
   extern std::vector<std::function<void(int argc, char *argv[], int &exitCode)>> AFTER_MAIN;
   extern std::vector<std::function<void()>> ALL_READY_TO_START;
 
+  extern std::vector<std::string> EMBER_ARGS;
+  extern std::vector<std::string> DK2_ARGS;
+
   bool initialize();
+
+  std::string findArgValue(const std::string &name);
+  bool hasFlag(const std::string &name);
 
 }
 
 bool replaceXrefs(uint8_t *fun, void *proxy);
+
+std::vector<std::string> split(const std::string &s, char separator);
 
 #endif //EMBER_API_H

@@ -203,8 +203,8 @@ namespace dk2 {
     BYTE gap_61A4[336];
     AABB aabb15_x8[8];
     BYTE gap6374[669];
-    MySurface surf61_x3[3];
-    MySurface surf62_x3[3];
+    MySurface surf61_x3_applyBtn[3];
+    MySurface surf62_x3_exitBtn[3];
     BYTE gap_6701[4];
     BYTE field_6705;
     BYTE field_6706;
@@ -223,7 +223,7 @@ namespace dk2 {
     AABB aabb16_x16x30x6[16][30][6];
     MySurface surf64_x16x30x6[16][30][6];
     DWORD cglow_obj_start;
-    MySurface surf65;
+    MySurface surf65_btnRenderOut;
     MySurface surf66_x16[16];
     AABB aabb17_x16x30[16][30];
     BYTE gap2FE0D[1292];
@@ -295,10 +295,20 @@ namespace dk2 {
     int f311F6;
 
     /*005340F0*/ void showTitleScreen();
+
+    /*005306F0*/ static int __cdecl execute(unsigned int idx, int command, CFrontEndComponent *obj);
+    /*0052FAF0*/ static int __cdecl onKeyboardActionWithCtrl(
+        int keyCode,
+        int isPressed,
+        int controlKeyFlags,
+        CFrontEndComponent *frontend);
+
   };
 #pragma pack(pop)
   static_assert(sizeof(CFrontEndComponent) == 0x311FA);
 
 }
+// ?CFrontEndComponent_static_onKeyboardActionWithCtrl@@YAHHHHPAVCFrontEndComponent@dk2@@@Z
+// ?onKeyboardActionWithCtrl@CFrontEndComponent@dk2@@SAHHHHPAV12@@Z
 
 #endif //EMBER_CFRONTENDCOMPONENT_H

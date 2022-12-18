@@ -140,6 +140,12 @@ bool emulate_dinput_from_user32() {
   return true;
 }
 bool patch::replace_mouse_dinput_to_user32() {
+  std::string arg = api::findArgValue("fullscreen");
+  if(arg.empty()) return true;
+  if(arg != "false" && arg != "true") return false;
+  bool isFullscreen = arg == "true";
+  if(isFullscreen) return true; // ignore patch in fullscreen
+  
   if(!remove_mouse_dinput()) return false;
   if(!emulate_dinput_from_user32()) return false;
 

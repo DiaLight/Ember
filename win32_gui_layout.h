@@ -133,6 +133,33 @@ namespace gui {
   };
 
 
+  struct combobox_elem_t : public gui_elem_t {
+
+    explicit combobox_elem_t(const wchar_t *text, DWORD style) : gui_elem_t(WC_COMBOBOXW, text, style) {}
+
+    void limitText(int cchMax) { SendMessageW(hwnd, CB_LIMITTEXT, (WPARAM)(cchMax), 0L); }
+
+    DWORD getEditSel() { return (DWORD)SendMessageW(hwnd, CB_GETEDITSEL, 0L, 0L); }
+    void setEditSel(int ichStart, int ichEnd) { (int)(DWORD)SendMessageW(hwnd, CB_SETEDITSEL, 0L, MAKELPARAM((ichStart), (ichEnd))); }
+
+    void addString(LPCWSTR lpsz) { (int)(DWORD)SendMessageW(hwnd, (UINT) CB_ADDSTRING, (WPARAM) 0, (LPARAM)lpsz); }
+    void insertString(int index, LPCTSTR lpsz) { (int)(DWORD)SendMessageW(hwnd, CB_INSERTSTRING, (WPARAM)(int)(index), (LPARAM)(lpsz)); }
+
+    void addItemData(LRESULT data) { (int)(DWORD)SendMessageW(hwnd, CB_ADDSTRING, 0L, (LPARAM)(data)); }
+    void insertItemData(int index, LRESULT data) { (int)(DWORD)SendMessageW(hwnd, CB_INSERTSTRING, (WPARAM)(int)(index), (LPARAM)(data)); }
+
+    LRESULT getItemData(int index) { return (LRESULT)(ULONG_PTR)SendMessageW(hwnd, CB_GETITEMDATA, (WPARAM)(int)(index), 0L); }
+    void setItemData(int index, LRESULT data) { (int)(DWORD)SendMessageW(hwnd, CB_SETITEMDATA, (WPARAM)(int)(index), (LPARAM)(data)); }
+
+    int getCurSel() { return (int)(DWORD)SendMessageW(hwnd, CB_GETCURSEL, 0L, 0L); }
+    void setCurSel(int index) { (int)(DWORD)SendMessageW(hwnd, CB_SETCURSEL, (WPARAM)(int)(index), 0L); }
+
+    void selectString(int indexStart, LPCWSTR lpszSelect) { (int)(DWORD)SendMessageW(hwnd, CB_SELECTSTRING, (WPARAM)(int)(indexStart), (LPARAM)(lpszSelect)); }
+    void selectItemData(int indexStart, LPARAM data) { (int)(DWORD)SendMessageW(hwnd, CB_SELECTSTRING, (WPARAM)(int)(indexStart), (LPARAM)(data)); }
+
+  };
+
+
   struct label_elem_t : public gui_elem_t {
 
     explicit label_elem_t(const wchar_t *text, DWORD style) : gui_elem_t(L"STATIC", text, style) {}
@@ -143,6 +170,12 @@ namespace gui {
   struct button_elem_t : public gui_elem_t {
 
     explicit button_elem_t(const wchar_t *text, DWORD style) : gui_elem_t(L"BUTTON", text, style) {}
+
+    int getCheck() { return (int)(DWORD)SendMessageW(hwnd, BM_GETCHECK, 0L, 0L); }
+    void setCheck(int check) { (void)SendMessageW(hwnd, BM_SETCHECK, (WPARAM)(int)(check), 0L); }
+
+    int getState() { return (int)(DWORD)SendMessageW(hwnd, BM_GETSTATE, 0L, 0L); }
+    UINT setState(int state) { return (UINT)(DWORD)SendMessageW(hwnd, BM_SETSTATE, (WPARAM)(int)(state), 0L); }
 
   };
 

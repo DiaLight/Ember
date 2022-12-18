@@ -14,6 +14,10 @@
 #include <sstream>
 #include <iomanip>
 
+#define hex32(val) std::hex << std::uppercase << std::setfill(L'0') << std::setw(8) << ((uint32_t) val) << std::dec
+#define hex16(val) std::hex << std::uppercase << std::setfill(L'0') << std::setw(4) << ((uint16_t) val) << std::dec
+#define hex8(val) std::hex << std::uppercase << std::setfill(L'0') << std::setw(2) << ((uint8_t) val) << std::dec
+
 enum SpOpKind {
   SP_Invalid,
   SP,
@@ -383,9 +387,6 @@ private:
     return TRUE;
   }
 };
-
-#define hex32(val) std::uppercase << std::setfill(L'0') << std::setw(8) << std::hex << (val) << std::dec
-#define hex16(val) std::uppercase << std::setfill(L'0') << std::setw(4) << std::hex << (val) << std::dec
 
 bool visit_dk2_frame(CONTEXT *ctx, StackLimits &limits, std::wstringstream &ss) {
   uint32_t rva = (uint8_t *) ctx->Eip - dk2_base;

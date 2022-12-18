@@ -9,12 +9,19 @@ namespace patch {
 
   bool reduce_title_screen_time();
   bool use_cwd_as_dk2_home_dir();
-  bool force_windowed_mode();
+  bool control_windowed_mode();
   bool add_win10_support();
   bool fix_relative_mouse_data();
   bool fix_mouse_pos_on_resized_window();
   bool fix_close_window();
   bool replace_mouse_dinput_to_user32();
+  bool patch_menu_resolution();
+  bool patch_game_resolution();
+  bool expand_surf_idx_array();
+  bool expand_surf_hash_list();
+  bool patch_draw_buffer_extra_size();
+  bool replace_custom_heap();
+  bool dpi_aware();
 
 }
 

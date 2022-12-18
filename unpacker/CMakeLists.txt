@@ -30,4 +30,3 @@ add_custom_command(OUTPUT unpacker.res
 
 add_executable(unpacker WIN32 unpacker.cpp unpacker.res)
 target_link_libraries(unpacker ${CMAKE_CURRENT_BINARY_DIR}/unpacker.res)
-set_target_properties(unpacker PROPERTIES DEBUG_POSTFIX d)

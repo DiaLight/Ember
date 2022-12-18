@@ -79,3 +79,4 @@ fabric.properties
 # Ember project
 /build
 dev.h
+/dev

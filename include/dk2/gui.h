@@ -6,61 +6,13 @@
 #define EMBER_GUI_H
 
 #include <dk2/utils.h>
+#include <dk2/gui_elements.h>
 
 namespace dk2 {
 
   struct CWindow;
   struct CGuiManager;
   struct CDefaultPlayerInterface;
-
-  struct CGadget {  // vft=0066ED14
-    struct vtbl_t {
-      void (__fastcall *scalar_deleting_destructor)(void *_this, void *edx, bool del);
-    };
-    inline vtbl_t *vtbl() { return *(vtbl_t **) this; }
-    virtual ~CGadget();
-
-    int x_offs;
-    int y_offs;
-    int width;
-    int height;
-    Area2i pos;
-
-  };
-  static_assert(sizeof(CGadget) == 0x24);
-
-#pragma pack(push, 1)
-  struct CButton : public CGadget {
-    DWORD field_20;
-    DWORD f24_renderFun;
-    DWORD field_28;
-    DWORD f2C_textId;
-    DWORD f30_idxLow;
-    int f34_idxHigh;
-    DWORD f38_unkIdx;
-    BYTE field_3C;
-    DWORD field_3D;
-    DWORD field_41;
-    DWORD f45_containsCursor;
-    int f49_actionFun;
-    int field_4D;
-    CWindow *f51_pWindow;
-    DWORD field_55;
-    DWORD field_59;
-    DWORD f5D_isVisible;
-    WORD f61_posFlags;
-    DWORD field_63;
-    DWORD field_67;
-    DWORD field_6B;
-    BYTE f6F_kind;
-    DWORD f70_;
-    DWORD f74_prev;
-    CButton *f78_next;
-    virtual ~CButton();
-
-  };
-#pragma pack(pop)
-  static_assert(sizeof(CButton) == 0x80);
 
 #pragma pack(push, 1)
   struct ButtonCfg {
@@ -72,7 +24,7 @@ namespace dk2 {
     DWORD field_E;
     DWORD field_12;
     DWORD field_16;
-    DWORD field_1A;
+    DWORD f1A__actionId;
     WORD f1E_posFlags;
     __int16 f20_x;
     __int16 f22_y;
@@ -233,11 +185,11 @@ namespace dk2 {
   };
 
   class gui_globals {
-    /*006AE4E0*/ static WindowCfg *view006AE4E0[];
-    /*00693EF8*/ static WindowCfg *view00693EF8[];
+    /*006AE4E0*/ static WindowCfg *mainView[];
+    /*00693EF8*/ static WindowCfg *gameView[];
   public:
-    inline static WindowCfg **getMainGuiConfig() { return (WindowCfg **) funptr<&view006AE4E0>(); }
-    inline static WindowCfg **getInGameGuiConfig() { return (WindowCfg **) funptr<&view00693EF8>(); }
+    inline static WindowCfg **getMainGuiConfig() { return (WindowCfg **) funptr<&mainView>(); }
+    inline static WindowCfg **getInGameGuiConfig() { return (WindowCfg **) funptr<&gameView>(); }
 
     static WindowCfg *getMainWindowCfg(MainGuiId id) {
       auto *pos = dk2::gui_globals::getMainGuiConfig();

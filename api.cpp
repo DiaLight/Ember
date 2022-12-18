@@ -18,6 +18,7 @@
 #include <ios>
 #include <io.h>
 #include <fcntl.h>
+#include <stdex.h>
 
 std::wstring g_curExeDir;
 
@@ -223,8 +224,17 @@ namespace api {
   HookHandle *allReadyToStart = nullptr;
   std::vector<std::function<void()>> ALL_READY_TO_START;
 
+  std::vector<std::string> EMBER_ARGS;
+  std::vector<std::string> DK2_ARGS;
+
   int __cdecl proxy_main(int argc, char *argv[]) {
     int exitCode = -1;
+    argc = DK2_ARGS.size();
+    std::vector<char *> args;
+    args.reserve(DK2_ARGS.size());
+    for(auto &arg : DK2_ARGS) args.push_back((char *) arg.c_str());
+    args.push_back(NULL);
+    argv = &*args.begin();
 
     for(auto &F : BEFORE_MAIN) {
       exitCode = F(argc, argv);
@@ -235,6 +245,24 @@ namespace api {
       F(argc, argv, exitCode);
     }
     return exitCode;
+  }
+
+  std::string findArgValue(const std::string &name) {
+    for(auto &arg : EMBER_ARGS) {
+      if(arg.starts_with(name + "=")) {
+        return arg.substr(name.length() + 1);
+      }
+    }
+    return std::string();
+  }
+
+  bool hasFlag(const std::string &name) {
+    for(auto &arg : EMBER_ARGS) {
+      if(arg == name) {
+        return true;
+      }
+    }
+    return false;
   }
 
   bool initialize() {
@@ -256,6 +284,25 @@ namespace api {
     }
     printf("bootstrap patcher base: %p\n", g_bootstrap_patcher);
     printf("dk2 base: %p\n", dk2_base);
+
+    int nArgs;
+    LPWSTR *szArglist = CommandLineToArgvW(GetCommandLineW(), &nArgs);
+    if(szArglist == NULL) {
+      printf("CommandLineToArgvW failed\n");
+      return false;
+    }
+    for(int i = 0; i < nArgs; i++) {
+      std::wstring warg(szArglist[i]);
+      std::string arg = utf8_encode(warg);
+      printf("%d: %ws\n", i, szArglist[i]);
+      if(i != 0 && arg.starts_with("-ember:")) {
+        arg = arg.substr(7);
+        EMBER_ARGS.push_back(arg);
+      } else DK2_ARGS.push_back(arg);
+    }
+
+
+    LocalFree(szArglist);
 
     g_curExeDir.resize(MAX_PATH, L'\0');
     if(GetModuleFileNameW(g_bootstrap_patcher, &*g_curExeDir.begin(), MAX_PATH) == 0) return false;
