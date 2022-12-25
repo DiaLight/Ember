@@ -4,6 +4,7 @@
 #include <api.h>
 #include <api/window.h>
 #include <dk2/window.h>
+#include <dk2.h>
 
 namespace api {
 
@@ -25,8 +26,24 @@ namespace api {
     return lResult;
   }
 
+  std::vector <std::function<BOOL(dk2::MyGame *game, int &dwWidth, int &dwHeight, int &dwRGBBitCount, int &isWindowed, int &a6, int &a7)>> BEFORE_PREPARE_SCREEN;
+  int g_width = 0;
+  int g_height = 0;
+
+// handling __thiscall though  __fastcall
+// __thiscall: ecx, esp[0], esp[1], esp[2], ...
+// __fastcall: ecx, edx, esp[0], esp[1], ...
+  int __fastcall proxy_prepareScreen(dk2::MyGame *this_, void *edx, int dwWidth, int dwHeight, int dwRGBBitCount, int isWindowed, int a6, int a7) {
+    g_width = dwWidth;
+    g_height = dwHeight;
+    printf("prepareScreen %p %dx%d %d %d %d %d\n", this_, dwWidth, dwHeight, dwRGBBitCount, isWindowed, a6, a7);
+    for(auto &F : BEFORE_PREPARE_SCREEN) if(!F(this_, dwWidth, dwHeight, dwRGBBitCount, isWindowed, a6, a7)) return FALSE;
+    return this_->prepareScreen(dwWidth, dwHeight, dwRGBBitCount, isWindowed, a6, a7);
+  }
+
   bool initWindow() {
     if(!replaceXrefs(funptr<&dk2::CWindowTest::proc>(), proxy_proc)) return false;
+    if(!replaceXrefs(funptr<&dk2::MyGame::prepareScreen>(), proxy_prepareScreen)) return false;
     return true;
   }
 

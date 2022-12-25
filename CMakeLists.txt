@@ -112,6 +112,7 @@ set(SOURCES
         patches/screen_resolution/patch_draw_buffer_extra_size.cpp
         patches/screen_resolution/replace_custom_heap.cpp
         patches/screen_resolution/dpi_aware.cpp
+        patches/screen_resolution/fix_surface_buffer_size_on_max_resolution.cpp
         reimpl/SurfHashList__probablySort.cpp
         reimpl/draw3dScene.cpp
         stdex.cpp

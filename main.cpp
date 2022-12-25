@@ -24,6 +24,7 @@ extern "C" __declspec(dllexport) bool __cdecl ember_initialize() {
   if(!patch::expand_surf_idx_array()) return false;
   if(!patch::expand_surf_hash_list()) return false;
   if(!patch::patch_draw_buffer_extra_size()) return false;
+  if(!patch::fix_surface_buffer_size_on_max_resolution()) return false;
   if(!patch::replace_custom_heap()) return false;
   if(!patch::dpi_aware()) return false;
 

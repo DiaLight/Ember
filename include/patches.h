@@ -20,6 +20,7 @@ namespace patch {
   bool expand_surf_idx_array();
   bool expand_surf_hash_list();
   bool patch_draw_buffer_extra_size();
+  bool fix_surface_buffer_size_on_max_resolution();
   bool replace_custom_heap();
   bool dpi_aware();
 

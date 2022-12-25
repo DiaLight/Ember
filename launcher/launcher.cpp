@@ -242,6 +242,23 @@ bool enumModes(HWND hWnd, std::vector<screen_mode> &list) {
   return true;
 }
 
+struct CollectWindows {
+  DWORD procId = 0;
+  DWORD count = 0;
+};
+
+BOOL CALLBACK CollectWindows_WndEnumProc(HWND hWnd, LPARAM lParam) {
+  CollectWindows &collect = *(CollectWindows *) lParam;
+  DWORD procId = 0;
+  GetWindowThreadProcessId(hWnd, &procId);
+  if(collect.procId == procId) {
+    DWORD dwStyle = GetWindowStyle(hWnd);
+    if((dwStyle & WS_VISIBLE) != 0) {
+      collect.count++;
+    }
+  }
+  return TRUE;
+}
 
 bool CreateProcess_runAndWait(const wchar_t *cmd, const wchar_t *dir, DWORD &lastError, DWORD &exitCode) {
   SECURITY_ATTRIBUTES saAttr;
@@ -289,6 +306,26 @@ bool CreateProcess_runAndWait(const wchar_t *cmd, const wchar_t *dir, DWORD &las
     return false;
   }
 
+  std::thread thr([&pi] {  // window observer thread
+    while(WaitForSingleObject(pi.hProcess, 2000) == WAIT_TIMEOUT) {
+      CollectWindows collect;
+      std::stringstream ss;
+      collect.procId = pi.dwProcessId;
+      EnumWindows(CollectWindows_WndEnumProc, (LPARAM) &collect);
+      if(collect.count != 0) continue;
+      if(WaitForSingleObject(pi.hProcess, 2000) != WAIT_TIMEOUT) break;
+      collect.count = 0;
+      EnumWindows(CollectWindows_WndEnumProc, (LPARAM) &collect);
+      if(collect.count != 0) continue;
+      int iStatus = MessageBoxA(NULL,
+                  "Running process without open windows detected\n"
+                  "terminate DK2 process?",
+                  "DK2 window observer thread", MB_OKCANCEL);
+      if(iStatus == IDOK) {
+        TerminateProcess(pi.hProcess, 1);
+      }
+    }
+  });
 #define BUFSIZE 4096
   DWORD dwRead;
   std::string line;
@@ -317,6 +354,7 @@ bool CreateProcess_runAndWait(const wchar_t *cmd, const wchar_t *dir, DWORD &las
   CloseHandle(hChildStd_OUT_Rd);
 
   WaitForSingleObject(pi.hProcess, INFINITE);
+  thr.join();
   GetExitCodeProcess(pi.hProcess, &exitCode);
   CloseHandle(pi.hProcess);
   CloseHandle(pi.hThread);
