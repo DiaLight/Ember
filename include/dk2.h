@@ -8,6 +8,7 @@
 #include <ddraw.h>
 #include <dinput.h>
 #include <api.h>
+#include <dk2/globals.h>
 #include <dk2/dd.h>
 #include <dk2/window.h>
 #include <dk2/dinput.h>
@@ -22,27 +23,6 @@
 #include <dk2/CLocalCommunication.h>
 
 namespace dk2 {
-
-  __analysis_noreturn
-  /*00638440*/ void __cdecl start();
-  /*005A5DA0*/ int __cdecl main(int argc, char *argv[]);
-  /*005B74A0*/ void __cdecl resolveDk2HomeDir();
-
-  class globals {
-    /*0079D01C*/ static HINSTANCE hInstance;
-    /*0079D980*/ static char dk2HomeDir[MAX_PATH];
-  public:
-    /*005B2DA0*/ static void __cdecl setHInstance(HINSTANCE hInst);
-    /*005B2D90*/ static HINSTANCE __cdecl getHInstance();
-    // msvc is importing data as functions. So we follow import jump to get actual data address
-    inline static HINSTANCE *getHInstancePtr() { return (HINSTANCE *) funptr<&hInstance>(); }
-
-    /*005B2E50*/ static void __cdecl setAppExitStatus(bool shouldExit);
-    /*005B2E40*/ static bool __cdecl isAppExitStatusSet();
-
-    inline static char *getDk2HomeDir() { return (char *) funptr<&dk2HomeDir>(); }
-
-  };
 
   // use BOOL instead of bool!  sizeof(bool) == 1    sizeof(BOOL) == 4
   /*00557FD0*/ BOOL __stdcall isOsVersionGE(int maxVersion, int minVersion, uint16_t CSDVersion);

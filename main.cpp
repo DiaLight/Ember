@@ -3,6 +3,7 @@
 //
 #include <dk2.h>
 #include <patches.h>
+#include <tools.h>
 
 #if __has_include("dev/dev.h")
 #include "dev/dev.h"
@@ -30,6 +31,8 @@ extern "C" __declspec(dllexport) bool __cdecl ember_initialize() {
 
 //  if(!reimpl::draw3dScene()) return false;
 //  if(!reimpl::SurfHashList__probablySort()) return false;
+
+  if(!tools::unpack_texture_cache()) return false;
 
   // local research
 #if __has_include("dev/dev.h")

@@ -60,6 +60,7 @@
 00403FB0 CDefaultPlayerInterface::fun_403FB0 fun
 00404DB0 AABB_constructor fun
 00404DC0 AABB_constructor_0 fun
+00404E00 MyGame_get_f4C fun
 00405010 CDefaultPlayerInterface_onKeyboardAction fun
 00406530 CDefaultPlayerInterface_onMouseAction fun
 004066A0 CDefaultPlayerInterface_sub_4066A0 fun
@@ -94,6 +95,7 @@
 0040A9AB def_40A78C 
 0040A9C4 jpt_40A78C 
 0040A9F0 cmd_toggleGui fun
+0040AAE0 DefaultPlayerInterfaceCursor_cpp_40AAE0 fun
 0040ACD0 CDefaultPlayerInterface_sub_40ACD0 fun
 0040AE80 CDefaultPlayerInterface_sub_40AE80 fun
 0040B160 CDefaultPlayerInterface_sub_40B160 fun
@@ -159,6 +161,7 @@
 00412F0C jpt_412CD0 
 004137B1 def_413115 
 004141EC jpt_413115 
+004152B0 CWorldEntry_createArr10 fun
 00415B30 CDefaultPlayerInterface_sub_415B30 fun
 00415BC0 CDefaultPlayerInterface_sub_415BC0 fun
 00416070 BtnHandler_sub_416070 fun
@@ -187,7 +190,7 @@
 00417E8C jpt_417D4A 
 00418B70 def_418AA7 
 00418B80 jpt_418AA7 
-00419180 CDefaultPlayerInterface_sub_419180 fun
+00419180 CDefaultPlayerInterface_sub_419180_loadSmth fun
 00419C00 CDefaultPlayerInterface_sub_419C00 fun
 00419DF0 CDefaultPlayerInterface_sub_419DF0 fun
 0041A190 CDefaultPlayerInterface_sub_41A190 fun
@@ -228,6 +231,11 @@
 0042C1E0 CDefaultPlayerInterface::fun_42C1E0 fun
 0042C390 CDefaultPlayerInterface_sub_42C390 fun
 0042C710 CDefaultPlayerInterface::fun_42C710 fun
+0042C7D0 CDefaultPlayerInterface_42C7D0 fun
+0042C9B0 RtGuiView_42C9B0 fun
+0042CAB0 CDefaultPlayerInterface_whatEverFont_42CAB0 fun
+0042CB60 CDefaultPlayerInterface_42CB60 fun
+0042CDF0 CDefaultPlayerInterface_createSurfacesForView_42CDF0 fun
 0042D090 CDefaultPlayerInterface::CTextIconDraw::fun_42D090 fun
 0042D1C0 CDefaultPlayerInterface::CTextIconDraw::fun_42D1C0 fun
 0042D38F def_42D265 
@@ -280,6 +288,10 @@
 004347A0 CEffect::fun_4347A0 fun
 004347B0 ??_GCEffect@@UAEPAXI@Z fun
 004347D0 ??1CEffect@@UAE@XZ fun
+004347E0 Effect_cpp_4347E0 fun
+00435660 Effect_cpp_435660 fun
+00435720 Effect_cpp_435720 fun
+00435E30 EffectDescriptor_cpp_435E30 fun
 00435E70 ??0CEffectElement@@QAE@XZ fun
 00435EB0 CBridgeThing::fun_435EB0 fun
 00435EC0 CEffectElement::fun_435EC0 fun
@@ -287,6 +299,21 @@
 00435EE0 CEffectElement::fun_435EE0 fun
 00435EF0 ??_GCEffectElement@@UAEPAXI@Z fun
 00435F10 ??1CEffectElement@@UAE@XZ fun
+00435F20 EffectElement_cpp_435F20 fun
+00436970 EffectGeneration_cpp_436970 fun
+00436AF0 EffectGeneration_cpp_436AF0 fun
+00436C80 EffectGeneration_cpp_436C80 fun
+00436E60 EffectGeneration_cpp_436E60 fun
+004372A0 EffectGeneration_cpp_4372A0 fun
+00437480 EffectGeneration_cpp_437480 fun
+004375C0 EffectGeneration_cpp_4375C0 fun
+004376E0 BridgeThing_h__4376E0 fun
+00438020 EffectGeneration_cpp_438020 fun
+004386F0 EffectGeneration_cpp_4386F0 fun
+00439100 EffectGeneration_cpp_439100 fun
+00439210 EffectGeneration_cpp_439210 fun
+00439330 EffectGeneration_cpp_439330 fun
+004395F0 EffectGeneration_cpp_4395F0 fun
 004397E0 CBridge::fun_4397E0 fun
 00439880 CBridge::fun_439880 fun
 00439A20 CBridge::fun_439A20 fun
@@ -359,9 +386,11 @@
 00441020 CBridge::fun_441020 fun
 00441040 CBridge::fun_441040 fun
 00441060 CBridge::fun_441060 fun
+00441110 Bridge_cpp_441110 fun
+00441250 Bridge_cpp_441250 fun
 004412C0 CBridge::fun_4412C0 fun
 004412E0 CBridge::fun_4412E0 fun
-00441300 CBridge::fun_441300 fun
+00441300 CBridge_createAndRegister fun
 00441330 CBridge::fun_441330 fun
 00441350 CBridge::fun_441350 fun
 00441370 CBridge::fun_441370 fun
@@ -371,10 +400,12 @@
 004413E0 CBridge::init_float_obj fun
 00441400 CBridge::fun_441400 fun
 00441420 CBridge::fun_441420 fun
+004417A0 Bridge_cpp_4417A0 fun
+00441870 Bridge_cpp_441870 fun
 00441AA0 CBridge::fun_441AA0 fun
 00441AD0 CBridge::fun_441AD0 fun
 00441B00 CBridge::fun_441B00 fun
-00441C70 CBridge::fun_441C70 fun
+00441C70 CBridge::setTexturesPath_441C70 fun
 00441CC0 CBridge::fun_441CC0 fun
 00441E20 CBridge::fun_441E20 fun
 00441E30 CBridge::fun_441E30 fun
@@ -432,6 +463,7 @@
 00443380 create_dword_arr_x4 fun
 004438C6 def_443638 
 004438D0 jpt_443638 
+00444970 BridgeRooms_cpp_444970 fun
 004468E0 ??0CBridgeThing@@QAE@HH@Z fun
 00446A70 ??_GCBridgeThing@@UAEPAXI@Z fun
 00446A90 ??1CBridgeThing@@UAE@XZ fun
@@ -549,25 +581,54 @@
 00454B58 jpt_454A50 
 00455858 def_45554F 
 00455868 jpt_45554F 
+00455F30 CallToArmsState_cpp_455F30 fun
+00456160 CasinoState_cpp_456160 fun
+00456500 CasinoState_cpp_456500 fun
+00456690 CasinoState_cpp_456690 fun
+004567D0 CasinoState_cpp_4567D0 fun
+00456980 CasinoState_cpp_456980 fun
+00456B70 CasinoState_cpp_456B70 fun
+00456EC0 CasinoState_cpp_456EC0 fun
+00457010 CasinoState_cpp_457010 fun
+00457D60 CombatPitState_cpp_457D60 fun
+00457F40 CombatPitState_cpp_457F40 fun
+00458EB0 DisArmTrapState_cpp_458EB0 fun
+00458F60 DisArmTrapState_cpp_458F60 fun
+0045A290 ExploreState_cpp_45A290 fun
+0045A3E0 ExploreState_cpp_45A3E0 fun
 0045D67A def_45D613 
 0045E174 jpt_45D613 
 00460197 def_45FB5E 
 004602C0 jpt_45FB5E 
+004611D0 FightWithDrawState_cpp_4611D0 fun
+00461BB0 GoodState_cpp_461BB0 fun
 00461C93 def_461C45 
 00461DB3 def_461D64 
 00461ED4 jpt_461C45 
 00461EE4 jpt_461D64 
+00461F00 GoodState_cpp_461F00 fun
+00462130 GoodState_cpp_462130 fun
+00462560 GoodState_cpp_462560 fun
 00462840 ?Win95IsDebuggerPresent@@YGHXZ fun
+00462930 GuardState_cpp_462930 fun
+00462D00 GuardState_cpp_462D00 fun
 0046306D def_462DF1 
 00463120 jpt_462DF1 
+00463190 GuardState_cpp_463190 fun
+004632A0 GuardState_cpp_4632A0 fun
+00463BE0 HungerState_cpp_463BE0 fun
 00463CC2 def_463CA1 
 00463DA0 jpt_463CA1 
+00463DF0 ImpState_cpp_463DF0 fun
+00464240 ImpState_cpp_464240 fun
+00464400 ImpState_cpp_464400 fun
 00464A09 def_464840 
 00464A10 jpt_464840 
 00468763 def_46853D 
 00468770 jpt_46853D 
 004688C0 def_4687D6 
 004688C4 jpt_4687D6 
+00468D10 ImpUtils_cpp_468D10 fun
 004691A2 def_468E41 
 0046922C jpt_468E41 
 0046A127 def_46A0C0 
@@ -580,19 +641,50 @@
 0046E35C jpt_46DACF 
 0046E36C jpt_46DCE9 
 0046E37C jpt_46E079 
+0046EAB0 KeeperState_cpp_46EAB0 fun
 0046F149 def_46F02D 
 0046F1B4 jpt_46F02D 
+0046F4F0 LairState_cpp_46F4F0 fun
+00470110 ManufactureState_cpp_470110 fun
+00470470 ManufactureState_cpp_470470 fun
+00470B20 ManufactureState_cpp_470B20 fun
+00471EB0 PatrolState_cpp_471EB0 fun
+004721C0 PatrolState_cpp_4721C0 fun
+00472390 PayState_cpp_472390 fun
+00472AC0 PrayState_cpp_472AC0 fun
+00472D30 PrayState_cpp_472D30 fun
+00473350 PrisonState_cpp_473350 fun
+004739E0 PrisonState_cpp_4739E0 fun
+004748E0 ReaperState_cpp_4748E0 fun
+00474960 ReaperState_cpp_474960 fun
+00474AF0 ReaperState_cpp_474AF0 fun
+00475A20 ResearchState_cpp_475A20 fun
+00475D20 ResearchState_cpp_475D20 fun
+004761F0 ResearchState_cpp_4761F0 fun
+00476390 RunAway_cpp_476390 fun
+004764A0 RunAway_cpp_4764A0 fun
 00476B10 ??0CState@@QAE@XZ fun
 00476B30 ??1CState@@UAE@XZ fun
 00476CB0 CState::fun_476CB0 fun
 00476CF0 CState::fun_476CF0 fun
+004776B0 j_State_cpp_4776C0 fun
+004776C0 State_cpp_4776C0 fun
 004780C0 CompareFunction fun
+004780E0 State_cpp_4780E0 fun
+004782C0 State_cpp_4782C0 fun
+004784C0 State_cpp_4784C0 fun
+00478680 State_cpp_478680 fun
 00478997 def_478882 
 004789A8 jpt_478882 
 00478B40 __RTC_NumErrors fun
 0047973F def_47959A 
 0047986C jpt_47959A 
 00479DED __cfltcvt_init 
+0047AD70 StateGroup_cpp_47AD70 fun
+0047B590 StateGroup_cpp_47B590 fun
+00480750 StateUtils_cpp_480750 fun
+004808E0 StateUtils_cpp_4808E0 fun
+00480A00 StateUtils_cpp_480A00 fun
 00480A81 def_480A79 
 00480AD5 def_480AC5 
 00480C3C def_480BEC 
@@ -601,15 +693,23 @@
 00480EF8 jpt_480AC5 
 00480F2C jpt_480BEC 
 00480F3C jpt_480D62 
+00481610 StateUtils_cpp_481610 fun
+00481D50 StateUtils_cpp_481D50 fun
+00482F80 SulkState_cpp_482F80 fun
+004833C0 ThrowingState_cpp_4833C0 fun
 00483949 def_483928 
 00483990 jpt_483928 
+00483B90 TourtureState_cpp_483B90 fun
 00484940 ret_0_0args_0 fun
+00485310 TrainState_cpp_485310 fun
+00486CF0 WaitState_cpp_486CF0 fun
 00486DF0 ??0Iostream_init@@QAE@XZ_0 fun
 00488520 CCreature::fun_488520 fun
 00488640 CCreature::fun_488640 fun
 00488710 CCreature::fun_488710 fun
 00488750 CCreature::fun_488750 fun
 00488930 CCreature::fun_488930 fun
+0048AD50 Creature_cpp_48AD50 fun
 0048AF80 CCreature::fun_48AF80 fun
 0048B9FC def_48B9F1 
 0048BD88 jpt_48B9F1 
@@ -622,14 +722,19 @@
 0048D880 CCreature::fun_48D880 fun
 0048DA23 def_48D940 
 0048DE50 jpt_48D940 
+0048E160 Creature_cpp_48E160 fun
 0048E830 CCreature::fun_48E830 fun
 0048ED40 CCreature::fun_48ED40 fun
 0048ED7F def_48ED78 
 0048EDC4 jpt_48ED78 
+0048F410 Creature_cpp_48F410 fun
+0048F930 Creature_cpp_48F930 fun
 0048FCA1 def_48FB4C 
 0048FCC0 jpt_48FB4C 
 00490230 CCreature::fun_490230 fun
 00490240 CCreature::fun_490240 fun
+00491900 Creature_cpp_491900 fun
+004919C0 Creature_cpp_4919C0 fun
 004943E0 nullsub_3 fun
 00494470 nullsub_4 fun
 00494540 nullsub_5 fun
@@ -644,8 +749,10 @@
 00494954 jpt_49490E 
 00494C6E def_494A83 
 00494C74 jpt_494A83 
+00499300 CreatureInstance_cpp_499300 fun
 00499993 def_4998F1 
 00499A24 jpt_4998F1 
+00499CA0 CreatureInstance_cpp_499CA0 fun
 0049A535 def_499CEF 
 0049A544 jpt_499CEF 
 0049A7A0 _Ctl3dAutoSubclass@4 fun
@@ -653,6 +760,7 @@
 0049AC18 jpt_49AAC1 
 0049B151 def_49ACBA 
 0049B170 jpt_49ACBA 
+0049B1C0 Game_Object_cpp_49B1C0 fun
 0049B54E def_49B50B 
 0049B564 jpt_49B50B 
 0049B9D0 ??0SetValue@TbSysCommand@@QAE@H@Z fun
@@ -679,14 +787,30 @@
 0049D310 CObject::fun_49D310 fun
 0049F390 def_49F1E8 
 0049F52C jpt_49F1E8 
+0049FE60 ObjectState_cpp_49FE60 fun
+004A0210 ObjectState_cpp_4A0210 fun
+004A03E0 ObjectState_cpp_4A03E0 fun
+004A05B0 ObjectState_cpp_4A05B0 fun
+004A0770 ObjectState_cpp_4A0770 fun
 004A0DE1 def_4A099E 
 004A0E14 jpt_4A099E 
 004A0FE5 def_4A0FC3 
 004A10C8 jpt_4A0FC3 
+004A13F0 ObjectState_cpp_4A13F0 fun
+004A15B0 ObjectState_cpp_4A15B0 fun
 004A17B8 def_4A174F 
 004A17D0 jpt_4A174F 
+004A1A60 ObjectState_cpp_4A1A60 fun
+004A1CF0 ObjectState_cpp_4A1CF0 fun
+004A1F30 ObjectState_cpp_4A1F30 fun
+004A21C0 ObjectState_cpp_4A21C0 fun
+004A24A0 ObjectState_cpp_4A24A0 fun
+004A26D0 ObjectState_cpp_4A26D0 fun
+004A2CE0 ObjectState_cpp_4A2CE0 fun
+004A3D90 ObjectState_cpp_4A3D90 fun
 004A4262 def_4A4000 
 004A426C jpt_4A4000 
+004A4980 Specials_cpp_4A4980 fun
 004A4FC1 def_4A4F9A 
 004A5050 jpt_4A4F9A 
 004A54D0 CDoor::fun_4A54D0 fun
@@ -724,6 +848,9 @@
 004AC924 jpt_4AC7E3 
 004AC940 probably_process_creature_damage fun
 004ACAF0 probably_process_creature_damage_2 fun
+004AD7A0 ShotProcess_cpp_4AD7A0 fun
+004AF8E0 ShotProcess_cpp_4AF8E0 fun
+004AFE50 ShotProcess_cpp_4AFE50 fun
 004B0460 CActionPoint::fun_4B0460 fun
 004B0550 CActionPoint::fun_4B0550 fun
 004B05E0 CActionPoint::fun_4B05E0 fun
@@ -749,6 +876,7 @@
 004B1E70 CMovingThing::fun_4B1E70 fun
 004B1EC0 CMovingThing::fun_4B1EC0 fun
 004B1F10 j_j_CMap::fun_4B4C20 fun
+004B2030 CObject_4B2030 fun
 004B2740 CMovingThing::fun_4B2740 fun
 004B2760 CMovingThing::fun_4B2760 fun
 004B27E0 CMovingThing::fun_4B27E0 fun
@@ -761,8 +889,10 @@
 004B3560 CPhysicalThing::fun_4B3560 fun
 004B3610 ??0CRenderInfo@@QAE@XZ fun
 004B3740 ??1CRenderInfo@@UAE@XZ fun
+004B37D0 RenderInfo_cpp_4B37D0 fun
 004B39E8 def_4B39D1 
 004B3AA0 jpt_4B39D1 
+004B4430 RenderInfo_cpp_4B4430 fun
 004B4537 def_4B44E9 
 004B4540 jpt_4B44E9 
 004B4710 CRenderInfo::fun_4B4710 fun
@@ -832,12 +962,19 @@
 004B8450 ??0CPlayer@@QAE@XZ fun
 004B85A0 ??1CPlayer@@UAE@XZ fun
 004B8D40 CPlayer::fun_4B8D40 fun
+004B9740 Player_cpp_4B9740 fun
+004BA0D0 Player_cpp_4BA0D0 fun
+004BB130 Player_cpp_4BB130 fun
+004BB2A0 Player_cpp_4BB2A0 fun
+004BB6D0 Player_cpp_4BB6D0 fun
 004BC6AE def_4BC5B4 
 004BC6F0 jpt_4BC5B4 
 004BED50 def_4BEC1E 
 004BF348 jpt_4BEC1E 
+004BF410 Player_cpp_4BF410 fun
 004BF65E def_4BF655 
 004BF9AC jpt_4BF655 
+004BF9E0 Player_cpp_4BF9E0 fun
 004C02B9 def_4C0298 
 004C046C jpt_4C0298 
 004C0DA4 def_4C0D42 
@@ -856,6 +993,10 @@
 004C55F0 jpt_4C5567 
 004C571F def_4C5681 
 004C5724 jpt_4C5681 
+004C63D0 PlayerRooms_cpp_4C63D0 fun
+004C6460 PlayerRooms_cpp_4C6460 fun
+004C6860 PlayerRooms_cpp_4C6860 fun
+004C6CF0 PlayerRooms_cpp_4C6CF0 fun
 004C856C def_4C7B44 
 004C8580 jpt_4C7B44 
 004C8A3E def_4C865B 
@@ -906,24 +1047,37 @@
 004D35C0 Avoid_Walls::fun_4D35C0 fun
 004D3C40 Follow_Path::fun_4D3C40 fun
 004D5F50 ??0Obj6ECAE0@@QAE@XZ fun
+004D6270 Casino_cpp_4D6270 fun
+004D6CB0 Casino_cpp_4D6CB0 fun
+004D7A60 CombatPit_cpp_4D7A60 fun
 004D9142 def_4D8EB0 
 004D9267 def_4D917D 
 004D9274 jpt_4D8EB0 
 004D9328 jpt_4D917D 
+004D9410 Crypt_cpp_4D9410 fun
 004D9C80 def_4D9C22 
 004DA134 jpt_4D9C22 
+004DA560 DungeonHeart_cpp_4DA560 fun
+004DAE40 DungeonHeart_cpp_4DAE40 fun
 004DAF32 def_4DAF24 
 004DAF8A def_4DAF6D 
 004DB6B0 jpt_4DAF24 
 004DB6D8 jpt_4DAF6D 
+004DBF90 Entrance_cpp_4DBF90 fun
 004DC8A6 def_4DC851 
 004DC8D4 jpt_4DC851 
+004DD820 Graveyard_cpp_4DD820 fun
+004DD9B0 Graveyard_cpp_4DD9B0 fun
 004DE1CD def_4DE112 fun
 004DE1D0 jpt_4DE112 
+004DE220 Hatchery_cpp_4DE220 fun
+004DE620 Hatchery_cpp_4DE620 fun
+004DEF30 HeroGateFrontEnd_cpp_4DEF30 fun
 004DF016 def_4DEFFC 
 004DF10B def_4DF0E9 
 004DF600 jpt_4DEFFC 
 004DF634 jpt_4DF0E9 
+004DF6E0 HeroGateFrontEnd_cpp_4DF6E0 fun
 004DFA3F def_4DF8F5 
 004DFA6C jpt_4DF8F5 
 004DFB3D def_4DFAD8 
@@ -934,6 +1088,9 @@
 004E0A40 jpt_4E08DA 
 004E13DA def_4E1371 
 004E1580 jpt_4E1371 
+004E1AC0 Library_cpp_4E1AC0 fun
+004E1ED0 Library_cpp_4E1ED0 fun
+004E2E70 Prison_cpp_4E2E70 fun
 004E3790 ??0CRoom@@QAE@XZ fun
 004E37F0 ??1CRoom@@UAE@XZ fun
 004E3B10 CRoom::fun_4E3B10 fun
@@ -948,6 +1105,12 @@
 004E4549 def_4E451C 
 004E4560 jpt_4E451C 
 004E4AC0 jpt_4E45C9 
+004E4C10 Room_cpp_4E4C10 fun
+004E4D90 Room_cpp_4E4D90 fun
+004E4EA0 Room_cpp_4E4EA0 fun
+004E50F0 Room_cpp_4E50F0 fun
+004E5A70 Room_cpp_4E5A70 fun
+004E6A20 Room_cpp_4E6A20 fun
 004E7C30 def_4E750A 
 004E7C34 jpt_4E750A 
 004E7F39 def_4E7E40 
@@ -956,6 +1119,8 @@
 004E7FC0 jpt_4E7FAB 
 004E8192 def_4E7FFF 
 004E81E0 jpt_4E7FFF 
+004E8210 Room_cpp_4E8210 fun
+004E8430 Room_cpp_4E8430 fun
 004E8876 def_4E8676 
 004E887C jpt_4E8676 
 004E8EEA def_4E8DFA 
@@ -971,6 +1136,7 @@
 004EC130 CRoom::fun_4EC130 fun
 004EDECB def_4EDC81 
 004EDEE0 jpt_4EDC81 
+004EDFC0 RoomManager_cpp_4EDFC0 fun
 004EE053 def_4EE006 
 004EE78D def_4EE2BC 
 004EEA77 def_4EEA35 
@@ -997,22 +1163,45 @@
 004F02B8 jpt_4F013F 
 004F18B0 def_4F17B5 
 004F1928 jpt_4F17B5 
+004F1D60 Tourture_cpp_4F1D60 fun
+004F2370 Tourture_cpp_4F2370 fun
 004F27CA def_4F2792 
 004F27E0 jpt_4F2792 
+004F2FF0 Training_cpp_4F2FF0 fun
+004F3310 Training_cpp_4F3310 fun
+004F3A00 Treasure_cpp_4F3A00 fun
+004F3C60 Treasure_cpp_4F3C60 fun
+004F4090 Treasure_cpp_4F4090 fun
+004F48E0 Treasure_cpp_4F48E0 fun
+004F4A60 Workshop_cpp_4F4A60 fun
+004F4B20 Workshop_cpp_4F4B20 fun
 004F4E94 def_4F4E5F 
 004F5030 jpt_4F4E5F 
 004F99B2 def_4F9786 
 004F9B74 jpt_4F9786 
+004F9B90 ComputerPlayer_cpp_4F9B90 fun
+004FA000 ComputerPlayer_cpp_4FA000 fun
 004FA709 def_4FA445 
 004FA744 jpt_4FA445 
 004FB4F7 def_4FB3B5 
 004FB590 def_4FB513 
 004FBD54 jpt_4FB3B5 
 004FBD64 jpt_4FB513 
+004FC690 ComputerPlayer_cpp_4FC690 fun
+004FCE70 ComputerPlayer_cpp_4FCE70 fun
+004FE9C0 ComputerPlayer_cpp_4FE9C0 fun
+004FFD80 ComputerPlayer_cpp_4FFD80 fun
+005000A0 ComputerPlayer_cpp_5000A0 fun
+005003A0 ComputerPlayer_cpp_5003A0 fun
 00500622 def_5005D8 
 00500638 jpt_5005D8 
+005006D0 ComputerPlayer_cpp_5006D0 fun
+00500C20 ComputerPlayer_cpp_500C20 fun
 0050122F def_5010FC 
 0050127C jpt_5010FC 
+00502F00 ComputerPlayer_cpp_502F00 fun
+00503060 ComputerPlayer_cpp_503060 fun
+00503690 ComputerPlayer_cpp_503690 fun
 00504D60 CWorldEntry_constructor fun
 00504E82 def_504D9E 
 00504E9C jpt_504D9E 
@@ -1180,6 +1369,7 @@
 0050A450 CWorld::tick fun
 0050AA60 CWorld_sub_50AA60 fun
 0050ADE0 probably_start_editor fun
+0050B5B0 World_cpp_50B5B0 fun
 0050CD10 CWorld::fun_50CD10 fun
 0050CD60 CWorld::fun_50CD60 fun
 0050CE00 CWorld::fun_50CE00 fun
@@ -1257,6 +1447,7 @@
 0050F3D0 CWorld::fun_50F3D0 fun
 0050F830 CWorld::fun_50F830 fun
 0050F880 CWorld::fun_50F880 fun
+0050F8C0 World_cpp_50F8C0 fun
 0050FAE0 CWorld::fun_50FAE0 fun
 0050FB10 CWorld::fun_50FB10 fun
 0050FBA0 CWorld::fun_50FBA0 fun
@@ -1267,6 +1458,8 @@
 005101C0 CWorld::fun_5101C0 fun
 00510210 CWorld::fun_510210 fun
 00510230 CWorld::fun_510230 fun
+00510370 World_cpp_510370 fun
+00510440 World_cpp_510440 fun
 00510700 CWorld::fun_510700 fun
 00510730 CWorld::fun_510730 fun
 005108F0 TbSysCommand::PauseOrRestart fun
@@ -1400,6 +1593,8 @@
 00519964 jpt_518FE4 
 005199FD def_51998A 
 00519A04 jpt_51998A 
+00519B20 WorldTrigger_cpp_519B20 fun
+00519F90 WorldTrigger_cpp_519F90 fun
 0051A890 CWorld_sub_51A890 fun
 0051CB63 def_51CAF6 
 0051CB6C jpt_51CAF6 
@@ -1411,6 +1606,7 @@
 00520D57 def_520D25 
 00520D64 jpt_520C30 
 00520DA8 jpt_520D25 
+005212D0 WorldWDL_cpp_5212D0 fun
 0052154E def_5214D7 
 005215CC jpt_5214D7 
 00521B20 ??0CCommunicationInterface@@QAE@XZ fun
@@ -1605,7 +1801,7 @@
 0052C464 jpt_52C3FB 
 0052C520 CGuiManager_sub_52C520 fun
 0052C540 CGuiManager_findGameWindowById fun
-0052C5A0 CGuiManager_sub_52C5A0 fun
+0052C5A0 CGuiManager_scaleSize fun
 0052C5F0 CGuiManager_sub_52C5F0 fun
 0052C630 CGuiManager_scaleAabb fun
 0052C6D0 ?create@CButton@@SAPAU1@HPADH@Z fun
@@ -1615,6 +1811,7 @@
 0052CA90 CTextInput::fun_52CA90 fun
 0052CAA0 CClickButton::fun_52CAA0 fun
 0052CAC0 j_??1CButton@@UAE@XZ fun
+0052CB40 CWorldEntry_createArr277 fun
 0052CCB0 CGuiManager_sub_52CCB0 fun
 0052CCE0 ??0CWindow@@QAE@XZ fun
 0052CD00 ??_GCWindow@@UAEPAXI@Z fun
@@ -1636,6 +1833,7 @@
 0052E4C0 ?static_init@CFrontEndComponent3D@@SAXXZ fun
 0052E4E0 ?static_destroy@CFrontEndComponent3D@@SAXXZ fun
 0052E500 ??0CFrontEndComponent@@QAE@XZ fun
+0052EF00 PixelMask_init fun
 0052EF50 ??_GCFrontEndComponent@@UAEPAXI@Z fun
 0052EF70 ??1CFrontEndComponent@@UAE@XZ fun
 0052EFE0 CFrontEndComponent::fun_52EFE0 fun
@@ -1857,6 +2055,7 @@
 00553A90 MyTextText_getMbString_idx1056_1081 fun
 00553AC0 MyTextText_getMbString_idx1000_1023 fun
 00553AF0 ?idx1090_getMbString@MyTextText@dk2@@SAPBDI@Z fun
+00553B20 MyLangObj_static_toUniToMB_2 fun
 00553B90 ?convert@MBToUni@dk2@@SA_NPBDPA_WH@Z fun
 00553DD0 MyTextText_getMbString_idx1024_1029 fun
 00553E48 def_553DED 
@@ -1894,7 +2093,7 @@
 005557A8 jpt_5556AE 
 005557E0 unicodeToUtf8 fun
 00555850 utf8_to_unicode fun
-005558D0 Random fun
+005558D0 badRandomCall fun
 00555B90 ??0CWindowTest@@QAE@XZ fun
 00555BD0 ??1CWindowTest@@UAE@XZ fun
 00555CC0 ?create@CWindowTest@dk2@@QAEAAHAAHPAUAABB@2@@Z fun
@@ -1934,9 +2133,10 @@
 00557FD0 ?isOsVersionGE@dk2@@YGHHHG@Z fun
 005580E0 MyGame_release fun
 005581B0 ?prepareScreen@MyGame@dk2@@QAEHHHHHHH@Z fun
+005585C0 MyGame_5585C0 fun
 005586E0 MyGame_sub_5586E0 fun
 00558770 MyGame_sub_558770 fun
-005587C0 MyGame_sub_5587C0 fun
+005587C0 MyGame_getScreenSurf fun
 005587E0 Obj6723A0_getDdSurface1 fun
 005587F0 MyGame_sub_5587F0 fun
 005588A0 MyGame_sub_5588A0 fun
@@ -1958,6 +2158,7 @@
 00559710 MyGame_static_callback fun
 00559770 MyGame_sub_559770 fun
 005597F0 MyGame_5597F0 fun
+00559820 MyGame_f4C_559820 fun
 00559BB0 unknown_libname_38 fun
 00559D00 MldPlay_reinitializeNetworkSystem fun
 00559F57 def_559EE5 
@@ -1992,7 +2193,7 @@
 0055E0C0 string_appendIpWithHostname fun
 0055E5A0 MyResources_f2E38Obj_constructor fun
 0055E630 save_sav_file fun
-0055E7D0 load_sav_file fun
+0055E7D0 MyResources_f2E38Obj_load_sav_file fun
 0055EA10 MyResources_f2E38Obj_55EA10 fun
 0055EAB0 MyResources_f2E38Obj_55EAB0 fun
 0055EC20 MyKeyboard_init fun
@@ -2008,6 +2209,8 @@
 00561A20 MyKeyboard_sub_561A20_levelAttempts fun
 00561BF0 MyKeyboard_sub_561BF0_totalEvilRating fun
 00561E40 MyKeyboard_sub_561E40 fun
+005621E0 RegKey_close fun
+00562670 RegKey_setValue_562670 fun
 005626C0 settings_fun fun
 00562960 MyResources_f29CB_constructor fun
 005629C0 MyResources_f29CB_resolveValues fun
@@ -2028,7 +2231,11 @@
 00563B40 MyResources_f29CB_setSfx fun
 00563BD0 MyResources_f29CB_setNumberOfVoices fun
 00563C50 MyVideoSettings_constructor fun
+00563E30 RegKey_static_checkDk2Keys_563E30 fun
+00563FB0 MyVideoSettings_563FB0 fun
+00564B00 MyVideoSettings_564B00 fun
 00565CF0 set_spec fun
+00565FD0 MyVideoSettings_565FD0 fun
 005663A0 set_shadows_type fun
 005665A0 set_high_resolution_textures_enabled fun
 00566620 set_texture_reduction_level fun
@@ -2091,6 +2298,7 @@
 0056F850 My_sub_56F850_init fun
 00570027 def_56FB84 
 00570068 jpt_56FB84 
+00571910 set_g2_screenArea fun
 00571940 nullsub_26 fun
 00571950 nullsub_27 fun
 00571960 nullsub_28 fun
@@ -2099,10 +2307,16 @@
 005719C5 __cfltcvt_init_1 
 00571A01 __cfltcvt_init_2 
 00571A60 nullsub_31 fun
+00573C20 cleanupDirectDraw fun
+00573CF0 configureFlagsAndTexturesCount fun
+00573ED0 settupDirectDraw fun
 00574200 setGammaRamp fun
+005742F0 MyHeap_autoremoveObjects fun
+00574310 LoadCachedTextures fun
+005747C0 setPmeshReductionLevel fun
 00575780 drawScene fun
 00576940 ??0CEngine2DSprite@@QAE@FFFFHHHHHHFFFF@Z fun
-005769D0 CEngine2DPrimitive::fun_5769D0 fun
+005769D0 CEngine2DPrimitive::scalar_destructor fun
 005769F0 ??_GCEnginePrimitiveBase@@UAEPAXI@Z fun
 00577640 CEngine2DSprite::fun_577640 fun
 005776C0 CEngine2DRotatableSprite::fun_5776C0 fun
@@ -2116,29 +2330,50 @@
 005783A0 CEngine2DAnimMesh::fun_5783A0 fun
 005783D0 CEngine2DAnimMesh::fun_5783D0 fun
 00578530 ??0CEngineVirtualPerspective2DAnimMesh@@QAE@HHHHPBXHHHHIPAH@Z fun
-005785E0 CEngineVirtualPerspective2DAnimMesh::fun_5785E0 fun
+005785E0 CEngineWorldPrimitive::fun_5785E0 fun
 00578600 CEngineVirtualPerspective2DAnimMesh::fun_578600 fun
 00578A80 ??0CEngine2DMeshSurface@@QAE@HHPBX0HPAHH@Z fun
-00578B80 ??_Gios_base@std@@UAEPAXI@Z fun
+00578B80 CEngine2DMeshSurface_scalar_destructor fun
 00578BA0 ??1CEngine2DMeshSurface@@UAE@XZ fun
 00578C00 CEngine2DMeshSurface::fun_578C00 fun
 00578EC0 ?create@CEngine2DRotatableSprite@@SAPAU1@FFHHHHHHHHHMH@Z fun
 00579170 ??0CEngine2DPrimitive@@QAE@XZ fun
+00579180 CEngine2DSprite_create fun
+005794B0 CEngine2DMeshSurface_create fun
+00579730 CEngine2DStaticMesh_create fun
+00579A10 CEngine2DAnimMesh_create fun
+00579CF0 CEngineVirtualPerspective2DAnimMesh_create fun
+00579FD0 objects2EToDraw_enlarge fun
 0057A080 ??0CIFFFile@@QAE@XZ fun
+0057A1E0 CDirectIFFFile_57A1E0 fun
+0057A310 CDirectIFFFile_57A310 fun
+0057A3A0 CDirectIFFFile_writeIf2 fun
+0057A3C0 CDirectIFFFile_readInt fun
+0057A3E0 CDirectIFFFile_readString fun
+0057A430 CDirectIFFFile_seekTo fun
 0057A450 ??0CDirectIFFFile@@QAE@XZ fun
-0057A470 CDirectIFFFile::fun_57A470 fun
+0057A470 CDirectIFFFile_seek fun
 0057A490 ??1CDirectIFFFile@@UAE@XZ fun
-0057A7A0 CDirectIFFFile::fun_57A7A0 fun
-0057A7D0 CDirectIFFFile::fun_57A7D0 fun
+0057A560 CDirectIFFFile_open fun
+0057A6F0 CDirectIFFFile_57A6F0 fun
+0057A7A0 CDirectIFFFile_readFile_57A7A0 fun
+0057A7D0 CDirectIFFFile_writeFile_57A7D0 fun
 0057A960 CMemLoadIFFFile::fun_57A960 fun
 0057C270 Arrp31x400_static_init fun
 0057C2D0 MyDblNamedSurface_constructor fun
+0057C3B0 MyDblNamedSurface_57C3B0 fun
 0057C420 Arrp31x400Item_init fun
 0057C700 Arrp31x400Item_sub_57C700 fun
+0057C780 Arrp31x400_getByIdx fun
+0057C7B0 Arrp31x400_static_alloc fun
 0057C850 MyDblNamedSurface_registerInArrp31x400 fun
+0057C920 CPCEngineInterface_57C920 fun
 0057CB70 Arrp31x400_resize fun
-0057CEB0 MyHeap::alloc fun
-0057D0B0 MyHeap::free fun
+0057CBE0 MyHeap_static_init fun
+0057CCF0 MyHeap_static_destroy fun
+0057CD30 MyHeap_alloc_impl fun
+0057CEB0 MyHeap_alloc fun
+0057D0B0 MyHeap_free fun
 0057D210 ?static_init@CIFFFile@@SAXXZ fun
 0057D230 ?destroy@CIFFFile@@SAXXZ fun
 0057D250 ??0CMemLoadIFFFile@@QAE@XZ fun
@@ -2155,16 +2390,17 @@
 0057EB70 ??_GCMeshGroup@@UAEPAXI@Z fun
 0057EB90 CMeshGroup::fun_57EB90 fun
 0057EC90 ??1CMeshGroup@@UAE@XZ fun
+0057EDE0 cleanup_57EDE0 fun
 0057F020 nullsub_32 fun
 0057F110 ??0CEngineSprite@@QAE@PAMHHH0HHHHHH@Z fun
 0057F1C0 CEngineWorldPrimitive::fun_57F1C0 fun
 0057F1D0 ??1CEnginePrimitiveBase@@UAE@XZ fun
 0057F1E0 ??0CEngineSprite@@QAE@HHMMHHHHMMMHH@Z fun
 0057F3D0 CEngineSprite::fun_57F3D0 fun
-0057F7E0 CEngineSprite::fun_57F7E0 fun
+0057F7E0 CEngineSprite_appendToSceneObject2EList fun
 0057FAF0 ??0CEngineQuadPlane@@QAE@PAMHH0HHHH@Z fun
 0057FB80 CEngineQuadPlane::fun_57FB80 fun
-0057FF30 CEngineQuadPlane::fun_57FF30 fun
+0057FF30 CEngineQuadPlane_appendToSceneObject2EList fun
 005801E0 ??0CEngineDynamicMesh@@QAE@HHMMHHHHHHHHHHHH@Z fun
 00580460 ??0CEngineWorldPrimitive@@QAE@XZ fun
 00580470 ret_void_2args fun
@@ -2172,37 +2408,48 @@
 00580DF0 CEngineDynamicMesh::fun_580DF0 fun
 00580E10 CEngineDynamicMesh::fun_580E10 fun
 00580E40 CEngineDynamicMesh::fun_580E40 fun
-00580EC0 CEngineDynamicMesh::fun_580EC0 fun
+00580EC0 CEngineDynamicMesh_appendToSceneObject2EList fun
+00581B80 Arrp31x400Item_581B80 fun
 00582CE0 CEngineDynamicMesh::fun_582CE0 fun
 00582D30 CEngineDynamicMesh::fun_582D30 fun
 00583120 ??0CEngineAnimMesh@@QAE@HHMMMMMMHHHMMHHHHHHDHH@Z fun
 005835E0 CEngineAnimMesh::fun_5835E0 fun
 00583680 CEngine2DAnimMesh::fun_583680 fun
 005848B0 CEngineAnimMesh::fun_5848B0 fun
-00584900 CEngineAnimMesh::fun_584900 fun
+00584900 CEngineAnimMesh_appendToSceneObject2EList fun
 00585AD0 CEngineAnimMesh::fun_585AD0 fun
 00585F90 ??0CEngineStaticMesh@@QAE@PAMHHHHHHHH@Z fun
-005860B0 CEngineStaticMesh::fun_5860B0 fun
+005860B0 CEngineStaticMesh_scalar_destructor fun
 005860D0 ??1CEngineStaticMesh@@UAE@XZ fun
 00586130 CEngineStaticMesh::fun_586130 fun
 00586150 CEngineStaticMesh::fun_586150 fun
-00586190 CEngineStaticMesh::fun_586190 fun
+00586190 CEngineStaticMesh_appendToSceneObject2EList fun
+00586A70 static_appendToSceneObject2EList fun
 00586BC0 ??0CEngineStaticHeightField@@QAE@PAMHHHHHHHH@Z fun
 00586F70 CEngineStaticHeightField::fun_586F70 fun
 00586F90 ??1CEngineStaticHeightField@@UAE@XZ fun
 00586FF0 CEngineStaticHeightField::fun_586FF0 fun
 00587010 CEngineStaticHeightField::fun_587010 fun
-00587060 CEngineStaticHeightField::fun_587060 fun
+00587060 CEngineStaticHeightField_appendToSceneObject2EList fun
 005873A0 ??0CEngineDynamicHeightField@@QAE@HHHHHHHHMHM@Z fun
 00587550 CEngineDynamicHeightField::fun_587550 fun
 00587570 ??1CEngineDynamicHeightField@@UAE@XZ fun
 005875D0 CEngineDynamicHeightField::fun_5875D0 fun
-00587DA0 CEngineDynamicHeightField::fun_587DA0 fun
+00587DA0 CEngineDynamicHeightField_appendToSceneObject2EList fun
 00588190 ??0CEngineUnlitProceduralMesh@@QAE@HHHPBX0PAGHH@Z fun
 00588480 CEngineUnlitProceduralMesh::fun_588480 fun
 005884A0 ??1CEngineUnlitProceduralMesh@@UAE@XZ fun
 005884F0 CEngineUnlitProceduralMesh::fun_5884F0 fun
-005888A0 CEngineUnlitProceduralMesh::fun_5888A0 fun
+005888A0 CEngineUnlitProceduralMesh_appendToSceneObject2EList fun
+00588D00 draw_tex_to_buf_impl2 fun
+00588F90 draw_tex_to_buf_impl1 fun
+00589140 MyCESurfHandle_static_addToHashList_flagsOr400 fun
+00589160 DirectDraw_setProp fun
+00589250 DirectDraw_prepareTexture fun
+005898F0 draw_tex_to_buf fun
+005899F0 init_mydd_cpy fun
+00589D90 something_static_setSceneObject30_589D90 fun
+0058A150 setupLastSceneObject fun
 0058A3E5 __cfltcvt_init_3 
 0058A421 __cfltcvt_init_4 
 0058A480 nullsub_33 fun
@@ -2212,19 +2459,36 @@
 0058A4C0 nullsub_37 fun
 0058A4D0 nullsub_38 fun
 0058A4E0 nullsub_39 fun
+0058A520 init_mydd_cpy2 fun
+0058DD60 MyNameObjMap_of_MyCESurfHandle_constructor fun
+0058DD90 MyNameObjMap_cleanup fun
 0058DE00 ?put@MyNameObjMap@dk2@@QAEHPBDPAX@Z fun
 0058DF40 MyNameObjMap_getSlotIdx fun
 0058E000 BufCx400_resize fun
+0058E330 init_shadows fun
 0058EE40 nullsub_40 fun
 0058EE50 nullsub_41 fun
+0058F510 SceneObject2EList_static_destructor fun
+0058F530 objects30ToDraw_static_destructor fun
+0058F550 SceneObject2EList_SceneObject30List_static_init fun
+0058F5F0 SceneObject2EList_SceneObject30List_static_destroy fun
 0058F640 draw3dScene fun
+0058F8E0 SceneObject30List_enlarge fun
 0058F9A0 __cfltcvt_init_5 fun
+0058F9E0 MyNameObjMap_of_MyCESurfHandle_static_constructor fun
+0058FA00 MyNameObjMap_of_MyCESurfHandle_static_destructor fun
 0058FA20 MyTextures_static_constructor fun
 0058FA40 MyTextures_static_destructor fun
 0058FAA0 MyTextures_constructor fun
 0058FAF0 nullsub_42 fun
+0058FB00 MySurface_58FB00 fun
+0058FCB0 MySurface_58FCB0 fun
+0058FE80 MySurface_58FE80 fun
+0058FF70 MySurface_58FF70 fun
+00590000 MySurface_590000 fun
+00590260 MyCEngineSurfDesc_590260 fun
 00590360 MyCEngineSurfDesc_constructor fun
-00590450 CEngineSurfaceBase_590450 fun
+00590450 CEngineSurfaceBase_paintSurf fun
 00590520 CEngineSurfaceBase_fill fun
 00590580 ??0CEngineSurface@@QAE@HHH@Z fun
 00590610 CEngineSurfaceBase_scalar_destructor fun
@@ -2243,19 +2507,46 @@
 00590AC0 CEngineDDSurface_lockBuf fun
 00590B20 CEngineDDSurface_unlockBuf fun
 00590B40 MySurfaceWrapper_init fun
+00590BC0 MySurface::MySurface_withData fun
 00590BF0 MyCESurfHandle_init fun
-00590EC0 MyCESurfHandle_sub_590EC0 fun
-00591070 MyTextures_loadAll fun
+00590C30 MyCESurfHandle_590C30 fun
+00590DA0 MyCESurfHandle_createReduction fun
+00590EC0 MyCESurfHandle_resolveSurface fun
+00591070 MyTextures_loadCompressed fun
 005911E0 MyCESurfHandle_sub_5911E0 fun
 005914E0 Obj792D48_convertCopyFrom fun
 00591820 Obj792D48_createCEngineCompressedSurface fun
 00591BF0 ??0CEngineSurfaceBase@@QAE@HHH@Z fun
 00591C20 CEngineSurface_create fun
-00591DA0 ?create@CEngineSurface@@SAPAU1@HHH@Z fun
+00591CF0 MyCESurfHandle_setSurfaceHolder fun
+00591DA0 SurfaceHolder_create fun
+00591ED0 SurfaceHolder_calcWeight fun
+00591F90 SurfHashListItem_recursive_scalar_delete fun
 005924A0 MyNameObjMap_createPrescaled fun
-00592720 __fillTextures_path fun
+00592720 MyTextures_resetCacheDir fun
+00592890 SurfHashList_clear fun
+00592950 destroySurfHashLists fun
+00592B80 SurfaceHolder_setTexture fun
+00592BD0 SurfHashList2_init fun
+00592DB0 SurfHashList_init fun
+00592EA0 initSurfHashLists_mydd_cpy3 fun
+00593280 surfaces_cleanup fun
+00593350 D3DENUMPIXELFORMATSCALLBACK_proc fun
+005934C0 MyCESurfHandle_cleanup fun
+005935C0 SurfHashList_markAndDeleteP1of4_recursive fun
+00593600 SurfHashList2_deleteHolders fun
+00593720 MyCESurfHandle_static_addToHashList fun
+00593880 SurfHashList2_593880 fun
+00593E10 SurfHashList2_calcHandleCountToFitHolder fun
+00593E90 SurfHashList2_593E90 fun
+00593F20 __probablySortSurfListX3_593F20 fun
 00593F3E ??__F?m_badAllocExceptionPtr@__ExceptionPtr@@0V?$shared_ptr@V__ExceptionPtr@@@tr1@std@@A@@YAXXZ 
-00594FA0 CBridge_594FA0 fun
+00593F50 SurfHashList2__probablySort fun
+00594170 SurfHashList_putItem fun
+005941B0 SurfHashList_addSurfhAndPaint fun
+00594790 SurfHashList_deleteItem fun
+005948D0 SurfHashList__probablySort fun
+00594BC0 SurfHashList2_deleteHolder fun
 005964B8 def_5964B1 
 00596523 def_596437 
 00596534 jpt_596437 
@@ -2295,7 +2586,7 @@
 0059A050 CPCEngineInterface::fun_59A050 fun
 0059A200 CPCEngineInterface::fun_59A200 fun
 0059A4B0 ?loadPng@MyResources@dk2@@SAPAUMySurface@2@PBD@Z fun
-0059A650 CPCEngineInterface::fun_59A650 fun
+0059A650 CPCEngineInterface_createAndPutInArrp31x400 fun
 0059A6A0 CPCEngineInterface::fun_59A6A0 fun
 0059AC60 def_59A6F2 
 0059AC70 jpt_59A6F2 
@@ -2320,19 +2611,33 @@
 0059D890 CPCEngineInterface::fun_59D890 fun
 0059D900 CPCEngineInterface::fun_59D900 fun
 0059DAB0 CPCEngineInterface::fun_59DAB0 fun
+0059E750 ProceduralMesh_cpp_59E750 fun
+0059ED80 ProceduralMesh_cpp_59ED80 fun
 0059F80F __cfltcvt_init_8 
+005A1340 ProceduralMesh_cpp_5A1340 fun
 005A1CA0 CPCEngineInterface::fun_5A1CA0 fun
 005A2570 CPCEngineInterface::fun_5A2570 fun
 005A2BE0 CPCEngineInterface::fun_5A2BE0 fun
 005A2F10 CPCEngineInterface::fun_5A2F10 fun
+005A3310 ProceduralMesh_cpp_5A3310 fun
 005A4730 mpeg2::_putpict fun
 005A58A0 mpeg2::putbits fun
 005A5980 mpeg2::putintrablk fun
 005A5DA0 ?main@dk2@@YAHHQAPAD@Z fun
 005A63B0 parse_command_line fun
-005A6CD0 probably_cleanupScene fun
-005A7100 probably_cleanupScene32bit fun
-005A7210 probably_lightningOrShadowProc fun
+005A6CD0 drawToSurface fun
+005A7100 drawToSurface32bit fun
+005A7210 render_clearBuffers fun
+005A7270 draw_1024tex_to_buf_impl4 fun
+005A73F0 draw_1024tex_to_buf_impl2 fun
+005A74B0 draw_1024tex_to_buf_impl1 fun
+005A7550 draw_1024tex_to_buf_impl3 fun
+005A7600 mydd_allocateBuffers fun
+005A7980 mydd_alloc_buf fun
+005A79C0 mydd_alloc_buf2 fun
+005A7A00 mydd_freeBuffers fun
+005A7A20 mydd_free_buf fun
+005A7A50 mydd_free_buf2 fun
 005A88D0 def_5A8891 
 005A88F4 jpt_5A8891 
 005A8AE0 StartAddress fun
@@ -2517,6 +2822,7 @@
 005B9740 MyStr_scalar_destructor fun
 005B97A0 SharedArr79DBD0_static_init fun
 005B97B0 SharedArr79DBD0_constructor fun
+005B97D0 SharedArr79DBD0_static_destructor fun
 005B9840 SharedArr79DBD0List_constructor fun
 005B9860 SharedArr79DBD0List_destructor fun
 005B98A0 SharedArr79DBD0List_scalar_destructor fun
@@ -2621,7 +2927,7 @@
 005D0FC0 AABB_intersect fun
 005D1040 AABB_collapseToMax fun
 005D1050 AABB_normalize fun
-005D1230 GObj_79D250_constructor fun
+005D1230 DdModeList_constructor fun
 005D1250 llist_insert fun
 005D1290 libpng::png_set_sig_bytes fun
 005D12C0 libpng::png_sig_cmp fun
@@ -3232,6 +3538,7 @@
 0062C240 FontObj_constructor fun
 0062C290 FontObj_scalar_destructor fun
 0062C2B0 FontObj_destructor fun
+0062C2D0 FontObj_copy_constructor fun
 0062C340 FontObj_assign_constructor fun
 0062C3C0 FontObj_setFontMask fun
 0062C410 FontObj_checkFlag8 fun
@@ -3308,7 +3615,10 @@
 0062E050 MyTextUniToMB_constructor fun
 0062E090 MyTextUniToMB_scalar_destructor fun
 0062E0B0 MyTextUniToMB_destructor fun
+0062E0E0 MyTextUniToMB_convertChar fun
+0062E0F0 MyTextUniToMB_62E0F0 fun
 0062E140 MyTextUniToMB_create fun
+0062E1F0 MyTextUniToMB_convert fun
 0062E280 MyTextMBToUni_create fun
 0062E3A0 MyTextMBToUni_constructor fun
 0062E3F0 MyTextMBToUni_scalar_destructor fun
@@ -3619,6 +3929,7 @@
 00637FD0 __fclose_lk fun
 00638040 readFromFile fun
 00638080 _fread fun
+006381C0 writeFile fun
 00638200 _fwrite fun
 00638350 _free fun
 006383C0 __alloca_probe fun
@@ -3792,9 +4103,9 @@
 0063CC5D _rtfor0tox 
 0063CC77 zerotoxdone fun
 0063CC78 _rtfor0toneg 
-0063CC92 tranzeropop fun
+0063CC92 tranzeropop 
 0063CC94 tranzeronpop 
-0063CC99 tranindfpop fun
+0063CC99 tranindfpop 
 0063CC9B tranindfnpop 
 0063CCA0 ExpArgOutOfRange fun
 0063CCC2 _expbigret 
@@ -5066,6 +5377,10 @@
 00652A58 SEH_634330 
 00652A70 unknown_libname_123 
 00652A80 SEH_634490 
+00653080 draw_1024tex_to_buf_impl5 fun
+00653B6E draw_1024tex_to_buf_impl6 fun
+006542E0 draw_1024tex_to_buf_impl7 fun
+00654C10 draw_1024tex_to_buf_impl8 fun
 0065C120 fill_buf_special fun
 00665EBB __cfltcvt_init_16 
 0066C000 RegQueryValueExA import
@@ -10437,8 +10752,10 @@
 006D39B8 Obj6D39B8_instance 
 006D3CC8 CBridge_instance 
 006D6458 sceneLightningObjects 
+006DA458 g_pCBridge_0 
 006DA8A8 g_empty_string 
 006E4FD8 funcs_4A8BE5 
+006E5054 g_pCWorld 
 006EB988 Stream 
 006ECA60 Obj6ECA60_instance 
 006ECA70 Obj6ECA70_instance 
@@ -10505,6 +10822,7 @@
 00740E70 g_FontObj1_instance 
 007410C0 MyLangObj_lang_instance 
 007410D0 FontObj_1_instance 
+00741120 MBStr_741120 
 00741320 FontObj_3_instance 
 00741370 FontObj_2_instance 
 007413C0 g_FontObj2_instance 
@@ -10536,6 +10854,7 @@
 00741C28 TbPNGLoader_instance 
 00742070 TbTQILoader_instance 
 007428A0 probably_Console_instance 
+00756EC8 client_rect 
 00756EE8 ?instance@MyGame@dk2@@0V12@A 
 00758040 isCreateDDState 
 00758048 ddraw_device_count 
@@ -10559,13 +10878,26 @@
 0075B468 MySound_ptr 
 0075B880 CSoundSystem_instance 
 0075BA60 String 
+0075CA68 g2_sceneWidth 
+00760AB0 g_pmeshReductionLevel 
 00760B0C dd_gamma_control 
+00760B44 g2_sceneHeight 
 00760B54 g_sceneWidth 
+00760B5C g2_sceneLeft 
 00760B88 g_sceneHeight 
 00764B90 mydd 
+00764BBC g2_sceneTop 
+00764BC0 EngineTestCross_a31x400_idx 
+00764BC4 EngineTestLight_a31x400_idx 
+00764BC8 EngineTextureWhite_a31x400_idx 
 00764BE8 gamma_ramp 
+00765224 g_pCEngine2DPrimitive 
 007656E8 MyNameObjMap_instance 
 00765AF8 Arrp31x400_instance 
+00765B08 MyHeap_increaseCount 
+00765B14 MyHeap_size 
+00765B18 MyHeap_increaseBlocks 
+00765DA0 MyHeap_bufArr 
 00766228 CMemLoadIFFFile_instance 
 00769A78 arr_769A78 
 0076AA78 arr_769A78_itemsCount 
@@ -10579,6 +10911,7 @@
 0076C2B0 my_buf2_tex_and_header 
 0076C2B4 my_buf2_6000 
 0076C2B8 mydd_cpy 
+0076C2F0 lastSceneObject 
 0076D2F8 tex_and_header_size1 
 0076D300 my_buf_400_width_512 
 0076D304 my_buf_400_height_512 
@@ -10591,13 +10924,28 @@
 0076F32C my_buf_3000_height_512 
 0076F330 my_buf_3000 
 007793A8 arr_7793A8 
+0077F3F0 mydd_cpy2_buf 
+0077F8F8 mydd_cpy2 
+007820A8 SceneObject2EList_instance 
+007820B8 SceneObject30List_instance 
+007820C4 objectsToDraw_count 
 007820D0 mpeg2::_image_buf 
+007920D0 pSurfHashList2_2 
+007920D4 pSurfHashList2 
 007920D8 MyTextures_instance 
+0079291C g_surfh_first 
 00792920 MySurfDesc_792920 
 00792938 MyNameObjMap_instance_of_MyCESurfHandle 
 00792D48 Obj792D48_instance 
-00792D68 myDdCopy 
+00792D5C g_surfh_count 
+00792D60 pSurfHashList 
+00792D68 mydd_cpy3 
 00792D98 MyCEngineSurfDesc_argb32_instance 
+00792E62 MyCEngineSurfDesc_unk16_instance 
+00792EC8 sizeHashTable_257 
+007932CC g_surfh_last 
+007932D8 SurfHashList_sortTick 
+007932DC g_ReductionLevel 
 00793388 CPCEngineInterface_instance_start 
 00795700 g_pCBridge 
 00796170 mpeg2::dc_dct_pred 
@@ -10606,6 +10954,11 @@
 007962A8 cmd_flag_FrontEnd3D_unk8 
 007962AC cmd_flag_DDD 
 007962B0 cmd_flag_DDD_value 
+00797B5C mydd_bufsAllocated 
+00797B74 mydd_buf_25635 
+00797B78 mydd_buf_aligned32 
+00797B7C mydd_buf2_12835 
+00797B80 mydd_buf2_aligned32 
 0079CF90 ?instance@MyInputManagerCb@dk2@@0U12@A 
 0079D018 appCloseStatus 
 0079D01C ?hInstance@globals@dk2@@0PAUHINSTANCE__@@A 
@@ -10625,8 +10978,9 @@
 0079D0A8 PathName 
 0079D1D4 lpDDAttachedSurface 
 0079D200 g_fullscreen_ddSurf 
+0079D250 DdModeList_instance 
 0079D260 bullfrogClassName 
-0079D364 g_pDdSurface 
+0079D364 g_pDdSurface_windowed 
 0079D378 g_dd_surface2 
 0079D3C8 hWnd 
 0079D3CC hBullfrogWindow 
@@ -10691,6 +11045,17 @@
 007A5DB0 Addend 
 007A6DC0 Count 
 007A6DC4 g_commandLineA 
+007A7020 mydd_buf 
+007A7024 mydd_buf2 
+007A7028 mydd_buf_width 
+007A702C mydd_buf2_width 
+007A7034 currentTex_lockedBuf 
+007A7044 g_redShift 
+007A7048 g_greenShift 
+007A704C g_blueShift 
+007A7050 g_red 
+007A7054 g_green 
+007A7058 g_blue 
 007ACAAC jpt_5AC905 
 007AF058 tqia_src_pos 
 007AF08C tqia_offs 

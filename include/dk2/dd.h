@@ -10,25 +10,6 @@
 
 namespace dk2 {
 
-  class dd {
-    /*0079D020*/ static HWND hWnd;
-    /*0079D3D0*/ static LPDIRECTDRAW lpDD;
-    /*0079D3F0*/ static LPDIRECTDRAW lpSurfaceDD;
-
-  public:
-    /*005B2DC0*/ static void __cdecl setHWindow(HWND hWnd);
-    /*005B2DB0*/ static HWND __cdecl getHWindow();
-    inline static HWND *getHWindowPtr() { return (HWND *) funptr<&hWnd>(); }
-
-    inline static LPDIRECTDRAW *getDD() { return (LPDIRECTDRAW *) funptr<&lpDD>(); }
-    inline static LPDIRECTDRAW *getSurfaceDD() { return (LPDIRECTDRAW *) funptr<&lpSurfaceDD>(); }
-    /*005B5410*/ static void __cdecl setSurfaceDD(LPDIRECTDRAW lpDD);
-
-    /*005B4390*/ static status_t &__cdecl init(status_t &status, DWORD width, DWORD height, DWORD displayBitness, DWORD surfFlags, LPPALETTEENTRY palette);
-    /*005B4230*/ static void __cdecl destroy();
-
-  };
-
   struct MyDdSurface{
     uint32_t field_0;
     uint32_t field_4;

@@ -10,7 +10,7 @@
 #include <ShlObj.h>
 #include <windowsx.h>
 #include <sstream>
-#include "../win32_gui_layout.h"
+#include <win32_gui_layout.h>
 
 #define EmberPatcher_title _T("Ember DK2 patcher")
 #define EmberPatcher_class _T("EmberPatcher")

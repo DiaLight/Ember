@@ -87,6 +87,10 @@ add_custom_command(
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /GS- /Gz")
+
+add_library(win32_gui_layout STATIC win32_gui_layout.cpp)
+target_include_directories(win32_gui_layout PUBLIC ${CMAKE_CURRENT_LIST_DIR})
+
 set(SOURCES
         main.cpp
         api.cpp
@@ -115,6 +119,7 @@ set(SOURCES
         patches/screen_resolution/fix_surface_buffer_size_on_max_resolution.cpp
         reimpl/SurfHashList__probablySort.cpp
         reimpl/draw3dScene.cpp
+        tools/unpack_texture_cache.cpp
         stdex.cpp
 )
 if(REVERSE_MODE)
@@ -134,8 +139,11 @@ else()
 endif()
 add_dependencies(bootstrap_patcher dll_exports stack_map references_map)
 target_include_directories(bootstrap_patcher PRIVATE include)
-target_link_libraries(bootstrap_patcher PRIVATE Dbghelp Shcore)
-target_compile_definitions(bootstrap_patcher PRIVATE DIRECTINPUT_VERSION=0x0500)
+target_link_libraries(bootstrap_patcher PRIVATE Dbghelp Shcore Comctl32 win32_gui_layout)
+target_compile_definitions(bootstrap_patcher PRIVATE DIRECTINPUT_VERSION=0x0500 DIRECT3D_VERSION=0x0600)
+
+add_subdirectory(vendor)
+target_link_libraries(bootstrap_patcher PRIVATE lodepng)
 
 set_target_properties(bootstrap_patcher PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BIN_DIR}")
 

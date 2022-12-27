@@ -2,6 +2,7 @@
 #include <ddraw.h>
 #include <d3d.h>
 #include <dinput.h>
+#include <api/imports.h>
 
 namespace dk2 {
 
@@ -32,7 +33,7 @@ namespace dk2 {
     class MyDirectDraw;
     class CCommunicationInterface;
     class Area2i;
-    class CGadget_fields;
+    class CGadget;
     class CWindow;
     class Pos2i;
     class AABB;
@@ -40,8 +41,6 @@ namespace dk2 {
     class MyStaticStruct;
     class RtGuiView;
     class CDefaultPlayerInterface;
-    class CGadget;
-    class CEngineInterface_fields;
     class CBridgeInterface;
     class My_sub_56F850;
     class ProbablyGlobalRenderObj;
@@ -58,17 +57,15 @@ namespace dk2 {
     class CWorldShortEntry;
     class CWorldInterface;
     class MyCbHandle;
-    class MySharedObj_fields;
-    class MyComEx_fields;
+    class MySharedObj;
+    class MyComEx;
     class AsyncThing;
     class MyDxInputManagerCb;
     class Obj6723B8;
     class MyInputManagerCb;
-    class MyComEx;
+    class LockBase;
     class Buf1000;
     class DxActionQueue;
-    class MySharedObj;
-    class LockBase;
     class MyMouse;
     class MyMouseCb_vtbl;
     class Event0_winShown7;
@@ -119,7 +116,6 @@ namespace dk2 {
     class MyALList;
     class WadContent;
     class MyWadDirectory;
-    class MyInputStream_fields;
     class MyCachedOffsStream;
     class MySemaphore;
     class MyConcurrentStream;
@@ -160,7 +156,7 @@ namespace dk2 {
     class CharImageReader;
     class CharImageWriter;
     class CharRenderCtx;
-    class MySignalBase_fields;
+    class MySignalBase;
     class MyDxDevice;
     class MyDirectInput;
     class MouseRgbDxActionList;
@@ -169,7 +165,6 @@ namespace dk2 {
     class DIOBJECTDATAFORMAT;
     class DIPROPHEADER;
     class DIPROPDWORD;
-    class MySignalBase;
     class MyWindowMsgs_vtable;
     class Vtable_672434;
     class WndMsgDxActionList;
@@ -238,6 +233,7 @@ namespace dk2 {
     class Obj672E70;
     class Obj672500;
     class Obj672E80;
+    class CDirectIFFFile;
     class MyTextures;
     class CEngineCompressedSurface;
     class CEngineDDSurface;
@@ -249,7 +245,6 @@ namespace dk2 {
     class GameActionRecord;
     class CListBox;
     class TbAudioSystem;
-    class TbAudioSystem_fields;
     class MyTbAudioSystem;
     class CSoundSystem;
     class TbSysCommand_SetNumberOfChannels;
@@ -266,18 +261,21 @@ namespace dk2 {
     class CEngineUnlitProceduralMesh;
     class SceneObject30;
     class SurfHashList2;
+    class DxDeviceInfo;
+    class DxD3dInfo;
+    class DxModeInfo;
 
 #pragma pack(push, 1)
     class MyLock {
     public:
-
+        
         /*   0*/ _RTL_CRITICAL_SECTION *f0_critSec;
         /*   4*/ int f4_locked;
         /*   8*/ int field_8;
         /*   C*/ int field_C;
         /*  10*/ int field_10;
         /*  14*/ int field_14;
-
+        
         void dump() {
             printf("f0_critSec: _RTL_CRITICAL_SECTION(%p)\n", this->f0_critSec);
             printf("f4_locked: %d\n", this->f4_locked);
@@ -293,17 +291,17 @@ namespace dk2 {
 #pragma pack(push, 1)
     class PtrArrList {
     public:
-
+        
         /*   0*/ int field_0;
-        /*   4*/ void *f4_base;
-        /*   8*/ void *f8_wpos;
-        /*   C*/ void *fC_end;
-
+        /*   4*/ uint32_t *f4_base;
+        /*   8*/ uint32_t *f8_wpos;
+        /*   C*/ uint32_t *fC_end;
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
-            printf("f4_base: %p\n", this->f4_base);
-            printf("f8_wpos: %p\n", this->f8_wpos);
-            printf("fC_end: %p\n", this->fC_end);
+            printf("f4_base: uint32_t(%p)\n", this->f4_base);
+            printf("f8_wpos: uint32_t(%p)\n", this->f8_wpos);
+            printf("fC_end: uint32_t(%p)\n", this->fC_end);
         }
     };
 #pragma pack(pop)
@@ -312,23 +310,27 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CComponent {
     public:
-        static uint32_t const VFTABLE = 0x0066C45C;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *CComponent___scalar_deleting_destructor_uint;
-            /*   4*/ void *__purecall;
-            /*   8*/ void *duplicate_1_1;
-            /*   C*/ void *duplicate_1_2;
-            /*  10*/ void *duplicate_1_3;
-            /*  14*/ void *duplicate_1_4;
+            /*   0*/ uint32_t *(__thiscall *CComponent___scalar_deleting_destructor_uint)(CComponent *self, char);  // _DWORD *(__thiscall *)(_DWORD *Block, char a2)
+            /*   4*/ void(__stdcall *__purecall)();  // void (__stdcall __noreturn *)()
+            /*   8*/ void *(__stdcall *duplicate_1_1)();  // void *(__stdcall *)()
+            /*   C*/ void *(__stdcall *duplicate_1_2)();  // void *(__stdcall *)()
+            /*  10*/ void *(__stdcall *duplicate_1_3)();  // void *(__stdcall *)()
+            /*  14*/ void *(__stdcall *duplicate_1_4)();  // void *(__stdcall *)()
         };
-
+        static_assert(sizeof(vtbl_t) == 0x18);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ uint32_t is_component_destroy;
         /*   8*/ int field_4;
-
+        
         virtual ~CComponent();
         void dump() {
             printf("is_component_destroy: %d\n", this->is_component_destroy);
@@ -341,13 +343,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class GameAction {
     public:
-
+        
         /*   0*/ uint32_t field_0;
         /*   4*/ uint32_t field_4;
         /*   8*/ uint32_t field_8;
         /*   C*/ int fC_actionKind;
         /*  10*/ __int16 f10__cpyFrF8;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_4: %d\n", this->field_4);
@@ -362,12 +364,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class GameActionArray {
     public:
-
+        
         /*   0*/ GameAction f0_arr[32];
         /* 240*/ uint32_t f240_counter;
         /* 244*/ int f244_counter_32lim;
         /* 248*/ int f248_idx;
-
+        
         void dump() {
             printf("f240_counter: %d\n", this->f240_counter);
             printf("f244_counter_32lim: %d\n", this->f244_counter_32lim);
@@ -380,7 +382,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyProfiler {
     public:
-
+        
         /*   0*/ uint32_t field_0;
         /*   4*/ int field_4;
         /*   8*/ int field_8;
@@ -406,7 +408,7 @@ namespace dk2 {
         /* 29E*/ int field_29E;
         /* 2A2*/ int field_2A2;
         /* 2A6*/ int field_2A6;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_4: %d\n", this->field_4);
@@ -440,20 +442,24 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CGameComponent : public CComponent {
     public:
-        static uint32_t const VFTABLE = 0x0066EC4C;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public CComponent::vtbl_t */{
-            /*   0*/ void *scalar_destructor;
-            /*   4*/ void *CMap__fun_4B4C20;
-            /*   8*/ void *ret_void_0args_0;
+            /*   0*/ uint32_t *(__thiscall *scalar_destructor)(CGameComponent *self, char);  // _DWORD *(__thiscall *)(_DWORD *Block, char)
+            /*   4*/ int(__cdecl *CMap__fun_4B4C20)();  // int (*)()
+            /*   8*/ void(__thiscall *ret_void_0args_0)(CGameComponent *self);  // void (__thiscall *)(void *)
             /*   C*/ void *CGameComponent__fun_525350;
             /*  10*/ void *unknown_libname_14;
-            /*  14*/ void *CGameComponent__mainGuiLoop;
+            /*  14*/ uint32_t *(__thiscall *CGameComponent__mainGuiLoop)(CGameComponent *self);  // void ***(__thiscall *)(CGameComponent *this)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x18);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ uint32_t exit_flag;
         /*  10*/ MyProfiler mt_profiler;
         /* 2BA*/ uint32_t drawCount;
@@ -465,7 +471,7 @@ namespace dk2 {
         /* 2D2*/ int field_2D2;
         /* 2D6*/ int field_2D6;
         /* 2DA*/ int field_2DA;
-
+        
         virtual ~CGameComponent();
         void dump() {
             printf("exit_flag: %d\n", this->exit_flag);
@@ -486,82 +492,86 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CEngineInterface {
     public:
-        static uint32_t const VFTABLE = 0x0066D1D4;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *CPlayerInterface__fun_44DEA0;
-            /*   4*/ void *__purecall;
-            /*   8*/ void *duplicate_1_1;
-            /*   C*/ void *nullsub_2;
-            /*  10*/ void *duplicate_3_1;
-            /*  14*/ void *CPlayerInterface__fun_628BC0;
-            /*  18*/ void *nullsub_44;
-            /*  1C*/ void *duplicate_5_1;
-            /*  20*/ void *duplicate_1_2;
-            /*  24*/ void *duplicate_1_3;
-            /*  28*/ void *duplicate_1_4;
-            /*  2C*/ void *duplicate_1_5;
-            /*  30*/ void *duplicate_6_1;
-            /*  34*/ void *duplicate_6_2;
-            /*  38*/ void *duplicate_5_2;
-            /*  3C*/ void *duplicate_5_3;
-            /*  40*/ void *duplicate_5_4;
-            /*  44*/ void *duplicate_5_5;
-            /*  48*/ void *duplicate_1_6;
-            /*  4C*/ void *duplicate_1_7;
-            /*  50*/ void *CEngineInterface__fun_517400;
-            /*  54*/ void *CEngineInterface__fun_443070;
-            /*  58*/ void *CEngineInterface__fun_443090;
-            /*  5C*/ void *nullsub_43;
-            /*  60*/ void *nullsub_21;
-            /*  64*/ void *duplicate_23_1;
-            /*  68*/ void *nullsub_22;
-            /*  6C*/ void *duplicate_6_3;
-            /*  70*/ void *duplicate_6_4;
-            /*  74*/ void *CPlayerInterface__fun_402AD0;
-            /*  78*/ void *duplicate_6_5;
-            /*  7C*/ void *duplicate_6_6;
-            /*  80*/ void *CEngineInterface__fun_5173B0;
-            /*  84*/ void *duplicate_6_7;
-            /*  88*/ void *duplicate_29_1;
-            /*  8C*/ void *duplicate_3_2;
-            /*  90*/ void *CEngineInterface__fun_4430D0;
-            /*  94*/ void *CEngineInterface__fun_4430C0;
-            /*  98*/ void *duplicate_36_1;
-            /*  9C*/ void *duplicate_6_8;
-            /*  A0*/ void *duplicate_37_1;
-            /*  A4*/ void *loc_43A8A0;
-            /*  A8*/ void *duplicate_6_9;
-            /*  AC*/ void *CEngineInterface__fun_628E30;
-            /*  B0*/ void *duplicate_29_2;
-            /*  B4*/ void *nullsub_10;
-            /*  B8*/ void *duplicate_26_1;
-            /*  BC*/ void *CEngineInterface__fun_4430E0;
-            /*  C0*/ void *CEngineInterface__fun_4430F0;
-            /*  C4*/ void *CEngineInterface__fun_443100;
-            /*  C8*/ void *CEngineInterface__fun_443110;
-            /*  CC*/ void *duplicate_29_3;
-            /*  D0*/ void *CEngineInterface__fun_443120;
-            /*  D4*/ void *CEngineInterface__fun_443150;
-            /*  D8*/ void *duplicate_20_1;
-            /*  DC*/ void *duplicate_53_1;
-            /*  E0*/ void *duplicate_37_2;
-            /*  E4*/ void *CEngineInterface__fun_628B70;
-            /*  E8*/ void *duplicate_57_1;
-            /*  EC*/ void *duplicate_20_2;
-            /*  F0*/ void *loc_43A880;
-            /*  F4*/ void *loc_43A890;
-            /*  F8*/ void *duplicate_41_1;
-            /*  FC*/ void *duplicate_41_2;
-            /* 100*/ void *duplicate_41_3;
-            /* 104*/ void *duplicate_57_2;
-            /* 108*/ void *duplicate_57_3;
-            /* 10C*/ void *duplicate_57_4;
+            /*   0*/ void *(__thiscall *CPlayerInterface__fun_44DEA0)(CEngineInterface *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ void(__stdcall *__purecall)();  // void (__stdcall __noreturn *)()
+            /*   8*/ void *(__stdcall *duplicate_1_1)();  // void *(__stdcall *)()
+            /*   C*/ void(__cdecl *nullsub_2)();  // void (__cdecl *)()
+            /*  10*/ void *(__stdcall *duplicate_3_1)();  // void *(__stdcall *)()
+            /*  14*/ int(__stdcall *CPlayerInterface__fun_628BC0)();  // int (__stdcall *)()
+            /*  18*/ void(__stdcall *nullsub_44)(int);  // void (__stdcall *)(int a1)
+            /*  1C*/ void *(__stdcall *duplicate_5_1)();  // void *(__stdcall *)()
+            /*  20*/ void *(__stdcall *duplicate_1_2)();  // void *(__stdcall *)()
+            /*  24*/ void *(__stdcall *duplicate_1_3)();  // void *(__stdcall *)()
+            /*  28*/ void *(__stdcall *duplicate_1_4)();  // void *(__stdcall *)()
+            /*  2C*/ void *(__stdcall *duplicate_1_5)();  // void *(__stdcall *)()
+            /*  30*/ void *(__stdcall *duplicate_6_1)();  // void *(__stdcall *)()
+            /*  34*/ void *(__stdcall *duplicate_6_2)();  // void *(__stdcall *)()
+            /*  38*/ void *(__stdcall *duplicate_5_2)();  // void *(__stdcall *)()
+            /*  3C*/ void *(__stdcall *duplicate_5_3)();  // void *(__stdcall *)()
+            /*  40*/ void *(__stdcall *duplicate_5_4)();  // void *(__stdcall *)()
+            /*  44*/ void *(__stdcall *duplicate_5_5)();  // void *(__stdcall *)()
+            /*  48*/ void *(__stdcall *duplicate_1_6)();  // void *(__stdcall *)()
+            /*  4C*/ void *(__stdcall *duplicate_1_7)();  // void *(__stdcall *)()
+            /*  50*/ int(__stdcall *CEngineInterface__fun_517400)(int, int, int);  // int (__stdcall *)(int a1, int a2, int a3)
+            /*  54*/ int(__stdcall *CEngineInterface__fun_443070)(int, int, int, uint32_t *, int, int);  // int (__stdcall *)(int a1, int a2, int a3, _DWORD *a4, int a5, int a6)
+            /*  58*/ int(__stdcall *CEngineInterface__fun_443090)(int, int, int, int, uint32_t *);  // int (__stdcall *)(int a1, int a2, int a3, int a4, _DWORD *a5)
+            /*  5C*/ void(__stdcall *nullsub_43)(int, int, int, int);  // void (__stdcall *)(int a1, int a2, int a3, int a4)
+            /*  60*/ void(__stdcall *nullsub_21)(int, int, int, int, int, int);  // void (__stdcall *)(int a1, int a2, int a3, int a4, int a5, int a6)
+            /*  64*/ void *(__stdcall *duplicate_23_1)();  // void *(__stdcall *)()
+            /*  68*/ void(__stdcall *nullsub_22)(int, int, int);  // void (__stdcall *)(int a1, int a2, int a3)
+            /*  6C*/ void *(__stdcall *duplicate_6_3)();  // void *(__stdcall *)()
+            /*  70*/ void *(__stdcall *duplicate_6_4)();  // void *(__stdcall *)()
+            /*  74*/ int(__stdcall *CPlayerInterface__fun_402AD0)();  // int (__stdcall *)()
+            /*  78*/ void *(__stdcall *duplicate_6_5)();  // void *(__stdcall *)()
+            /*  7C*/ void *(__stdcall *duplicate_6_6)();  // void *(__stdcall *)()
+            /*  80*/ int(__stdcall *CEngineInterface__fun_5173B0)(int, int);  // int (__stdcall *)(int a1, int a2)
+            /*  84*/ void *(__stdcall *duplicate_6_7)();  // void *(__stdcall *)()
+            /*  88*/ void *(__stdcall *duplicate_29_1)();  // void *(__stdcall *)()
+            /*  8C*/ void *(__stdcall *duplicate_3_2)();  // void *(__stdcall *)()
+            /*  90*/ int(__stdcall *CEngineInterface__fun_4430D0)(int, int, int, int, int, int);  // int (__stdcall *)(int a1, int a2, int a3, int a4, int a5, int a6)
+            /*  94*/ int(__stdcall *CEngineInterface__fun_4430C0)(int, int, int, int, int);  // int (__stdcall *)(int a1, int a2, int a3, int a4, int a5)
+            /*  98*/ void *(__stdcall *duplicate_36_1)();  // void *(__stdcall *)()
+            /*  9C*/ void *(__stdcall *duplicate_6_8)();  // void *(__stdcall *)()
+            /*  A0*/ void *(__stdcall *duplicate_37_1)();  // void *(__stdcall *)()
+            /*  A4*/ void *(__stdcall *loc_43A8A0)();  // void *(__stdcall *)()
+            /*  A8*/ void *(__stdcall *duplicate_6_9)();  // void *(__stdcall *)()
+            /*  AC*/ int(__stdcall *CEngineInterface__fun_628E30)(int);  // int (__stdcall *)(int a1)
+            /*  B0*/ void *(__stdcall *duplicate_29_2)();  // void *(__stdcall *)()
+            /*  B4*/ void(__stdcall *nullsub_10)(int, int);  // void (__stdcall *)(int a1, int a2)
+            /*  B8*/ void *(__stdcall *duplicate_26_1)();  // void *(__stdcall *)()
+            /*  BC*/ __int16(__thiscall *CEngineInterface__fun_4430E0)(CEngineInterface *self);  // __int16 (__thiscall *)(_WORD *this)
+            /*  C0*/ __int16(__thiscall *CEngineInterface__fun_4430F0)(CEngineInterface *self, __int16);  // __int16 (__thiscall *)(_WORD *this, __int16 a2)
+            /*  C4*/ __int16(__thiscall *CEngineInterface__fun_443100)(CEngineInterface *self);  // __int16 (__thiscall *)(_WORD *this)
+            /*  C8*/ __int16(__thiscall *CEngineInterface__fun_443110)(CEngineInterface *self, __int16);  // __int16 (__thiscall *)(_WORD *this, __int16 a2)
+            /*  CC*/ void *(__stdcall *duplicate_29_3)();  // void *(__stdcall *)()
+            /*  D0*/ uint32_t *(__stdcall *CEngineInterface__fun_443120)();  // _DWORD *(__stdcall *)()
+            /*  D4*/ int(__stdcall *CEngineInterface__fun_443150)(int, int);  // int (__stdcall *)(int a1, int a2)
+            /*  D8*/ void *(__stdcall *duplicate_20_1)();  // void *(__stdcall *)()
+            /*  DC*/ void *(__stdcall *duplicate_53_1)();  // void *(__stdcall *)()
+            /*  E0*/ void *(__stdcall *duplicate_37_2)();  // void *(__stdcall *)()
+            /*  E4*/ int(__stdcall *CEngineInterface__fun_628B70)(int, int, int, int);  // int (__stdcall *)(int a1, int a2, int a3, int a4)
+            /*  E8*/ void *(__stdcall *duplicate_57_1)();  // void *(__stdcall *)()
+            /*  EC*/ void *(__stdcall *duplicate_20_2)();  // void *(__stdcall *)()
+            /*  F0*/ void *(__stdcall *loc_43A880)();  // void *(__stdcall *)()
+            /*  F4*/ void *(__stdcall *loc_43A890)();  // void *(__stdcall *)()
+            /*  F8*/ void *(__stdcall *duplicate_41_1)();  // void *(__stdcall *)()
+            /*  FC*/ void *(__stdcall *duplicate_41_2)();  // void *(__stdcall *)()
+            /* 100*/ void *(__stdcall *duplicate_41_3)();  // void *(__stdcall *)()
+            /* 104*/ void *(__stdcall *duplicate_57_2)();  // void *(__stdcall *)()
+            /* 108*/ void *(__stdcall *duplicate_57_3)();  // void *(__stdcall *)()
+            /* 10C*/ void *(__stdcall *duplicate_57_4)();  // void *(__stdcall *)()
         };
-
+        static_assert(sizeof(vtbl_t) == 0x110);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ uint32_t field_0;
         /*   8*/ CBridge *f4_pCBridge;
         /*   C*/ uint16_t field_8;
@@ -591,7 +601,7 @@ namespace dk2 {
         /*  66*/ int field_62;
         /*  6A*/ int field_66;
         /*  6E*/ int field_6A;
-
+        
         virtual ~CEngineInterface();
         void dump() {
             printf("field_0: %d\n", this->field_0);
@@ -631,7 +641,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CWorldEntry {
     public:
-
+        
         /*   0*/ int field_0;
         /*   4*/ int field_4;
         /*   8*/ int field_8;
@@ -640,7 +650,7 @@ namespace dk2 {
         /*   F*/ uint32_t field_F;
         /*  13*/ uint32_t field_13;
         /*  17*/ int field_17;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_4: %d\n", this->field_4);
@@ -658,16 +668,20 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CRenderInfo {
     public:
-        static uint32_t const VFTABLE = 0x0066D454;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *CRenderInfo__fun_4B4710;
-            /*   4*/ void *CRenderInfo__fun_4B47C0;
+            /*   0*/ int(__thiscall *CRenderInfo__fun_4B4710)(CRenderInfo *self);  // int (__thiscall *)(int this)
+            /*   4*/ int(__thiscall *CRenderInfo__fun_4B47C0)(CRenderInfo *self);  // int (__thiscall *)(int this)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x8);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ uint32_t field_4;
         /*   8*/ int field_8;
         /*   C*/ int field_C;
@@ -722,7 +736,7 @@ namespace dk2 {
         /*  AD*/ char field_AD;
         /*  AE*/ char field_AE;
         /*  AF*/ char field_AF;
-
+        
         virtual ~CRenderInfo();
         void dump() {
             printf("field_4: %d\n", this->field_4);
@@ -787,68 +801,63 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CPCEngineInterface : public CEngineInterface {
     public:
-        static uint32_t const VFTABLE = 0x00670574;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public CEngineInterface::vtbl_t */{
-            /*   0*/ void *CPCEngineInterface__fun_598350;
-            /*   4*/ void *CPCEngineInterface__fun_5983C0;
+            /*   0*/ void *(__thiscall *CPCEngineInterface__fun_598350)(CPCEngineInterface *self, char);  // void *(__thiscall *)(void *Block, char)
+            /*   4*/ int(__thiscall *CPCEngineInterface__fun_5983C0)(CPCEngineInterface *self, int);  // int (__thiscall *)(CPCEngineInterface *this, int a2)
             /*   8*/ void *CPCEngineInterface__fun_598690;
-            /*   C*/ void *ret_void_0args;
-            /*  10*/ void *anonymous_0;
-            /*  14*/ void *CPlayerInterface__fun_628BC0;
-            /*  18*/ void *ret_void_1args;
-            /*  1C*/ void *anonymous_1;
+            /*   C*/ void(__cdecl *ret_void_0args)();  // void (__cdecl *)()
+            /*  10*/ void(__cdecl *anonymous_0)();  // void (__cdecl *)()
+            /*  14*/ int(__cdecl *CPlayerInterface__fun_628BC0)();  // int (*)()
+            /*  18*/ void(__stdcall *ret_void_1args)(int);  // void (__stdcall *)(int)
+            /*  1C*/ int(__cdecl *anonymous_1)();  // int (*)()
             /*  20*/ void *CPCEngineInterface__fun_5986D0;
-            /*  24*/ void *CPCEngineInterface__fun_5986F0;
+            /*  24*/ int(__stdcall *CPCEngineInterface__fun_5986F0)(uint32_t *);  // int (__stdcall *)(int *)
             /*  28*/ void *CPCEngineInterface__fun_598800;
-            /*  2C*/ void *CPCEngineInterface__fun_598880;
-            /*  30*/ void *anonymous_2;
-            /*  34*/ void *anonymous_3;
+            /*  2C*/ int(__thiscall *CPCEngineInterface__fun_598880)(CPCEngineInterface *self, uint32_t *);  // int (__thiscall *)(CPCEngineInterface *this, int *a2)
+            /*  30*/ void(__stdcall *anonymous_2)(int);  // void (__stdcall *)(int)
+            /*  34*/ void(__stdcall *anonymous_3)(int);  // void (__stdcall *)(int)
             /*  38*/ void *CPCEngineInterface__fun_59D760;
-            /*  3C*/ void *CPCEngineInterface__fun_59D7F0;
+            /*  3C*/ int(__thiscall *CPCEngineInterface__fun_59D7F0)(CPCEngineInterface *self);  // int (__thiscall *)(CPCEngineInterface *this)
             /*  40*/ void *CPCEngineInterface__fun_59D860;
             /*  44*/ void *CPCEngineInterface__fun_59D890;
-            /*  48*/ void *CPCEngineInterface__fun_5992B0;
-            /*  4C*/ void *CPCEngineInterface__fun_5998C0;
-            /*  50*/ void *ret_0_3args;
+            /*  48*/ int(__stdcall *CPCEngineInterface__fun_5992B0)(float, float, int, int);  // int (__stdcall *)(float, float, int, int)
+            /*  4C*/ int(__stdcall *CPCEngineInterface__fun_5998C0)(float, float, int);  // int (__stdcall *)(float, float, int)
+            /*  50*/ int(__stdcall *ret_0_3args)(int, int, int);  // int (__stdcall *)(int, int, int)
             /*  54*/ void *CPCEngineInterface__fun_59A6A0;
-            /*  58*/ void *CPCEngineInterface_createAndPutInArrp31x400_59A650;
+            /*  58*/ int(__thiscall *CPCEngineInterface_createAndPutInArrp31x400_59A650)(CPCEngineInterface *self, char *, int, int, int, int);  // int (__thiscall *)(CPCEngineInterface *, char *, int, int, int, int)
             /*  5C*/ void *CPCEngineInterface__fun_59B0C0;
-            /*  60*/ void *ret_void_6args;
-            /*  64*/ void *ret_void_4args;
-            /*  68*/ void *CPCEngineInterface__fun_59D580;
+            /*  60*/ void(__stdcall *ret_void_6args)(int, int, int, int, int, int);  // void (__stdcall *)(int, int, int, int, int, int)
+            /*  64*/ void(__stdcall *ret_void_4args)(int, int, int, int);  // void (__stdcall *)(int, int, int, int)
+            /*  68*/ int(__thiscall *CPCEngineInterface__fun_59D580)(CPCEngineInterface *self, int, MySurface *, int);  // int (__thiscall *)(CPCEngineInterface *, int, MySurface *, int)
             /*  6C*/ void *CPCEngineInterface__fun_59C0D0;
             /*  70*/ void *CPCEngineInterface__fun_59C110;
             /*  74*/ void *CPCEngineInterface__fun_59C120;
-            /*  78*/ void *anonymous_4;
+            /*  78*/ void(__stdcall *anonymous_4)(int);  // void (__stdcall *)(int)
             /*  7C*/ void *CPCEngineInterface__fun_59C130;
             /*  80*/ void *CPCEngineInterface__fun_59C140;
             /*  84*/ void *CPCEngineInterface__fun_59D5B0;
             /*  88*/ void *CPCEngineInterface__fun_59D900;
             /*  8C*/ void *CPCEngineInterface__fun_59DAB0;
-            /*  90*/ void *CEngineInterface__fun_4430D0;
-            /*  94*/ void *ret_0_5args;
-            /*  98*/ void *anonymous_5;
-            /*  9C*/ void *anonymous_6;
-            /*  A0*/ void *anonymous_7;
-            /*  A4*/ void *ret_0_8args;
-            /*  A8*/ void *anonymous_8;
-            /*  AC*/ void *CEngineInterface__fun_628E30;
-            /*  B0*/ void *CPlayerInterface__fun_402AD0;
-            /*  B4*/ void *ret_void_2args;
-            /*  B8*/ void *ret_void_3args;
-            /*  BC*/ void *CEngineInterface__fun_4430E0;
-            /*  C0*/ void *CEngineInterface__fun_4430F0;
-            /*  C4*/ void *CEngineInterface__fun_443100;
-            /*  C8*/ void *CEngineInterface__fun_443110;
-            /*  CC*/ void *anonymous_9;
-            /*  D0*/ void *CEngineInterface__fun_443120;
-            /*  D4*/ void *CEngineInterface__fun_443150;
+            /*  90*/ int(__stdcall *CEngineInterface__fun_4430D0)(int, int, int, int, int, int);  // int (__stdcall *)(int, int, int, int, int, int)
+            /*  94*/ int(__stdcall *ret_0_5args)(int, int, int, int, int);  // int (__stdcall *)(int, int, int, int, int)
+            /*  98*/ int(__stdcall *anonymous_5)(int, int, int, int, int, int);  // int (__stdcall *)(int, int, int, int, int, int)
+            /*  9C*/ void(__stdcall *anonymous_6)(int);  // void (__stdcall *)(int)
+            /*  A0*/ int(__stdcall *anonymous_7)(int, int, int, int, int);  // int (__stdcall *)(int, int, int, int, int)
+            /*  A4*/ int(__stdcall *ret_0_8args)(int, int, int, int, int, int, int, int);  // int (__stdcall *)(int, int, int, int, int, int, int, int)
+            /*  A8*/ void(__stdcall *anonymous_8)(int);  // void (__stdcall *)(int)
+            /*  AC*/ int(__stdcall *CEngineInterface__fun_628E30)(int);  // int (__stdcall *)(int)
+            /*  B0*/ int(__cdecl *CPlayerInterface__fun_402AD0)();  // int (*)()
+            /*  B4*/ void(__stdcall *ret_void_2args)(int, int);  // void (__stdcall *)(int, int)
+            /*  B8*/ void(__stdcall *ret_void_3args)(int, int, int);  // void (__stdcall *)(int, int, int)
+            /*  BC*/ __int16(__thiscall *CEngineInterface__fun_4430E0)(CPCEngineInterface *self);  // __int16 (__thiscall *)(_WORD *this)
+            /*  C0*/ __int16(__thiscall *CEngineInterface__fun_4430F0)(CPCEngineInterface *self, __int16);  // __int16 (__thiscall *)(_WORD *this, __int16)
+            /*  C4*/ __int16(__thiscall *CEngineInterface__fun_443100)(CPCEngineInterface *self);  // __int16 (__thiscall *)(_WORD *this)
+            /*  C8*/ __int16(__thiscall *CEngineInterface__fun_443110)(CPCEngineInterface *self, __int16);  // __int16 (__thiscall *)(_WORD *this, __int16)
+            /*  CC*/ int(__cdecl *anonymous_9)();  // int (*)()
+            /*  D0*/ uint32_t *(__cdecl *CEngineInterface__fun_443120)();  // _DWORD *(*)()
+            /*  D4*/ int(__stdcall *CEngineInterface__fun_443150)(int, int);  // int (__stdcall *)(int, int)
             /*  D8*/ void *CPCEngineInterface__fun_59C1D0;
-            /*  DC*/ void *anonymous_10;
+            /*  DC*/ int(__stdcall *anonymous_10)(int, int);  // int (__stdcall *)(int, int)
             /*  E0*/ void *CPCEngineInterface__fun_599960;
             /*  E4*/ void *CPCEngineInterface__fun_599910;
             /*  E8*/ void *CPCEngineInterface__fun_599C60;
@@ -861,10 +870,19 @@ namespace dk2 {
             /* 104*/ void *CPCEngineInterface__fun_5A1CA0;
             /* 108*/ void *CPCEngineInterface__fun_59D420;
             /* 10C*/ void *CPCEngineInterface__fun_59D380;
-            /* 110*/ void *ret_void_1args_0;
+            /* 110*/ void(__stdcall *ret_void_1args_0)(int);  // void (__stdcall *)(int)
             /* 114*/ void *CPCEngineInterface__fun_59D5E0;
         };
-
+        static_assert(sizeof(vtbl_t) == 0x118);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*  72*/ uint32_t bump_water;
         /*  76*/ uint32_t bump_water_bump_map;
         /*  7A*/ uint32_t bump_water_env_map;
@@ -904,7 +922,7 @@ namespace dk2 {
         /* 225*/ int field_225;
         /* 229*/ int field_229;
         /* 22D*/ CBridge *pCBridge;
-
+        
         virtual ~CPCEngineInterface();
         void dump() {
             printf("bump_water: %d\n", this->bump_water);
@@ -951,14 +969,14 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MySurfDesc {
     public:
-
+        
         /*   0*/ uint32_t dwRBitMask;
         /*   4*/ uint32_t dwGBitMask;
         /*   8*/ uint32_t dwBBitMask;
         /*   C*/ uint32_t dwRGBAlphaBitMask;
         /*  10*/ uint32_t dwRGBBitCount;
         /*  14*/ uint32_t isBytePerPixel;
-
+        
         void dump() {
             printf("dwRBitMask: %d\n", this->dwRBitMask);
             printf("dwGBitMask: %d\n", this->dwGBitMask);
@@ -974,13 +992,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MySurface {
     public:
-
+        
         /*   0*/ MySurfDesc desc;
         /*  18*/ int lpSurface;
         /*  1C*/ int dwWidth;
         /*  20*/ int dwHeight;
         /*  24*/ int lPitch;
-
+        
         void dump() {
             printf("lpSurface: %d\n", this->lpSurface);
             printf("dwWidth: %d\n", this->dwWidth);
@@ -994,13 +1012,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class PixelMask {
     public:
-
+        
         /*   0*/ char field_0;
         /*   1*/ char field_1;
         /*   2*/ char field_2;
         /*   3*/ char field_3;
         /*   4*/ char field_4;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_1: %d\n", this->field_1);
@@ -1015,7 +1033,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyGame_f4C {
     public:
-
+        
         /*   0*/ char field_0;
         /*   1*/ char field_1;
         /*   2*/ char field_2;
@@ -1038,7 +1056,7 @@ namespace dk2 {
         /*  13*/ char field_13;
         /*  14*/ PixelMask f14_pixelMask;
         /*  19*/ int field_19;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_1: %d\n", this->field_1);
@@ -1069,19 +1087,19 @@ namespace dk2 {
 #pragma pack(push, 1)
     class StaticListeners {
     public:
-
+        
         /*   0*/ void *f0_onKeyboardAction;
         /*   4*/ void *f4_onMouseAction;
         /*   8*/ void *f8_onWindowMsg;
         /*   C*/ void *fC_onKeyboardActionWithCtrl;
         /*  10*/ void *f10_onMouseActionWithCtrl;
-
+        
         void dump() {
-            printf("f0_onKeyboardAction: %p\n", this->f0_onKeyboardAction);
-            printf("f4_onMouseAction: %p\n", this->f4_onMouseAction);
-            printf("f8_onWindowMsg: %p\n", this->f8_onWindowMsg);
-            printf("fC_onKeyboardActionWithCtrl: %p\n", this->fC_onKeyboardActionWithCtrl);
-            printf("f10_onMouseActionWithCtrl: %p\n", this->f10_onMouseActionWithCtrl);
+            printf("f0_onKeyboardAction: void(%p)\n", this->f0_onKeyboardAction);
+            printf("f4_onMouseAction: void(%p)\n", this->f4_onMouseAction);
+            printf("f8_onWindowMsg: void(%p)\n", this->f8_onWindowMsg);
+            printf("fC_onKeyboardActionWithCtrl: void(%p)\n", this->fC_onKeyboardActionWithCtrl);
+            printf("f10_onMouseActionWithCtrl: void(%p)\n", this->f10_onMouseActionWithCtrl);
         }
     };
 #pragma pack(pop)
@@ -1090,7 +1108,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyDdSurface {
     public:
-
+        
         /*   0*/ int field_0;
         /*   4*/ int field_4;
         /*   8*/ int field_8;
@@ -1107,7 +1125,7 @@ namespace dk2 {
         /*  1C*/ int f1C_flags;
         /*  20*/ int field_20;
         /*  24*/ IDirectDrawSurface *f24_dd_surface;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_4: %d\n", this->field_4);
@@ -1133,10 +1151,10 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyDdSurfaceEx {
     public:
-
+        
         /*   0*/ MyDdSurface f0_dd_surf;
         /*  28*/ MySurface f28_surf;
-
+        
         void dump() {
         }
     };
@@ -1146,20 +1164,24 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CWindowTest {
     public:
-        static uint32_t const VFTABLE = 0x0066F20C;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *CWindowTest__DESTRUCTOR_CWindowTest_void;
+            /*   0*/ void *(__thiscall *CWindowTest__DESTRUCTOR_CWindowTest_void)(CWindowTest *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ HWND__ *f4_hWnd;
         /*   8*/ MyDdSurfaceEx f8_surface;
         /*  58*/ MyDdSurfaceEx *f58_pSurface;
         /*  5C*/ int f5C;
-
+        
         virtual ~CWindowTest();
         void dump() {
             printf("f4_hWnd: HWND__(%p)\n", this->f4_hWnd);
@@ -1173,7 +1195,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyGame {
     public:
-
+        
         /*   0*/ uint32_t field_0;
         /*   4*/ int dwWidth;
         /*   8*/ int dwHeight;
@@ -1226,7 +1248,7 @@ namespace dk2 {
         /* F2B*/ uint8_t gap_F2B[34];
         /* F4D*/ float fF4D_moonAge;
         /* F51*/ __int16 field_F51;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("dwWidth: %d\n", this->dwWidth);
@@ -1284,13 +1306,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class DdModeListItem {
     public:
-
+        
         /*   0*/ DdModeListItem *next;
         /*   4*/ DdModeListItem *last;
         /*   8*/ DWORD dwWidth;
         /*   C*/ DWORD dwHeight;
         /*  10*/ DWORD dwRGBBitCount;
-
+        
         void dump() {
             printf("next: DdModeListItem(%p)\n", this->next);
             printf("last: DdModeListItem(%p)\n", this->last);
@@ -1305,10 +1327,10 @@ namespace dk2 {
 #pragma pack(push, 1)
     class DdModeList {
     public:
-
+        
         /*   0*/ DdModeListItem *pModeList;
         /*   4*/ DdModeListItem head;
-
+        
         void dump() {
             printf("pModeList: DdModeListItem(%p)\n", this->pModeList);
         }
@@ -1319,7 +1341,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyVideoSettings {
     public:
-
+        
         /*   0*/ uint32_t cmd_flag_SPEC_value;
         /*   4*/ int display_width;
         /*   8*/ int display_height;
@@ -1362,7 +1384,7 @@ namespace dk2 {
         /*  A8*/ int guid_index;
         /*  AC*/ int guid_index_verifier_working;
         /*  B0*/ int guid_index_is_default;
-
+        
         void dump() {
             printf("cmd_flag_SPEC_value: %d\n", this->cmd_flag_SPEC_value);
             printf("display_width: %d\n", this->display_width);
@@ -1414,11 +1436,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class DDGAMMARAMP {
     public:
-
+        
         /*   0*/ WORD red[256];
         /* 200*/ WORD green[256];
         /* 400*/ WORD blue[256];
-
+        
         void dump() {
             printf("red: %d\n", this->red);
             printf("green: %d\n", this->green);
@@ -1431,20 +1453,20 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyDirectDraw {
     public:
-
+        
         /*   0*/ IDirectDraw4 *dd4;
         /*   4*/ IDirectDrawSurface4 *dd4_1;
         /*   8*/ IDirectDrawSurface4 *dd4_2;
         /*   C*/ IDirect3DDevice3 *d3d_hal_device;
         /*  10*/ IDirect3D3 *d3d3;
         /*  14*/ IDirect3DViewport3 *d3d_viewport3;
-        /*  18*/ int field_18;
-        /*  1C*/ int field_1C;
+        /*  18*/ uint32_t *f18_buf;
+        /*  1C*/ uint16_t *f1C_buf2;
         /*  20*/ int textures;
         /*  24*/ int f24_reductionLevel;
         /*  28*/ char f28_flags;
         /*  29*/ char field_29;
-
+        
         void dump() {
             printf("dd4: IDirectDraw4(%p)\n", this->dd4);
             printf("dd4_1: IDirectDrawSurface4(%p)\n", this->dd4_1);
@@ -1452,8 +1474,8 @@ namespace dk2 {
             printf("d3d_hal_device: IDirect3DDevice3(%p)\n", this->d3d_hal_device);
             printf("d3d3: IDirect3D3(%p)\n", this->d3d3);
             printf("d3d_viewport3: IDirect3DViewport3(%p)\n", this->d3d_viewport3);
-            printf("field_18: %d\n", this->field_18);
-            printf("field_1C: %d\n", this->field_1C);
+            printf("f18_buf: uint32_t(%p)\n", this->f18_buf);
+            printf("f1C_buf2: uint16_t(%p)\n", this->f1C_buf2);
             printf("textures: %d\n", this->textures);
             printf("f24_reductionLevel: %d\n", this->f24_reductionLevel);
             printf("f28_flags: %d\n", this->f28_flags);
@@ -1466,38 +1488,42 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CCommunicationInterface {
     public:
-        static uint32_t const VFTABLE = 0x0066EB3C;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *CCommunicationInterface___scalar_deleting_destructor_uint;
-            /*   4*/ void *__purecall;
-            /*   8*/ void *duplicate_1_1;
-            /*   C*/ void *CEngineInterface__fun_443150;
-            /*  10*/ void *pushAction;
-            /*  14*/ void *f14_collectActions;
-            /*  18*/ void *duplicate_1_4;
-            /*  1C*/ void *duplicate_1_5;
-            /*  20*/ void *duplicate_1_6;
-            /*  24*/ void *duplicate_1_7;
-            /*  28*/ void *duplicate_1_8;
-            /*  2C*/ void *duplicate_1_9;
-            /*  30*/ void *duplicate_1_10;
-            /*  34*/ void *duplicate_1_11;
-            /*  38*/ void *duplicate_1_12;
-            /*  3C*/ void *CCommunicationInterface__fun_521B40;
-            /*  40*/ void *nullsub_10;
-            /*  44*/ void *CCommunicationInterface__fun_52B700;
-            /*  48*/ void *duplicate_1_13;
+            /*   0*/ void *(__thiscall *CCommunicationInterface___scalar_deleting_destructor_uint)(CCommunicationInterface *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ void(__stdcall *__purecall)();  // void (__stdcall __noreturn *)()
+            /*   8*/ void *(__stdcall *duplicate_1_1)();  // void *(__stdcall *)()
+            /*   C*/ int(__thiscall *CEngineInterface__fun_443150)(CCommunicationInterface *self, GameAction *, int);  // int (__thiscall *)(CCommunicationInterface *, GameAction *, int)
+            /*  10*/ void(__thiscall *pushAction)(CCommunicationInterface *self, GameAction *);  // void (__thiscall *)(CCommunicationInterface *, GameAction *)
+            /*  14*/ int(__thiscall *f14_collectActions)(CCommunicationInterface *self, void *);  // int (__thiscall *)(CCommunicationInterface *, void *)
+            /*  18*/ void *(__stdcall *duplicate_1_4)();  // void *(__stdcall *)()
+            /*  1C*/ void *(__stdcall *duplicate_1_5)();  // void *(__stdcall *)()
+            /*  20*/ void *(__stdcall *duplicate_1_6)();  // void *(__stdcall *)()
+            /*  24*/ void *(__stdcall *duplicate_1_7)();  // void *(__stdcall *)()
+            /*  28*/ void *(__stdcall *duplicate_1_8)();  // void *(__stdcall *)()
+            /*  2C*/ void *(__stdcall *duplicate_1_9)();  // void *(__stdcall *)()
+            /*  30*/ void *(__stdcall *duplicate_1_10)();  // void *(__stdcall *)()
+            /*  34*/ void *(__stdcall *duplicate_1_11)();  // void *(__stdcall *)()
+            /*  38*/ void *(__stdcall *duplicate_1_12)();  // void *(__stdcall *)()
+            /*  3C*/ int(__stdcall *CCommunicationInterface__fun_521B40)(int);  // int (__stdcall *)(int a1)
+            /*  40*/ void(__stdcall *nullsub_10)(int, int);  // void (__stdcall *)(int a1, int a2)
+            /*  44*/ int(__stdcall *CCommunicationInterface__fun_52B700)(int);  // int (__stdcall *)(int a1)
+            /*  48*/ void *(__stdcall *duplicate_1_13)();  // void *(__stdcall *)()
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ uint32_t field_0;
         /*   8*/ int field_4;
         /*   C*/ int f8_timeMs_to__;
         /*  10*/ int field_C;
-
+        
         virtual ~CCommunicationInterface();
         void dump() {
             printf("field_0: %d\n", this->field_0);
@@ -1512,12 +1538,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Area2i {
     public:
-
+        
         /*   0*/ int x;
         /*   4*/ int y;
         /*   8*/ int w;
         /*   C*/ int h;
-
+        
         void dump() {
             printf("x: %d\n", this->x);
             printf("y: %d\n", this->y);
@@ -1529,15 +1555,28 @@ namespace dk2 {
     static_assert(sizeof(Area2i) == 0x10);
 
 #pragma pack(push, 1)
-    class CGadget_fields {
+    class CGadget {
     public:
-
-        /*   0*/ uint32_t x_offs;
-        /*   4*/ uint32_t y_offs;
-        /*   8*/ uint32_t width;
-        /*   C*/ int height;
-        /*  10*/ Area2i pos;
-
+        struct vtbl_t {
+            /*   0*/ void *(__thiscall *CGadget___scalar_deleting_destructor_uint)(CGadget *self, char);  // std::locale::facet *(__thiscall *)(std::locale::facet *this, char a2)
+        };
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        /*   4*/ uint32_t x_offs;
+        /*   8*/ uint32_t y_offs;
+        /*   C*/ uint32_t width;
+        /*  10*/ int height;
+        /*  14*/ Area2i pos;
+        
+        virtual ~CGadget();
         void dump() {
             printf("x_offs: %d\n", this->x_offs);
             printf("y_offs: %d\n", this->y_offs);
@@ -1546,22 +1585,25 @@ namespace dk2 {
         }
     };
 #pragma pack(pop)
-    static_assert(sizeof(CGadget_fields) == 0x20);
+    static_assert(sizeof(CGadget) == 0x24);
 
 #pragma pack(push, 1)
-    class CWindow {
+    class CWindow : public CGadget {
     public:
-        static uint32_t const VFTABLE = 0x0066EE94;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t {
-            /*   0*/ void *CWindow___scalar_deleting_destructor_uint;
-            /*   4*/ void *update;
+        struct vtbl_t /*: public CGadget::vtbl_t */{
+            /*   0*/ void *(__thiscall *CWindow___scalar_deleting_destructor_uint)(CWindow *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ int(__thiscall *update)(CWindow *self);  // int (__thiscall *)(_DWORD *this)
         };
-
-        /*   4*/ CGadget_fields super;
+        static_assert(sizeof(vtbl_t) == 0x8);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*  24*/ uint32_t f20_updateFun;
         /*  28*/ uint32_t f24_fun;
         /*  2C*/ uint32_t field_28;
@@ -1582,7 +1624,7 @@ namespace dk2 {
         /*  66*/ int field_62_bool;
         /*  6A*/ CButton *f66_buttons;
         /*  6E*/ __int16 _end_f6A_unk;
-
+        
         virtual ~CWindow();
         void dump() {
             printf("f20_updateFun: %d\n", this->f20_updateFun);
@@ -1613,10 +1655,10 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Pos2i {
     public:
-
+        
         /*   0*/ int x;
         /*   4*/ int y;
-
+        
         void dump() {
             printf("x: %d\n", this->x);
             printf("y: %d\n", this->y);
@@ -1628,12 +1670,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class AABB {
     public:
-
+        
         /*   0*/ int minX;
         /*   4*/ int minY;
         /*   8*/ int maxX;
         /*   C*/ int maxY;
-
+        
         void dump() {
             printf("minX: %d\n", this->minX);
             printf("minY: %d\n", this->minY);
@@ -1647,15 +1689,19 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CGuiManager {
     public:
-        static uint32_t const VFTABLE = 0x0066ED1C;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *CGuiManager___scalar_deleting_destructor_uint;
+            /*   0*/ void *(__thiscall *CGuiManager___scalar_deleting_destructor_uint)(CGuiManager *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ uint32_t f4_width;
         /*   8*/ uint32_t f8_height;
         /*   C*/ uint32_t fC_isButtonVisited;
@@ -1681,7 +1727,7 @@ namespace dk2 {
         /*  DC*/ uint8_t gap_DC[256];
         /* 1DC*/ uint32_t field_1DC;
         /* 1E0*/ int field_1E0;
-
+        
         virtual ~CGuiManager();
         void dump() {
             printf("f4_width: %d\n", this->f4_width);
@@ -1713,11 +1759,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyStaticStruct {
     public:
-
+        
         /*   0*/ uint32_t f0;
         /*   4*/ int f4;
         /*   8*/ int f8;
-
+        
         void dump() {
             printf("f0: %d\n", this->f0);
             printf("f4: %d\n", this->f4);
@@ -1730,7 +1776,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class RtGuiView {
     public:
-
+        
         /*   0*/ void *f0_blocksBuf;
         /*   4*/ int f4_Arrp31x400_ids[140];
         /* 234*/ CWorldEntry f234_worldEntry;
@@ -1744,9 +1790,9 @@ namespace dk2 {
         /* 28F*/ uint32_t f28F_dwRGBBitCount;
         /* 293*/ uint32_t f293_blocksCount_bytes;
         /* 297*/ int field_297;
-
+        
         void dump() {
-            printf("f0_blocksBuf: %p\n", this->f0_blocksBuf);
+            printf("f0_blocksBuf: void(%p)\n", this->f0_blocksBuf);
             printf("f4_Arrp31x400_ids: %d\n", this->f4_Arrp31x400_ids);
             printf("f277_width: %d\n", this->f277_width);
             printf("f27B_height: %d\n", this->f27B_height);
@@ -1765,37 +1811,41 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CDefaultPlayerInterface {
     public:
-        static uint32_t const VFTABLE = 0x0066C4A4;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *CDefaultPlayerInterface__fun_402C00;
-            /*   4*/ void *CDefaultPlayerInterface__fun_402D00;
-            /*   8*/ void *CDefaultPlayerInterface__fun_4033F0;
-            /*   C*/ void *CDefaultPlayerInterface__fun_4036E0;
-            /*  10*/ void *CDefaultPlayerInterface__fun_4039A0;
-            /*  14*/ void *CDefaultPlayerInterface__fun_403FB0;
-            /*  18*/ void *CPlayerInterface__fun_402AD0;
-            /*  1C*/ void *CDefaultPlayerInterface__fun_402B50;
-            /*  20*/ void *CDefaultPlayerInterface__fun_4096B0;
-            /*  24*/ void *CDefaultPlayerInterface__fun_409880;
-            /*  28*/ void *CDefaultPlayerInterface__fun_4098A0;
-            /*  2C*/ void *CDefaultPlayerInterface__fun_4098D0;
-            /*  30*/ void *CDefaultPlayerInterface__fun_402B60;
-            /*  34*/ void *CDefaultPlayerInterface__fun_402B70;
-            /*  38*/ void *CDefaultPlayerInterface__fun_402B80;
-            /*  3C*/ void *CDefaultPlayerInterface__fun_42BC20;
-            /*  40*/ void *CDefaultPlayerInterface__fun_42BE40;
-            /*  44*/ void *CDefaultPlayerInterface__fun_42C710;
-            /*  48*/ void *CDefaultPlayerInterface__fun_42BFE0;
-            /*  4C*/ void *CDefaultPlayerInterface__fun_42C0D0;
-            /*  50*/ void *CDefaultPlayerInterface__fun_42C1E0;
-            /*  54*/ void *CDefaultPlayerInterface__fun_402B90;
-            /*  58*/ void *CDefaultPlayerInterface__fun_409EC0;
+            /*   0*/ void *(__thiscall *CDefaultPlayerInterface__fun_402C00)(CDefaultPlayerInterface *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ int(__thiscall *CDefaultPlayerInterface__fun_402D00)(CDefaultPlayerInterface *self, __int16);  // int (__thiscall *)(char *this, __int16 a2)
+            /*   8*/ int(__thiscall *CDefaultPlayerInterface__fun_4033F0)(CDefaultPlayerInterface *self);  // int (__thiscall *)(int this)
+            /*   C*/ int(__thiscall *CDefaultPlayerInterface__fun_4036E0)(CDefaultPlayerInterface *self);  // int (__thiscall *)(int this)
+            /*  10*/ int(__thiscall *CDefaultPlayerInterface__fun_4039A0)(CDefaultPlayerInterface *self, int, int, int);  // int (__thiscall *)(CDefaultPlayerInterface *this, int a4, int a5, int a6)
+            /*  14*/ int(__thiscall *CDefaultPlayerInterface__fun_403FB0)(CDefaultPlayerInterface *self);  // int (__thiscall *)(_DWORD *this)
+            /*  18*/ int(__stdcall *CPlayerInterface__fun_402AD0)();  // int (__stdcall *)()
+            /*  1C*/ int(__thiscall *CDefaultPlayerInterface__fun_402B50)(CDefaultPlayerInterface *self, int);  // int (__thiscall *)(int this, int a2)
+            /*  20*/ BOOL(__thiscall *CDefaultPlayerInterface__fun_4096B0)(CDefaultPlayerInterface *self);  // BOOL (__thiscall *)(int this)
+            /*  24*/ int(__thiscall *CDefaultPlayerInterface__fun_409880)(CDefaultPlayerInterface *self);  // int (__thiscall *)(void *this)
+            /*  28*/ int(__thiscall *CDefaultPlayerInterface__fun_4098A0)(CDefaultPlayerInterface *self);  // int (__thiscall *)(int this)
+            /*  2C*/ int(__thiscall *CDefaultPlayerInterface__fun_4098D0)(CDefaultPlayerInterface *self);  // int (__thiscall *)(int this)
+            /*  30*/ int(__thiscall *CDefaultPlayerInterface__fun_402B60)(CDefaultPlayerInterface *self);  // int (__thiscall *)(int this)
+            /*  34*/ void(__thiscall *CDefaultPlayerInterface__fun_402B70)(CDefaultPlayerInterface *self);  // void (__thiscall *)(int this)
+            /*  38*/ void(__thiscall *CDefaultPlayerInterface__fun_402B80)(CDefaultPlayerInterface *self);  // void (__thiscall *)(int this)
+            /*  3C*/ int(__thiscall *CDefaultPlayerInterface__fun_42BC20)(CDefaultPlayerInterface *self);  // int (__thiscall *)(int this)
+            /*  40*/ int(__thiscall *CDefaultPlayerInterface__fun_42BE40)(CDefaultPlayerInterface *self);  // int (__thiscall *)(int this)
+            /*  44*/ BOOL(__thiscall *CDefaultPlayerInterface__fun_42C710)(CDefaultPlayerInterface *self);  // BOOL (__thiscall *)(_DWORD *this)
+            /*  48*/ int(__thiscall *CDefaultPlayerInterface__fun_42BFE0)(CDefaultPlayerInterface *self);  // int (__thiscall *)(_DWORD *this)
+            /*  4C*/ int(__thiscall *CDefaultPlayerInterface__fun_42C0D0)(CDefaultPlayerInterface *self);  // int (__thiscall *)(_DWORD *this)
+            /*  50*/ DWORD(__thiscall *CDefaultPlayerInterface__fun_42C1E0)(CDefaultPlayerInterface *self, int, int);  // DWORD (__thiscall *)(_DWORD *this, int a2, int a3)
+            /*  54*/ char(__thiscall *CDefaultPlayerInterface__fun_402B90)(CDefaultPlayerInterface *self, char);  // char (__thiscall *)(_BYTE *this, char a2)
+            /*  58*/ DWORD(__thiscall *CDefaultPlayerInterface__fun_409EC0)(CDefaultPlayerInterface *self, __int16, void *);  // DWORD (__thiscall *)(int this, __int16 a2, const void *a3)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x5C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ MyProfiler *f4_profiler;
         /*   8*/ __int16 f8__cpyToF10;
         /*   A*/ int fA__counter;
@@ -1957,7 +2007,7 @@ namespace dk2 {
         /*4E6D*/ uint32_t field_4E6D;
         /*4E71*/ uint8_t gap4E71[188];
         /*4F2D*/ int field_4F2D;
-
+        
         virtual ~CDefaultPlayerInterface();
         void dump() {
             printf("f4_profiler: MyProfiler(%p)\n", this->f4_profiler);
@@ -2101,196 +2151,101 @@ namespace dk2 {
     static_assert(sizeof(CDefaultPlayerInterface) == 0x4F31);
 
 #pragma pack(push, 1)
-    class CGadget {
+    class CBridgeInterface : public CEngineInterface {
     public:
-        static uint32_t const VFTABLE = 0x0066ED14;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t {
-            /*   0*/ void *CGadget___scalar_deleting_destructor_uint;
+        struct vtbl_t /*: public CEngineInterface::vtbl_t */{
+            /*   0*/ void *(__thiscall *CBridgeInterface___scalar_deleting_destructor_uint)(CBridgeInterface *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ void(__stdcall *__purecall)();  // void (__stdcall __noreturn *)()
+            /*   8*/ void *(__stdcall *duplicate_1_1)();  // void *(__stdcall *)()
+            /*   C*/ void(__cdecl *nullsub_2)();  // void (__cdecl *)()
+            /*  10*/ void *(__stdcall *duplicate_3_1)();  // void *(__stdcall *)()
+            /*  14*/ int(__stdcall *CPlayerInterface__fun_628BC0)();  // int (__stdcall *)()
+            /*  18*/ void(__stdcall *nullsub_44)(int);  // void (__stdcall *)(int a1)
+            /*  1C*/ void *(__stdcall *duplicate_5_1)();  // void *(__stdcall *)()
+            /*  20*/ void *(__stdcall *duplicate_1_2)();  // void *(__stdcall *)()
+            /*  24*/ void *(__stdcall *duplicate_1_3)();  // void *(__stdcall *)()
+            /*  28*/ void *(__stdcall *duplicate_1_4)();  // void *(__stdcall *)()
+            /*  2C*/ void *(__stdcall *duplicate_1_5)();  // void *(__stdcall *)()
+            /*  30*/ void *(__stdcall *duplicate_6_1)();  // void *(__stdcall *)()
+            /*  34*/ void *(__stdcall *duplicate_6_2)();  // void *(__stdcall *)()
+            /*  38*/ void *(__stdcall *duplicate_5_2)();  // void *(__stdcall *)()
+            /*  3C*/ void *(__stdcall *duplicate_5_3)();  // void *(__stdcall *)()
+            /*  40*/ void *(__stdcall *duplicate_5_4)();  // void *(__stdcall *)()
+            /*  44*/ void *(__stdcall *duplicate_5_5)();  // void *(__stdcall *)()
+            /*  48*/ void *(__stdcall *duplicate_1_6)();  // void *(__stdcall *)()
+            /*  4C*/ void *(__stdcall *duplicate_1_7)();  // void *(__stdcall *)()
+            /*  50*/ int(__stdcall *CEngineInterface__fun_517400)(int, int, int);  // int (__stdcall *)(int a1, int a2, int a3)
+            /*  54*/ int(__stdcall *CEngineInterface__fun_443070)(int, int, int, uint32_t *, int, int);  // int (__stdcall *)(int a1, int a2, int a3, _DWORD *a4, int a5, int a6)
+            /*  58*/ int(__stdcall *CEngineInterface__fun_443090)(int, int, int, int, uint32_t *);  // int (__stdcall *)(int a1, int a2, int a3, int a4, _DWORD *a5)
+            /*  5C*/ void(__stdcall *nullsub_43)(int, int, int, int);  // void (__stdcall *)(int a1, int a2, int a3, int a4)
+            /*  60*/ void(__stdcall *nullsub_21)(int, int, int, int, int, int);  // void (__stdcall *)(int a1, int a2, int a3, int a4, int a5, int a6)
+            /*  64*/ void *(__stdcall *duplicate_23_1)();  // void *(__stdcall *)()
+            /*  68*/ void(__stdcall *nullsub_22)(int, int, int);  // void (__stdcall *)(int a1, int a2, int a3)
+            /*  6C*/ void *(__stdcall *duplicate_6_3)();  // void *(__stdcall *)()
+            /*  70*/ void *(__stdcall *duplicate_6_4)();  // void *(__stdcall *)()
+            /*  74*/ int(__stdcall *CPlayerInterface__fun_402AD0)();  // int (__stdcall *)()
+            /*  78*/ void *(__stdcall *duplicate_6_5)();  // void *(__stdcall *)()
+            /*  7C*/ void *(__stdcall *duplicate_6_6)();  // void *(__stdcall *)()
+            /*  80*/ int(__stdcall *CEngineInterface__fun_5173B0)(int, int);  // int (__stdcall *)(int a1, int a2)
+            /*  84*/ void *(__stdcall *duplicate_6_7)();  // void *(__stdcall *)()
+            /*  88*/ void *(__stdcall *duplicate_29_1)();  // void *(__stdcall *)()
+            /*  8C*/ void *(__stdcall *duplicate_3_2)();  // void *(__stdcall *)()
+            /*  90*/ int(__stdcall *CEngineInterface__fun_4430D0)(int, int, int, int, int, int);  // int (__stdcall *)(int a1, int a2, int a3, int a4, int a5, int a6)
+            /*  94*/ int(__stdcall *CEngineInterface__fun_4430C0)(int, int, int, int, int);  // int (__stdcall *)(int a1, int a2, int a3, int a4, int a5)
+            /*  98*/ void *(__stdcall *duplicate_36_1)();  // void *(__stdcall *)()
+            /*  9C*/ void *(__stdcall *duplicate_6_8)();  // void *(__stdcall *)()
+            /*  A0*/ void *(__stdcall *duplicate_37_1)();  // void *(__stdcall *)()
+            /*  A4*/ void *(__stdcall *loc_43A8A0)();  // void *(__stdcall *)()
+            /*  A8*/ void *(__stdcall *duplicate_6_9)();  // void *(__stdcall *)()
+            /*  AC*/ int(__stdcall *CEngineInterface__fun_628E30)(int);  // int (__stdcall *)(int a1)
+            /*  B0*/ void *(__stdcall *duplicate_1_8)();  // void *(__stdcall *)()
+            /*  B4*/ void(__stdcall *nullsub_10)(int, int);  // void (__stdcall *)(int a1, int a2)
+            /*  B8*/ void *(__stdcall *duplicate_26_1)();  // void *(__stdcall *)()
+            /*  BC*/ __int16(__thiscall *CEngineInterface__fun_4430E0)(CBridgeInterface *self);  // __int16 (__thiscall *)(_WORD *this)
+            /*  C0*/ __int16(__thiscall *CEngineInterface__fun_4430F0)(CBridgeInterface *self, __int16);  // __int16 (__thiscall *)(_WORD *this, __int16 a2)
+            /*  C4*/ __int16(__thiscall *CEngineInterface__fun_443100)(CBridgeInterface *self);  // __int16 (__thiscall *)(_WORD *this)
+            /*  C8*/ __int16(__thiscall *CEngineInterface__fun_443110)(CBridgeInterface *self, __int16);  // __int16 (__thiscall *)(_WORD *this, __int16 a2)
+            /*  CC*/ void *(__stdcall *duplicate_29_2)();  // void *(__stdcall *)()
+            /*  D0*/ uint32_t *(__stdcall *CEngineInterface__fun_443120)();  // _DWORD *(__stdcall *)()
+            /*  D4*/ int(__stdcall *CEngineInterface__fun_443150)(int, int);  // int (__stdcall *)(int a1, int a2)
+            /*  D8*/ void *(__stdcall *duplicate_20_1)();  // void *(__stdcall *)()
+            /*  DC*/ void *(__stdcall *duplicate_53_1)();  // void *(__stdcall *)()
+            /*  E0*/ void *(__stdcall *duplicate_37_2)();  // void *(__stdcall *)()
+            /*  E4*/ int(__stdcall *CEngineInterface__fun_628B70)(int, int, int, int);  // int (__stdcall *)(int a1, int a2, int a3, int a4)
+            /*  E8*/ void *(__stdcall *duplicate_57_1)();  // void *(__stdcall *)()
+            /*  EC*/ void *(__stdcall *duplicate_20_2)();  // void *(__stdcall *)()
+            /*  F0*/ void *(__stdcall *loc_43A880)();  // void *(__stdcall *)()
+            /*  F4*/ void *(__stdcall *loc_43A890)();  // void *(__stdcall *)()
+            /*  F8*/ void *(__stdcall *duplicate_41_1)();  // void *(__stdcall *)()
+            /*  FC*/ void *(__stdcall *duplicate_41_2)();  // void *(__stdcall *)()
+            /* 100*/ void *(__stdcall *duplicate_41_3)();  // void *(__stdcall *)()
+            /* 104*/ void *(__stdcall *duplicate_57_2)();  // void *(__stdcall *)()
+            /* 108*/ void *(__stdcall *duplicate_57_3)();  // void *(__stdcall *)()
+            /* 10C*/ void *(__stdcall *duplicate_57_4)();  // void *(__stdcall *)()
+            /* 110*/ void *(__stdcall *duplicate_1_9)();  // void *(__stdcall *)()
+            /* 114*/ void *(__stdcall *duplicate_1_10)();  // void *(__stdcall *)()
+            /* 118*/ void *(__stdcall *duplicate_1_11)();  // void *(__stdcall *)()
+            /* 11C*/ void *(__stdcall *duplicate_1_12)();  // void *(__stdcall *)()
+            /* 120*/ void *(__stdcall *duplicate_1_13)();  // void *(__stdcall *)()
+            /* 124*/ void *(__stdcall *duplicate_1_14)();  // void *(__stdcall *)()
+            /* 128*/ void *(__stdcall *duplicate_1_15)();  // void *(__stdcall *)()
+            /* 12C*/ void *(__stdcall *duplicate_1_16)();  // void *(__stdcall *)()
+            /* 130*/ void *(__stdcall *duplicate_1_17)();  // void *(__stdcall *)()
+            /* 134*/ void *(__stdcall *duplicate_1_18)();  // void *(__stdcall *)()
+            /* 138*/ void *(__stdcall *duplicate_1_19)();  // void *(__stdcall *)()
+            /* 13C*/ void *(__stdcall *duplicate_1_20)();  // void *(__stdcall *)()
         };
-
-        /*   4*/ uint32_t x_offs;
-        /*   8*/ uint32_t y_offs;
-        /*   C*/ uint32_t width;
-        /*  10*/ int height;
-        /*  14*/ Area2i pos;
-
-        virtual ~CGadget();
-        void dump() {
-            printf("x_offs: %d\n", this->x_offs);
-            printf("y_offs: %d\n", this->y_offs);
-            printf("width: %d\n", this->width);
-            printf("height: %d\n", this->height);
-        }
-    };
-#pragma pack(pop)
-    static_assert(sizeof(CGadget) == 0x24);
-
-#pragma pack(push, 1)
-    class CEngineInterface_fields {
+        static_assert(sizeof(vtbl_t) == 0x140);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
     public:
-
-        /*   0*/ uint32_t field_0;
-        /*   4*/ CBridge *f4_pCBridge;
-        /*   8*/ uint16_t field_8;
-        /*   A*/ uint16_t field_A;
-        /*   C*/ uint32_t field_C;
-        /*  10*/ uint32_t field_10;
-        /*  14*/ int field_14;
-        /*  18*/ int field_18;
-        /*  1C*/ int field_1C;
-        /*  20*/ int field_20;
-        /*  24*/ int field_24;
-        /*  28*/ int field_28;
-        /*  2C*/ int field_2C;
-        /*  30*/ __int16 field_30;
-        /*  32*/ int field_32;
-        /*  36*/ int field_36;
-        /*  3A*/ int field_3A;
-        /*  3E*/ int field_3E;
-        /*  42*/ int field_42;
-        /*  46*/ int field_46;
-        /*  4A*/ int field_4A;
-        /*  4E*/ int field_4E;
-        /*  52*/ int field_52;
-        /*  56*/ int field_56;
-        /*  5A*/ int field_5A;
-        /*  5E*/ int field_5E;
-        /*  62*/ int field_62;
-        /*  66*/ int field_66;
-        /*  6A*/ int field_6A;
-
-        void dump() {
-            printf("field_0: %d\n", this->field_0);
-            printf("f4_pCBridge: CBridge(%p)\n", this->f4_pCBridge);
-            printf("field_8: %d\n", this->field_8);
-            printf("field_A: %d\n", this->field_A);
-            printf("field_C: %d\n", this->field_C);
-            printf("field_10: %d\n", this->field_10);
-            printf("field_14: %d\n", this->field_14);
-            printf("field_18: %d\n", this->field_18);
-            printf("field_1C: %d\n", this->field_1C);
-            printf("field_20: %d\n", this->field_20);
-            printf("field_24: %d\n", this->field_24);
-            printf("field_28: %d\n", this->field_28);
-            printf("field_2C: %d\n", this->field_2C);
-            printf("field_30: %d\n", this->field_30);
-            printf("field_32: %d\n", this->field_32);
-            printf("field_36: %d\n", this->field_36);
-            printf("field_3A: %d\n", this->field_3A);
-            printf("field_3E: %d\n", this->field_3E);
-            printf("field_42: %d\n", this->field_42);
-            printf("field_46: %d\n", this->field_46);
-            printf("field_4A: %d\n", this->field_4A);
-            printf("field_4E: %d\n", this->field_4E);
-            printf("field_52: %d\n", this->field_52);
-            printf("field_56: %d\n", this->field_56);
-            printf("field_5A: %d\n", this->field_5A);
-            printf("field_5E: %d\n", this->field_5E);
-            printf("field_62: %d\n", this->field_62);
-            printf("field_66: %d\n", this->field_66);
-            printf("field_6A: %d\n", this->field_6A);
-        }
-    };
-#pragma pack(pop)
-    static_assert(sizeof(CEngineInterface_fields) == 0x6E);
-
-#pragma pack(push, 1)
-    class CBridgeInterface {
-    public:
-        static uint32_t const VFTABLE = 0x0066CF7C;
-
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
         template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t {
-            /*   0*/ void *CBridgeInterface___scalar_deleting_destructor_uint;
-            /*   4*/ void *__purecall;
-            /*   8*/ void *duplicate_1_1;
-            /*   C*/ void *nullsub_2;
-            /*  10*/ void *duplicate_3_1;
-            /*  14*/ void *CPlayerInterface__fun_628BC0;
-            /*  18*/ void *nullsub_44;
-            /*  1C*/ void *duplicate_5_1;
-            /*  20*/ void *duplicate_1_2;
-            /*  24*/ void *duplicate_1_3;
-            /*  28*/ void *duplicate_1_4;
-            /*  2C*/ void *duplicate_1_5;
-            /*  30*/ void *duplicate_6_1;
-            /*  34*/ void *duplicate_6_2;
-            /*  38*/ void *duplicate_5_2;
-            /*  3C*/ void *duplicate_5_3;
-            /*  40*/ void *duplicate_5_4;
-            /*  44*/ void *duplicate_5_5;
-            /*  48*/ void *duplicate_1_6;
-            /*  4C*/ void *duplicate_1_7;
-            /*  50*/ void *CEngineInterface__fun_517400;
-            /*  54*/ void *CEngineInterface__fun_443070;
-            /*  58*/ void *CEngineInterface__fun_443090;
-            /*  5C*/ void *nullsub_43;
-            /*  60*/ void *nullsub_21;
-            /*  64*/ void *duplicate_23_1;
-            /*  68*/ void *nullsub_22;
-            /*  6C*/ void *duplicate_6_3;
-            /*  70*/ void *duplicate_6_4;
-            /*  74*/ void *CPlayerInterface__fun_402AD0;
-            /*  78*/ void *duplicate_6_5;
-            /*  7C*/ void *duplicate_6_6;
-            /*  80*/ void *CEngineInterface__fun_5173B0;
-            /*  84*/ void *duplicate_6_7;
-            /*  88*/ void *duplicate_29_1;
-            /*  8C*/ void *duplicate_3_2;
-            /*  90*/ void *CEngineInterface__fun_4430D0;
-            /*  94*/ void *CEngineInterface__fun_4430C0;
-            /*  98*/ void *duplicate_36_1;
-            /*  9C*/ void *duplicate_6_8;
-            /*  A0*/ void *duplicate_37_1;
-            /*  A4*/ void *loc_43A8A0;
-            /*  A8*/ void *duplicate_6_9;
-            /*  AC*/ void *CEngineInterface__fun_628E30;
-            /*  B0*/ void *duplicate_1_8;
-            /*  B4*/ void *nullsub_10;
-            /*  B8*/ void *duplicate_26_1;
-            /*  BC*/ void *CEngineInterface__fun_4430E0;
-            /*  C0*/ void *CEngineInterface__fun_4430F0;
-            /*  C4*/ void *CEngineInterface__fun_443100;
-            /*  C8*/ void *CEngineInterface__fun_443110;
-            /*  CC*/ void *duplicate_29_2;
-            /*  D0*/ void *CEngineInterface__fun_443120;
-            /*  D4*/ void *CEngineInterface__fun_443150;
-            /*  D8*/ void *duplicate_20_1;
-            /*  DC*/ void *duplicate_53_1;
-            /*  E0*/ void *duplicate_37_2;
-            /*  E4*/ void *CEngineInterface__fun_628B70;
-            /*  E8*/ void *duplicate_57_1;
-            /*  EC*/ void *duplicate_20_2;
-            /*  F0*/ void *loc_43A880;
-            /*  F4*/ void *loc_43A890;
-            /*  F8*/ void *duplicate_41_1;
-            /*  FC*/ void *duplicate_41_2;
-            /* 100*/ void *duplicate_41_3;
-            /* 104*/ void *duplicate_57_2;
-            /* 108*/ void *duplicate_57_3;
-            /* 10C*/ void *duplicate_57_4;
-            /* 110*/ void *duplicate_1_9;
-            /* 114*/ void *duplicate_1_10;
-            /* 118*/ void *duplicate_1_11;
-            /* 11C*/ void *duplicate_1_12;
-            /* 120*/ void *duplicate_1_13;
-            /* 124*/ void *duplicate_1_14;
-            /* 128*/ void *duplicate_1_15;
-            /* 12C*/ void *duplicate_1_16;
-            /* 130*/ void *duplicate_1_17;
-            /* 134*/ void *duplicate_1_18;
-            /* 138*/ void *duplicate_1_19;
-            /* 13C*/ void *duplicate_1_20;
-        };
-
-        /*   4*/ CEngineInterface_fields super;
-
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        
         virtual ~CBridgeInterface();
         void dump() {
         }
@@ -2301,7 +2256,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class My_sub_56F850 {
     public:
-
+        
         /*   0*/ uint32_t field_0;
         /*   4*/ uint32_t field_4;
         /*   8*/ uint32_t field_8;
@@ -2320,7 +2275,7 @@ namespace dk2 {
         /*  3C*/ int field_3C;
         /*  40*/ int field_40;
         /*  44*/ uint8_t field_44[84];
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_4: %d\n", this->field_4);
@@ -2348,7 +2303,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class ProbablyGlobalRenderObj {
     public:
-
+        
         /*   0*/ uint32_t field_0;
         /*   4*/ uint8_t gap_4[36];
         /*  28*/ My_sub_56F850 f28_My_sub_56F850_arr_x22[22];
@@ -2380,10 +2335,10 @@ namespace dk2 {
         /* E56*/ int field_E56;
         /* E5A*/ int field_E5A;
         /* E5E*/ int field_E5E;
-        /* E62*/ int field_E62;
-        /* E66*/ int field_E66;
-        /* E6A*/ int field_E6A;
-        /* E6E*/ int field_E6E;
+        /* E62*/ int fE62_left;
+        /* E66*/ int fE66_top;
+        /* E6A*/ int fE6A_right;
+        /* E6E*/ int fE6E_bottom;
         /* E72*/ int field_E72;
         /* E76*/ int field_E76;
         /* E7A*/ int field_E7A;
@@ -2403,7 +2358,7 @@ namespace dk2 {
         /* EB2*/ int field_EB2;
         /* EB6*/ int field_EB6;
         /* EBA*/ int fEBA;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("gap_4: %d\n", this->gap_4);
@@ -2435,10 +2390,10 @@ namespace dk2 {
             printf("field_E56: %d\n", this->field_E56);
             printf("field_E5A: %d\n", this->field_E5A);
             printf("field_E5E: %d\n", this->field_E5E);
-            printf("field_E62: %d\n", this->field_E62);
-            printf("field_E66: %d\n", this->field_E66);
-            printf("field_E6A: %d\n", this->field_E6A);
-            printf("field_E6E: %d\n", this->field_E6E);
+            printf("fE62_left: %d\n", this->fE62_left);
+            printf("fE66_top: %d\n", this->fE66_top);
+            printf("fE6A_right: %d\n", this->fE6A_right);
+            printf("fE6E_bottom: %d\n", this->fE6E_bottom);
             printf("field_E72: %d\n", this->field_E72);
             printf("field_E76: %d\n", this->field_E76);
             printf("field_E7A: %d\n", this->field_E7A);
@@ -2466,7 +2421,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class FloatObjThing {
     public:
-
+        
         /*   0*/ uint16_t field_0;
         /*   2*/ int lastTimeMs;
         /*   6*/ float field_6;
@@ -2478,7 +2433,7 @@ namespace dk2 {
         /*1212*/ int f1212_count;
         /*1216*/ int f1216_count_limit;
         /*121A*/ uint16_t field_121A[26];
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("lastTimeMs: %d\n", this->lastTimeMs);
@@ -2499,115 +2454,119 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CBridge : public CBridgeInterface {
     public:
-        static uint32_t const VFTABLE = 0x0066CC94;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public CBridgeInterface::vtbl_t */{
-            /*   0*/ void *loc_43AA10;
-            /*   4*/ void *CBridge__fun_43AD70;
-            /*   8*/ void *CBridge__fun_43B0B0;
-            /*   C*/ void *CBridge__fun_441E30;
-            /*  10*/ void *CBridge__fun_441E60;
-            /*  14*/ void *CBridge__fun_441EE0;
-            /*  18*/ void *loc_43A990;
-            /*  1C*/ void *loc_43A9A0;
-            /*  20*/ void *CBridge__fun_43B150;
-            /*  24*/ void *CBridge__fun_43B180;
-            /*  28*/ void *CBridge__fun_43B1E0;
-            /*  2C*/ void *CBridge__fun_43B220;
-            /*  30*/ void *CBridge__fun_441330;
-            /*  34*/ void *CBridge__fun_441350;
-            /*  38*/ void *CBridge__fun_440FB0;
-            /*  3C*/ void *CBridge__fun_440FC0;
-            /*  40*/ void *CBridge__fun_440FD0;
-            /*  44*/ void *CBridge__fun_440FE0;
-            /*  48*/ void *CBridge__fun_43C2C0;
-            /*  4C*/ void *CBridge__fun_43C2F0;
-            /*  50*/ void *CBridge__fun_441040;
-            /*  54*/ void *CBridge__fun_43E2F0;
-            /*  58*/ void *CBridge_createAndRegister_441300;
-            /*  5C*/ void *CBridge__fun_440FF0;
-            /*  60*/ void *loc_43A8B0;
-            /*  64*/ void *CBridge__fun_441060;
-            /*  68*/ void *CBridge__fun_441020;
-            /*  6C*/ void *CBridge__fun_441390;
-            /*  70*/ void *CBridge__fun_4413B0;
-            /*  74*/ void *CBridge__fun_4413D0;
-            /*  78*/ void *CBridge__fun_4413E0;
-            /*  7C*/ void *CBridge__fun_441400;
-            /*  80*/ void *CBridge__fun_4412C0;
-            /*  84*/ void *CBridge__fun_441C70;
-            /*  88*/ void *CBridge__fun_441E20;
-            /*  8C*/ void *nullsub_2;
-            /*  90*/ void *CBridge__fun_440420;
-            /*  94*/ void *loc_43A8E0;
-            /*  98*/ void *CBridge__fun_440350;
-            /*  9C*/ void *CBridge__fun_440530;
-            /*  A0*/ void *CBridge__fun_439880;
-            /*  A4*/ void *CBridge__fun_4397E0;
-            /*  A8*/ void *CBridge__fun_439A20;
-            /*  AC*/ void *CBridge__fun_439AA0;
-            /*  B0*/ void *loc_43A910;
-            /*  B4*/ void *CBridge__fun_439B00;
-            /*  B8*/ void *CBridge__fun_439B90;
-            /*  BC*/ void *CBridge__fun_440F50;
-            /*  C0*/ void *CBridge__fun_440F60;
-            /*  C4*/ void *CBridge__fun_440F80;
-            /*  C8*/ void *CBridge__fun_440F90;
-            /*  CC*/ void *loc_43A970;
-            /*  D0*/ void *loc_43A980;
-            /*  D4*/ void *CBridge__fun_4412E0;
-            /*  D8*/ void *CBridge__fun_441370;
-            /*  DC*/ void *CBridge__fun_441B00;
-            /*  E0*/ void *CEngineInterface__fun_4430C0;
-            /*  E4*/ void *CEngineInterface__fun_628B70;
-            /*  E8*/ void *duplicate_57_1;
-            /*  EC*/ void *CEngineInterface__fun_517400;
-            /*  F0*/ void *loc_43A880;
-            /*  F4*/ void *loc_43A890;
-            /*  F8*/ void *loc_43A8A0;
-            /*  FC*/ void *duplicate_62_1;
-            /* 100*/ void *duplicate_62_2;
-            /* 104*/ void *duplicate_57_2;
-            /* 108*/ void *CBridge__fun_441AD0;
-            /* 10C*/ void *CBridge__fun_441AA0;
-            /* 110*/ void *CBridge__fun_43AAD0;
-            /* 114*/ void *CBridge__fun_43ACF0;
-            /* 118*/ void *CBridge__fun_43E030;
-            /* 11C*/ void *CBridge_loadPng_fun_43E0F0;
-            /* 120*/ void *CBridge__fun_43D790;
-            /* 124*/ void *CBridge__fun_43D970;
-            /* 128*/ void *loc_43A940;
-            /* 12C*/ void *loc_43A920;
-            /* 130*/ void *CBridge__fun_43C310;
-            /* 134*/ void *CBridge__fun_43CC30;
-            /* 138*/ void *loc_43A960;
-            /* 13C*/ void *CBridge__fun_441420;
-            /* 140*/ void *CBridge__fun_441CC0;
-            /* 144*/ void *CBridge__fun_4408C0;
-            /* 148*/ void *CBridge__fun_4408E0;
-            /* 14C*/ void *CBridge__fun_440940;
-            /* 150*/ void *CBridge__fun_440A00;
-            /* 154*/ void *CBridge__fun_440A30;
-            /* 158*/ void *CBridge__fun_440A70;
-            /* 15C*/ void *CBridge__fun_4409A0;
-            /* 160*/ void *loc_43A9B0;
-            /* 164*/ void *loc_43A9C0;
-            /* 168*/ void *loc_43A9D0;
-            /* 16C*/ void *CBridge__fun_440AD0;
-            /* 170*/ void *CBridge__fun_440AF0;
-            /* 174*/ void *CBridge__fun_440B60;
-            /* 178*/ void *CBridge__fun_440C20;
-            /* 17C*/ void *CBridge__fun_440C50;
-            /* 180*/ void *CBridge__fun_440C90;
-            /* 184*/ void *CBridge__fun_440BC0;
-            /* 188*/ void *loc_43A9E0;
-            /* 18C*/ void *loc_43A9F0;
-            /* 190*/ void *loc_43AA00;
+            /*   0*/ void *(__stdcall *loc_43AA10)();  // void *(__stdcall *)()
+            /*   4*/ int(__thiscall *CBridge__fun_43AD70)(CBridge *self, int);  // int (__thiscall *)(char *this, int a2)
+            /*   8*/ void(__thiscall *CBridge__fun_43B0B0)(CBridge *self);  // void (__thiscall *)(char *this)
+            /*   C*/ int(__thiscall *CBridge__fun_441E30)(CBridge *self);  // int (__thiscall *)(int this)
+            /*  10*/ void(__thiscall *CBridge__fun_441E60)(CBridge *self);  // void (__thiscall *)(int this)
+            /*  14*/ int(__thiscall *CBridge__fun_441EE0)(CBridge *self);  // int (__thiscall *)(int this)
+            /*  18*/ void *(__stdcall *loc_43A990)();  // void *(__stdcall *)()
+            /*  1C*/ void *(__stdcall *loc_43A9A0)();  // void *(__stdcall *)()
+            /*  20*/ int(__thiscall *CBridge__fun_43B150)(CBridge *self, int);  // int (__thiscall *)(int this, int a2)
+            /*  24*/ int(__thiscall *CBridge__fun_43B180)(CBridge *self, int);  // int (__thiscall *)(int this, int a2)
+            /*  28*/ int(__thiscall *CBridge__fun_43B1E0)(CBridge *self, int);  // int (__thiscall *)(int this, int a2)
+            /*  2C*/ int(__thiscall *CBridge__fun_43B220)(CBridge *self, uint32_t *);  // int (__thiscall *)(char *this, _DWORD *a2)
+            /*  30*/ int(__thiscall *CBridge__fun_441330)(CBridge *self, uint32_t *);  // int (__thiscall *)(void *this, _DWORD *a2)
+            /*  34*/ uint32_t *(__thiscall *CBridge__fun_441350)(CBridge *self, uint32_t *);  // _DWORD *(__thiscall *)(int this, _DWORD *a2)
+            /*  38*/ int(__thiscall *CBridge__fun_440FB0)(CBridge *self);  // int (__thiscall *)(int this)
+            /*  3C*/ int(__thiscall *CBridge__fun_440FC0)(CBridge *self);  // int (__thiscall *)(int this)
+            /*  40*/ int(__thiscall *CBridge__fun_440FD0)(CBridge *self);  // int (__thiscall *)(int this)
+            /*  44*/ int(__thiscall *CBridge__fun_440FE0)(CBridge *self);  // int (__thiscall *)(int this)
+            /*  48*/ int(__thiscall *CBridge__fun_43C2C0)(CBridge *self, int, int, int, int);  // int (__thiscall *)(int this, int a2, int a3, int a4, int a5)
+            /*  4C*/ int(__thiscall *CBridge__fun_43C2F0)(CBridge *self, int, int, int);  // int (__thiscall *)(int this, int a2, int a3, int a4)
+            /*  50*/ int(__thiscall *CBridge__fun_441040)(CBridge *self, int, int, int);  // int (__thiscall *)(int this, int a2, int a3, int a4)
+            /*  54*/ int(__thiscall *CBridge__fun_43E2F0)(CBridge *self, int, int, int, int, int, int);  // int (__thiscall *)(int this, int a2, int a3, int a4, int a5, int a6, int a7)
+            /*  58*/ int(__thiscall *CBridge_createAndRegister_441300)(CBridge *self, int, int, int, int, int);  // int (__thiscall *)(int this, int a2, int a3, int a4, int a5, int a6)
+            /*  5C*/ int(__thiscall *CBridge__fun_440FF0)(CBridge *self, int, int, int, int);  // int (__thiscall *)(int this, int a2, int a3, int a4, int a5)
+            /*  60*/ void *(__stdcall *loc_43A8B0)();  // void *(__stdcall *)()
+            /*  64*/ int(__thiscall *CBridge__fun_441060)(CBridge *self, __int16, int, int, int);  // int (__thiscall *)(int *this, __int16 a2, int a3, int a4, int a5)
+            /*  68*/ int(__thiscall *CBridge__fun_441020)(CBridge *self, int, MySurface *, int);  // int (__thiscall *)(int this, int a2, MySurface *a3, int a4)
+            /*  6C*/ int(__thiscall *CBridge__fun_441390)(CBridge *self, int);  // int (__thiscall *)(int this, int a2)
+            /*  70*/ int(__thiscall *CBridge__fun_4413B0)(CBridge *self, int);  // int (__thiscall *)(int this, int a2)
+            /*  74*/ int(__thiscall *CBridge__fun_4413D0)(CBridge *self);  // int (__thiscall *)(int this)
+            /*  78*/ int(__stdcall *CBridge__fun_4413E0)(float);  // int (__stdcall *)(float a1)
+            /*  7C*/ int(__thiscall *CBridge__fun_441400)(CBridge *self, int);  // int (__thiscall *)(int this, int a2)
+            /*  80*/ int(__thiscall *CBridge__fun_4412C0)(CBridge *self, int, int);  // int (__thiscall *)(int this, int a2, int a3)
+            /*  84*/ int(__thiscall *setTexturesPath_441C70)(CBridge *self, char *);  // int (__thiscall *)(int this, const char *a2)
+            /*  88*/ int(__thiscall *CBridge__fun_441E20)(CBridge *self);  // int (__thiscall *)(int this)
+            /*  8C*/ void(__cdecl *nullsub_2)();  // void (__cdecl *)()
+            /*  90*/ int(__thiscall *CBridge__fun_440420)(CBridge *self, int, int, uint32_t *, int, int, int);  // int (__thiscall *)(_DWORD *this, int a2, int a3, int *a4, int a5, int a6, int a7)
+            /*  94*/ void *(__stdcall *loc_43A8E0)();  // void *(__stdcall *)()
+            /*  98*/ int(__thiscall *CBridge__fun_440350)(CBridge *self, int, int, int, int, int, uint32_t *);  // int (__thiscall *)(int this, int a2, int a3, int a4, int a5, int a6, int *a7)
+            /*  9C*/ uint32_t *(__thiscall *CBridge__fun_440530)(CBridge *self, int);  // _DWORD *(__thiscall *)(int this, int a2)
+            /*  A0*/ int(__thiscall *CBridge__fun_439880)(CBridge *self, uint32_t *, int, int, int, int);  // int (__thiscall *)(_DWORD *this, _DWORD *a2, int a3, int a4, int a5, int a6)
+            /*  A4*/ int(__thiscall *CBridge__fun_4397E0)(CBridge *self, int, __int16, __int16, __int16, char, int, int, uint32_t *);  // int (__thiscall *)(int this, int a2, __int16 a3, __int16 a4, __int16 a5, char a6, int a7, int a8, int *a9)
+            /*  A8*/ uint32_t *(__thiscall *CBridge__fun_439A20)(CBridge *self, int);  // _DWORD *(__thiscall *)(int this, int a2)
+            /*  AC*/ int(__thiscall *CBridge__fun_439AA0)(CBridge *self, uint32_t *);  // int (__thiscall *)(void *this, int *a2)
+            /*  B0*/ void *(__stdcall *loc_43A910)();  // void *(__stdcall *)()
+            /*  B4*/ unsigned __int16(__thiscall *CBridge__fun_439B00)(CBridge *self, int, int);  // unsigned __int16 (__thiscall *)(_DWORD *this, int a2, int a3)
+            /*  B8*/ __int16(__thiscall *CBridge__fun_439B90)(CBridge *self, char *, int, int);  // __int16 (__thiscall *)(_DWORD *this, char *a2, int a3, int a4)
+            /*  BC*/ int(__thiscall *CBridge__fun_440F50)(CBridge *self);  // int (__thiscall *)(int this)
+            /*  C0*/ int(__thiscall *CBridge__fun_440F60)(CBridge *self, int);  // int (__thiscall *)(int this, int a2)
+            /*  C4*/ int(__thiscall *CBridge__fun_440F80)(CBridge *self);  // int (__thiscall *)(int this)
+            /*  C8*/ int(__thiscall *CBridge__fun_440F90)(CBridge *self, int);  // int (__thiscall *)(int this, int a2)
+            /*  CC*/ int(__thiscall *loc_43A970)(CBridge *self);  // int (__thiscall *)(CBridge *)
+            /*  D0*/ ProbablyGlobalRenderObj *(__thiscall *loc_43A980)(CBridge *self);  // ProbablyGlobalRenderObj *(__thiscall *)(CBridge *)
+            /*  D4*/ int(__stdcall *CBridge__fun_4412E0)(int, int);  // int (__stdcall *)(int a1, int a2)
+            /*  D8*/ int(__thiscall *CBridge__fun_441370)(CBridge *self, int, int, int);  // int (__thiscall *)(int this, int a2, int a3, int a4)
+            /*  DC*/ int(__thiscall *CBridge__fun_441B00)(CBridge *self, int, int);  // int (__thiscall *)(_DWORD *this, int a2, int a3)
+            /*  E0*/ int(__stdcall *CEngineInterface__fun_4430C0)(int, int, int, int, int);  // int (__stdcall *)(int a1, int a2, int a3, int a4, int a5)
+            /*  E4*/ int(__stdcall *CEngineInterface__fun_628B70)(int, int, int, int);  // int (__stdcall *)(int a1, int a2, int a3, int a4)
+            /*  E8*/ void *(__stdcall *duplicate_57_1)();  // void *(__stdcall *)()
+            /*  EC*/ int(__stdcall *CEngineInterface__fun_517400)(int, int, int);  // int (__stdcall *)(int a1, int a2, int a3)
+            /*  F0*/ void *(__stdcall *loc_43A880)();  // void *(__stdcall *)()
+            /*  F4*/ void *(__stdcall *loc_43A890)();  // void *(__stdcall *)()
+            /*  F8*/ void *(__stdcall *loc_43A8A0)();  // void *(__stdcall *)()
+            /*  FC*/ void *(__stdcall *duplicate_62_1)();  // void *(__stdcall *)()
+            /* 100*/ void *(__stdcall *duplicate_62_2)();  // void *(__stdcall *)()
+            /* 104*/ void *(__stdcall *duplicate_57_2)();  // void *(__stdcall *)()
+            /* 108*/ int(__thiscall *CBridge__fun_441AD0)(CBridge *self, int, int, int, int);  // int (__thiscall *)(int this, int a2, int a3, int a4, int a5)
+            /* 10C*/ int(__thiscall *CBridge__fun_441AA0)(CBridge *self, int, int, int, int);  // int (__thiscall *)(int this, int a2, int a3, int a4, int a5)
+            /* 110*/ int(__thiscall *CBridge__fun_43AAD0)(CBridge *self, int);  // int (__thiscall *)(int this, int a2)
+            /* 114*/ void(__thiscall *CBridge__fun_43ACF0)(CBridge *self);  // void (__thiscall *)(int this)
+            /* 118*/ int(__thiscall *CBridge__fun_43E030)(CBridge *self, char *);  // int (__thiscall *)(int this, const char *a2)
+            /* 11C*/ MySurface *(__thiscall *CBridge_loadPng_fun_43E0F0)(CBridge *self, char *);  // MySurface *(__thiscall *)(int this, char *Str)
+            /* 120*/ int(__thiscall *CBridge__fun_43D790)(CBridge *self, int, int, uint32_t *);  // int (__thiscall *)(_DWORD *this, int a2, int a3, _DWORD *a4)
+            /* 124*/ int(__thiscall *CBridge__fun_43D970)(CBridge *self, int, int);  // int (__thiscall *)(_DWORD *this, int a2, int a3)
+            /* 128*/ void *(__stdcall *loc_43A940)();  // void *(__stdcall *)()
+            /* 12C*/ void *(__stdcall *loc_43A920)();  // void *(__stdcall *)()
+            /* 130*/ int(__thiscall *CBridge__fun_43C310)(CBridge *self, int, int, int, uint32_t *);  // int (__thiscall *)(_DWORD *this, int a2, int a3, int a4, _DWORD *a5)
+            /* 134*/ int(__thiscall *CBridge__fun_43CC30)(CBridge *self, unsigned int, unsigned int, int);  // int (__thiscall *)(_DWORD *this, unsigned int a2, unsigned int a3, int a4)
+            /* 138*/ void *(__stdcall *loc_43A960)();  // void *(__stdcall *)()
+            /* 13C*/ int(__thiscall *CBridge__fun_441420)(CBridge *self, int, int, uint32_t *);  // int (__thiscall *)(_DWORD *this, int a2, int a3, _DWORD *a4)
+            /* 140*/ char *(__thiscall *CBridge__fun_441CC0)(CBridge *self);  // char *(__thiscall *)(char *this)
+            /* 144*/ __int16(__thiscall *CBridge__fun_4408C0)(CBridge *self);  // __int16 (__thiscall *)(int this)
+            /* 148*/ __int16(__thiscall *CBridge__fun_4408E0)(CBridge *self, __int16);  // __int16 (__thiscall *)(int this, __int16 a2)
+            /* 14C*/ __int16(__thiscall *CBridge__fun_440940)(CBridge *self, __int16);  // __int16 (__thiscall *)(int this, __int16 a2)
+            /* 150*/ __int16(__thiscall *CBridge__fun_440A00)(CBridge *self, unsigned int);  // __int16 (__thiscall *)(int this, unsigned int a2)
+            /* 154*/ __int16(__thiscall *CBridge__fun_440A30)(CBridge *self, int);  // __int16 (__thiscall *)(int this, int a2)
+            /* 158*/ int(__thiscall *CBridge__fun_440A70)(CBridge *self, unsigned __int16);  // int (__thiscall *)(int this, unsigned __int16 a2)
+            /* 15C*/ int(__thiscall *CBridge__fun_4409A0)(CBridge *self, unsigned __int16);  // int (__thiscall *)(int this, unsigned __int16 a2)
+            /* 160*/ void *(__stdcall *loc_43A9B0)();  // void *(__stdcall *)()
+            /* 164*/ void *(__stdcall *loc_43A9C0)();  // void *(__stdcall *)()
+            /* 168*/ void *(__stdcall *loc_43A9D0)();  // void *(__stdcall *)()
+            /* 16C*/ __int16(__thiscall *CBridge__fun_440AD0)(CBridge *self);  // __int16 (__thiscall *)(int this)
+            /* 170*/ __int16(__thiscall *CBridge__fun_440AF0)(CBridge *self, __int16);  // __int16 (__thiscall *)(int this, __int16 a2)
+            /* 174*/ __int16(__thiscall *CBridge__fun_440B60)(CBridge *self, __int16);  // __int16 (__thiscall *)(int this, __int16 a2)
+            /* 178*/ __int16(__thiscall *CBridge__fun_440C20)(CBridge *self, unsigned int);  // __int16 (__thiscall *)(int this, unsigned int a2)
+            /* 17C*/ __int16(__thiscall *CBridge__fun_440C50)(CBridge *self, int);  // __int16 (__thiscall *)(int this, int a2)
+            /* 180*/ int(__thiscall *CBridge__fun_440C90)(CBridge *self, unsigned __int16);  // int (__thiscall *)(int this, unsigned __int16 a2)
+            /* 184*/ int(__thiscall *CBridge__fun_440BC0)(CBridge *self, unsigned __int16);  // int (__thiscall *)(int this, unsigned __int16 a2)
+            /* 188*/ void *(__stdcall *loc_43A9E0)();  // void *(__stdcall *)()
+            /* 18C*/ void *(__stdcall *loc_43A9F0)();  // void *(__stdcall *)()
+            /* 190*/ void *(__stdcall *loc_43AA00)();  // void *(__stdcall *)()
         };
-
+        static_assert(sizeof(vtbl_t) == 0x194);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*  72*/ uint32_t field_72;
         /*  76*/ uint8_t gap_76[32];
         /*  96*/ uint32_t field_96;
@@ -2670,7 +2629,7 @@ namespace dk2 {
         /*2631*/ uint32_t f2631_timeMs;
         /*2635*/ uint8_t f2635_str;
         /*2636*/ uint8_t gap_2636[73];
-
+        
         virtual ~CBridge();
         void dump() {
             printf("field_72: %d\n", this->field_72);
@@ -2735,24 +2694,28 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CResearchOrder {
     public:
-        static uint32_t const VFTABLE = 0x0066E3C4;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *CResearchOrder__fun_506EC0;
-            /*   4*/ void *CResearchOrder__fun_506E10;
-            /*   8*/ void *CResearchOrder__fun_506FC0;
-            /*   C*/ void *CMap__fun_4B4C20;
+            /*   0*/ int(__thiscall *CResearchOrder__fun_506EC0)(CResearchOrder *self, uint32_t *);  // int (__thiscall *)(_DWORD *this, int *a2)
+            /*   4*/ int(__thiscall *CResearchOrder__fun_506E10)(CResearchOrder *self, uint32_t *);  // int (__thiscall *)(_DWORD *this, int *a2)
+            /*   8*/ int(__thiscall *CResearchOrder__fun_506FC0)(CResearchOrder *self);  // int (__thiscall *)(int this)
+            /*   C*/ int(__stdcall *CMap__fun_4B4C20)();  // int (__stdcall *)()
         };
-
+        static_assert(sizeof(vtbl_t) == 0x10);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ uint32_t field_4;
         /*   8*/ uint8_t gap_8[4];
         /*   C*/ uint32_t field_C;
         /*  10*/ uint32_t field_10;
         /*  14*/ int field_14;
-
+        
         virtual ~CResearchOrder();
         void dump() {
             printf("field_4: %d\n", this->field_4);
@@ -2768,7 +2731,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyCreatureCollection {
     public:
-
+        
         /*   0*/ uint32_t field_0;
         /*   4*/ int field_4;
         /*   8*/ int field_8;
@@ -2786,7 +2749,7 @@ namespace dk2 {
         /*  36*/ int field_36;
         /*  3A*/ int field_3A;
         /*  3E*/ uint32_t field_3E;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_4: %d\n", this->field_4);
@@ -2813,13 +2776,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CMapEntry {
     public:
-
+        
         /*   0*/ char field_0;
         /*   1*/ char field_1;
         /*   2*/ char field_2;
         /*   3*/ int field_3;
         /*   7*/ int field_7;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_1: %d\n", this->field_1);
@@ -2834,18 +2797,22 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CMap {
     public:
-        static uint32_t const VFTABLE = 0x0066D3E4;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *CMap__fun_44F4B0;
-            /*   4*/ void *CMap__fun_44F3F0;
-            /*   8*/ void *std__locale__classic_void;
-            /*   C*/ void *CMap__fun_4B4C20;
+            /*   0*/ int(__thiscall *CMap__fun_44F4B0)(CMap *self, uint32_t *);  // int (__thiscall *)(int *this, int *a2)
+            /*   4*/ BOOL(__thiscall *CMap__fun_44F3F0)(CMap *self, uint32_t *);  // BOOL (__thiscall *)(_DWORD *this, int *a2)
+            /*   8*/ int(__thiscall *std__locale__classic_void)(CMap *self);  // int (__thiscall *)(void *this)
+            /*   C*/ int(__stdcall *CMap__fun_4B4C20)();  // int (__stdcall *)()
         };
-
+        static_assert(sizeof(vtbl_t) == 0x10);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ uint32_t field_4;
         /*   8*/ uint8_t gap_8[4];
         /*   C*/ int field_C;
@@ -2855,7 +2822,7 @@ namespace dk2 {
         /*  1C*/ int field_1C;
         /*  20*/ uint8_t gap_20[260];
         /* 124*/ CMapEntry entries[225];
-
+        
         virtual ~CMap();
         void dump() {
             printf("field_4: %d\n", this->field_4);
@@ -2874,14 +2841,14 @@ namespace dk2 {
 #pragma pack(push, 1)
     class GameActionHandler {
     public:
-
+        
         /*   0*/ void *f0_handler;
         /*   4*/ int f4_objOffset;
         /*   8*/ int field_8;
         /*   C*/ int field_C;
-
+        
         void dump() {
-            printf("f0_handler: %p\n", this->f0_handler);
+            printf("f0_handler: void(%p)\n", this->f0_handler);
             printf("f4_objOffset: %d\n", this->f4_objOffset);
             printf("field_8: %d\n", this->field_8);
             printf("field_C: %d\n", this->field_C);
@@ -2893,11 +2860,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CWorldShortEntry3 {
     public:
-
+        
         /*   0*/ __int16 field_0;
         /*   2*/ char field_2;
         /*   3*/ int field_3;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_2: %d\n", this->field_2);
@@ -2910,7 +2877,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CWorldShortEntry2 {
     public:
-
+        
         /*   0*/ uint8_t gap_0[4];
         /*   4*/ uint16_t field_4;
         /*   6*/ uint32_t field_6;
@@ -2921,7 +2888,7 @@ namespace dk2 {
         /*  1A*/ int field_1A;
         /*  1E*/ int field_1E;
         /*  22*/ int field_22;
-
+        
         void dump() {
             printf("gap_0: %d\n", this->gap_0);
             printf("field_4: %d\n", this->field_4);
@@ -2941,244 +2908,248 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CWorld {
     public:
-        static uint32_t const VFTABLE = 0x0066E3EC;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *sub_5098E0;
-            /*   4*/ void *CWorld__create_objects;
-            /*   8*/ void *CWorld__fun_50A2F0;
-            /*   C*/ void *CWorld__fun_510E90;
-            /*  10*/ void *loc_508C00;
-            /*  14*/ void *loc_508C10;
-            /*  18*/ void *tick;
-            /*  1C*/ void *CWorld__loadLevel;
-            /*  20*/ void *CWorld__fun_50FBA0;
-            /*  24*/ void *CWorld__fun_50FC60;
-            /*  28*/ void *CWorld__fun_50FD10;
-            /*  2C*/ void *CWorld__fun_50FD70;
-            /*  30*/ void *sub_509520;
-            /*  34*/ void *CWorld__fun_50F3D0;
-            /*  38*/ void *CWorld__fun_50EA70;
-            /*  3C*/ void *sub_509630;
-            /*  40*/ void *sub_509640;
-            /*  44*/ void *CWorld__fun_510730;
-            /*  48*/ void *sub_509820;
-            /*  4C*/ void *sub_509850;
-            /*  50*/ void *sub_509860;
-            /*  54*/ void *CWorld__fun_50CD10;
-            /*  58*/ void *CWorld__fun_50CD60;
-            /*  5C*/ void *CWorld__fun_50CE00;
-            /*  60*/ void *CWorld__fun_50CEB0;
-            /*  64*/ void *CWorld__fun_50CF80;
-            /*  68*/ void *sub_509480;
-            /*  6C*/ void *sub_509450;
-            /*  70*/ void *loc_508DD0;
-            /*  74*/ void *loc_508DF0;
-            /*  78*/ void *loc_508E00;
-            /*  7C*/ void *loc_508E10;
-            /*  80*/ void *CWorld__fun_50CF20;
-            /*  84*/ void *CWorld__fun_50CFB0;
-            /*  88*/ void *CWorld__fun_50CFD0;
-            /*  8C*/ void *CWorld__fun_50D040;
-            /*  90*/ void *CWorld__fun_50D120;
-            /*  94*/ void *CWorld__fun_50D1B0;
-            /*  98*/ void *CWorld__fun_50D0B0;
-            /*  9C*/ void *loc_508E20;
-            /*  A0*/ void *loc_508E30;
-            /*  A4*/ void *loc_508E40;
-            /*  A8*/ void *CWorld__fun_50D150;
-            /*  AC*/ void *CWorld__fun_50D220;
-            /*  B0*/ void *CWorld__fun_50D240;
-            /*  B4*/ void *CWorld__fun_50D2E0;
-            /*  B8*/ void *CWorld__fun_50D420;
-            /*  BC*/ void *CWorld__fun_50D4D0;
-            /*  C0*/ void *CWorld__fun_50D390;
-            /*  C4*/ void *loc_508E50;
-            /*  C8*/ void *loc_508E60;
-            /*  CC*/ void *loc_508E70;
-            /*  D0*/ void *CWorld__fun_50D460;
-            /*  D4*/ void *CWorld__fun_50DEB0;
-            /*  D8*/ void *CWorld__fun_50DED0;
-            /*  DC*/ void *CWorld__fun_50DF30;
-            /*  E0*/ void *CWorld__fun_50E010;
-            /*  E4*/ void *CWorld__fun_50E080;
-            /*  E8*/ void *CWorld__fun_50DFA0;
-            /*  EC*/ void *loc_508F40;
-            /*  F0*/ void *loc_508F50;
-            /*  F4*/ void *loc_508F60;
-            /*  F8*/ void *CWorld__fun_50E040;
-            /*  FC*/ void *CWorld__fun_50DC80;
-            /* 100*/ void *CWorld__fun_50DCA0;
-            /* 104*/ void *CWorld__fun_50DD00;
-            /* 108*/ void *CWorld__fun_50DDD0;
-            /* 10C*/ void *CWorld__fun_50DE50;
-            /* 110*/ void *CWorld__fun_50DD60;
-            /* 114*/ void *loc_508F10;
-            /* 118*/ void *loc_508F20;
-            /* 11C*/ void *loc_508F30;
-            /* 120*/ void *CWorld__fun_50DE00;
-            /* 124*/ void *CWorld__fun_50D550;
-            /* 128*/ void *CWorld__fun_50D570;
-            /* 12C*/ void *CWorld__fun_50D5E0;
-            /* 130*/ void *CWorld__fun_50D6C0;
-            /* 134*/ void *CWorld__fun_50D750;
-            /* 138*/ void *CWorld__fun_50D650;
-            /* 13C*/ void *loc_508E80;
-            /* 140*/ void *loc_508E90;
-            /* 144*/ void *loc_508EA0;
-            /* 148*/ void *CWorld__fun_50D6F0;
-            /* 14C*/ void *CWorld__fun_50D7C0;
-            /* 150*/ void *CWorld__fun_50D7E0;
-            /* 154*/ void *CWorld__fun_50D850;
-            /* 158*/ void *CWorld__fun_50D930;
-            /* 15C*/ void *CWorld__fun_50D9C0;
-            /* 160*/ void *CWorld__fun_50D8C0;
-            /* 164*/ void *loc_508EB0;
-            /* 168*/ void *loc_508EC0;
-            /* 16C*/ void *loc_508ED0;
-            /* 170*/ void *CWorld__fun_50D960;
-            /* 174*/ void *CWorld__fun_50DA20;
-            /* 178*/ void *CWorld__fun_50DA40;
-            /* 17C*/ void *CWorld__fun_50DAB0;
-            /* 180*/ void *CWorld__fun_50DB90;
-            /* 184*/ void *CWorld__fun_50DC10;
-            /* 188*/ void *CWorld__fun_50DB20;
-            /* 18C*/ void *loc_508EE0;
-            /* 190*/ void *loc_508EF0;
-            /* 194*/ void *loc_508F00;
-            /* 198*/ void *CWorld__fun_50DBC0;
-            /* 19C*/ void *CWorld__fun_50E0E0;
-            /* 1A0*/ void *CWorld__fun_50E100;
-            /* 1A4*/ void *CWorld__fun_50E170;
-            /* 1A8*/ void *CWorld__fun_50E250;
-            /* 1AC*/ void *CWorld__fun_50E2D0;
-            /* 1B0*/ void *CWorld__fun_50E1E0;
-            /* 1B4*/ void *loc_508F70;
-            /* 1B8*/ void *loc_508F80;
-            /* 1BC*/ void *loc_508F90;
-            /* 1C0*/ void *CWorld__fun_50E280;
-            /* 1C4*/ void *CWorld__fun_50E330;
-            /* 1C8*/ void *CWorld__fun_50E3A0;
-            /* 1CC*/ void *loc_508FA0;
-            /* 1D0*/ void *loc_508FB0;
-            /* 1D4*/ void *loc_508FE0;
-            /* 1D8*/ void *loc_508FC0;
-            /* 1DC*/ void *loc_508C70;
-            /* 1E0*/ void *loc_508C80;
-            /* 1E4*/ void *loc_508CA0;
-            /* 1E8*/ void *loc_508CC0;
-            /* 1EC*/ void *loc_508CF0;
-            /* 1F0*/ void *loc_508D00;
-            /* 1F4*/ void *loc_508D10;
-            /* 1F8*/ void *loc_508D40;
-            /* 1FC*/ void *loc_509090;
-            /* 200*/ void *loc_509050;
-            /* 204*/ void *loc_509010;
-            /* 208*/ void *sub_509200;
-            /* 20C*/ void *loc_5090C0;
-            /* 210*/ void *sub_5091C0;
-            /* 214*/ void *CEngineInterface__fun_443150;
-            /* 218*/ void *loc_509100;
-            /* 21C*/ void *sub_5092F0;
-            /* 220*/ void *sub_5092D0;
-            /* 224*/ void *sub_509230;
-            /* 228*/ void *sub_509260;
-            /* 22C*/ void *sub_509280;
-            /* 230*/ void *sub_509310;
-            /* 234*/ void *sub_509340;
-            /* 238*/ void *sub_509370;
-            /* 23C*/ void *sub_5093A0;
-            /* 240*/ void *sub_5093C0;
-            /* 244*/ void *sub_5093E0;
-            /* 248*/ void *sub_509410;
-            /* 24C*/ void *sub_509430;
-            /* 250*/ void *CWorld__fun_5177B0;
-            /* 254*/ void *CWorld__fun_50E530;
-            /* 258*/ void *CWorld__fun_50E560;
-            /* 25C*/ void *CWorld__fun_50E590;
-            /* 260*/ void *getCTag_508C40;
-            /* 264*/ void *loc_508C60;
-            /* 268*/ void *nullsub_10;
-            /* 26C*/ void *sub_5094B0;
-            /* 270*/ void *sub_5094D0;
-            /* 274*/ void *sub_5094F0;
-            /* 278*/ void *CWorld__fun_50E420;
-            /* 27C*/ void *CWorld__fun_510700;
-            /* 280*/ void *sub_5095B0;
-            /* 284*/ void *sub_5095D0;
-            /* 288*/ void *sub_5095F0;
-            /* 28C*/ void *sub_509610;
-            /* 290*/ void *CWorld__fun_50F830;
-            /* 294*/ void *nullsub_23;
-            /* 298*/ void *CWorld__fun_50F880;
-            /* 29C*/ void *sub_509530;
-            /* 2A0*/ void *sub_5097A0;
-            /* 2A4*/ void *sub_5097B0;
-            /* 2A8*/ void *sub_5097D0;
-            /* 2AC*/ void *sub_5097F0;
-            /* 2B0*/ void *sub_509800;
-            /* 2B4*/ void *sub_509540;
-            /* 2B8*/ void *CWorld__fun_505250;
-            /* 2BC*/ void *sub_509560;
-            /* 2C0*/ void *sub_509570;
-            /* 2C4*/ void *CWorld__fun_510000;
-            /* 2C8*/ void *CWorld__fun_50FAE0;
-            /* 2CC*/ void *CWorld__fun_50FB10;
-            /* 2D0*/ void *CEngineInterface__fun_628E30;
-            /* 2D4*/ void *sub_509690;
-            /* 2D8*/ void *CWorld__fun_5101C0;
-            /* 2DC*/ void *CWorld__fun_510210;
-            /* 2E0*/ void *CWorld__fun_510230;
-            /* 2E4*/ void *sub_5098D0;
-            /* 2E8*/ void *sub_509680;
-            /* 2EC*/ void *sub_5096A0;
-            /* 2F0*/ void *duplicate_187_1;
-            /* 2F4*/ void *sub_5096C0;
-            /* 2F8*/ void *sub_5096F0;
-            /* 2FC*/ void *sub_509700;
-            /* 300*/ void *sub_509710;
-            /* 304*/ void *sub_509730;
-            /* 308*/ void *sub_509750;
-            /* 30C*/ void *sub_509780;
-            /* 310*/ void *loc_508D60;
-            /* 314*/ void *loc_508D70;
-            /* 318*/ void *loc_508D80;
-            /* 31C*/ void *loc_508D90;
-            /* 320*/ void *duplicate_154_1;
-            /* 324*/ void *sub_509830;
-            /* 328*/ void *loc_508DA0;
-            /* 32C*/ void *loc_508DB0;
-            /* 330*/ void *sub_509740;
-            /* 334*/ void *CWorld__fun_515420;
-            /* 338*/ void *CWorld__fun_515520;
-            /* 33C*/ void *CWorld__fun_515D50;
-            /* 340*/ void *sub_509650;
-            /* 344*/ void *CWorld__fun_511650;
-            /* 348*/ void *sub_509670;
-            /* 34C*/ void *sub_509660;
-            /* 350*/ void *CWorld__fun_510E20;
-            /* 354*/ void *sub_509840;
-            /* 358*/ void *CWorld__fun_511610;
-            /* 35C*/ void *CWorld__fun_511630;
-            /* 360*/ void *CWorld__fun_511640;
-            /* 364*/ void *sub_509870;
-            /* 368*/ void *sub_509880;
-            /* 36C*/ void *sub_509890;
-            /* 370*/ void *sub_5098A0;
-            /* 374*/ void *sub_5098B0;
-            /* 378*/ void *sub_5098C0;
-            /* 37C*/ void *CWorld__fun_50E920;
-            /* 380*/ void *sub_509160;
-            /* 384*/ void *sub_5092B0;
-            /* 388*/ void *CWorld__fun_50E490;
-            /* 38C*/ void *sub_509580;
-            /* 390*/ void *CWorld__fun_50E4D0;
-            /* 394*/ void *CWorld__fun_50E510;
+            /*   0*/ void *(__thiscall *sub_5098E0)(CWorld *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ int(__thiscall *CWorld__create_objects)(CWorld *self);  // int (__thiscall *)(int this)
+            /*   8*/ char(__thiscall *CWorld__fun_50A2F0)(CWorld *self);  // char (__thiscall *)(int this)
+            /*   C*/ unsigned __int16(__thiscall *CWorld__fun_510E90)(CWorld *self, GameAction *, int);  // unsigned __int16 (__thiscall *)(CWorld *this, GameAction *a2, int a3)
+            /*  10*/ void *(__stdcall *loc_508C00)();  // void *(__stdcall *)()
+            /*  14*/ BOOL(__thiscall *loc_508C10)(CWorld *self, int);  // BOOL (__thiscall *)(CWorld *this, int a2)
+            /*  18*/ unsigned int(__thiscall *tick)(CWorld *self, GameActionCtx *);  // unsigned int (__thiscall *)(int this, GameActionCtx *a2)
+            /*  1C*/ int(__thiscall *CWorld__loadLevel)(CWorld *self, char *);  // int (__thiscall *)(int this, const char *a2)
+            /*  20*/ int(__thiscall *CWorld__fun_50FBA0)(CWorld *self);  // int (__thiscall *)(void *this)
+            /*  24*/ int(__thiscall *CWorld__fun_50FC60)(CWorld *self);  // int (__thiscall *)(_DWORD *this)
+            /*  28*/ int(__stdcall *CWorld__fun_50FD10)(int);  // int (__stdcall *)(int a1)
+            /*  2C*/ int(__thiscall *CWorld__fun_50FD70)(CWorld *self, char *);  // int (__thiscall *)(char *this, const char *a2)
+            /*  30*/ int(__thiscall *sub_509520)(CWorld *self);  // int (__thiscall *)(_DWORD *this)
+            /*  34*/ int(__thiscall *CWorld__fun_50F3D0)(CWorld *self);  // int (__thiscall *)(int this)
+            /*  38*/ void(__thiscall *CWorld__fun_50EA70)(CWorld *self);  // void (__thiscall *)(int *this)
+            /*  3C*/ int(__thiscall *sub_509630)(CWorld *self);  // int (__thiscall *)(_DWORD *this)
+            /*  40*/ int(__thiscall *sub_509640)(CWorld *self);  // int (__thiscall *)(_DWORD *this)
+            /*  44*/ int(__thiscall *CWorld__fun_510730)(CWorld *self, int, int);  // int (__thiscall *)(int this, int a2, int a3)
+            /*  48*/ int(__thiscall *sub_509820)(CWorld *self);  // int (__thiscall *)(int this)
+            /*  4C*/ int(__thiscall *sub_509850)(CWorld *self);  // int (__thiscall *)(int this)
+            /*  50*/ int(__thiscall *sub_509860)(CWorld *self, int);  // int (__thiscall *)(int this, int a2)
+            /*  54*/ char(__thiscall *CWorld__fun_50CD10)(CWorld *self);  // char (__thiscall *)(_DWORD *this)
+            /*  58*/ char(__thiscall *CWorld__fun_50CD60)(CWorld *self, unsigned __int8);  // char (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /*  5C*/ char(__thiscall *CWorld__fun_50CE00)(CWorld *self, unsigned __int8);  // char (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /*  60*/ char(__thiscall *CWorld__fun_50CEB0)(CWorld *self, int);  // char (__thiscall *)(_DWORD *this, int a2)
+            /*  64*/ BOOL(__thiscall *CWorld__fun_50CF80)(CWorld *self, unsigned __int8);  // BOOL (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /*  68*/ int(__thiscall *sub_509480)(CWorld *self, int);  // int (__thiscall *)(void *this, int a2)
+            /*  6C*/ int(__thiscall *sub_509450)(CWorld *self, int, int);  // int (__thiscall *)(void *this, int a2, int a3)
+            /*  70*/ void *(__stdcall *loc_508DD0)();  // void *(__stdcall *)()
+            /*  74*/ void *(__stdcall *loc_508DF0)();  // void *(__stdcall *)()
+            /*  78*/ void *(__stdcall *loc_508E00)();  // void *(__stdcall *)()
+            /*  7C*/ void *(__stdcall *loc_508E10)();  // void *(__stdcall *)()
+            /*  80*/ char(__thiscall *CWorld__fun_50CF20)(CWorld *self, int);  // char (__thiscall *)(_DWORD *this, int a2)
+            /*  84*/ char(__thiscall *CWorld__fun_50CFB0)(CWorld *self);  // char (__thiscall *)(_DWORD *this)
+            /*  88*/ char(__thiscall *CWorld__fun_50CFD0)(CWorld *self, char);  // char (__thiscall *)(_DWORD *this, char a2)
+            /*  8C*/ char(__thiscall *CWorld__fun_50D040)(CWorld *self, char);  // char (__thiscall *)(_DWORD *this, char a2)
+            /*  90*/ char(__thiscall *CWorld__fun_50D120)(CWorld *self, unsigned int);  // char (__thiscall *)(_DWORD *this, unsigned int a2)
+            /*  94*/ int(__thiscall *CWorld__fun_50D1B0)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /*  98*/ int(__thiscall *CWorld__fun_50D0B0)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /*  9C*/ void *(__stdcall *loc_508E20)();  // void *(__stdcall *)()
+            /*  A0*/ void *(__stdcall *loc_508E30)();  // void *(__stdcall *)()
+            /*  A4*/ void *(__stdcall *loc_508E40)();  // void *(__stdcall *)()
+            /*  A8*/ char(__thiscall *CWorld__fun_50D150)(CWorld *self, int);  // char (__thiscall *)(_DWORD *this, int a2)
+            /*  AC*/ char(__thiscall *CWorld__fun_50D220)(CWorld *self);  // char (__thiscall *)(_DWORD *this)
+            /*  B0*/ char(__thiscall *CWorld__fun_50D240)(CWorld *self, char);  // char (__thiscall *)(_DWORD *this, char a2)
+            /*  B4*/ char(__thiscall *CWorld__fun_50D2E0)(CWorld *self, char);  // char (__thiscall *)(_DWORD *this, char a2)
+            /*  B8*/ char(__thiscall *CWorld__fun_50D420)(CWorld *self, unsigned int);  // char (__thiscall *)(_DWORD *this, unsigned int a2)
+            /*  BC*/ int(__thiscall *CWorld__fun_50D4D0)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /*  C0*/ int(__thiscall *CWorld__fun_50D390)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /*  C4*/ int(__thiscall *loc_508E50)(CWorld *self);  // int (__thiscall *)(CWorld *)
+            /*  C8*/ void *(__stdcall *loc_508E60)();  // void *(__stdcall *)()
+            /*  CC*/ void *(__stdcall *loc_508E70)();  // void *(__stdcall *)()
+            /*  D0*/ char(__thiscall *CWorld__fun_50D460)(CWorld *self, int);  // char (__thiscall *)(_DWORD *this, int a2)
+            /*  D4*/ char(__thiscall *CWorld__fun_50DEB0)(CWorld *self);  // char (__thiscall *)(_DWORD *this)
+            /*  D8*/ char(__thiscall *CWorld__fun_50DED0)(CWorld *self, char);  // char (__thiscall *)(_DWORD *this, char a2)
+            /*  DC*/ char(__thiscall *CWorld__fun_50DF30)(CWorld *self, char);  // char (__thiscall *)(_DWORD *this, char a2)
+            /*  E0*/ char(__thiscall *CWorld__fun_50E010)(CWorld *self, unsigned int);  // char (__thiscall *)(_DWORD *this, unsigned int a2)
+            /*  E4*/ int(__thiscall *CWorld__fun_50E080)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /*  E8*/ int(__thiscall *CWorld__fun_50DFA0)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /*  EC*/ void *(__stdcall *loc_508F40)();  // void *(__stdcall *)()
+            /*  F0*/ void *(__stdcall *loc_508F50)();  // void *(__stdcall *)()
+            /*  F4*/ void *(__stdcall *loc_508F60)();  // void *(__stdcall *)()
+            /*  F8*/ char(__thiscall *CWorld__fun_50E040)(CWorld *self, int);  // char (__thiscall *)(_DWORD *this, int a2)
+            /*  FC*/ char(__thiscall *CWorld__fun_50DC80)(CWorld *self);  // char (__thiscall *)(_DWORD *this)
+            /* 100*/ char(__thiscall *CWorld__fun_50DCA0)(CWorld *self, char);  // char (__thiscall *)(_DWORD *this, char a2)
+            /* 104*/ char(__thiscall *CWorld__fun_50DD00)(CWorld *self, char);  // char (__thiscall *)(_DWORD *this, char a2)
+            /* 108*/ char(__thiscall *CWorld__fun_50DDD0)(CWorld *self, unsigned int);  // char (__thiscall *)(_DWORD *this, unsigned int a2)
+            /* 10C*/ int(__thiscall *CWorld__fun_50DE50)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /* 110*/ int(__thiscall *CWorld__fun_50DD60)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /* 114*/ void *(__stdcall *loc_508F10)();  // void *(__stdcall *)()
+            /* 118*/ void *(__stdcall *loc_508F20)();  // void *(__stdcall *)()
+            /* 11C*/ void *(__stdcall *loc_508F30)();  // void *(__stdcall *)()
+            /* 120*/ char(__thiscall *CWorld__fun_50DE00)(CWorld *self, int);  // char (__thiscall *)(_DWORD *this, int a2)
+            /* 124*/ char(__thiscall *CWorld__fun_50D550)(CWorld *self);  // char (__thiscall *)(_DWORD *this)
+            /* 128*/ char(__thiscall *CWorld__fun_50D570)(CWorld *self, char);  // char (__thiscall *)(_DWORD *this, char a2)
+            /* 12C*/ char(__thiscall *CWorld__fun_50D5E0)(CWorld *self, char);  // char (__thiscall *)(_DWORD *this, char a2)
+            /* 130*/ char(__thiscall *CWorld__fun_50D6C0)(CWorld *self, unsigned int);  // char (__thiscall *)(_DWORD *this, unsigned int a2)
+            /* 134*/ int(__thiscall *CWorld__fun_50D750)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /* 138*/ int(__thiscall *CWorld__fun_50D650)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /* 13C*/ void *(__stdcall *loc_508E80)();  // void *(__stdcall *)()
+            /* 140*/ void *(__stdcall *loc_508E90)();  // void *(__stdcall *)()
+            /* 144*/ void *(__stdcall *loc_508EA0)();  // void *(__stdcall *)()
+            /* 148*/ char(__thiscall *CWorld__fun_50D6F0)(CWorld *self, int);  // char (__thiscall *)(_DWORD *this, int a2)
+            /* 14C*/ char(__thiscall *CWorld__fun_50D7C0)(CWorld *self);  // char (__thiscall *)(_DWORD *this)
+            /* 150*/ char(__thiscall *CWorld__fun_50D7E0)(CWorld *self, char);  // char (__thiscall *)(_DWORD *this, char a2)
+            /* 154*/ char(__thiscall *CWorld__fun_50D850)(CWorld *self, char);  // char (__thiscall *)(_DWORD *this, char a2)
+            /* 158*/ char(__thiscall *CWorld__fun_50D930)(CWorld *self, unsigned int);  // char (__thiscall *)(_DWORD *this, unsigned int a2)
+            /* 15C*/ int(__thiscall *CWorld__fun_50D9C0)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /* 160*/ int(__thiscall *CWorld__fun_50D8C0)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /* 164*/ void *(__stdcall *loc_508EB0)();  // void *(__stdcall *)()
+            /* 168*/ void *(__stdcall *loc_508EC0)();  // void *(__stdcall *)()
+            /* 16C*/ void *(__stdcall *loc_508ED0)();  // void *(__stdcall *)()
+            /* 170*/ char(__thiscall *CWorld__fun_50D960)(CWorld *self, int);  // char (__thiscall *)(_DWORD *this, int a2)
+            /* 174*/ char(__thiscall *CWorld__fun_50DA20)(CWorld *self);  // char (__thiscall *)(_DWORD *this)
+            /* 178*/ char(__thiscall *CWorld__fun_50DA40)(CWorld *self, char);  // char (__thiscall *)(_DWORD *this, char a2)
+            /* 17C*/ char(__thiscall *CWorld__fun_50DAB0)(CWorld *self, char);  // char (__thiscall *)(_DWORD *this, char a2)
+            /* 180*/ char(__thiscall *CWorld__fun_50DB90)(CWorld *self, unsigned int);  // char (__thiscall *)(_DWORD *this, unsigned int a2)
+            /* 184*/ int(__thiscall *CWorld__fun_50DC10)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /* 188*/ int(__thiscall *CWorld__fun_50DB20)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /* 18C*/ void *(__stdcall *loc_508EE0)();  // void *(__stdcall *)()
+            /* 190*/ void *(__stdcall *loc_508EF0)();  // void *(__stdcall *)()
+            /* 194*/ void *(__stdcall *loc_508F00)();  // void *(__stdcall *)()
+            /* 198*/ char(__thiscall *CWorld__fun_50DBC0)(CWorld *self, int);  // char (__thiscall *)(_DWORD *this, int a2)
+            /* 19C*/ char(__thiscall *CWorld__fun_50E0E0)(CWorld *self);  // char (__thiscall *)(_DWORD *this)
+            /* 1A0*/ char(__thiscall *CWorld__fun_50E100)(CWorld *self, char);  // char (__thiscall *)(_DWORD *this, char a2)
+            /* 1A4*/ char(__thiscall *CWorld__fun_50E170)(CWorld *self, char);  // char (__thiscall *)(_DWORD *this, char a2)
+            /* 1A8*/ char(__thiscall *CWorld__fun_50E250)(CWorld *self, unsigned int);  // char (__thiscall *)(_DWORD *this, unsigned int a2)
+            /* 1AC*/ int(__thiscall *CWorld__fun_50E2D0)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /* 1B0*/ int(__thiscall *CWorld__fun_50E1E0)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /* 1B4*/ void *(__stdcall *loc_508F70)();  // void *(__stdcall *)()
+            /* 1B8*/ void *(__stdcall *loc_508F80)();  // void *(__stdcall *)()
+            /* 1BC*/ void *(__stdcall *loc_508F90)();  // void *(__stdcall *)()
+            /* 1C0*/ char(__thiscall *CWorld__fun_50E280)(CWorld *self, int);  // char (__thiscall *)(_DWORD *this, int a2)
+            /* 1C4*/ char(__thiscall *CWorld__fun_50E330)(CWorld *self, int);  // char (__thiscall *)(_DWORD *this, int a2)
+            /* 1C8*/ int(__thiscall *CWorld__fun_50E3A0)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /* 1CC*/ int(__thiscall *loc_508FA0)(CWorld *self, int);  // int (__thiscall *)(CWorld *, int)
+            /* 1D0*/ int(__thiscall *loc_508FB0)(CWorld *self);  // int (__thiscall *)(CWorld *)
+            /* 1D4*/ void *(__stdcall *loc_508FE0)();  // void *(__stdcall *)()
+            /* 1D8*/ void *(__stdcall *loc_508FC0)();  // void *(__stdcall *)()
+            /* 1DC*/ void *(__stdcall *loc_508C70)();  // void *(__stdcall *)()
+            /* 1E0*/ void *(__stdcall *loc_508C80)();  // void *(__stdcall *)()
+            /* 1E4*/ void *(__stdcall *loc_508CA0)();  // void *(__stdcall *)()
+            /* 1E8*/ void(__thiscall *loc_508CC0)(CWorld *self, uint32_t, uint32_t, int);  // void (__thiscall *)(int, _DWORD, _DWORD, int)
+            /* 1EC*/ void(__thiscall *loc_508CF0)(CWorld *self, int);  // void (__thiscall *)(CWorld *, int)
+            /* 1F0*/ void(__thiscall *loc_508D00)(CWorld *self, uint32_t);  // void (__thiscall *)(CWorld *, _DWORD)
+            /* 1F4*/ void *(__stdcall *loc_508D10)();  // void *(__stdcall *)()
+            /* 1F8*/ void *(__stdcall *loc_508D40)();  // void *(__stdcall *)()
+            /* 1FC*/ void *(__stdcall *loc_509090)();  // void *(__stdcall *)()
+            /* 200*/ void *(__stdcall *loc_509050)();  // void *(__stdcall *)()
+            /* 204*/ void *(__stdcall *loc_509010)();  // void *(__stdcall *)()
+            /* 208*/ int(__thiscall *sub_509200)(CWorld *self, int, int);  // int (__thiscall *)(int this, int a2, int a3)
+            /* 20C*/ void *(__stdcall *loc_5090C0)();  // void *(__stdcall *)()
+            /* 210*/ BOOL(__stdcall *sub_5091C0)(int);  // BOOL (__stdcall *)(int a1)
+            /* 214*/ int(__stdcall *CEngineInterface__fun_443150)(int, int);  // int (__stdcall *)(int a1, int a2)
+            /* 218*/ void *(__stdcall *loc_509100)();  // void *(__stdcall *)()
+            /* 21C*/ uint32_t *(__thiscall *sub_5092F0)(CWorld *self, int, int, uint32_t *);  // void **(__thiscall *)(void *this, int a2, int a3, _DWORD *a4)
+            /* 220*/ int(__stdcall *sub_5092D0)(int, int);  // int (__stdcall *)(int a1, int a2)
+            /* 224*/ BOOL(__thiscall *sub_509230)(CWorld *self, int, int);  // BOOL (__thiscall *)(int this, int a2, int a3)
+            /* 228*/ int(__stdcall *sub_509260)(int, int, __int16);  // int (__stdcall *)(int a1, int a2, __int16 a3)
+            /* 22C*/ int(__stdcall *sub_509280)(int, int, int, int);  // int (__stdcall *)(int a1, int a2, int a3, int a4)
+            /* 230*/ int(__stdcall *sub_509310)(int, int, int, int);  // int (__stdcall *)(int a1, int a2, int a3, int a4)
+            /* 234*/ int(__stdcall *sub_509340)(int, int, int, int);  // int (__stdcall *)(int a1, int a2, int a3, int a4)
+            /* 238*/ int(__stdcall *sub_509370)(int, int, __int16, int);  // int (__stdcall *)(int a1, int a2, __int16 a3, int a4)
+            /* 23C*/ int(__stdcall *sub_5093A0)(int, int, int);  // int (__stdcall *)(int a1, int a2, int a3)
+            /* 240*/ int(__stdcall *sub_5093C0)(int, int);  // int (__stdcall *)(int a1, int a2)
+            /* 244*/ int(__stdcall *sub_5093E0)(int, int, __int16, int);  // int (__stdcall *)(int a1, int a2, __int16 a3, int a4)
+            /* 248*/ int(__stdcall *sub_509410)(int, int, int);  // int (__stdcall *)(int a1, int a2, int a3)
+            /* 24C*/ int(__stdcall *sub_509430)(int, int, __int16);  // int (__stdcall *)(int a1, int a2, __int16 a3)
+            /* 250*/ int(__thiscall *CWorld__fun_5177B0)(CWorld *self, int);  // int (__thiscall *)(void *this, int a2)
+            /* 254*/ int(__stdcall *CWorld__fun_50E530)(int, int, int, int);  // int (__stdcall *)(int a1, int a2, int a3, int a4)
+            /* 258*/ int(__stdcall *CWorld__fun_50E560)(int, int, int, int);  // int (__stdcall *)(int a1, int a2, int a3, int a4)
+            /* 25C*/ int(__stdcall *CWorld__fun_50E590)(int, int, int, int);  // int (__stdcall *)(int a1, int a2, int a3, int a4)
+            /* 260*/ int(__thiscall *getCTag_508C40)(CWorld *self, MyProfiler *);  // int (__thiscall *)(CWorld *, MyProfiler *)
+            /* 264*/ unsigned __int16(__thiscall *loc_508C60)(CWorld *self);  // unsigned __int16 (__thiscall *)(CWorld *)
+            /* 268*/ void(__stdcall *nullsub_10)(int, int);  // void (__stdcall *)(int a1, int a2)
+            /* 26C*/ BOOL(__thiscall *sub_5094B0)(CWorld *self, int);  // BOOL (__thiscall *)(void *this, int a2)
+            /* 270*/ int(__thiscall *sub_5094D0)(CWorld *self, int);  // int (__thiscall *)(void *this, int a2)
+            /* 274*/ int(__thiscall *sub_5094F0)(CWorld *self, int, int, int);  // int (__thiscall *)(void *this, int a2, int a3, int a4)
+            /* 278*/ int(__thiscall *CWorld__fun_50E420)(CWorld *self, int, __int16);  // int (__thiscall *)(void *this, int a2, __int16 a3)
+            /* 27C*/ BOOL(__thiscall *CWorld__fun_510700)(CWorld *self, int);  // BOOL (__thiscall *)(void *this, int a2)
+            /* 280*/ int(__stdcall *sub_5095B0)(__int16);  // int (__stdcall *)(__int16 a1)
+            /* 284*/ int(__stdcall *sub_5095D0)(int);  // int (__stdcall *)(int a1)
+            /* 288*/ int(__thiscall *sub_5095F0)(CWorld *self, unsigned __int8);  // int (__thiscall *)(_DWORD *this, unsigned __int8 a2)
+            /* 28C*/ int(__stdcall *sub_509610)(int);  // int (__stdcall *)(int a1)
+            /* 290*/ char *(__stdcall *CWorld__fun_50F830)(unsigned __int16, int);  // char *(__stdcall *)(unsigned __int16 a1, int a2)
+            /* 294*/ void(__stdcall *nullsub_23)(int, int, int);  // void (__stdcall *)(int a1, int a2, int a3)
+            /* 298*/ int(__stdcall *CWorld__fun_50F880)(int);  // int (__stdcall *)(int a1)
+            /* 29C*/ char *(__thiscall *sub_509530)(CWorld *self);  // char *(__thiscall *)(char *this)
+            /* 2A0*/ int(__thiscall *sub_5097A0)(CWorld *self, int);  // int (__thiscall *)(char *this, int a2)
+            /* 2A4*/ int(__thiscall *sub_5097B0)(CWorld *self, int, int);  // int (__thiscall *)(char *this, int a2, int a3)
+            /* 2A8*/ uint32_t *(__thiscall *sub_5097D0)(CWorld *self, uint32_t *);  // _DWORD *(__thiscall *)(int this, _DWORD *a2)
+            /* 2AC*/ int(__thiscall *sub_5097F0)(CWorld *self, int);  // int (__thiscall *)(char *this, int a2)
+            /* 2B0*/ int(__thiscall *sub_509800)(CWorld *self, int, int);  // int (__thiscall *)(char *this, int a2, int a3)
+            /* 2B4*/ int(__thiscall *sub_509540)(CWorld *self, int);  // int (__thiscall *)(void *this, int a2)
+            /* 2B8*/ int(__thiscall *CWorld__fun_505250)(CWorld *self, int);  // int (__thiscall *)(unsigned __int16 *this, int a2)
+            /* 2BC*/ char(__thiscall *sub_509560)(CWorld *self);  // char (__thiscall *)(_BYTE *this)
+            /* 2C0*/ char(__thiscall *sub_509570)(CWorld *self);  // char (__thiscall *)(_BYTE *this)
+            /* 2C4*/ int(__thiscall *CWorld__fun_510000)(CWorld *self, int, int);  // int (__thiscall *)(void *this, int a2, int a3)
+            /* 2C8*/ uint32_t *(__thiscall *CWorld__fun_50FAE0)(CWorld *self, char);  // void **(__thiscall *)(unsigned __int16 *this, char a2)
+            /* 2CC*/ uint32_t *(__thiscall *CWorld__fun_50FB10)(CWorld *self, char);  // void **(__thiscall *)(unsigned __int16 *this, char a2)
+            /* 2D0*/ int(__stdcall *CEngineInterface__fun_628E30)(int);  // int (__stdcall *)(int a1)
+            /* 2D4*/ int(__thiscall *sub_509690)(CWorld *self, int);  // int (__thiscall *)(_DWORD *this, int a2)
+            /* 2D8*/ int(__thiscall *CWorld__fun_5101C0)(CWorld *self, int, int);  // int (__thiscall *)(char *this, int a2, int a3)
+            /* 2DC*/ BOOL(__thiscall *CWorld__fun_510210)(CWorld *self, int);  // BOOL (__thiscall *)(_BYTE *this, int a2)
+            /* 2E0*/ uint32_t *(__thiscall *CWorld__fun_510230)(CWorld *self, uint32_t *, int);  // _DWORD *(__thiscall *)(char *this, _DWORD *a2, int a3)
+            /* 2E4*/ int(__thiscall *sub_5098D0)(CWorld *self);  // int (__thiscall *)(int this)
+            /* 2E8*/ char(__thiscall *sub_509680)(CWorld *self);  // char (__thiscall *)(_BYTE *this)
+            /* 2EC*/ int(__thiscall *sub_5096A0)(CWorld *self, int);  // int (__thiscall *)(void *this, int a2)
+            /* 2F0*/ void *(__stdcall *duplicate_187_1)();  // void *(__stdcall *)()
+            /* 2F4*/ char *(__thiscall *sub_5096C0)(CWorld *self, int, __int16, char);  // char *(__thiscall *)(char *this, int a2, __int16 a3, char a4)
+            /* 2F8*/ BOOL(__thiscall *sub_5096F0)(CWorld *self);  // BOOL (__thiscall *)(_BYTE *this)
+            /* 2FC*/ char *(__thiscall *sub_509700)(CWorld *self);  // char *(__thiscall *)(char *this)
+            /* 300*/ int(__thiscall *sub_509710)(CWorld *self);  // int (__thiscall *)(int this)
+            /* 304*/ char *(__thiscall *sub_509730)(CWorld *self);  // char *(__thiscall *)(char *this)
+            /* 308*/ int(__stdcall *sub_509750)(int, int, int);  // int (__stdcall *)(int a1, int a2, int a3)
+            /* 30C*/ int(__thiscall *sub_509780)(CWorld *self, uint32_t *, uint32_t *, int);  // int (__thiscall *)(int this, _DWORD *a2, _DWORD *a3, int a4)
+            /* 310*/ void *(__stdcall *loc_508D60)();  // void *(__stdcall *)()
+            /* 314*/ void *(__stdcall *loc_508D70)();  // void *(__stdcall *)()
+            /* 318*/ void *(__stdcall *loc_508D80)();  // void *(__stdcall *)()
+            /* 31C*/ void *(__stdcall *loc_508D90)();  // void *(__stdcall *)()
+            /* 320*/ void *(__stdcall *duplicate_154_1)();  // void *(__stdcall *)()
+            /* 324*/ char *(__thiscall *sub_509830)(CWorld *self);  // char *(__thiscall *)(char *this)
+            /* 328*/ void *(__stdcall *loc_508DA0)();  // void *(__stdcall *)()
+            /* 32C*/ void *(__stdcall *loc_508DB0)();  // void *(__stdcall *)()
+            /* 330*/ unsigned int(__thiscall *sub_509740)(CWorld *self);  // unsigned int (__thiscall *)(CWorld *this)
+            /* 334*/ __int16(__thiscall *CWorld__fun_515420)(CWorld *self, int, uint32_t *, int);  // __int16 (__thiscall *)(void *this, int a2, int *a3, int a4)
+            /* 338*/ __int16(__thiscall *CWorld__fun_515520)(CWorld *self, int, uint32_t *, uint16_t *, int);  // __int16 (__thiscall *)(unsigned __int16 *this, int a2, _DWORD *a3, unsigned __int16 *a4, int a5)
+            /* 33C*/ __int16(__thiscall *CWorld__fun_515D50)(CWorld *self, int, uint32_t *, uint16_t *);  // __int16 (__thiscall *)(unsigned __int16 *this, int a2, _DWORD *a3, unsigned __int16 *a4)
+            /* 340*/ int(__thiscall *sub_509650)(CWorld *self);  // int (__thiscall *)(int this)
+            /* 344*/ int(__thiscall *CWorld__fun_511650)(CWorld *self, int);  // int (__thiscall *)(int this, int a2)
+            /* 348*/ int(__thiscall *sub_509670)(CWorld *self);  // int (__thiscall *)(int this)
+            /* 34C*/ int(__thiscall *sub_509660)(CWorld *self);  // int (__thiscall *)(int this)
+            /* 350*/ char(__thiscall *CWorld__fun_510E20)(CWorld *self);  // char (__thiscall *)(unsigned __int16 *this)
+            /* 354*/ int(__thiscall *sub_509840)(CWorld *self);  // int (__thiscall *)(int this)
+            /* 358*/ BOOL(__thiscall *CWorld__fun_511610)(CWorld *self);  // BOOL (__thiscall *)(int this)
+            /* 35C*/ int(__thiscall *CWorld__fun_511630)(CWorld *self, int);  // int (__thiscall *)(int this, int a2)
+            /* 360*/ int(__thiscall *CWorld__fun_511640)(CWorld *self);  // int (__thiscall *)(int this)
+            /* 364*/ __int16(__thiscall *sub_509870)(CWorld *self);  // __int16 (__thiscall *)(_WORD *this)
+            /* 368*/ __int16(__thiscall *sub_509880)(CWorld *self, __int16);  // __int16 (__thiscall *)(_WORD *this, __int16 a2)
+            /* 36C*/ int(__thiscall *sub_509890)(CWorld *self);  // int (__thiscall *)(_DWORD *this)
+            /* 370*/ int(__thiscall *sub_5098A0)(CWorld *self, int);  // int (__thiscall *)(_DWORD *this, int a2)
+            /* 374*/ char(__thiscall *sub_5098B0)(CWorld *self);  // char (__thiscall *)(_BYTE *this)
+            /* 378*/ char(__thiscall *sub_5098C0)(CWorld *self, char);  // char (__thiscall *)(_BYTE *this, char a2)
+            /* 37C*/ int(__thiscall *CWorld__fun_50E920)(CWorld *self, int);  // int (__thiscall *)(CWorld *this, int)
+            /* 380*/ BOOL(__thiscall *sub_509160)(CWorld *self, int, int);  // BOOL (__thiscall *)(int this, int a2, int a3)
+            /* 384*/ int(__stdcall *sub_5092B0)(int, int, __int16);  // int (__stdcall *)(int a1, int a2, __int16 a3)
+            /* 388*/ int(__thiscall *CWorld__fun_50E490)(CWorld *self, int, int, int, int, int, int);  // int (__thiscall *)(_DWORD *this, int a2, int a3, int a4, int a5, int a6, int a7)
+            /* 38C*/ int(__thiscall *sub_509580)(CWorld *self, int, int, int, int, int);  // int (__thiscall *)(void *this, int a2, int a3, int a4, int a5, int a6)
+            /* 390*/ int(__thiscall *CWorld__fun_50E4D0)(CWorld *self, int, int, int, int, int, int);  // int (__thiscall *)(_DWORD *this, int a2, int a3, int a4, int a5, int a6, int a7)
+            /* 394*/ int(__thiscall *CWorld__fun_50E510)(CWorld *self, int);  // int (__thiscall *)(_DWORD *this, int a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x398);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ MyProfiler *profiler;
         /*   8*/ MyCreatureCollection creatures;
         /*  4A*/ uint8_t gap4A[48];
@@ -3231,7 +3202,7 @@ namespace dk2 {
         /*A3B7*/ int field_A3B7;
         /*A3BB*/ int field_A3BB;
         /*A3BF*/ int fA3BF_is_surface_filled;
-
+        
         virtual ~CWorld();
         void dump() {
             printf("profiler: MyProfiler(%p)\n", this->profiler);
@@ -3281,12 +3252,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CWorldShortEntry {
     public:
-
+        
         /*   0*/ uint32_t f0_px;
         /*   4*/ int f4_py;
         /*   8*/ int f8_pw;
         /*   C*/ int fC_pz;
-
+        
         void dump() {
             printf("f0_px: %d\n", this->f0_px);
             printf("f4_py: %d\n", this->f4_py);
@@ -3300,13 +3271,9 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CWorldInterface {
     public:
-        static uint32_t const VFTABLE = 0x0066E7A4;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
+        
         /*   4*/ int field_4;
-
+        
         virtual ~CWorldInterface();
         void dump() {
             printf("field_4: %d\n", this->field_4);
@@ -3318,67 +3285,104 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyCbHandle {
     public:
-        static uint32_t const VFTABLE = 0x006723D8;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *sub_5BB440;
+            /*   0*/ void *(__thiscall *sub_5BB440)(MyCbHandle *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
-        /*   4*/ void *f4_callbackIdxList;
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        /*   4*/ uint32_t *f4_callbackIdxList;
         /*   8*/ void *f8_callbackObj;
-
+        
         virtual ~MyCbHandle();
         void dump() {
-            printf("f4_callbackIdxList: %p\n", this->f4_callbackIdxList);
-            printf("f8_callbackObj: %p\n", this->f8_callbackObj);
+            printf("f4_callbackIdxList: uint32_t(%p)\n", this->f4_callbackIdxList);
+            printf("f8_callbackObj: void(%p)\n", this->f8_callbackObj);
         }
     };
 #pragma pack(pop)
     static_assert(sizeof(MyCbHandle) == 0xC);
 
 #pragma pack(push, 1)
-    class MySharedObj_fields {
+    class MySharedObj {
     public:
-
-        /*   0*/ int refs;
-
+        struct vtbl_t {
+            /*   0*/ LONG(__thiscall *release)(MySharedObj *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   4*/ LONG(__thiscall *addRef)(MySharedObj *self);  // LONG (__thiscall *)(volatile LONG *this)
+            /*   8*/ MySharedObj *(__thiscall *scalar_destructor)(MySharedObj *self, char);  // MySharedObj *(__thiscall *)(MySharedObj *this, char a2)
+        };
+        static_assert(sizeof(vtbl_t) == 0xC);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        /*   4*/ int refs;
+        
+        virtual ~MySharedObj();
         void dump() {
             printf("refs: %d\n", this->refs);
         }
     };
 #pragma pack(pop)
-    static_assert(sizeof(MySharedObj_fields) == 0x4);
+    static_assert(sizeof(MySharedObj) == 0x8);
 
 #pragma pack(push, 1)
-    class MyComEx_fields {
+    class MyComEx : public MySharedObj {
     public:
-
-        /*   0*/ MySharedObj_fields super;
-        /*   4*/ MyComEx *f4_child;
-
+        struct vtbl_t : public MySharedObj::vtbl_t {
+            /*   C*/ void(__stdcall *fun1)(int);  // void (__stdcall *)(int)
+            /*  10*/ int(__thiscall *fun2)(MyComEx *self, DxAction *);  // int (__thiscall *)(MyComEx *this, DxAction *)
+            /*  14*/ int(__thiscall *fun3)(MyComEx *self, DxAction *);  // int (__thiscall *)(MyComEx *this, DxAction *)
+            /*  18*/ int(__thiscall *fun4)(MyComEx *self, DxAction *);  // int (__thiscall *)(MyComEx *this, DxAction *)
+        };
+        static_assert(sizeof(vtbl_t) == 0x1C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        /*   8*/ MyComEx *f4_child;
+        
+        virtual ~MyComEx();
         void dump() {
             printf("f4_child: MyComEx(%p)\n", this->f4_child);
         }
     };
 #pragma pack(pop)
-    static_assert(sizeof(MyComEx_fields) == 0x8);
+    static_assert(sizeof(MyComEx) == 0xC);
 
 #pragma pack(push, 1)
-    class AsyncThing {
+    class AsyncThing : public MyComEx {
     public:
-        static uint32_t const VFTABLE = 0x006727FC;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t {
-            /*   0*/ void *std__strstreambuf___scalar_deleting_destructor_uint;
+        struct vtbl_t /*: public MyComEx::vtbl_t */{
+            /*   0*/ void *(__thiscall *std__strstreambuf___scalar_deleting_destructor_uint)(AsyncThing *self, char);  // std::strstreambuf *(__thiscall *)(std::strstreambuf *this, char a2)
         };
-
-        /*   4*/ MyComEx_fields super;
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ uint32_t f8_lastError;
         /*  10*/ uint32_t exit_thread_flag;
         /*  14*/ uint32_t f10_hThread;
@@ -3390,7 +3394,7 @@ namespace dk2 {
         /*  38*/ int field_34;
         /*  3C*/ int field_38;
         /*  40*/ int field_3C;
-
+        
         virtual ~AsyncThing();
         void dump() {
             printf("f8_lastError: %d\n", this->f8_lastError);
@@ -3411,21 +3415,25 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyDxInputManagerCb {
     public:
-        static uint32_t const VFTABLE = 0x00672480;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *sub_5BC280;
-            /*   4*/ void *sub_5BBEA0;
-            /*   8*/ void *sub_5BBF90;
-            /*   C*/ void *sub_5BC060;
-            /*  10*/ void *sub_5BC170;
-            /*  14*/ void *sub_5BC130;
-            /*  18*/ void *sub_5BC0F0;
+            /*   0*/ int(__thiscall *sub_5BC280)(MyDxInputManagerCb *self, int, uint32_t *);  // int (__thiscall *)(_DWORD *this, int a2, _DWORD *a3)
+            /*   4*/ void *(__thiscall *sub_5BBEA0)(MyDxInputManagerCb *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   8*/ uint32_t *(__thiscall *sub_5BBF90)(MyDxInputManagerCb *self, uint32_t *);  // int *(__thiscall *)(int this, int *a2)
+            /*   C*/ uint32_t *(__thiscall *sub_5BC060)(MyDxInputManagerCb *self, uint32_t *);  // int *(__thiscall *)(int *this, int *a2)
+            /*  10*/ uint32_t *(__thiscall *sub_5BC170)(MyDxInputManagerCb *self, uint32_t *);  // int *(__thiscall *)(_DWORD *this, int *a2)
+            /*  14*/ uint32_t *(__thiscall *sub_5BC130)(MyDxInputManagerCb *self, uint32_t *);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2)
+            /*  18*/ uint32_t *(__thiscall *sub_5BC0F0)(MyDxInputManagerCb *self, uint32_t *);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x1C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ MyCbHandle f0_cbhandle;
         /*  10*/ AsyncThing fC_async;
         /*  54*/ int f50_createDD_state;
@@ -3434,7 +3442,7 @@ namespace dk2 {
         /*  60*/ ControlKeysUpdater *f5C_controlKeys;
         /*  64*/ MyMouseUpdater *f60_mouse;
         /*  68*/ DxActionQueue *f64_dxActionQueue;
-
+        
         virtual ~MyDxInputManagerCb();
         void dump() {
             printf("f50_createDD_state: %d\n", this->f50_createDD_state);
@@ -3451,20 +3459,24 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Obj6723B8 {
     public:
-        static uint32_t const VFTABLE = 0x006723B8;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *scalar_destructor;
-            /*   4*/ void *getDdSurface1;
-            /*   8*/ void *getDdSurface2;
-            /*   C*/ void *getAabb;
-            /*  10*/ void *isSurfaceFlag;
+            /*   0*/ void *(__thiscall *scalar_destructor)(Obj6723B8 *self, char);  // std::locale::facet *(__thiscall *)(std::locale::facet *this, char a2)
+            /*   4*/ MyDdSurface *(__thiscall *getDdSurface1)(Obj6723B8 *self);  // MyDdSurface *(__thiscall *)(Obj6723B8 *)
+            /*   8*/ MyDdSurfaceEx *(__thiscall *getDdSurface2)(Obj6723B8 *self);  // MyDdSurfaceEx *(__thiscall *)(Obj6723B8 *)
+            /*   C*/ AABB *(__thiscall *getAabb)(Obj6723B8 *self, AABB *);  // AABB *(__thiscall *)(Obj6723B8 *, AABB *)
+            /*  10*/ void *(__thiscall *isSurfaceFlag)(Obj6723B8 *self);  // void *(__thiscall *)(Obj6723B8 *)
         };
-
-
+        static_assert(sizeof(vtbl_t) == 0x14);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        
         virtual ~Obj6723B8();
         void dump() {
         }
@@ -3475,21 +3487,25 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyInputManagerCb : public MyDxInputManagerCb {
     public:
-        static uint32_t const VFTABLE = 0x00672380;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public MyDxInputManagerCb::vtbl_t */{
-            /*   0*/ void *__vftable;
-            /*   4*/ void *field_4;
-            /*   8*/ void *initInputs;
-            /*   C*/ void *field_C;
-            /*  10*/ void *field_10;
-            /*  14*/ void *field_14;
-            /*  18*/ void *field_18;
+            /*   0*/ int(__thiscall *__vftable)(MyInputManagerCb *self, int, uint32_t *);  // int (__thiscall *)(_DWORD *this, int, _DWORD *)
+            /*   4*/ int(__thiscall *field_4)(MyInputManagerCb *self, char);  // int (__thiscall *)(void *Block, char)
+            /*   8*/ int(__thiscall *initInputs)(MyInputManagerCb *self, char *);  // int (__thiscall *)(MyInputManagerCb *, char *)
+            /*   C*/ uint32_t *(__thiscall *field_C)(MyInputManagerCb *self, uint32_t *);  // int *(__thiscall *)(_DWORD *this, int *)
+            /*  10*/ uint32_t *(__thiscall *field_10)(MyInputManagerCb *self, uint32_t *);  // int *(__thiscall *)(MyInputManagerCb *this, int *a2)
+            /*  14*/ uint32_t *(__thiscall *field_14)(MyInputManagerCb *self, uint32_t *);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *)
+            /*  18*/ uint32_t *(__thiscall *field_18)(MyInputManagerCb *self, uint32_t *);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x1C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*  6C*/ MyInputListenersHolder *f6C_pInputListenersHolder;
         /*  70*/ MyDxInputState *f70_pdxInputState;
         /*  74*/ MyWindowMsgs *f74_pMyWindowMsgs;
@@ -3497,7 +3513,7 @@ namespace dk2 {
         /*  7C*/ int field_7C;
         /*  80*/ MyCb6723D0 *f80_pchildcb;
         /*  84*/ Obj6723B8 f84_obj;
-
+        
         virtual ~MyInputManagerCb();
         void dump() {
             printf("f6C_pInputListenersHolder: MyInputListenersHolder(%p)\n", this->f6C_pInputListenersHolder);
@@ -3512,78 +3528,79 @@ namespace dk2 {
     static_assert(sizeof(MyInputManagerCb) == 0x88);
 
 #pragma pack(push, 1)
-    class MyComEx {
+    class LockBase : public MyComEx {
     public:
-        static uint32_t const VFTABLE = 0x00672418;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t {
-            /*   0*/ void *super;
-            /*   C*/ void *fun1;
-            /*  10*/ void *fun2;
-            /*  14*/ void *fun3;
-            /*  18*/ void *fun4;
+        struct vtbl_t : public MyComEx::vtbl_t {
+            /*  1C*/ int(__thiscall *getItemsCount)(LockBase *self);  // int (__thiscall *)(DxActionQueue *)
+            /*  20*/ void(__thiscall *handleItem)(LockBase *self, uint32_t *, MyDxInputState *);  // void (__thiscall *)(DxActionQueue *, unsigned int *, MyDxInputState *)
         };
-
-        /*   4*/ MySharedObj_fields super;
-        /*   8*/ MyComEx *f4_child;
-
-        virtual ~MyComEx();
+        static_assert(sizeof(vtbl_t) == 0x24);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        
+        virtual ~LockBase();
         void dump() {
-            printf("f4_child: MyComEx(%p)\n", this->f4_child);
         }
     };
 #pragma pack(pop)
-    static_assert(sizeof(MyComEx) == 0xC);
+    static_assert(sizeof(LockBase) == 0xC);
 
 #pragma pack(push, 1)
     class Buf1000 {
     public:
-
+        
         /*   0*/ uint32_t f0_base;
         /*   4*/ uint32_t f4_end;
-        /*   8*/ void *f8_pos;
-        /*   C*/ void *fC_pdwarr;
-
+        /*   8*/ uint32_t *f8_pos;
+        /*   C*/ uint32_t *fC_pdwarr;
+        
         void dump() {
             printf("f0_base: %d\n", this->f0_base);
             printf("f4_end: %d\n", this->f4_end);
-            printf("f8_pos: %p\n", this->f8_pos);
-            printf("fC_pdwarr: %p\n", this->fC_pdwarr);
+            printf("f8_pos: uint32_t(%p)\n", this->f8_pos);
+            printf("fC_pdwarr: uint32_t(%p)\n", this->fC_pdwarr);
         }
     };
 #pragma pack(pop)
     static_assert(sizeof(Buf1000) == 0x10);
 
 #pragma pack(push, 1)
-    class DxActionQueue : public MyComEx {
+    class DxActionQueue : public LockBase {
     public:
-        static uint32_t const VFTABLE = 0x006727B0;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t /*: public MyComEx::vtbl_t */{
-            /*   0*/ void *super;
+        struct vtbl_t : public LockBase::vtbl_t {
         };
-
+        static_assert(sizeof(vtbl_t) == 0x24);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ uint32_t field_C;
         /*  10*/ char field_10;
         /*  11*/ uint8_t gap_11[3];
         /*  14*/ Buf1000 f14_read;
         /*  24*/ Buf1000 f24_write;
-        /*  34*/ void *f34_dwarr_base;
+        /*  34*/ uint32_t *f34_dwarr_base;
         /*  38*/ int f38_dwcount;
         /*  3C*/ int f3C_itemsCount;
         /*  40*/ _RTL_CRITICAL_SECTION *f40_pCriticalSection;
-
+        
         virtual ~DxActionQueue();
         void dump() {
             printf("field_C: %d\n", this->field_C);
             printf("field_10: %d\n", this->field_10);
-            printf("f34_dwarr_base: %p\n", this->f34_dwarr_base);
+            printf("f34_dwarr_base: uint32_t(%p)\n", this->f34_dwarr_base);
             printf("f38_dwcount: %d\n", this->f38_dwcount);
             printf("f3C_itemsCount: %d\n", this->f3C_itemsCount);
             printf("f40_pCriticalSection: _RTL_CRITICAL_SECTION(%p)\n", this->f40_pCriticalSection);
@@ -3593,71 +3610,27 @@ namespace dk2 {
     static_assert(sizeof(DxActionQueue) == 0x44);
 
 #pragma pack(push, 1)
-    class MySharedObj {
+    class MyMouse : public MyComEx {
     public:
-        static uint32_t const VFTABLE = 0x00672408;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t {
-            /*   0*/ void *release;
-            /*   4*/ void *addRef;
-            /*   8*/ void *scalar_destructor;
+        struct vtbl_t /*: public MyComEx::vtbl_t */{
+            /*   0*/ LONG(__thiscall *MyCom_release)(MyMouse *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   4*/ LONG(__thiscall *MyCom_addRef)(MyMouse *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   8*/ void *(__thiscall *MyMouse_sub_5DD430)(MyMouse *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   C*/ void(__stdcall *MyComEx_fun1)(int);  // void (__stdcall *)(int a1)
+            /*  10*/ int(__thiscall *MyComEx_fun2)(MyMouse *self, int);  // int (__thiscall *)(_DWORD *this, int a2)
+            /*  14*/ char(__thiscall *sub_5DD4A0)(MyMouse *self, uint32_t *);  // char (__thiscall *)(int this, int *a2)
+            /*  18*/ int(__thiscall *sub_5DD560)(MyMouse *self, uint32_t *);  // int (__thiscall *)(int this, _DWORD *a2)
         };
-
-        /*   4*/ int refs;
-
-        virtual ~MySharedObj();
-        void dump() {
-            printf("refs: %d\n", this->refs);
-        }
-    };
-#pragma pack(pop)
-    static_assert(sizeof(MySharedObj) == 0x8);
-
-#pragma pack(push, 1)
-    class LockBase {
+        static_assert(sizeof(vtbl_t) == 0x1C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
     public:
-        static uint32_t const VFTABLE = 0x006727D8;
-
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
         template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t {
-            /*   0*/ void *super;
-            /*  1C*/ void *getItemsCount;
-            /*  20*/ void *handleItem;
-        };
-
-        /*   4*/ MyComEx_fields super;
-
-        virtual ~LockBase();
-        void dump() {
-        }
-    };
-#pragma pack(pop)
-    static_assert(sizeof(LockBase) == 0xC);
-
-#pragma pack(push, 1)
-    class MyMouse {
-    public:
-        static uint32_t const VFTABLE = 0x006728B0;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t {
-            /*   0*/ void *MyCom_release;
-            /*   4*/ void *MyCom_addRef;
-            /*   8*/ void *MyMouse_sub_5DD430;
-            /*   C*/ void *MyComEx_fun1;
-            /*  10*/ void *MyComEx_fun2;
-            /*  14*/ void *sub_5DD4A0;
-            /*  18*/ void *sub_5DD560;
-        };
-
-        /*   4*/ MyComEx_fields super;
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ Obj672844 *f8_pobj;
         /*  10*/ Pos2i fC_pos;
         /*  18*/ Pos2i f14_pos2_prev;
@@ -3675,7 +3648,7 @@ namespace dk2 {
         /*  58*/ int f54_acceleration;
         /*  5C*/ int f58_target___;
         /*  60*/ int f5C_isButtonsSwaped;
-
+        
         virtual ~MyMouse();
         void dump() {
             printf("f8_pobj: Obj672844(%p)\n", this->f8_pobj);
@@ -3700,13 +3673,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyMouseCb_vtbl {
     public:
-
+        
         /*   0*/ void *sub_5DD6F0;
         /*   4*/ void *sub_5BC900;
-
+        
         void dump() {
-            printf("sub_5DD6F0: %p\n", this->sub_5DD6F0);
-            printf("sub_5BC900: %p\n", this->sub_5BC900);
+            printf("sub_5DD6F0: void(%p)\n", this->sub_5DD6F0);
+            printf("sub_5BC900: void(%p)\n", this->sub_5BC900);
         }
     };
 #pragma pack(pop)
@@ -3715,13 +3688,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Event0_winShown7 {
     public:
-
+        
         /*   0*/ int f0_eventType;
         /*   4*/ int f4_width;
         /*   8*/ int f8_height;
         /*   C*/ int fC_display_bitnes;
         /*  10*/ int f10_isdevAcquireAnyTime;
-
+        
         void dump() {
             printf("f0_eventType: %d\n", this->f0_eventType);
             printf("f4_width: %d\n", this->f4_width);
@@ -3736,24 +3709,28 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyMouseUpdater : public MyMouse {
     public:
-        static uint32_t const VFTABLE = 0x006724A8;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public MyMouse::vtbl_t */{
-            /*   0*/ void *MyCom_release;
-            /*   4*/ void *MyCom_addRef;
-            /*   8*/ void *scalar_destructor;
-            /*   C*/ void *MyComEx_fun1;
-            /*  10*/ void *MyComEx_fun2;
-            /*  14*/ void *MyMouse_sub_5DD4A0;
-            /*  18*/ void *MyMouse_sub_5DD560;
+            /*   0*/ LONG(__thiscall *MyCom_release)(MyMouseUpdater *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   4*/ LONG(__thiscall *MyCom_addRef)(MyMouseUpdater *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   8*/ void *(__thiscall *scalar_destructor)(MyMouseUpdater *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   C*/ void(__stdcall *MyComEx_fun1)(int);  // void (__stdcall *)(int a1)
+            /*  10*/ int(__thiscall *MyComEx_fun2)(MyMouseUpdater *self, int);  // int (__thiscall *)(_DWORD *this, int a2)
+            /*  14*/ char(__thiscall *MyMouse_sub_5DD4A0)(MyMouseUpdater *self, uint32_t *);  // char (__thiscall *)(int this, int *a2)
+            /*  18*/ uint32_t *(__thiscall *MyMouse_sub_5DD560)(MyMouseUpdater *self, uint32_t *);  // _DWORD *(__thiscall *)(int this, _DWORD *a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x1C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*  64*/ MyMouseCb_vtbl *f64_cb;
         /*  68*/ MyCbHandle f68_cbhandle;
-
+        
         virtual ~MyMouseUpdater();
         void dump() {
             printf("f64_cb: MyMouseCb_vtbl(%p)\n", this->f64_cb);
@@ -3765,10 +3742,10 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Event0_unk6 {
     public:
-
+        
         /*   0*/ int f0_eventType;
         /*   4*/ int field_4;
-
+        
         void dump() {
             printf("f0_eventType: %d\n", this->f0_eventType);
             printf("field_4: %d\n", this->field_4);
@@ -3780,19 +3757,19 @@ namespace dk2 {
 #pragma pack(push, 1)
     class ThreadCtx {
     public:
-
+        
         /*   0*/ uint32_t tid;
         /*   4*/ int field_4;
         /*   8*/ uint8_t gap_8[64];
         /*  48*/ uint32_t f48_proc;
         /*  4C*/ void *f4C_arg;
-
+        
         void dump() {
             printf("tid: %d\n", this->tid);
             printf("field_4: %d\n", this->field_4);
             printf("gap_8: %d\n", this->gap_8);
             printf("f48_proc: %d\n", this->f48_proc);
-            printf("f4C_arg: %p\n", this->f4C_arg);
+            printf("f4C_arg: void(%p)\n", this->f4C_arg);
         }
     };
 #pragma pack(pop)
@@ -3801,20 +3778,24 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CFrontEndComponent : public CComponent {
     public:
-        static uint32_t const VFTABLE = 0x0066EF3C;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public CComponent::vtbl_t */{
-            /*   0*/ void *CFrontEndComponent___scalar_deleting_destructor_uint;
-            /*   4*/ void *CFrontEndComponent__fun_52EFE0;
-            /*   8*/ void *nullsub_1;
-            /*   C*/ void *CFrontEndComponent__launchGame;
-            /*  10*/ void *CFrontEndComponent__fun_52F550;
-            /*  14*/ void *CFrontEndComponent__maybe_update_textures;
+            /*   0*/ uint32_t *(__thiscall *CFrontEndComponent___scalar_deleting_destructor_uint)(CFrontEndComponent *self, char);  // _DWORD *(__thiscall *)(_DWORD *Block, char a2)
+            /*   4*/ int(__thiscall *CFrontEndComponent__fun_52EFE0)(CFrontEndComponent *self);  // int (__thiscall *)(int this)
+            /*   8*/ void(__thiscall *nullsub_1)(CFrontEndComponent *self);  // void (__thiscall *)(void *this)
+            /*   C*/ int(__thiscall *CFrontEndComponent__launchGame)(CFrontEndComponent *self);  // int (__thiscall *)(CFrontEndComponent *this)
+            /*  10*/ uint32_t *(__thiscall *CFrontEndComponent__fun_52F550)(CFrontEndComponent *self);  // int *(__thiscall *)(int this)
+            /*  14*/ int(__thiscall *CFrontEndComponent__maybe_update_textures)(CFrontEndComponent *self);  // int (__thiscall *)(int this)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x18);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ uint32_t field_C;
         /*  10*/ uint32_t field_10;
         /*  14*/ uint8_t gap_14[942];
@@ -4078,7 +4059,7 @@ namespace dk2 {
         /*311CA*/ MySurface f311CA_surf69;
         /*311F2*/ int field_311F2;
         /*311F6*/ int f311F6;
-
+        
         virtual ~CFrontEndComponent();
         void dump() {
             printf("field_C: %d\n", this->field_C);
@@ -4247,27 +4228,30 @@ namespace dk2 {
     static_assert(sizeof(CFrontEndComponent) == 0x311FA);
 
 #pragma pack(push, 1)
-    class CButton {
+    class CButton : public CGadget {
     public:
-        static uint32_t const VFTABLE = 0x0066ECA4;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t {
-            /*   0*/ void *CButton___scalar_deleting_destructor_uint;
-            /*   4*/ void *render;
-            /*   8*/ void *handleClick;
-            /*   C*/ void *configure;
+        struct vtbl_t /*: public CGadget::vtbl_t */{
+            /*   0*/ void *(__thiscall *CButton___scalar_deleting_destructor_uint)(CButton *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ int(__stdcall *render)(int, int);  // int (__stdcall *)(int a1, int a2)
+            /*   8*/ int(__thiscall *handleClick)(CButton *self, CDefaultPlayerInterface *);  // int (__thiscall *)(CButton *, CDefaultPlayerInterface *)
+            /*   C*/ int(__thiscall *configure)(CButton *self, int);  // int (__thiscall *)(int this, int a2)
         };
-
-        /*   4*/ CGadget_fields super;
+        static_assert(sizeof(vtbl_t) == 0x10);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*  24*/ uint32_t field_20;
         /*  28*/ uint32_t f24_renderFun;
         /*  2C*/ uint32_t field_28;
         /*  30*/ uint32_t f2C_textId;
         /*  34*/ uint32_t f30_idxLow;
-        /*  38*/ void *f34_idxHigh;
+        /*  38*/ uint32_t *f34_idxHigh;
         /*  3C*/ uint32_t f38_unkIdx;
         /*  40*/ uint8_t field_3C;
         /*  41*/ uint32_t f3D__isPressed;
@@ -4287,7 +4271,7 @@ namespace dk2 {
         /*  74*/ uint32_t f70_;
         /*  78*/ uint32_t f74_prev;
         /*  7C*/ CButton *f78_next;
-
+        
         virtual ~CButton();
         void dump() {
             printf("field_20: %d\n", this->field_20);
@@ -4295,14 +4279,14 @@ namespace dk2 {
             printf("field_28: %d\n", this->field_28);
             printf("f2C_textId: %d\n", this->f2C_textId);
             printf("f30_idxLow: %d\n", this->f30_idxLow);
-            printf("f34_idxHigh: %p\n", this->f34_idxHigh);
+            printf("f34_idxHigh: uint32_t(%p)\n", this->f34_idxHigh);
             printf("f38_unkIdx: %d\n", this->f38_unkIdx);
             printf("field_3C: %d\n", this->field_3C);
             printf("f3D__isPressed: %d\n", this->f3D__isPressed);
             printf("field_41: %d\n", this->field_41);
             printf("f45_containsCursor: %d\n", this->f45_containsCursor);
-            printf("f49_pressFun: %p\n", this->f49_pressFun);
-            printf("f4D_releaseFun: %p\n", this->f4D_releaseFun);
+            printf("f49_pressFun: void(%p)\n", this->f49_pressFun);
+            printf("f4D_releaseFun: void(%p)\n", this->f4D_releaseFun);
             printf("f51_pWindow: CWindow(%p)\n", this->f51_pWindow);
             printf("f55__nextWindowIdOnClick: %d\n", this->f55__nextWindowIdOnClick);
             printf("f59__isExitOnClick: %d\n", this->f59__isExitOnClick);
@@ -4323,10 +4307,10 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Size2i {
     public:
-
+        
         /*   0*/ int w;
         /*   4*/ int h;
-
+        
         void dump() {
             printf("w: %d\n", this->w);
             printf("h: %d\n", this->h);
@@ -4338,12 +4322,8 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CClickButton : public CButton {
     public:
-        static uint32_t const VFTABLE = 0x0066EE7C;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-
+        
+        
         virtual ~CClickButton();
         void dump() {
         }
@@ -4354,11 +4334,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CRadioButton {
     public:
-        static uint32_t const VFTABLE = 0x0066EE64;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
+        
         /*   4*/ uint8_t gap_4[107];
         /*  6F*/ char field_6F;
         /*  70*/ int field_70;
@@ -4366,7 +4342,7 @@ namespace dk2 {
         /*  78*/ int field_78;
         /*  7C*/ int field_7C;
         /*  80*/ int field_80;
-
+        
         virtual ~CRadioButton();
         void dump() {
             printf("field_6F: %d\n", this->field_6F);
@@ -4383,11 +4359,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CVerticalSlider : public CButton {
     public:
-        static uint32_t const VFTABLE = 0x0066ECBC;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
+        
         /*  80*/ int field_80;
         /*  84*/ int field_84;
         /*  88*/ int field_88;
@@ -4397,7 +4369,7 @@ namespace dk2 {
         /*  A4*/ int field_A4;
         /*  A8*/ int field_A8;
         /*  AC*/ int field_AC;
-
+        
         virtual ~CVerticalSlider();
         void dump() {
             printf("field_80: %d\n", this->field_80);
@@ -4416,11 +4388,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CHorizontalSlider {
     public:
-        static uint32_t const VFTABLE = 0x0066EE0C;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
+        
         /*   4*/ uint8_t gap_4[107];
         /*  6F*/ char field_6F;
         /*  70*/ int field_70;
@@ -4439,7 +4407,7 @@ namespace dk2 {
         /*  A4*/ int field_A4;
         /*  A8*/ int field_A8;
         /*  AC*/ int field_AC;
-
+        
         virtual ~CHorizontalSlider();
         void dump() {
             printf("field_6F: %d\n", this->field_6F);
@@ -4467,7 +4435,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class ButtonCfg {
     public:
-
+        
         /*   0*/ char f0_kind;
         /*   1*/ uint32_t f1_idx;
         /*   5*/ uint8_t field_5;
@@ -4491,16 +4459,16 @@ namespace dk2 {
         /*  38*/ void *f38_renderFun;
         /*  3C*/ void *field_3C;
         /*  40*/ uint32_t f40_textId;
-        /*  44*/ void *f44_p_idxLow;
-        /*  48*/ void *f48_idxHigh;
+        /*  44*/ uint32_t *f44_p_idxLow;
+        /*  48*/ uint32_t *f48_idxHigh;
         /*  4C*/ uint32_t f4C_nameIdx;
-
+        
         void dump() {
             printf("f0_kind: %d\n", this->f0_kind);
             printf("f1_idx: %d\n", this->f1_idx);
             printf("field_5: %d\n", this->field_5);
-            printf("f6_actionFun: %p\n", this->f6_actionFun);
-            printf("field_A: %p\n", this->field_A);
+            printf("f6_actionFun: void(%p)\n", this->f6_actionFun);
+            printf("field_A: void(%p)\n", this->field_A);
             printf("field_E: %d\n", this->field_E);
             printf("field_12: %d\n", this->field_12);
             printf("field_16: %d\n", this->field_16);
@@ -4515,12 +4483,12 @@ namespace dk2 {
             printf("f2C_width: %d\n", this->f2C_width);
             printf("f2E_height: %d\n", this->f2E_height);
             printf("field_30: %d\n", this->field_30);
-            printf("field_34: %p\n", this->field_34);
-            printf("f38_renderFun: %p\n", this->f38_renderFun);
-            printf("field_3C: %p\n", this->field_3C);
+            printf("field_34: void(%p)\n", this->field_34);
+            printf("f38_renderFun: void(%p)\n", this->f38_renderFun);
+            printf("field_3C: void(%p)\n", this->field_3C);
             printf("f40_textId: %d\n", this->f40_textId);
-            printf("f44_p_idxLow: %p\n", this->f44_p_idxLow);
-            printf("f48_idxHigh: %p\n", this->f48_idxHigh);
+            printf("f44_p_idxLow: uint32_t(%p)\n", this->f44_p_idxLow);
+            printf("f48_idxHigh: uint32_t(%p)\n", this->f48_idxHigh);
             printf("f4C_nameIdx: %d\n", this->f4C_nameIdx);
         }
     };
@@ -4530,7 +4498,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class WindowCfg {
     public:
-
+        
         /*   0*/ int f0_idx;
         /*   4*/ uint32_t f4_isCurrent;
         /*   8*/ uint16_t field_8;
@@ -4553,7 +4521,7 @@ namespace dk2 {
         /*  3A*/ uint32_t field_3A;
         /*  3E*/ ButtonCfg *f3E_pButtonCfg_list;
         /*  42*/ __int16 field_42;
-
+        
         void dump() {
             printf("f0_idx: %d\n", this->f0_idx);
             printf("f4_isCurrent: %d\n", this->f4_isCurrent);
@@ -4567,8 +4535,8 @@ namespace dk2 {
             printf("f16_width: %d\n", this->f16_width);
             printf("f18_height: %d\n", this->f18_height);
             printf("field_1A: %d\n", this->field_1A);
-            printf("field_1E: %p\n", this->field_1E);
-            printf("f22_fun: %p\n", this->f22_fun);
+            printf("field_1E: void(%p)\n", this->field_1E);
+            printf("f22_fun: void(%p)\n", this->f22_fun);
             printf("field_26: %d\n", this->field_26);
             printf("field_2A: %d\n", this->field_2A);
             printf("field_2E: %d\n", this->field_2E);
@@ -4585,11 +4553,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class StrCfg {
     public:
-
+        
         /*   0*/ int idx;
         /*   4*/ char f4_str[64];
         /*  44*/ char field_44;
-
+        
         void dump() {
             printf("idx: %d\n", this->idx);
             printf("f4_str: %d\n", this->f4_str);
@@ -4602,13 +4570,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class NameCfg {
     public:
-
+        
         /*   0*/ int idx;
         /*   4*/ char f4_str[32];
         /*  24*/ int field_24;
         /*  28*/ int field_28;
         /*  2C*/ int field_2C;
-
+        
         void dump() {
             printf("idx: %d\n", this->idx);
             printf("f4_str: %d\n", this->f4_str);
@@ -4623,15 +4591,19 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyUnk674058 {
     public:
-        static uint32_t const VFTABLE = 0x00674058;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *sub_60F450;
+            /*   0*/ void *(__thiscall *sub_60F450)(MyUnk674058 *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ uint32_t field_4;
         /*   8*/ uint8_t gap_8[12];
         /*  14*/ char field_14;
@@ -4687,7 +4659,7 @@ namespace dk2 {
         /*  C1*/ uint8_t gap_C1[3];
         /*  C4*/ int field_C4;
         /*  C8*/ int field_C8;
-        /*  CC*/ void *field_CC;
+        /*  CC*/ uint32_t *field_CC;
         /*  D0*/ int field_D0;
         /*  D4*/ AABB field_D4;
         /*  E4*/ int field_E4;
@@ -4695,7 +4667,7 @@ namespace dk2 {
         /*  EC*/ int field_EC;
         /*  F0*/ int field_F0;
         /*  F4*/ int field_F4;
-
+        
         virtual ~MyUnk674058();
         void dump() {
             printf("field_4: %d\n", this->field_4);
@@ -4753,7 +4725,7 @@ namespace dk2 {
             printf("gap_C1: %d\n", this->gap_C1);
             printf("field_C4: %d\n", this->field_C4);
             printf("field_C8: %d\n", this->field_C8);
-            printf("field_CC: %p\n", this->field_CC);
+            printf("field_CC: uint32_t(%p)\n", this->field_CC);
             printf("field_D0: %d\n", this->field_D0);
             printf("field_E4: %d\n", this->field_E4);
             printf("field_E8: %d\n", this->field_E8);
@@ -4768,15 +4740,19 @@ namespace dk2 {
 #pragma pack(push, 1)
     class FontObj {
     public:
-        static uint32_t const VFTABLE = 0x0067B8C0;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *scalar_destructor;
+            /*   0*/ void *(__thiscall *scalar_destructor)(FontObj *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ MyTextFont *f4_font;
         /*   8*/ uint32_t f8_fontFlags;
         /*   C*/ uint32_t fC_hasFlag2;
@@ -4787,7 +4763,7 @@ namespace dk2 {
         /*  44*/ PixelMask f44_fontMask;
         /*  49*/ uint8_t gap_49[3];
         /*  4C*/ int f4C_obj;
-
+        
         virtual ~FontObj();
         void dump() {
             printf("f4_font: MyTextFont(%p)\n", this->f4_font);
@@ -4806,14 +4782,10 @@ namespace dk2 {
 #pragma pack(push, 1)
     class FontObjWr {
     public:
-        static uint32_t const VFTABLE = 0x0067BA18;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
+        
         /*   4*/ FontObj f4_fontObj;
         /*  54*/ MyFontRendererBase *f54_tobj;
-
+        
         virtual ~FontObjWr();
         void dump() {
             printf("f54_tobj: MyFontRendererBase(%p)\n", this->f54_tobj);
@@ -4825,28 +4797,32 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyObj67B948 {
     public:
-        static uint32_t const VFTABLE = 0x0067B948;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *sub_62C990;
+            /*   0*/ void *(__thiscall *sub_62C990)(MyObj67B948 *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ FontObjWr f4_fontObjWr;
         /*  5C*/ MyCRBase *f5C_myCR;
         /*  60*/ MyTRBase *f60_myTR;
         /*  64*/ uint32_t field_64;
         /*  68*/ uint32_t field_68;
         /*  6C*/ MyDRBase *f6C_myDR;
-        /*  70*/ void *field_70;
+        /*  70*/ uint32_t *field_70;
         /*  74*/ char f74;
         /*  75*/ char field_75;
         /*  76*/ uint8_t gap_76[2];
         /*  78*/ int field_78;
         /*  7C*/ int _end_f7C;
-
+        
         virtual ~MyObj67B948();
         void dump() {
             printf("f5C_myCR: MyCRBase(%p)\n", this->f5C_myCR);
@@ -4854,7 +4830,7 @@ namespace dk2 {
             printf("field_64: %d\n", this->field_64);
             printf("field_68: %d\n", this->field_68);
             printf("f6C_myDR: MyDRBase(%p)\n", this->f6C_myDR);
-            printf("field_70: %p\n", this->field_70);
+            printf("field_70: uint32_t(%p)\n", this->field_70);
             printf("f74: %d\n", this->f74);
             printf("field_75: %d\n", this->field_75);
             printf("gap_76: %d\n", this->gap_76);
@@ -4868,22 +4844,18 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyTextText {
     public:
-        static uint32_t const VFTABLE = 0x0067B950;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
+        
         /*   4*/ uint8_t gap_4[4];
         /*   8*/ int f8_numOffsets;
-        /*   C*/ void *fC_offsets_and_data;
+        /*   C*/ uint32_t *fC_offsets_and_data;
         /*  10*/ MyTextBase *f10_MBToUniText_idx1;
         /*  14*/ MyTextBase *f14_UniToMBText_idx2;
-
+        
         virtual ~MyTextText();
         void dump() {
             printf("gap_4: %d\n", this->gap_4);
             printf("f8_numOffsets: %d\n", this->f8_numOffsets);
-            printf("fC_offsets_and_data: %p\n", this->fC_offsets_and_data);
+            printf("fC_offsets_and_data: uint32_t(%p)\n", this->fC_offsets_and_data);
             printf("f10_MBToUniText_idx1: MyTextBase(%p)\n", this->f10_MBToUniText_idx1);
             printf("f14_UniToMBText_idx2: MyTextBase(%p)\n", this->f14_UniToMBText_idx2);
         }
@@ -4894,28 +4866,32 @@ namespace dk2 {
 #pragma pack(push, 1)
     class FileStorageBase {
     public:
-        static uint32_t const VFTABLE = 0x00672348;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *releaseContent;
-            /*   4*/ void *FileStorageBase_fun_5B9DD0;
-            /*   8*/ void *FileStorageBase_fun_5B9E00;
-            /*   C*/ void *openInputStream;
-            /*  10*/ void *FileStorageBase_fun_5B9D60;
-            /*  14*/ void *formatFilePath;
+            /*   0*/ LONG(__thiscall *releaseContent)(FileStorageBase *self);  // LONG (__thiscall *)(FileStorageBase *this)
+            /*   4*/ uint32_t *(__thiscall *FileStorageBase_fun_5B9DD0)(FileStorageBase *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int, int)
+            /*   8*/ uint32_t *(__thiscall *FileStorageBase_fun_5B9E00)(FileStorageBase *self, uint32_t *, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int)
+            /*   C*/ uint32_t *(__thiscall *openInputStream)(FileStorageBase *self, uint32_t *, TbDiscFile *, char *, int, int);  // _DWORD *(__thiscall *)(TbDiscFileStorage *this, _DWORD *status, TbDiscFile *diskFile, char *fileName, int flags, int a6)
+            /*  10*/ uint32_t *(__thiscall *FileStorageBase_fun_5B9D60)(FileStorageBase *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int, int)
+            /*  14*/ uint32_t *(__thiscall *formatFilePath)(FileStorageBase *self, uint32_t *, char *, char *, int);  // _DWORD *(__thiscall *)(FileStorageBase *this, _DWORD *status, char *buf, char *fileName, int bufLimit)
             /*  18*/ void *TbWadFileStorage__fun_5B9E70;
-            /*  1C*/ void *FileStorageBase_fun_5B9EB0;
-            /*  20*/ void *FileStorageBase_fun_5B9EE0;
-            /*  24*/ void *FileStorageBase_fun_5B9F10;
-            /*  28*/ void *FileStorageBase_fun_5B9F40;
-            /*  2C*/ void *scalar_destructor;
+            /*  1C*/ uint32_t *(__thiscall *FileStorageBase_fun_5B9EB0)(FileStorageBase *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int, int)
+            /*  20*/ uint32_t *(__thiscall *FileStorageBase_fun_5B9EE0)(FileStorageBase *self, uint32_t *, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int)
+            /*  24*/ uint32_t *(__thiscall *FileStorageBase_fun_5B9F10)(FileStorageBase *self, uint32_t *, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int)
+            /*  28*/ uint32_t *(__thiscall *FileStorageBase_fun_5B9F40)(FileStorageBase *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int, int)
+            /*  2C*/ void *(__thiscall *scalar_destructor)(FileStorageBase *self, char);  // void *(__thiscall *)(void *Block, char)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x30);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ MyDirectory *f4_dierctory;
-
+        
         virtual ~FileStorageBase();
         void dump() {
             printf("f4_dierctory: MyDirectory(%p)\n", this->f4_dierctory);
@@ -4927,27 +4903,31 @@ namespace dk2 {
 #pragma pack(push, 1)
     class TbDiscFileStorage : public FileStorageBase {
     public:
-        static uint32_t const VFTABLE = 0x0066F3AC;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public FileStorageBase::vtbl_t */{
             /*   0*/ void *releaseContent;
-            /*   4*/ void *CFileManager__fun_5B9DD0;
-            /*   8*/ void *CFileManager__fun_5B9E00;
-            /*   C*/ void *CFileManager_openDiskFileStream;
-            /*  10*/ void *CFileManager__fun_5B9D60;
-            /*  14*/ void *formatFilePath;
+            /*   4*/ uint32_t *(__thiscall *CFileManager__fun_5B9DD0)(TbDiscFileStorage *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int, int)
+            /*   8*/ uint32_t *(__thiscall *CFileManager__fun_5B9E00)(TbDiscFileStorage *self, uint32_t *, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int)
+            /*   C*/ uint32_t *(__thiscall *CFileManager_openDiskFileStream)(TbDiscFileStorage *self, uint32_t *, TbDiscFile *, char *, int, int);  // _DWORD *(__thiscall *)(TbDiscFileStorage *this, _DWORD *status, TbDiscFile *diskFile, char *fileName, int flags, int a6)
+            /*  10*/ uint32_t *(__thiscall *CFileManager__fun_5B9D60)(TbDiscFileStorage *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int, int)
+            /*  14*/ uint32_t *(__thiscall *formatFilePath)(TbDiscFileStorage *self, uint32_t *, char *, char *, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, char *, const char *, int)
             /*  18*/ void *TbWadFileStorage__fun_5B9E70;
-            /*  1C*/ void *CFileManager__fun_5B9EB0;
-            /*  20*/ void *CFileManager__fun_5B9EE0;
-            /*  24*/ void *CFileManager__fun_5B9F10;
-            /*  28*/ void *CFileManager__fun_5B9F40;
-            /*  2C*/ void *TbWadFileStorage__fun_55C000;
+            /*  1C*/ uint32_t *(__thiscall *CFileManager__fun_5B9EB0)(TbDiscFileStorage *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int, int)
+            /*  20*/ uint32_t *(__thiscall *CFileManager__fun_5B9EE0)(TbDiscFileStorage *self, uint32_t *, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int)
+            /*  24*/ uint32_t *(__thiscall *CFileManager__fun_5B9F10)(TbDiscFileStorage *self, uint32_t *, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int)
+            /*  28*/ uint32_t *(__thiscall *CFileManager__fun_5B9F40)(TbDiscFileStorage *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int, int)
+            /*  2C*/ int(__thiscall *TbWadFileStorage__fun_55C000)(TbDiscFileStorage *self, char);  // int (__thiscall *)(void *Block, char)
         };
-
-
+        static_assert(sizeof(vtbl_t) == 0x30);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        
         virtual ~TbDiscFileStorage();
         void dump() {
         }
@@ -4958,32 +4938,36 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CFileManager : public FileStorageBase {
     public:
-        static uint32_t const VFTABLE = 0x0066F214;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public FileStorageBase::vtbl_t */{
-            /*   0*/ void *CFileManager__fun_556980;
-            /*   4*/ void *CFileManager__fun_5B9DD0;
-            /*   8*/ void *CFileManager__fun_5B9E00;
-            /*   C*/ void *CFileManager__fun_5B9E30;
-            /*  10*/ void *CFileManager__fun_5B9D60;
-            /*  14*/ void *CFileManager__fun_5B9D90;
-            /*  18*/ void *CFileManager__fun_556B70;
-            /*  1C*/ void *CFileManager__fun_5B9EB0;
-            /*  20*/ void *CFileManager__fun_5B9EE0;
-            /*  24*/ void *CFileManager__fun_5B9F10;
-            /*  28*/ void *CFileManager__fun_5B9F40;
-            /*  2C*/ void *CFileManager__fun_5568A0;
+            /*   0*/ void(__thiscall *CFileManager__fun_556980)(CFileManager *self);  // void (__thiscall *)(_DWORD *this)
+            /*   4*/ uint32_t *(__thiscall *CFileManager__fun_5B9DD0)(CFileManager *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2, int a3, int a4)
+            /*   8*/ uint32_t *(__thiscall *CFileManager__fun_5B9E00)(CFileManager *self, uint32_t *, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2, int a3)
+            /*   C*/ uint32_t *(__thiscall *CFileManager__fun_5B9E30)(CFileManager *self, uint32_t *, int, int, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2, int a3, int a4, int a5, int a6)
+            /*  10*/ uint32_t *(__thiscall *CFileManager__fun_5B9D60)(CFileManager *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2, int a3, int a4)
+            /*  14*/ uint32_t *(__thiscall *CFileManager__fun_5B9D90)(CFileManager *self, uint32_t *, int, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2, int a3, int a4, int a5)
+            /*  18*/ int(__thiscall *CFileManager__fun_556B70)(CFileManager *self);  // int (__thiscall *)(_DWORD *this)
+            /*  1C*/ uint32_t *(__thiscall *CFileManager__fun_5B9EB0)(CFileManager *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2, int a3, int a4)
+            /*  20*/ uint32_t *(__thiscall *CFileManager__fun_5B9EE0)(CFileManager *self, uint32_t *, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2, int a3)
+            /*  24*/ uint32_t *(__thiscall *CFileManager__fun_5B9F10)(CFileManager *self, uint32_t *, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2, int a3)
+            /*  28*/ uint32_t *(__thiscall *CFileManager__fun_5B9F40)(CFileManager *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2, int a3, int a4)
+            /*  2C*/ void *(__thiscall *CFileManager__fun_5568A0)(CFileManager *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x30);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   8*/ uint8_t gap_8[32];
         /*  28*/ uint32_t field_28;
         /*  2C*/ uint32_t field_2C;
         /*  30*/ uint8_t gap_30[256];
         /* 130*/ int field_130;
-
+        
         virtual ~CFileManager();
         void dump() {
             printf("field_28: %d\n", this->field_28);
@@ -4998,7 +4982,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyKeyboard {
     public:
-
+        
         /*   0*/ uint32_t field_0;
         /*   4*/ uint32_t f4;
         /*   8*/ uint8_t gap_8[8];
@@ -5157,7 +5141,7 @@ namespace dk2 {
         /* B39*/ uint32_t field_B39;
         /* B3D*/ char field_B3D[127];
         /* BBC*/ char fBBC_end;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("f4: %d\n", this->f4);
@@ -5323,7 +5307,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyResources_f29CB {
     public:
-
+        
         /*   0*/ uint32_t field_0;
         /*   4*/ int f4_speechVolume;
         /*   8*/ int f8_soundEffectVolume;
@@ -5339,7 +5323,7 @@ namespace dk2 {
         /*  30*/ int f30_speechEnabled;
         /*  34*/ int f34_sfxEnabled;
         /*  38*/ int f38_numberOfChannels;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("f4_speechVolume: %d\n", this->f4_speechVolume);
@@ -5364,7 +5348,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyResources_f2E38Obj {
     public:
-
+        
         /*   0*/ int field_0;
         /*   4*/ char field_4;
         /*   5*/ uint8_t gap_5[259];
@@ -5380,7 +5364,7 @@ namespace dk2 {
         /* 12C*/ int field_12C;
         /* 130*/ int field_130;
         /* 134*/ int field_134;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_4: %d\n", this->field_4);
@@ -5405,7 +5389,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyResources {
     public:
-
+        
         /*   0*/ uint32_t field_0;
         /*   4*/ char f4_diskDrive[260];
         /* 108*/ char f108_executableDir[260];
@@ -5459,7 +5443,7 @@ namespace dk2 {
         /*2FC4*/ int field_2FC4;
         /*2FC8*/ int field_2FC8;
         /*2FCC*/ int field_2FCC;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("f4_diskDrive: %d\n", this->f4_diskDrive);
@@ -5508,10 +5492,10 @@ namespace dk2 {
 #pragma pack(push, 1)
     class KeyEntry {
     public:
-
+        
         /*   0*/ int f0_idx;
         /*   4*/ int f4_key;
-
+        
         void dump() {
             printf("f0_idx: %d\n", this->f0_idx);
             printf("f4_key: %d\n", this->f4_key);
@@ -5523,37 +5507,41 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyTextFont {
     public:
-        static uint32_t const VFTABLE = 0x0067BAF8;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *release;
-            /*   4*/ void *addRef;
-            /*   8*/ void *scalar_destructor;
-            /*   C*/ void *j_LockWrap_release;
-            /*  10*/ void *j_MyCom_addRef;
-            /*  14*/ void *readMBCharToFontIdx;
-            /*  18*/ void *sub_6335B0;
-            /*  1C*/ void *getCharSize;
-            /*  20*/ void *getMaxHeight;
-            /*  24*/ void *getFlags;
-            /*  28*/ void *probably_getFontType;
+            /*   0*/ LONG(__thiscall *release)(MyTextFont *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   4*/ LONG(__thiscall *addRef)(MyTextFont *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   8*/ void *(__thiscall *scalar_destructor)(MyTextFont *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   C*/ LONG(__thiscall *j_LockWrap_release)(MyTextFont *self);  // LONG (__thiscall *)(volatile LONG *this)
+            /*  10*/ LONG(__thiscall *j_MyCom_addRef)(MyTextFont *self);  // LONG (__thiscall *)(volatile LONG *this)
+            /*  14*/ int(__thiscall *readMBCharToFontIdx)(MyTextFont *self, uint32_t *);  // int (__thiscall *)(MyTextFont *this, char **a2)
+            /*  18*/ __int16(__thiscall *sub_6335B0)(MyTextFont *self);  // __int16 (__thiscall *)(_DWORD *this)
+            /*  1C*/ Pos2i *(__thiscall *getCharSize)(MyTextFont *self, Pos2i *, unsigned __int16);  // Pos2i *(__thiscall *)(_DWORD *this, Pos2i *a2, unsigned __int16 a3)
+            /*  20*/ __int16(__thiscall *getMaxHeight)(MyTextFont *self);  // __int16 (__thiscall *)(_DWORD *this)
+            /*  24*/ int(__thiscall *getFlags)(MyTextFont *self);  // int (__thiscall *)(_DWORD *this)
+            /*  28*/ int(__thiscall *probably_getFontType)(MyTextFont *self);  // int (__thiscall *)(_DWORD *this)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x2C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ uint8_t gap_4[4];
         /*   8*/ MyFontHeader *f8_chrtbl;
         /*   C*/ MyFontHeader *fC_chrtbl;
-        /*  10*/ void *f10_offsets;
+        /*  10*/ uint32_t *f10_offsets;
         /*  14*/ MyTextMBToUni *f14_MBToUniText_idx1;
-
+        
         virtual ~MyTextFont();
         void dump() {
             printf("gap_4: %d\n", this->gap_4);
             printf("f8_chrtbl: MyFontHeader(%p)\n", this->f8_chrtbl);
             printf("fC_chrtbl: MyFontHeader(%p)\n", this->fC_chrtbl);
-            printf("f10_offsets: %p\n", this->f10_offsets);
+            printf("f10_offsets: uint32_t(%p)\n", this->f10_offsets);
             printf("f14_MBToUniText_idx1: MyTextMBToUni(%p)\n", this->f14_MBToUniText_idx1);
         }
     };
@@ -5563,29 +5551,33 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyInputStream {
     public:
-        static uint32_t const VFTABLE = 0x006725D8;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *scalar_destructor;
-            /*   4*/ void *readBytes;
-            /*   8*/ void *writeBytes;
-            /*   C*/ void *seek;
-            /*  10*/ void *getSize;
-            /*  14*/ void *getOffs;
-            /*  18*/ void *mapFileToBuf;
-            /*  1C*/ void *unmapFile;
-            /*  20*/ void *flush;
-            /*  24*/ void *close;
-            /*  28*/ void *wrapStream;
-            /*  2C*/ void *getSemaphore;
+            /*   0*/ void *(__thiscall *scalar_destructor)(MyInputStream *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ size_t(__thiscall *readBytes)(MyInputStream *self, void *, size_t);  // size_t (__thiscall *)(MyInputStream *, void *, size_t)
+            /*   8*/ size_t(__thiscall *writeBytes)(MyInputStream *self, void *, size_t);  // size_t (__thiscall *)(MyInputStream *, void *, size_t)
+            /*   C*/ size_t(__thiscall *seek)(MyInputStream *self, size_t, int);  // size_t (__thiscall *)(MyInputStream *, size_t, int)
+            /*  10*/ size_t(__thiscall *getSize)(MyInputStream *self);  // size_t (__thiscall *)(MyInputStream *)
+            /*  14*/ size_t(__thiscall *getOffs)(MyInputStream *self);  // size_t (__thiscall *)(MyInputStream *)
+            /*  18*/ int(__thiscall *mapFileToBuf)(MyInputStream *self, int, int);  // int (__thiscall *)(MyInputStream *, int a2, int a3)
+            /*  1C*/ int(__thiscall *unmapFile)(MyInputStream *self, int);  // int (__thiscall *)(MyInputStream *this, int a2)
+            /*  20*/ uint32_t *(__thiscall *flush)(MyInputStream *self, uint32_t *);  // _DWORD *(__thiscall *)(MyInputStream *this, _DWORD *status)
+            /*  24*/ void(__thiscall *close)(MyInputStream *self);  // void (__thiscall *)(MyInputStream *)
+            /*  28*/ MyInputStream *(__thiscall *wrapStream)(MyInputStream *self, MyInputStream *);  // MyInputStream *(__thiscall *)(MyInputStream *this, MyInputStream *a2)
+            /*  2C*/ int(__thiscall *getSemaphore)(MyInputStream *self);  // int (__thiscall *)(MyInputStream *)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x30);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ MyInputStream *f0_wrappedStream;
         /*   8*/ int f4_refs;
-
+        
         virtual ~MyInputStream();
         void dump() {
             printf("f0_wrappedStream: MyInputStream(%p)\n", this->f0_wrappedStream);
@@ -5598,35 +5590,39 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyMemoryMapStream : public MyInputStream {
     public:
-        static uint32_t const VFTABLE = 0x00673018;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public MyInputStream::vtbl_t */{
-            /*   0*/ void *sub_6001D0;
-            /*   4*/ void *sub_600300;
-            /*   8*/ void *sub_600330;
-            /*   C*/ void *sub_600360;
-            /*  10*/ void *sub_600390;
-            /*  14*/ void *sub_5FFDB0;
-            /*  18*/ void *CEngineInterface__fun_443150;
-            /*  1C*/ void *ret_void_1args;
-            /*  20*/ void *sub_6003D0;
-            /*  24*/ void *sub_6002E0;
-            /*  28*/ void *duplicate_7_1;
-            /*  2C*/ void *sub_6003C0;
+            /*   0*/ void *(__thiscall *sub_6001D0)(MyMemoryMapStream *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ LONG(__thiscall *sub_600300)(MyMemoryMapStream *self, char *, LONG);  // LONG (__thiscall *)(int this, HPSTR pch, LONG cch)
+            /*   8*/ LONG(__thiscall *sub_600330)(MyMemoryMapStream *self, char *, LONG);  // LONG (__thiscall *)(int this, char *pch, LONG cch)
+            /*   C*/ LONG(__thiscall *sub_600360)(MyMemoryMapStream *self, LONG, int);  // LONG (__thiscall *)(int this, LONG lOffset, int iOrigin)
+            /*  10*/ LONG(__thiscall *sub_600390)(MyMemoryMapStream *self);  // LONG (__thiscall *)(int this)
+            /*  14*/ int(__thiscall *sub_5FFDB0)(MyMemoryMapStream *self);  // int (__thiscall *)(_DWORD *this)
+            /*  18*/ int(__stdcall *CEngineInterface__fun_443150)(int, int);  // int (__stdcall *)(int a1, int a2)
+            /*  1C*/ void(__stdcall *ret_void_1args)(int);  // void (__stdcall *)(int a1)
+            /*  20*/ uint32_t *(__thiscall *sub_6003D0)(MyMemoryMapStream *self, uint32_t *);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2)
+            /*  24*/ HMMIO__ *(__thiscall *sub_6002E0)(MyMemoryMapStream *self);  // HMMIO (__thiscall *)(_DWORD *this)
+            /*  28*/ void *(__stdcall *duplicate_7_1)();  // void *(__stdcall *)()
+            /*  2C*/ char *(__thiscall *sub_6003C0)(MyMemoryMapStream *self);  // char *(__thiscall *)(char *this)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x30);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ int field_C;
         /*  10*/ int field_10;
         /*  14*/ void *_end_f14_semaphore;
-
+        
         virtual ~MyMemoryMapStream();
         void dump() {
             printf("field_C: %d\n", this->field_C);
             printf("field_10: %d\n", this->field_10);
-            printf("_end_f14_semaphore: %p\n", this->_end_f14_semaphore);
+            printf("_end_f14_semaphore: void(%p)\n", this->_end_f14_semaphore);
         }
     };
 #pragma pack(pop)
@@ -5635,39 +5631,43 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyFileStream : public MyInputStream {
     public:
-        static uint32_t const VFTABLE = 0x00672FE8;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public MyInputStream::vtbl_t */{
-            /*   0*/ void *scalar_destructor;
-            /*   4*/ void *readBytes;
-            /*   8*/ void *writeBytes;
-            /*   C*/ void *seek;
-            /*  10*/ void *getSize;
-            /*  14*/ void *getOffs;
-            /*  18*/ void *mapFileToBuf;
-            /*  1C*/ void *unmapFile;
-            /*  20*/ void *flush;
-            /*  24*/ void *close;
-            /*  28*/ void *ret_void_1args;
-            /*  2C*/ void *getSemaphore;
+            /*   0*/ void *(__thiscall *scalar_destructor)(MyFileStream *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ DWORD(__thiscall *readBytes)(MyFileStream *self, void *, DWORD);  // DWORD (__thiscall *)(int this, LPVOID lpBuffer, DWORD nNumberOfBytesToRead)
+            /*   8*/ DWORD(__thiscall *writeBytes)(MyFileStream *self, void *, DWORD);  // DWORD (__thiscall *)(int this, LPCVOID lpBuffer, DWORD nNumberOfBytesToWrite)
+            /*   C*/ DWORD(__thiscall *seek)(MyFileStream *self, LONG, DWORD);  // DWORD (__thiscall *)(int this, LONG lDistanceToMove, DWORD dwMoveMethod)
+            /*  10*/ DWORD(__thiscall *getSize)(MyFileStream *self);  // DWORD (__thiscall *)(HANDLE *this)
+            /*  14*/ int(__thiscall *getOffs)(MyFileStream *self);  // int (__thiscall *)(_DWORD *this)
+            /*  18*/ char *(__thiscall *mapFileToBuf)(MyFileStream *self, int, DWORD);  // char *(__thiscall *)(int this, int a2, DWORD dwFileOffsetHigh)
+            /*  1C*/ void *(__thiscall *unmapFile)(MyFileStream *self, void *);  // LPCVOID (__thiscall *)(_DWORD *this, LPCVOID lpBaseAddress)
+            /*  20*/ uint32_t *(__thiscall *flush)(MyFileStream *self, uint32_t *);  // _DWORD *(__thiscall *)(HANDLE *this, _DWORD *a2)
+            /*  24*/ void *(__thiscall *close)(MyFileStream *self);  // HANDLE (__thiscall *)(HANDLE *this)
+            /*  28*/ void(__stdcall *ret_void_1args)(int);  // void (__stdcall *)(int a1)
+            /*  2C*/ char *(__thiscall *getSemaphore)(MyFileStream *self);  // char *(__thiscall *)(char *this)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x30);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ void *fC_hFile;
         /*  10*/ int f10_offs;
         /*  14*/ int f14_hFileMapping;
         /*  18*/ int f18_fileMapBuf;
         /*  1C*/ void *f1C_semaphore;
-
+        
         virtual ~MyFileStream();
         void dump() {
-            printf("fC_hFile: %p\n", this->fC_hFile);
+            printf("fC_hFile: void(%p)\n", this->fC_hFile);
             printf("f10_offs: %d\n", this->f10_offs);
             printf("f14_hFileMapping: %d\n", this->f14_hFileMapping);
             printf("f18_fileMapBuf: %d\n", this->f18_fileMapBuf);
-            printf("f1C_semaphore: %p\n", this->f1C_semaphore);
+            printf("f1C_semaphore: void(%p)\n", this->f1C_semaphore);
         }
     };
 #pragma pack(pop)
@@ -5676,30 +5676,34 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyStr {
     public:
-        static uint32_t const VFTABLE = 0x006722D0;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *format;
-            /*   4*/ void *resize;
-            /*   8*/ void *malloc;
-            /*   C*/ void *scalar_destructor;
-            /*  10*/ void *assignChar;
-            /*  14*/ void *assign;
-            /*  18*/ void *assignMyStr;
-            /*  1C*/ void *assignMySubStr;
-            /*  20*/ void *append;
-            /*  24*/ void *appendChar;
-            /*  28*/ void *appendMySubStr;
+            /*   0*/ int(__cdecl *format)(int, int, ...);  // int (*)(int a1, int a2, ...)
+            /*   4*/ int(__thiscall *resize)(MyStr *self, unsigned int);  // int (__thiscall *)(MyStr *this, unsigned int a2)
+            /*   8*/ uint32_t *(__thiscall *malloc)(MyStr *self, unsigned int);  // _DWORD *(__thiscall *)(_DWORD *this, unsigned int a2)
+            /*   C*/ void *(__thiscall *scalar_destructor)(MyStr *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*  10*/ uint32_t *(__thiscall *assignChar)(MyStr *self, uint8_t *);  // _BYTE **(__thiscall *)(_BYTE **this, _BYTE *a2)
+            /*  14*/ uint32_t *(__thiscall *assign)(MyStr *self, char *);  // char **(__thiscall *)(MyStr *this, const char *Str)
+            /*  18*/ int(__thiscall *assignMyStr)(MyStr *self, uint32_t *);  // int (__thiscall *)(int *this, _DWORD *a2)
+            /*  1C*/ void *(__thiscall *assignMySubStr)(MyStr *self, MySubStr *);  // void *(__thiscall *)(void *this, MySubStr *a2)
+            /*  20*/ uint32_t *(__thiscall *append)(MyStr *self, char *);  // _DWORD *(__thiscall *)(_DWORD *this, char *Str)
+            /*  24*/ uint32_t *(__thiscall *appendChar)(MyStr *self, uint8_t *);  // _DWORD *(__thiscall *)(_DWORD *this, _BYTE *a2)
+            /*  28*/ void *(__thiscall *appendMySubStr)(MyStr *self, int);  // void *(__thiscall *)(void *this, int a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x2C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ size_t f4_length;
         /*   8*/ char *f8_buf;
         /*   C*/ int fC_bufSize;
         /*  10*/ int f10_bufAlign;
-
+        
         virtual ~MyStr();
         void dump() {
             printf("f4_length: %d\n", this->f4_length);
@@ -5714,20 +5718,24 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MySubStr {
     public:
-        static uint32_t const VFTABLE = 0x00672300;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *ret_void_0args;
-            /*   4*/ void *ret_void_1args;
+            /*   0*/ void(__cdecl *ret_void_0args)();  // void (__cdecl *)()
+            /*   4*/ void(__stdcall *ret_void_1args)(int);  // void (__stdcall *)(int a1)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x8);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ size_t f4_length;
         /*   8*/ char *f8_buf;
         /*   C*/ int field_C;
-
+        
         virtual ~MySubStr();
         void dump() {
             printf("f4_length: %d\n", this->f4_length);
@@ -5741,7 +5749,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class TbDiscFileStorage_vtbl {
     public:
-
+        
         /*   0*/ void *releaseContent;
         /*   4*/ void *CFileManager__fun_5B9DD0;
         /*   8*/ void *CFileManager__fun_5B9E00;
@@ -5754,20 +5762,20 @@ namespace dk2 {
         /*  24*/ void *CFileManager__fun_5B9F10;
         /*  28*/ void *CFileManager__fun_5B9F40;
         /*  2C*/ void *TbWadFileStorage__fun_55C000;
-
+        
         void dump() {
-            printf("releaseContent: %p\n", this->releaseContent);
-            printf("CFileManager__fun_5B9DD0: %p\n", this->CFileManager__fun_5B9DD0);
-            printf("CFileManager__fun_5B9E00: %p\n", this->CFileManager__fun_5B9E00);
-            printf("CFileManager_openDiskFileStream: %p\n", this->CFileManager_openDiskFileStream);
-            printf("CFileManager__fun_5B9D60: %p\n", this->CFileManager__fun_5B9D60);
-            printf("formatFilePath: %p\n", this->formatFilePath);
-            printf("TbWadFileStorage__fun_5B9E70: %p\n", this->TbWadFileStorage__fun_5B9E70);
-            printf("CFileManager__fun_5B9EB0: %p\n", this->CFileManager__fun_5B9EB0);
-            printf("CFileManager__fun_5B9EE0: %p\n", this->CFileManager__fun_5B9EE0);
-            printf("CFileManager__fun_5B9F10: %p\n", this->CFileManager__fun_5B9F10);
-            printf("CFileManager__fun_5B9F40: %p\n", this->CFileManager__fun_5B9F40);
-            printf("TbWadFileStorage__fun_55C000: %p\n", this->TbWadFileStorage__fun_55C000);
+            printf("releaseContent: void(%p)\n", this->releaseContent);
+            printf("CFileManager__fun_5B9DD0: void(%p)\n", this->CFileManager__fun_5B9DD0);
+            printf("CFileManager__fun_5B9E00: void(%p)\n", this->CFileManager__fun_5B9E00);
+            printf("CFileManager_openDiskFileStream: void(%p)\n", this->CFileManager_openDiskFileStream);
+            printf("CFileManager__fun_5B9D60: void(%p)\n", this->CFileManager__fun_5B9D60);
+            printf("formatFilePath: void(%p)\n", this->formatFilePath);
+            printf("TbWadFileStorage__fun_5B9E70: void(%p)\n", this->TbWadFileStorage__fun_5B9E70);
+            printf("CFileManager__fun_5B9EB0: void(%p)\n", this->CFileManager__fun_5B9EB0);
+            printf("CFileManager__fun_5B9EE0: void(%p)\n", this->CFileManager__fun_5B9EE0);
+            printf("CFileManager__fun_5B9F10: void(%p)\n", this->CFileManager__fun_5B9F10);
+            printf("CFileManager__fun_5B9F40: void(%p)\n", this->CFileManager__fun_5B9F40);
+            printf("TbWadFileStorage__fun_55C000: void(%p)\n", this->TbWadFileStorage__fun_55C000);
         }
     };
 #pragma pack(pop)
@@ -5776,16 +5784,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyDirectory {
     public:
-        static uint32_t const VFTABLE = 0x00672708;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
+        
         /*   4*/ MyDirectory *f0_subStream;
         /*   8*/ int f8_hSemaphore;
         /*   C*/ int f8_refs;
         /*  10*/ MyStr f10_name;
-
+        
         virtual ~MyDirectory();
         void dump() {
             printf("f0_subStream: MyDirectory(%p)\n", this->f0_subStream);
@@ -5799,26 +5803,27 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyFileIterator : public MyDirectory {
     public:
-
         struct vtbl_t /*: public MyDirectory::vtbl_t */{
-            /*   0*/ void *scalar_deleting_destructor;
-            /*   4*/ void *createStreamIfNotYet;
-            /*   8*/ void *sub_5D9290;
-            /*   C*/ void *sub_5D93E0;
-            /*  10*/ void *sub_5D82A0;
-            /*  14*/ void *formatFilePath;
-            /*  18*/ void *sub_5D8360;
-            /*  1C*/ void *sub_5D96C0;
-            /*  20*/ void *sub_5D9740;
-            /*  24*/ void *sub_5D97C0;
-            /*  28*/ void *sub_5D9860;
-            /*  2C*/ void *wrapFile;
-            /*  30*/ void *nullsub_1;
-            /*  34*/ void *close;
+            /*   0*/ void *(__thiscall *scalar_deleting_destructor)(MyFileIterator *self, char);  // stdiobuf *(__thiscall *)(stdiobuf *this, char a2)
+            /*   4*/ uint32_t *(__thiscall *createStreamIfNotYet)(MyFileIterator *self, uint32_t *, uint32_t *, int, int, int);  // _DWORD *(__thiscall *)(void *this, _DWORD *a2, _DWORD *stream, int a4, int a5, int a6)
+            /*   8*/ uint32_t *(__thiscall *sub_5D9290)(MyFileIterator *self, uint32_t *, char *, int);  // _DWORD *(__thiscall *)(MySubStr *this, _DWORD *a2, char *a3, int a4)
+            /*   C*/ uint32_t *(__thiscall *sub_5D93E0)(MyFileIterator *self, uint32_t *, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2, int a3)
+            /*  10*/ uint32_t *(__thiscall *sub_5D82A0)(MyFileIterator *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(void *this, _DWORD *a2, int a3, int a4)
+            /*  14*/ uint32_t *(__thiscall *formatFilePath)(MyFileIterator *self, uint32_t *, char *, int, int);  // _DWORD *(__thiscall *)(void *this, _DWORD *a2, const char *a3, int a4, int a5)
+            /*  18*/ int(__thiscall *sub_5D8360)(MyFileIterator *self);  // int (__thiscall *)(_DWORD *this)
+            /*  1C*/ int(__thiscall *sub_5D96C0)(MyFileIterator *self, int, int, DWORD);  // int (__thiscall *)(MySubStr *this, int a2, int a3, DWORD dwFileAttributes)
+            /*  20*/ int(__thiscall *sub_5D9740)(MyFileIterator *self, int, char *);  // int (__thiscall *)(MySubStr *this, int a2, char *a3)
+            /*  24*/ int(__thiscall *sub_5D97C0)(MyFileIterator *self, int, char *);  // int (__thiscall *)(MySubStr *this, int a2, char *a3)
+            /*  28*/ int(__thiscall *sub_5D9860)(MyFileIterator *self, int, char *, char *);  // int (__thiscall *)(MySubStr *this, int a2, char *a3, char *a4)
+            /*  2C*/ int(__thiscall *wrapFile)(MyFileIterator *self, int);  // int (__thiscall *)(_DWORD *this, int a2)
+            /*  30*/ void(__thiscall *nullsub_1)(MyFileIterator *self);  // void (__thiscall *)(void *this)
+            /*  34*/ void *(__thiscall *close)(MyFileIterator *self);  // HANDLE (__thiscall *)(HANDLE *this)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x38);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
         /*  24*/ int _end_f24_hFind;
-
+        
         virtual ~MyFileIterator();
         void dump() {
             printf("_end_f24_hFind: %d\n", this->_end_f24_hFind);
@@ -5830,25 +5835,29 @@ namespace dk2 {
 #pragma pack(push, 1)
     class DiscFileBase {
     public:
-        static uint32_t const VFTABLE = 0x00671F80;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *scalar_destructor;
-            /*   4*/ void *super_destructor;
-            /*   8*/ void *readBytes;
-            /*   C*/ void *writeBytes;
-            /*  10*/ void *seek;
-            /*  14*/ void *getSize;
-            /*  18*/ void *getOffs;
-            /*  1C*/ void *mapToBuf;
-            /*  20*/ void *flush;
+            /*   0*/ void *(__thiscall *scalar_destructor)(DiscFileBase *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ LONG(__thiscall *super_destructor)(DiscFileBase *self);  // LONG (__thiscall *)(_DWORD *this)
+            /*   8*/ int(__thiscall *readBytes)(DiscFileBase *self, void *, int);  // int (__thiscall *)(DiscFileBase *this, void *a2, int a3)
+            /*   C*/ int(__thiscall *writeBytes)(DiscFileBase *self, int, int);  // int (__thiscall *)(_DWORD *this, int a2, int a3)
+            /*  10*/ int(__thiscall *seek)(DiscFileBase *self, int, int);  // int (__thiscall *)(_DWORD *this, int a2, int a3)
+            /*  14*/ int(__thiscall *getSize)(DiscFileBase *self);  // int (__thiscall *)(_DWORD *this)
+            /*  18*/ int(__thiscall *getOffs)(DiscFileBase *self);  // int (__thiscall *)(_DWORD *this)
+            /*  1C*/ int(__thiscall *mapToBuf)(DiscFileBase *self);  // int (__thiscall *)(_DWORD *this)
+            /*  20*/ uint32_t *(__thiscall *flush)(DiscFileBase *self, uint32_t *);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x24);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ MyInputStream *f0_stream;
-
+        
         virtual ~DiscFileBase();
         void dump() {
             printf("f0_stream: MyInputStream(%p)\n", this->f0_stream);
@@ -5860,25 +5869,29 @@ namespace dk2 {
 #pragma pack(push, 1)
     class TbDiscFile : public DiscFileBase {
     public:
-        static uint32_t const VFTABLE = 0x0066F24C;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public DiscFileBase::vtbl_t */{
-            /*   0*/ void *scalar_destructor;
-            /*   4*/ void *super_destructor;
-            /*   8*/ void *readBytes;
-            /*   C*/ void *writeBytes;
-            /*  10*/ void *seek;
-            /*  14*/ void *getSize;
-            /*  18*/ void *getOffs;
-            /*  1C*/ void *mapToBuf;
-            /*  20*/ void *flush;
-            /*  24*/ void *openStream;
+            /*   0*/ void *(__thiscall *scalar_destructor)(TbDiscFile *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ LONG(__thiscall *super_destructor)(TbDiscFile *self);  // LONG (__thiscall *)(_DWORD *this)
+            /*   8*/ int(__thiscall *readBytes)(TbDiscFile *self, int, int);  // int (__thiscall *)(TbDiscFile *this, int a2, int a3)
+            /*   C*/ int(__thiscall *writeBytes)(TbDiscFile *self, int, int);  // int (__thiscall *)(TbDiscFile *this, int a2, int a3)
+            /*  10*/ int(__thiscall *seek)(TbDiscFile *self, int, int);  // int (__thiscall *)(TbDiscFile *this, int a2, int a3)
+            /*  14*/ int(__thiscall *getSize)(TbDiscFile *self);  // int (__thiscall *)(TbDiscFile *this)
+            /*  18*/ int(__thiscall *getOffs)(TbDiscFile *self);  // int (__thiscall *)(TbDiscFile *this)
+            /*  1C*/ int(__thiscall *mapToBuf)(TbDiscFile *self);  // int (__thiscall *)(_DWORD *this)
+            /*  20*/ uint32_t *(__thiscall *flush)(TbDiscFile *self, uint32_t *);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2)
+            /*  24*/ uint32_t *(__thiscall *openStream)(TbDiscFile *self, uint32_t *, char *, int);  // _DWORD *(__thiscall *)(void *this, _DWORD *status, char *path, int flags)
         };
-
-
+        static_assert(sizeof(vtbl_t) == 0x28);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        
         virtual ~TbDiscFile();
         void dump() {
         }
@@ -5889,11 +5902,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyLangObj {
     public:
-
+        
         /*   0*/ MyFileStorage *f0_resourceIndex;
         /*   4*/ TbDiscFileStorage f4_diskFileStor;
         /*   C*/ int fC_diskStorHasContent;
-
+        
         void dump() {
             printf("f0_resourceIndex: MyFileStorage(%p)\n", this->f0_resourceIndex);
             printf("fC_diskStorHasContent: %d\n", this->fC_diskStorHasContent);
@@ -5905,28 +5918,32 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyLocalStr {
     public:
-        static uint32_t const VFTABLE = 0x00672EC0;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *format;
-            /*   4*/ void *resize;
-            /*   8*/ void *scalar_destructor;
-            /*   C*/ void *assignChar;
-            /*  10*/ void *assign;
-            /*  14*/ void *assignMyStr;
-            /*  18*/ void *append;
-            /*  1C*/ void *appendChar;
-            /*  20*/ void *appendMyLocalStr;
+            /*   0*/ int(__cdecl *format)(int, char *, ...);  // int (*)(int a1, char *Format, ...)
+            /*   4*/ int(__thiscall *resize)(MyLocalStr *self, unsigned int);  // int (__thiscall *)(MyLocalStr *this, unsigned int length)
+            /*   8*/ void *(__thiscall *scalar_destructor)(MyLocalStr *self, char);  // std::locale::facet *(__thiscall *)(std::locale::facet *this, char a2)
+            /*   C*/ uint32_t *(__thiscall *assignChar)(MyLocalStr *self, uint8_t *);  // _BYTE **(__thiscall *)(_BYTE **this, _BYTE *a2)
+            /*  10*/ void *(__thiscall *assign)(MyLocalStr *self, char *);  // void *(__thiscall *)(void *this, char *Source)
+            /*  14*/ uint32_t *(__thiscall *assignMyStr)(MyLocalStr *self, MyStr *);  // char **(__thiscall *)(char **this, MyStr *a2)
+            /*  18*/ int(__thiscall *append)(MyLocalStr *self, char *);  // int (__thiscall *)(int this, char *Source)
+            /*  1C*/ uint32_t *(__thiscall *appendChar)(MyLocalStr *self, uint8_t *);  // _DWORD *(__thiscall *)(_DWORD *this, _BYTE *a2)
+            /*  20*/ void *(__thiscall *appendMyLocalStr)(MyLocalStr *self, int);  // void *(__thiscall *)(void *this, int a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x24);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ size_t f4_len;
         /*   8*/ char *f8_buf;
         /*   C*/ size_t fC_buf_size;
         /*  10*/ int f10_is_truncated;
-
+        
         virtual ~MyLocalStr();
         void dump() {
             printf("f4_len: %d\n", this->f4_len);
@@ -5941,21 +5958,25 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyTextBase {
     public:
-        static uint32_t const VFTABLE = 0x0067B968;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *release;
-            /*   4*/ void *addRef;
-            /*   8*/ void *scalar_destructor;
-            /*   C*/ void *j_release;
-            /*  10*/ void *j_addRef;
+            /*   0*/ LONG(__thiscall *release)(MyTextBase *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   4*/ LONG(__thiscall *addRef)(MyTextBase *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   8*/ void *(__thiscall *scalar_destructor)(MyTextBase *self, char);  // std::locale::facet *(__thiscall *)(std::locale::facet *this, char a2)
+            /*   C*/ LONG(__thiscall *j_release)(MyTextBase *self);  // LONG (__thiscall *)(volatile LONG *this)
+            /*  10*/ LONG(__thiscall *j_addRef)(MyTextBase *self);  // LONG (__thiscall *)(volatile LONG *this)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x14);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ int refs;
-
+        
         virtual ~MyTextBase();
         void dump() {
             printf("refs: %d\n", this->refs);
@@ -5967,23 +5988,27 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyFileStorage : public MyTextBase {
     public:
-        static uint32_t const VFTABLE = 0x0067BA30;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public MyTextBase::vtbl_t */{
-            /*   0*/ void *release;
-            /*   4*/ void *MyCom_addRef;
-            /*   8*/ void *sub_62FD60;
-            /*   C*/ void *j_LockWrap_release;
-            /*  10*/ void *j_MyCom_addRef;
+            /*   0*/ LONG(__thiscall *release)(MyFileStorage *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   4*/ LONG(__thiscall *MyCom_addRef)(MyFileStorage *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   8*/ void *(__thiscall *sub_62FD60)(MyFileStorage *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   C*/ LONG(__thiscall *j_LockWrap_release)(MyFileStorage *self);  // LONG (__thiscall *)(volatile LONG *this)
+            /*  10*/ LONG(__thiscall *j_MyCom_addRef)(MyFileStorage *self);  // LONG (__thiscall *)(volatile LONG *this)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x14);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   8*/ ResourceIndexEntry *f8_resourceIndex_start;
         /*   C*/ ResourceIndexEntry *fC_resourceIndex_end;
         /*  10*/ TbDiscFileStorage f10_diskFileStor;
-
+        
         virtual ~MyFileStorage();
         void dump() {
             printf("f8_resourceIndex_start: ResourceIndexEntry(%p)\n", this->f8_resourceIndex_start);
@@ -5996,11 +6021,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Vtable_672774 {
     public:
-
+        
         /*   0*/ void *TbCharStringList___scalar_deleting_destructor_uint;
-
+        
         void dump() {
-            printf("TbCharStringList___scalar_deleting_destructor_uint: %p\n", this->TbCharStringList___scalar_deleting_destructor_uint);
+            printf("TbCharStringList___scalar_deleting_destructor_uint: void(%p)\n", this->TbCharStringList___scalar_deleting_destructor_uint);
         }
     };
 #pragma pack(pop)
@@ -6009,7 +6034,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class WadHeader {
     public:
-
+        
         /*   0*/ int f0_signature;
         /*   4*/ uint32_t f4_version;
         /*   8*/ uint8_t gap_8[64];
@@ -6017,7 +6042,7 @@ namespace dk2 {
         /*  4C*/ uint32_t f4C_namesOffset;
         /*  50*/ uint32_t f50_namesSize;
         /*  54*/ int _end_f54;
-
+        
         void dump() {
             printf("f0_signature: %d\n", this->f0_signature);
             printf("f4_version: %d\n", this->f4_version);
@@ -6034,10 +6059,10 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyALList {
     public:
-
+        
         /*   0*/ MyALListEntry *f0_first;
         /*   4*/ int f4_count;
-
+        
         void dump() {
             printf("f0_first: MyALListEntry(%p)\n", this->f0_first);
             printf("f4_count: %d\n", this->f4_count);
@@ -6049,13 +6074,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class WadContent {
     public:
-
+        
         /*   0*/ WadDirObj *f0_rootDir;
         /*   4*/ int f4_namesBuf;
         /*   8*/ MyWadUnkObj *f8_wadUnkObj;
         /*   C*/ MyALList fC_allDirs;
         /*  14*/ MyALList f14_allFiles;
-
+        
         void dump() {
             printf("f0_rootDir: WadDirObj(%p)\n", this->f0_rootDir);
             printf("f4_namesBuf: %d\n", this->f4_namesBuf);
@@ -6068,27 +6093,31 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyWadDirectory : public MyDirectory {
     public:
-        static uint32_t const VFTABLE = 0x00672740;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public MyDirectory::vtbl_t */{
-            /*   0*/ void *scalar_deleting_destructor;
-            /*   4*/ void *sub_5D8A60;
-            /*   8*/ void *sub_5D8850;
-            /*   C*/ void *sub_5D8A00;
-            /*  10*/ void *MyFileSmth_sub_5D82A0;
-            /*  14*/ void *MyFileSmth_formatFilePath;
-            /*  18*/ void *MyFileSmth_sub_5D8360;
-            /*  1C*/ void *sub_61B080;
-            /*  20*/ void *sub_5D8B00;
-            /*  24*/ void *sub_628BA0;
-            /*  28*/ void *duplicate_7_1;
-            /*  2C*/ void *MyFileSmth_sub_5D8280;
-            /*  30*/ void *clearData;
+            /*   0*/ void *(__thiscall *scalar_deleting_destructor)(MyWadDirectory *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ uint32_t *(__thiscall *sub_5D8A60)(MyWadDirectory *self, uint32_t *, uint32_t *, int, int, int);  // _DWORD *(__thiscall *)(int this, _DWORD *a2, _DWORD *a3, int a4, int a5, int a6)
+            /*   8*/ uint32_t *(__thiscall *sub_5D8850)(MyWadDirectory *self, uint32_t *, char *, unsigned int);  // _DWORD *(__thiscall *)(MySubStr *this, _DWORD *a2, const char *a3, unsigned int a4)
+            /*   C*/ uint32_t *(__thiscall *sub_5D8A00)(MyWadDirectory *self, uint32_t *, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2, int a3)
+            /*  10*/ uint32_t *(__thiscall *MyFileSmth_sub_5D82A0)(MyWadDirectory *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(void *this, _DWORD *a2, int a3, int a4)
+            /*  14*/ uint32_t *(__thiscall *MyFileSmth_formatFilePath)(MyWadDirectory *self, uint32_t *, char *, int, int);  // _DWORD *(__thiscall *)(MyDirectory *this, _DWORD *status, const char *buf, int fileName, int bufLimit)
+            /*  18*/ int(__thiscall *MyFileSmth_sub_5D8360)(MyWadDirectory *self);  // int (__thiscall *)(_DWORD *this)
+            /*  1C*/ uint32_t *(__stdcall *sub_61B080)(uint32_t *, int, int);  // _DWORD *(__stdcall *)(_DWORD *a1, int a2, int a3)
+            /*  20*/ uint32_t *(__stdcall *sub_5D8B00)(uint32_t *, int);  // _DWORD *(__stdcall *)(_DWORD *a1, int a2)
+            /*  24*/ uint32_t *(__stdcall *sub_628BA0)(uint32_t *, int);  // _DWORD *(__stdcall *)(_DWORD *a1, int a2)
+            /*  28*/ void *(__stdcall *duplicate_7_1)();  // void *(__stdcall *)()
+            /*  2C*/ MyDirectory *(__thiscall *MyFileSmth_sub_5D8280)(MyWadDirectory *self, int);  // MyDirectory *(__thiscall *)(MyFileIterator *this, int a2)
+            /*  30*/ int(__thiscall *clearData)(MyWadDirectory *self);  // int (__thiscall *)(MyWadDirectory *this)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x34);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*  24*/ MyStr f24_str1;
         /*  38*/ uint32_t field_38;
         /*  3C*/ Vtable_672774 *__vftable_3C;
@@ -6100,7 +6129,7 @@ namespace dk2 {
         /*  B8*/ TbDiscFile fB8_diskFile;
         /*  C0*/ MyInputStream *fC0_stream;
         /*  C4*/ WadContent _end_fC4_uniq_obj;
-
+        
         virtual ~MyWadDirectory();
         void dump() {
             printf("field_38: %d\n", this->field_38);
@@ -6115,46 +6144,34 @@ namespace dk2 {
     static_assert(sizeof(MyWadDirectory) == 0xE0);
 
 #pragma pack(push, 1)
-    class MyInputStream_fields {
+    class MyCachedOffsStream : public MyInputStream {
     public:
-
-        /*   0*/ MyInputStream *f0_wrappedStream;
-        /*   4*/ int f4_refs;
-
-        void dump() {
-            printf("f0_wrappedStream: MyInputStream(%p)\n", this->f0_wrappedStream);
-            printf("f4_refs: %d\n", this->f4_refs);
-        }
-    };
-#pragma pack(pop)
-    static_assert(sizeof(MyInputStream_fields) == 0x8);
-
-#pragma pack(push, 1)
-    class MyCachedOffsStream {
-    public:
-        static uint32_t const VFTABLE = 0x006730C0;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t {
-            /*   0*/ void *sub_5FFAF0;
-            /*   4*/ void *obj_readBytes_redirectToChild_plus;
-            /*   8*/ void *obj_writeBytes_redirectToChild_plus;
-            /*   C*/ void *obj_seek_redirectToChild_plus;
-            /*  10*/ void *obj_getSize_redirectToChild;
-            /*  14*/ void *obj_getOffs;
-            /*  18*/ void *MyInputStream_mapToBuf_redirectToChild;
-            /*  1C*/ void *MyInputStream_unmap_redirectToChild;
-            /*  20*/ void *MyInputStream_flush_stub;
-            /*  24*/ void *obj_close;
-            /*  28*/ void *MyInputStream_pushSubStream;
-            /*  2C*/ void *MyInputStream_getSemaphore_redirectToChild;
+        struct vtbl_t /*: public MyInputStream::vtbl_t */{
+            /*   0*/ void *(__thiscall *sub_5FFAF0)(MyCachedOffsStream *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ size_t(__thiscall *obj_readBytes_redirectToChild_plus)(MyCachedOffsStream *self, void *, int);  // size_t (__thiscall *)(MyInputStream *this, void *a2, int a3)
+            /*   8*/ size_t(__thiscall *obj_writeBytes_redirectToChild_plus)(MyCachedOffsStream *self, void *, int);  // size_t (__thiscall *)(MyInputStream *this, void *a2, int a3)
+            /*   C*/ int(__thiscall *obj_seek_redirectToChild_plus)(MyCachedOffsStream *self, int, int);  // int (__thiscall *)(MyInputStream *this, int a2, int a3)
+            /*  10*/ size_t(__thiscall *obj_getSize_redirectToChild)(MyCachedOffsStream *self);  // size_t (__thiscall *)(MyInputStream *this)
+            /*  14*/ int(__thiscall *obj_getOffs)(MyCachedOffsStream *self);  // int (__thiscall *)(MyInputStream *this)
+            /*  18*/ int(__thiscall *MyInputStream_mapToBuf_redirectToChild)(MyCachedOffsStream *self, int, int);  // int (__thiscall *)(MyInputStream *this, int a2, int a3)
+            /*  1C*/ int(__thiscall *MyInputStream_unmap_redirectToChild)(MyCachedOffsStream *self, int);  // int (__thiscall *)(MyInputStream *this, int a2)
+            /*  20*/ uint32_t *(__thiscall *MyInputStream_flush_stub)(MyCachedOffsStream *self, uint32_t *);  // _DWORD *(__thiscall *)(MyInputStream *this, _DWORD *a1)
+            /*  24*/ void(__thiscall *obj_close)(MyCachedOffsStream *self);  // void (__thiscall *)(MyInputStream *this)
+            /*  28*/ MyInputStream *(__thiscall *MyInputStream_pushSubStream)(MyCachedOffsStream *self, MyInputStream *);  // MyInputStream *(__thiscall *)(MyInputStream *this, MyInputStream *sub)
+            /*  2C*/ int(__thiscall *MyInputStream_getSemaphore_redirectToChild)(MyCachedOffsStream *self);  // int (__thiscall *)(MyInputStream *this)
         };
-
-        /*   4*/ MyInputStream_fields super;
+        static_assert(sizeof(vtbl_t) == 0x30);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ int fC_cachedOffs;
-
+        
         virtual ~MyCachedOffsStream();
         void dump() {
             printf("fC_cachedOffs: %d\n", this->fC_cachedOffs);
@@ -6166,11 +6183,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MySemaphore {
     public:
-
+        
         /*   0*/ uint32_t f0_hSemaphore;
         /*   4*/ int f4_status;
         /*   8*/ int f8_semaTaken;
-
+        
         void dump() {
             printf("f0_hSemaphore: %d\n", this->f0_hSemaphore);
             printf("f4_status: %d\n", this->f4_status);
@@ -6183,27 +6200,31 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyConcurrentStream : public MyCachedOffsStream {
     public:
-        static uint32_t const VFTABLE = 0x00672EF8;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public MyCachedOffsStream::vtbl_t */{
-            /*   0*/ void *MyCachedOffsStream_scalar_destructor;
-            /*   4*/ void *MyConcurrentStream_readBytes;
-            /*   8*/ void *MyConcurrentStream_writeBytes;
-            /*   C*/ void *MyConcurrentStream_seek;
-            /*  10*/ void *MyConcurrentStream_getSize;
-            /*  14*/ void *MyCachedOffsStream_getOffs;
-            /*  18*/ void *MyInputStream_mapToBuf_redirect;
-            /*  1C*/ void *MyInputStream_unmap_redirect;
-            /*  20*/ void *MyInputStream_flush_stub;
-            /*  24*/ void *MyCachedOffsStream_close;
-            /*  28*/ void *MyConcurrentStream_wrapStream;
-            /*  2C*/ void *MyInputStream_getSemaphore_redirect;
+            /*   0*/ void *(__thiscall *MyCachedOffsStream_scalar_destructor)(MyConcurrentStream *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ size_t(__thiscall *MyConcurrentStream_readBytes)(MyConcurrentStream *self, int, int);  // size_t (__thiscall *)(MyInputStream *this, int a2, int a3)
+            /*   8*/ size_t(__thiscall *MyConcurrentStream_writeBytes)(MyConcurrentStream *self, void *, int);  // size_t (__thiscall *)(MyCachedOffsStream *this, void *a2, int a3)
+            /*   C*/ int(__thiscall *MyConcurrentStream_seek)(MyConcurrentStream *self, int, int);  // int (__thiscall *)(MyInputStream *this, int a2, int a3)
+            /*  10*/ size_t(__thiscall *MyConcurrentStream_getSize)(MyConcurrentStream *self);  // size_t (__thiscall *)(Concurrency::details::EventWaitNode *this)
+            /*  14*/ int(__thiscall *MyCachedOffsStream_getOffs)(MyConcurrentStream *self);  // int (__thiscall *)(MyInputStream *this)
+            /*  18*/ int(__thiscall *MyInputStream_mapToBuf_redirect)(MyConcurrentStream *self, int, int);  // int (__thiscall *)(MyInputStream *this, int a2, int a3)
+            /*  1C*/ int(__thiscall *MyInputStream_unmap_redirect)(MyConcurrentStream *self, int);  // int (__thiscall *)(MyInputStream *this, int a2)
+            /*  20*/ uint32_t *(__thiscall *MyInputStream_flush_stub)(MyConcurrentStream *self, uint32_t *);  // _DWORD *(__thiscall *)(MyInputStream *this, _DWORD *a1)
+            /*  24*/ void(__thiscall *MyCachedOffsStream_close)(MyConcurrentStream *self);  // void (__thiscall *)(MyCachedOffsStream *this)
+            /*  28*/ void(__thiscall *MyConcurrentStream_wrapStream)(MyConcurrentStream *self, MyInputStream *);  // void (__thiscall *)(MyCachedOffsStream *this, MyInputStream *a2)
+            /*  2C*/ int(__thiscall *MyInputStream_getSemaphore_redirect)(MyConcurrentStream *self);  // int (__thiscall *)(MyInputStream *this)
         };
-
-
+        static_assert(sizeof(vtbl_t) == 0x30);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        
         virtual ~MyConcurrentStream();
         void dump() {
         }
@@ -6214,7 +6235,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class WadEntry_off8 {
     public:
-
+        
         /*   0*/ uint32_t f8_nameSize;
         /*   4*/ int fC_fileOffset;
         /*   8*/ int f10_compressedSize;
@@ -6225,7 +6246,7 @@ namespace dk2 {
         /*  1C*/ int field_24;
         /*  20*/ int f0_idx;
         /*  24*/ int f4_nameOffset;
-
+        
         void dump() {
             printf("f8_nameSize: %d\n", this->f8_nameSize);
             printf("fC_fileOffset: %d\n", this->fC_fileOffset);
@@ -6245,13 +6266,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyALListEntry {
     public:
-
+        
         /*   0*/ int f0_next;
         /*   4*/ void *f4_value;
-
+        
         void dump() {
             printf("f0_next: %d\n", this->f0_next);
-            printf("f4_value: %p\n", this->f4_value);
+            printf("f4_value: void(%p)\n", this->f4_value);
         }
     };
 #pragma pack(pop)
@@ -6260,7 +6281,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class WadEntry {
     public:
-
+        
         /*   0*/ uint32_t field_0;
         /*   4*/ int f4_nameOffset;
         /*   8*/ uint32_t f8_nameSize;
@@ -6271,7 +6292,7 @@ namespace dk2 {
         /*  1C*/ int field_1C;
         /*  20*/ int field_20;
         /*  24*/ int field_24;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("f4_nameOffset: %d\n", this->f4_nameOffset);
@@ -6291,15 +6312,16 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyDirsLList {
     public:
-
         struct vtbl_t {
-            /*   0*/ void *__sub_5FE3D0_scalar_destructor;
+            /*   0*/ void *(__thiscall *__sub_5FE3D0_scalar_destructor)(MyDirsLList *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
         /*   4*/ MyLListEntry *f0_first;
         /*   8*/ MyLListEntry *f4_last;
         /*   C*/ int f8_count;
-
+        
         virtual ~MyDirsLList();
         void dump() {
             printf("f0_first: MyLListEntry(%p)\n", this->f0_first);
@@ -6313,15 +6335,16 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyFilesLList {
     public:
-
         struct vtbl_t {
-            /*   0*/ void *__sub_5FE430_scalar_destructor;
+            /*   0*/ void *(__thiscall *__sub_5FE430_scalar_destructor)(MyFilesLList *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
         /*   4*/ MyLListEntry *f0_first;
         /*   8*/ MyLListEntry *f4_last;
         /*   C*/ int f8_count;
-
+        
         virtual ~MyFilesLList();
         void dump() {
             printf("f0_first: MyLListEntry(%p)\n", this->f0_first);
@@ -6335,12 +6358,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class WadDirObj {
     public:
-
+        
         /*   0*/ char *f0_name;
         /*   4*/ uint32_t f4_isPackedWadFile;
         /*   8*/ MyDirsLList f8_subdirs;
         /*  18*/ MyFilesLList f18_files;
-
+        
         void dump() {
             printf("f0_name: %s\n", this->f0_name);
             printf("f4_isPackedWadFile: %d\n", this->f4_isPackedWadFile);
@@ -6352,13 +6375,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyLListEntry {
     public:
-
+        
         /*   0*/ void *f0_value;
         /*   4*/ MyLListEntry *f4_next;
         /*   8*/ MyLListEntry *f8_prev;
-
+        
         void dump() {
-            printf("f0_value: %p\n", this->f0_value);
+            printf("f0_value: void(%p)\n", this->f0_value);
             printf("f4_next: MyLListEntry(%p)\n", this->f4_next);
             printf("f8_prev: MyLListEntry(%p)\n", this->f8_prev);
         }
@@ -6369,12 +6392,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyLList2 {
     public:
-
+        
         /*   0*/ int field_0;
         /*   4*/ MyLList2_entry *f4_first;
         /*   8*/ int f8_count;
         /*   C*/ MyLList2_entry *fC_it;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("f4_first: MyLList2_entry(%p)\n", this->f4_first);
@@ -6388,15 +6411,15 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyLList2_entry {
     public:
-
+        
         /*   0*/ MyLList2_entry *f0_prev;
         /*   4*/ MyLList2_entry *f4_next;
-        /*   8*/ void *f8_value;
-
+        /*   8*/ uint32_t *f8_value;
+        
         void dump() {
             printf("f0_prev: MyLList2_entry(%p)\n", this->f0_prev);
             printf("f4_next: MyLList2_entry(%p)\n", this->f4_next);
-            printf("f8_value: %p\n", this->f8_value);
+            printf("f8_value: uint32_t(%p)\n", this->f8_value);
         }
     };
 #pragma pack(pop)
@@ -6405,13 +6428,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class WadFileObj {
     public:
-
+        
         /*   0*/ uint32_t f0_name;
         /*   4*/ uint32_t f4_isPackedWadFile;
         /*   8*/ int f8_bufSize;
         /*   C*/ int fC_bufRelOffs;
         /*  10*/ int f10_idx;
-
+        
         void dump() {
             printf("f0_name: %d\n", this->f0_name);
             printf("f4_isPackedWadFile: %d\n", this->f4_isPackedWadFile);
@@ -6426,11 +6449,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class TbCharStringList_vtbl {
     public:
-
+        
         /*   0*/ void *TbCharStringList___scalar_deleting_destructor_uint;
-
+        
         void dump() {
-            printf("TbCharStringList___scalar_deleting_destructor_uint: %p\n", this->TbCharStringList___scalar_deleting_destructor_uint);
+            printf("TbCharStringList___scalar_deleting_destructor_uint: void(%p)\n", this->TbCharStringList___scalar_deleting_destructor_uint);
         }
     };
 #pragma pack(pop)
@@ -6439,7 +6462,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyWadUnkObj {
     public:
-
+        
         /*   0*/ MyStr f0_str1;
         /*  14*/ WadDirObj *f14_dir;
         /*  18*/ int field_18;
@@ -6456,7 +6479,7 @@ namespace dk2 {
         /*  54*/ int field_54;
         /*  58*/ int field_58;
         /*  5C*/ int _end_f5C;
-
+        
         void dump() {
             printf("f14_dir: WadDirObj(%p)\n", this->f14_dir);
             printf("field_18: %d\n", this->field_18);
@@ -6479,12 +6502,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class ResourceIndexEntry {
     public:
-
+        
         /*   0*/ int f0_fileId;
         /*   4*/ __int16 f4_textType;
         /*   6*/ __int16 f6_offset;
         /*   8*/ MyTextBase *f8_text;
-
+        
         void dump() {
             printf("f0_fileId: %d\n", this->f0_fileId);
             printf("f4_textType: %d\n", this->f4_textType);
@@ -6498,24 +6521,28 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyTextMBToUni : public MyTextBase {
     public:
-        static uint32_t const VFTABLE = 0x0067B9C8;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public MyTextBase::vtbl_t */{
-            /*   0*/ void *release;
-            /*   4*/ void *MySharedObj_addRef;
-            /*   8*/ void *sub_62E3F0;
-            /*   C*/ void *j_MySharedObj_release;
-            /*  10*/ void *j_MySharedObj_addRef;
+            /*   0*/ LONG(__thiscall *release)(MyTextMBToUni *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   4*/ LONG(__thiscall *MySharedObj_addRef)(MyTextMBToUni *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   8*/ void *(__thiscall *sub_62E3F0)(MyTextMBToUni *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   C*/ LONG(__thiscall *j_MySharedObj_release)(MyTextMBToUni *self);  // LONG (__thiscall *)(volatile LONG *this)
+            /*  10*/ LONG(__thiscall *j_MySharedObj_addRef)(MyTextMBToUni *self);  // LONG (__thiscall *)(volatile LONG *this)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x14);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   8*/ char f8_maxChr;
         /*   9*/ uint8_t gap_9[1];
         /*   A*/ __int16 field_A;
         /*   C*/ int field_C;
-
+        
         virtual ~MyTextMBToUni();
         void dump() {
             printf("f8_maxChr: %d\n", this->f8_maxChr);
@@ -6529,13 +6556,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class BFMU_header {
     public:
-
+        
         /*   0*/ int f0_signature;
         /*   4*/ char f4___maxChar;
         /*   5*/ char field_5;
         /*   6*/ char field_6;
         /*   7*/ char field_7;
-
+        
         void dump() {
             printf("f0_signature: %d\n", this->f0_signature);
             printf("f4___maxChar: %d\n", this->f4___maxChar);
@@ -6550,21 +6577,25 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyTextUniToMB : public MyTextBase {
     public:
-        static uint32_t const VFTABLE = 0x0067B9B0;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public MyTextBase::vtbl_t */{
-            /*   0*/ void *release;
-            /*   4*/ void *MySharedObj_addRef;
-            /*   8*/ void *sub_62E090;
-            /*   C*/ void *j_MySharedObj_release;
-            /*  10*/ void *j_MySharedObj_addRef;
+            /*   0*/ LONG(__thiscall *release)(MyTextUniToMB *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   4*/ LONG(__thiscall *MySharedObj_addRef)(MyTextUniToMB *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   8*/ void *(__thiscall *sub_62E090)(MyTextUniToMB *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   C*/ LONG(__thiscall *j_MySharedObj_release)(MyTextUniToMB *self);  // LONG (__thiscall *)(volatile LONG *this)
+            /*  10*/ LONG(__thiscall *j_MySharedObj_addRef)(MyTextUniToMB *self);  // LONG (__thiscall *)(volatile LONG *this)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x14);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   8*/ int field_8;
-
+        
         virtual ~MyTextUniToMB();
         void dump() {
             printf("field_8: %d\n", this->field_8);
@@ -6576,23 +6607,27 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyTextMB : public MyTextBase {
     public:
-        static uint32_t const VFTABLE = 0x0067BAE0;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public MyTextBase::vtbl_t */{
-            /*   0*/ void *MySharedObj_release;
-            /*   4*/ void *MySharedObj_addRef;
-            /*   8*/ void *sub_633480;
-            /*   C*/ void *j_MySharedObj_release;
-            /*  10*/ void *j_MySharedObj_addRef;
+            /*   0*/ LONG(__thiscall *MySharedObj_release)(MyTextMB *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   4*/ LONG(__thiscall *MySharedObj_addRef)(MyTextMB *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   8*/ void *(__thiscall *sub_633480)(MyTextMB *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   C*/ LONG(__thiscall *j_MySharedObj_release)(MyTextMB *self);  // LONG (__thiscall *)(volatile LONG *this)
+            /*  10*/ LONG(__thiscall *j_MySharedObj_addRef)(MyTextMB *self);  // LONG (__thiscall *)(volatile LONG *this)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x14);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   8*/ char field_8;
         /*   9*/ uint8_t gap_9;
         /*   A*/ __int16 field_A;
-
+        
         virtual ~MyTextMB();
         void dump() {
             printf("field_8: %d\n", this->field_8);
@@ -6606,12 +6641,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyFontHeader {
     public:
-
+        
         /*   0*/ int f0_magic;
         /*   4*/ char f4_maxWidth;
         /*   5*/ char f5_maxHeight;
         /*   6*/ __int16 f6_offsetCount;
-
+        
         void dump() {
             printf("f0_magic: %d\n", this->f0_magic);
             printf("f4_maxWidth: %d\n", this->f4_maxWidth);
@@ -6625,7 +6660,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyFontEntryHeader {
     public:
-
+        
         /*   0*/ wchar_t f0_chr;
         /*   2*/ uint8_t gap_2[2];
         /*   4*/ int field_4;
@@ -6636,7 +6671,7 @@ namespace dk2 {
         /*  14*/ char f14_offsX;
         /*  15*/ char f15_offsY;
         /*  16*/ __int16 f16_outerWidth;
-
+        
         void dump() {
             printf("f0_chr: %d\n", this->f0_chr);
             printf("field_4: %d\n", this->field_4);
@@ -6655,7 +6690,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyStringTexture {
     public:
-
+        
         /*   0*/ int f0_string_MB;
         /*   4*/ MySurface *f4_surf_360C;
         /*   8*/ MySurface *f8_surf_39A4;
@@ -6666,7 +6701,7 @@ namespace dk2 {
         /*  1C*/ char f1C_3;
         /*  1D*/ int f1D_fontObjType;
         /*  21*/ int f21_2;
-
+        
         void dump() {
             printf("f0_string_MB: %d\n", this->f0_string_MB);
             printf("f4_surf_360C: MySurface(%p)\n", this->f4_surf_360C);
@@ -6686,17 +6721,17 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyTRBase_vtable {
     public:
-
+        
         /*   0*/ void *scalar_destructor;
         /*   4*/ void *linesOneTypeEx_doCalcAabb_verticalMiddle;
         /*   8*/ void *linesOneTypeEx_doCalcAabbAndDraw_verticalMiddle;
         /*   C*/ void *linesOneTypeEx_doDrawOrCalcAabb;
-
+        
         void dump() {
-            printf("scalar_destructor: %p\n", this->scalar_destructor);
-            printf("linesOneTypeEx_doCalcAabb_verticalMiddle: %p\n", this->linesOneTypeEx_doCalcAabb_verticalMiddle);
-            printf("linesOneTypeEx_doCalcAabbAndDraw_verticalMiddle: %p\n", this->linesOneTypeEx_doCalcAabbAndDraw_verticalMiddle);
-            printf("linesOneTypeEx_doDrawOrCalcAabb: %p\n", this->linesOneTypeEx_doDrawOrCalcAabb);
+            printf("scalar_destructor: void(%p)\n", this->scalar_destructor);
+            printf("linesOneTypeEx_doCalcAabb_verticalMiddle: void(%p)\n", this->linesOneTypeEx_doCalcAabb_verticalMiddle);
+            printf("linesOneTypeEx_doCalcAabbAndDraw_verticalMiddle: void(%p)\n", this->linesOneTypeEx_doCalcAabbAndDraw_verticalMiddle);
+            printf("linesOneTypeEx_doDrawOrCalcAabb: void(%p)\n", this->linesOneTypeEx_doDrawOrCalcAabb);
         }
     };
 #pragma pack(pop)
@@ -6705,12 +6740,8 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyTRBase {
     public:
-        static uint32_t const VFTABLE = 0x0067BA08;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-
+        
+        
         virtual ~MyTRBase();
         void dump() {
         }
@@ -6721,7 +6752,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyCharRenderCtx {
     public:
-
+        
         /*   0*/ uint16_t f0_fontChrIdx;
         /*   2*/ uint8_t gap_A[2];
         /*   4*/ uint32_t f4_chrType;
@@ -6734,7 +6765,7 @@ namespace dk2 {
         /*  1C*/ int f1C_index;
         /*  20*/ int f20_arr;
         /*  24*/ Pos2i *f24_pChrStart;
-
+        
         void dump() {
             printf("f0_fontChrIdx: %d\n", this->f0_fontChrIdx);
             printf("gap_A: %d\n", this->gap_A);
@@ -6756,14 +6787,14 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyCRCtx {
     public:
-
+        
         /*   0*/ MyDRBase *f0_myDR;
         /*   4*/ MyCharRenderCtx f4_saved;
         /*  2C*/ MyCharRenderCtx f2C_activeCtx;
         /*  54*/ int f54_chrType;
         /*  58*/ __int16 f58_visitedChars;
         /*  5A*/ uint8_t gap_5E[2];
-
+        
         void dump() {
             printf("f0_myDR: MyDRBase(%p)\n", this->f0_myDR);
             printf("f54_chrType: %d\n", this->f54_chrType);
@@ -6777,11 +6808,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyTRCtx {
     public:
-
+        
         /*   0*/ uint32_t field_0;
         /*   4*/ MyCRCtx f4_renderCtx;
         /*  60*/ MyCRCtx f60_activeCtx;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
         }
@@ -6792,7 +6823,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyMultilineRenderCtx {
     public:
-
+        
         /*   0*/ uint32_t field_0;
         /*   4*/ MyTRCtx f4_renderCtx;
         /*  C0*/ MyTRCtx fC0_activeCtx;
@@ -6800,7 +6831,7 @@ namespace dk2 {
         /* 17E*/ __int16 f17E_linesCount;
         /* 180*/ __int16 f180_renderZero;
         /* 182*/ __int16 _end_f182;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_17C: %d\n", this->field_17C);
@@ -6815,7 +6846,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyTRCtx2Sub {
     public:
-
+        
         /*   0*/ uint32_t field_0;
         /*   4*/ uint32_t field_4;
         /*   8*/ uint32_t field_8;
@@ -6826,7 +6857,7 @@ namespace dk2 {
         /*  19*/ uint8_t gap_19[3];
         /*  1C*/ int field_1C;
         /*  20*/ int field_20;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_4: %d\n", this->field_4);
@@ -6846,12 +6877,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyTRArgs {
     public:
-
+        
         /*   0*/ MyCRBase *f0_myCR;
         /*   4*/ MyMultilineRenderCtx f4_renderCtx;
         /* 188*/ MyMultilineRenderCtx f188_activeCtx;
         /* 30C*/ __int16 f30C_linesCount;
-
+        
         void dump() {
             printf("f0_myCR: MyCRBase(%p)\n", this->f0_myCR);
             printf("f30C_linesCount: %d\n", this->f30C_linesCount);
@@ -6863,15 +6894,15 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyCRBase_vtable {
     public:
-
+        
         /*   0*/ void *scalar_destructor;
         /*   4*/ void *chars_doCalcAabbInMiddle;
         /*   8*/ void *chars_doCalcAabbAndRenderInMiddle;
-
+        
         void dump() {
-            printf("scalar_destructor: %p\n", this->scalar_destructor);
-            printf("chars_doCalcAabbInMiddle: %p\n", this->chars_doCalcAabbInMiddle);
-            printf("chars_doCalcAabbAndRenderInMiddle: %p\n", this->chars_doCalcAabbAndRenderInMiddle);
+            printf("scalar_destructor: void(%p)\n", this->scalar_destructor);
+            printf("chars_doCalcAabbInMiddle: void(%p)\n", this->chars_doCalcAabbInMiddle);
+            printf("chars_doCalcAabbAndRenderInMiddle: void(%p)\n", this->chars_doCalcAabbAndRenderInMiddle);
         }
     };
 #pragma pack(pop)
@@ -6880,12 +6911,8 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyCRBase {
     public:
-        static uint32_t const VFTABLE = 0x0067B9F8;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-
+        
+        
         virtual ~MyCRBase();
         void dump() {
         }
@@ -6896,19 +6923,19 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyDRBase_vtable {
     public:
-
+        
         /*   0*/ void *scalar_destructor;
         /*   4*/ void *doCalcAabbOrRender_0;
         /*   8*/ void *doRender;
         /*   C*/ void *doCalcAabbOrRender;
         /*  10*/ void *MyDR67B9E0_sub_62E8C0;
-
+        
         void dump() {
-            printf("scalar_destructor: %p\n", this->scalar_destructor);
-            printf("doCalcAabbOrRender_0: %p\n", this->doCalcAabbOrRender_0);
-            printf("doRender: %p\n", this->doRender);
-            printf("doCalcAabbOrRender: %p\n", this->doCalcAabbOrRender);
-            printf("MyDR67B9E0_sub_62E8C0: %p\n", this->MyDR67B9E0_sub_62E8C0);
+            printf("scalar_destructor: void(%p)\n", this->scalar_destructor);
+            printf("doCalcAabbOrRender_0: void(%p)\n", this->doCalcAabbOrRender_0);
+            printf("doRender: void(%p)\n", this->doRender);
+            printf("doCalcAabbOrRender: void(%p)\n", this->doCalcAabbOrRender);
+            printf("MyDR67B9E0_sub_62E8C0: void(%p)\n", this->MyDR67B9E0_sub_62E8C0);
         }
     };
 #pragma pack(pop)
@@ -6917,12 +6944,8 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyDRBase {
     public:
-        static uint32_t const VFTABLE = 0x0067BA48;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-
+        
+        
         virtual ~MyDRBase();
         void dump() {
         }
@@ -6933,7 +6956,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyFontRendererBase_vtable {
     public:
-
+        
         /*   0*/ void *scalar_destructor;
         /*   4*/ void *renderChar;
         /*   8*/ void *render_r5g5b5a1;
@@ -6941,15 +6964,15 @@ namespace dk2 {
         /*  10*/ void *render_r4g4b4a4;
         /*  14*/ void *render_6319F0;
         /*  18*/ void *render_r8g8b8a8;
-
+        
         void dump() {
-            printf("scalar_destructor: %p\n", this->scalar_destructor);
-            printf("renderChar: %p\n", this->renderChar);
-            printf("render_r5g5b5a1: %p\n", this->render_r5g5b5a1);
-            printf("render_r5g6b5: %p\n", this->render_r5g6b5);
-            printf("render_r4g4b4a4: %p\n", this->render_r4g4b4a4);
-            printf("render_6319F0: %p\n", this->render_6319F0);
-            printf("render_r8g8b8a8: %p\n", this->render_r8g8b8a8);
+            printf("scalar_destructor: void(%p)\n", this->scalar_destructor);
+            printf("renderChar: void(%p)\n", this->renderChar);
+            printf("render_r5g5b5a1: void(%p)\n", this->render_r5g5b5a1);
+            printf("render_r5g6b5: void(%p)\n", this->render_r5g6b5);
+            printf("render_r4g4b4a4: void(%p)\n", this->render_r4g4b4a4);
+            printf("render_6319F0: void(%p)\n", this->render_6319F0);
+            printf("render_r8g8b8a8: void(%p)\n", this->render_r8g8b8a8);
         }
     };
 #pragma pack(pop)
@@ -6958,12 +6981,8 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyFontRendererBase {
     public:
-        static uint32_t const VFTABLE = 0x0067BB28;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-
+        
+        
         virtual ~MyFontRendererBase();
         void dump() {
         }
@@ -6974,11 +6993,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CharImageReader {
     public:
-
+        
         /*   0*/ bool f0_isLowByte;
         /*   1*/ uint8_t gap_1[3];
         /*   4*/ int f4_charBuf;
-
+        
         void dump() {
             printf("f0_isLowByte: %d\n", this->f0_isLowByte);
             printf("gap_1: %d\n", this->gap_1);
@@ -6991,13 +7010,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CharImageWriter {
     public:
-
+        
         /*   0*/ uint32_t f0_buf;
         /*   4*/ bool f4_isLowByte;
         /*   5*/ char f5_calcOnly;
         /*   6*/ uint8_t gap_6[2];
         /*   8*/ uint32_t f8_pixCount;
-
+        
         void dump() {
             printf("f0_buf: %d\n", this->f0_buf);
             printf("f4_isLowByte: %d\n", this->f4_isLowByte);
@@ -7012,7 +7031,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CharRenderCtx {
     public:
-
+        
         /*   0*/ Pos2i *f0_pos;
         /*   4*/ uint32_t f4_buf;
         /*   8*/ uint32_t f8_half_width;
@@ -7020,7 +7039,7 @@ namespace dk2 {
         /*  10*/ FontObj *f10_fontObj;
         /*  14*/ char f14_width;
         /*  15*/ uint8_t gap_15[3];
-
+        
         void dump() {
             printf("f0_pos: Pos2i(%p)\n", this->f0_pos);
             printf("f4_buf: %d\n", this->f4_buf);
@@ -7034,13 +7053,30 @@ namespace dk2 {
     static_assert(sizeof(CharRenderCtx) == 0x18);
 
 #pragma pack(push, 1)
-    class MySignalBase_fields {
+    class MySignalBase {
     public:
-
-        /*   0*/ uint8_t gap_4[4];
-        /*   4*/ int f8_hEvent;
-        /*   8*/ ControlKeysUpdater *f8_pcontrolkeys;
-
+        struct vtbl_t {
+            /*   0*/ LONG(__thiscall *MySharedObj_release)(MySignalBase *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   4*/ LONG(__thiscall *MySharedObj_addRef)(MySignalBase *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   8*/ void *(__thiscall *AsyncThing___scalar_deleting_destructor_uint)(MySignalBase *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   C*/ void(__stdcall *__purecall)();  // void (__stdcall __noreturn *)()
+            /*  10*/ uint32_t *(__thiscall *MyDirectInput_recreateEvent)(MySignalBase *self, uint32_t *);  // int *(__thiscall *)(MyDxKeyboard *this, int *a2)
+        };
+        static_assert(sizeof(vtbl_t) == 0x14);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        /*   4*/ uint8_t gap_4[4];
+        /*   8*/ int f8_hEvent;
+        /*   C*/ ControlKeysUpdater *f8_pcontrolkeys;
+        
+        virtual ~MySignalBase();
         void dump() {
             printf("gap_4: %d\n", this->gap_4);
             printf("f8_hEvent: %d\n", this->f8_hEvent);
@@ -7048,22 +7084,26 @@ namespace dk2 {
         }
     };
 #pragma pack(pop)
-    static_assert(sizeof(MySignalBase_fields) == 0xC);
+    static_assert(sizeof(MySignalBase) == 0x10);
 
 #pragma pack(push, 1)
     class MyDxDevice {
     public:
-        static uint32_t const VFTABLE = 0x00672868;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *scalar_destructor;
-            /*   4*/ void *getGuid;
-            /*   8*/ void *getDataFormat;
+            /*   0*/ void *(__thiscall *scalar_destructor)(MyDxDevice *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ GUID *(__thiscall *getGuid)(MyDxDevice *self);  // GUID *(__thiscall *)(MyDxDevice *)
+            /*   8*/ const DIDATAFORMAT *(__thiscall *getDataFormat)(MyDxDevice *self);  // LPCDIDATAFORMAT (__thiscall *)(MyDxDevice *)
         };
-
+        static_assert(sizeof(vtbl_t) == 0xC);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ int f4_nextCoopLevel;
         /*   8*/ int f8_curCoopLevel;
         /*   C*/ IDirectInputDeviceA *fC_device;
@@ -7071,7 +7111,7 @@ namespace dk2 {
         /*  14*/ int f14_hInstance;
         /*  18*/ HWND__ *f18_curHWnd;
         /*  1C*/ HWND__ *f1C_nextHWnd;
-
+        
         virtual ~MyDxDevice();
         void dump() {
             printf("f4_nextCoopLevel: %d\n", this->f4_nextCoopLevel);
@@ -7087,26 +7127,29 @@ namespace dk2 {
     static_assert(sizeof(MyDxDevice) == 0x20);
 
 #pragma pack(push, 1)
-    class MyDirectInput {
+    class MyDirectInput : public MySignalBase {
     public:
-        static uint32_t const VFTABLE = 0x00673048;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t {
-            /*   0*/ void *MySharedObj_release;
-            /*   4*/ void *MySharedObj_addRef;
-            /*   8*/ void *MyDirectInputSu1___scalar_deleting_destructor_uint;
-            /*   C*/ void *sub_6005B0;
-            /*  10*/ void *MyDirectInputSu1_createObject;
-            /*  14*/ void *handleData;
+        struct vtbl_t /*: public MySignalBase::vtbl_t */{
+            /*   0*/ LONG(__thiscall *MySharedObj_release)(MyDirectInput *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   4*/ LONG(__thiscall *MySharedObj_addRef)(MyDirectInput *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   8*/ void *(__thiscall *MyDirectInputSu1___scalar_deleting_destructor_uint)(MyDirectInput *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   C*/ uint32_t *(__thiscall *sub_6005B0)(MyDirectInput *self);  // int *(__thiscall *)(_DWORD *this)
+            /*  10*/ uint32_t *(__thiscall *MyDirectInputSu1_createObject)(MyDirectInput *self, uint32_t *);  // int *(__thiscall *)(MyDxKeyboard *this, HRESULT *pResult)
+            /*  14*/ int(__thiscall *handleData)(MyDirectInput *self, int);  // int (__thiscall *)(MyDirectInput *, int)
         };
-
-        /*   4*/ MySignalBase_fields super;
+        static_assert(sizeof(vtbl_t) == 0x18);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*  10*/ MyDxDevice dx_device;
         /*  30*/ LPDIDEVICEOBJECTDATA_10 *f2C_pdevObjArr;
-
+        
         virtual ~MyDirectInput();
         void dump() {
             printf("f2C_pdevObjArr: LPDIDEVICEOBJECTDATA_10(%p)\n", this->f2C_pdevObjArr);
@@ -7118,17 +7161,21 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MouseRgbDxActionList {
     public:
-        static uint32_t const VFTABLE = 0x006728FC;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *Obj6728FC_scalar_destructor;
+            /*   0*/ void *(__thiscall *Obj6728FC_scalar_destructor)(MouseRgbDxActionList *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ MyLList2 f4_list;
-
+        
         virtual ~MouseRgbDxActionList();
         void dump() {
         }
@@ -7139,22 +7186,26 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyDxKeyboard : public MyDirectInput {
     public:
-        static uint32_t const VFTABLE = 0x00672920;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public MyDirectInput::vtbl_t */{
-            /*   0*/ void *MySharedObj_release;
-            /*   4*/ void *MySharedObj_addRef;
-            /*   8*/ void *scalar_destructor;
-            /*   C*/ void *sub_6005B0;
-            /*  10*/ void *DirectInput_init_0;
-            /*  14*/ void *sub_5DE260;
+            /*   0*/ LONG(__thiscall *MySharedObj_release)(MyDxKeyboard *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   4*/ LONG(__thiscall *MySharedObj_addRef)(MyDxKeyboard *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   8*/ void *(__thiscall *scalar_destructor)(MyDxKeyboard *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   C*/ uint32_t *(__thiscall *sub_6005B0)(MyDxKeyboard *self);  // int *(__thiscall *)(_DWORD *this)
+            /*  10*/ uint32_t *(__thiscall *DirectInput_init_0)(MyDxKeyboard *self, uint32_t *);  // int *(__thiscall *)(int this, int *a2)
+            /*  14*/ int(__thiscall *sub_5DE260)(MyDxKeyboard *self, int);  // int (__thiscall *)(int this, int a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x18);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*  34*/ MouseRgbDxActionList f34_listKb;
-
+        
         virtual ~MyDxKeyboard();
         void dump() {
         }
@@ -7165,14 +7216,14 @@ namespace dk2 {
 #pragma pack(push, 1)
     class DIDATAFORMAT {
     public:
-
+        
         /*   0*/ DWORD dwSize;
         /*   4*/ DWORD dwObjSize;
         /*   8*/ DWORD dwFlags;
         /*   C*/ DWORD dwDataSize;
         /*  10*/ DWORD dwNumObjs;
         /*  14*/ _DIOBJECTDATAFORMAT *rgodf;
-
+        
         void dump() {
             printf("dwSize: %d\n", this->dwSize);
             printf("dwObjSize: %d\n", this->dwObjSize);
@@ -7188,12 +7239,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class DIOBJECTDATAFORMAT {
     public:
-
+        
         /*   0*/ const GUID *pguid;
         /*   4*/ DWORD dwOfs;
         /*   8*/ DWORD dwType;
         /*   C*/ DWORD dwFlags;
-
+        
         void dump() {
             printf("pguid: const GUID(%p)\n", this->pguid);
             printf("dwOfs: %d\n", this->dwOfs);
@@ -7207,12 +7258,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class DIPROPHEADER {
     public:
-
+        
         /*   0*/ DWORD dwSize;
         /*   4*/ DWORD dwHeaderSize;
         /*   8*/ DWORD dwObj;
         /*   C*/ DWORD dwHow;
-
+        
         void dump() {
             printf("dwSize: %d\n", this->dwSize);
             printf("dwHeaderSize: %d\n", this->dwHeaderSize);
@@ -7226,10 +7277,10 @@ namespace dk2 {
 #pragma pack(push, 1)
     class DIPROPDWORD {
     public:
-
+        
         /*   0*/ DIPROPHEADER diph;
         /*  10*/ DWORD dwData;
-
+        
         void dump() {
             printf("dwData: %d\n", this->dwData);
         }
@@ -7238,51 +7289,21 @@ namespace dk2 {
     static_assert(sizeof(DIPROPDWORD) == 0x14);
 
 #pragma pack(push, 1)
-    class MySignalBase {
-    public:
-        static uint32_t const VFTABLE = 0x00672800;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t {
-            /*   0*/ void *MySharedObj_release;
-            /*   4*/ void *MySharedObj_addRef;
-            /*   8*/ void *AsyncThing___scalar_deleting_destructor_uint;
-            /*   C*/ void *__purecall;
-            /*  10*/ void *MyDirectInput_recreateEvent;
-        };
-
-        /*   4*/ uint8_t gap_4[4];
-        /*   8*/ int f8_hEvent;
-        /*   C*/ ControlKeysUpdater *f8_pcontrolkeys;
-
-        virtual ~MySignalBase();
-        void dump() {
-            printf("gap_4: %d\n", this->gap_4);
-            printf("f8_hEvent: %d\n", this->f8_hEvent);
-            printf("f8_pcontrolkeys: ControlKeysUpdater(%p)\n", this->f8_pcontrolkeys);
-        }
-    };
-#pragma pack(pop)
-    static_assert(sizeof(MySignalBase) == 0x10);
-
-#pragma pack(push, 1)
     class MyWindowMsgs_vtable {
     public:
-
+        
         /*   0*/ void *MySharedObj_release;
         /*   4*/ void *MySharedObj_addRef;
         /*   8*/ void *scalar_destructor;
         /*   C*/ void *sub_5DB130;
         /*  10*/ void *MySignalBase_createObject;
-
+        
         void dump() {
-            printf("MySharedObj_release: %p\n", this->MySharedObj_release);
-            printf("MySharedObj_addRef: %p\n", this->MySharedObj_addRef);
-            printf("scalar_destructor: %p\n", this->scalar_destructor);
-            printf("sub_5DB130: %p\n", this->sub_5DB130);
-            printf("MySignalBase_createObject: %p\n", this->MySignalBase_createObject);
+            printf("MySharedObj_release: void(%p)\n", this->MySharedObj_release);
+            printf("MySharedObj_addRef: void(%p)\n", this->MySharedObj_addRef);
+            printf("scalar_destructor: void(%p)\n", this->scalar_destructor);
+            printf("sub_5DB130: void(%p)\n", this->sub_5DB130);
+            printf("MySignalBase_createObject: void(%p)\n", this->MySignalBase_createObject);
         }
     };
 #pragma pack(pop)
@@ -7291,11 +7312,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Vtable_672434 {
     public:
-
+        
         /*   0*/ void *sub_5BBE10;
-
+        
         void dump() {
-            printf("sub_5BBE10: %p\n", this->sub_5BBE10);
+            printf("sub_5BBE10: void(%p)\n", this->sub_5BBE10);
         }
     };
 #pragma pack(pop)
@@ -7304,17 +7325,21 @@ namespace dk2 {
 #pragma pack(push, 1)
     class WndMsgDxActionList {
     public:
-        static uint32_t const VFTABLE = 0x00672450;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *Obj672450_scalar_destructor;
+            /*   0*/ void *(__thiscall *Obj672450_scalar_destructor)(WndMsgDxActionList *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ MyLList2 f4_list;
-
+        
         virtual ~WndMsgDxActionList();
         void dump() {
         }
@@ -7325,15 +7350,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyWindowMsgs : public MySignalBase {
     public:
-        static uint32_t const VFTABLE = 0x00672438;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
+        
         /*  10*/ WndMsgDxActionList f10_listWm;
         /*  24*/ PtrArrList f24_handleArr;
         /*  34*/ _RTL_CRITICAL_SECTION *f34_pCritSection;
-
+        
         virtual ~MyWindowMsgs();
         void dump() {
             printf("f34_pCritSection: _RTL_CRITICAL_SECTION(%p)\n", this->f34_pCritSection);
@@ -7345,11 +7366,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Vtable_6728FC {
     public:
-
+        
         /*   0*/ void *sub_5DDCB0;
-
+        
         void dump() {
-            printf("sub_5DDCB0: %p\n", this->sub_5DDCB0);
+            printf("sub_5DDCB0: void(%p)\n", this->sub_5DDCB0);
         }
     };
 #pragma pack(pop)
@@ -7358,17 +7379,21 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MouseXyzDxActionList {
     public:
-        static uint32_t const VFTABLE = 0x00672904;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *scalar_destructor;
+            /*   0*/ void *(__thiscall *scalar_destructor)(MouseXyzDxActionList *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ MyLList2 f4_list;
-
+        
         virtual ~MouseXyzDxActionList();
         void dump() {
         }
@@ -7379,23 +7404,27 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyDxMouse : public MyDirectInput {
     public:
-        static uint32_t const VFTABLE = 0x006728E0;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public MyDirectInput::vtbl_t */{
-            /*   0*/ void *MySharedObj_release;
-            /*   4*/ void *MySharedObj_addRef;
-            /*   8*/ void *scalar_destructor;
-            /*   C*/ void *sub_6005B0;
-            /*  10*/ void *MyDirectInput_createObject;
-            /*  14*/ void *MyDxMouse_5DDA90;
+            /*   0*/ LONG(__thiscall *MySharedObj_release)(MyDxMouse *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   4*/ LONG(__thiscall *MySharedObj_addRef)(MyDxMouse *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   8*/ void *(__thiscall *scalar_destructor)(MyDxMouse *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   C*/ uint32_t *(__thiscall *sub_6005B0)(MyDxMouse *self);  // int *(__thiscall *)(_DWORD *this)
+            /*  10*/ uint32_t *(__thiscall *MyDirectInput_createObject)(MyDxMouse *self, uint32_t *);  // int *(__thiscall *)(MyDirectInput *this, HRESULT *pResult)
+            /*  14*/ int(__thiscall *MyDxMouse_5DDA90)(MyDxMouse *self, int);  // int (__thiscall *)(int this, int a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x18);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*  34*/ MouseXyzDxActionList f34_listXYZ;
         /*  48*/ MouseRgbDxActionList f48_listRGB;
-
+        
         virtual ~MyDxMouse();
         void dump() {
         }
@@ -7406,15 +7435,19 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Obj672844 {
     public:
-        static uint32_t const VFTABLE = 0x00672844;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *Obj672844_scalar_destructor;
+            /*   0*/ void *(__thiscall *Obj672844_scalar_destructor)(Obj672844 *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ Obj6723B8 *f4_pobj;
         /*   8*/ void *f8_hSema;
         /*   C*/ int fC_hThread;
@@ -7426,11 +7459,11 @@ namespace dk2 {
         /*  18*/ int f18_timestampDelta;
         /*  1C*/ CursorDrawer *f1C_cursorDrawer;
         /*  20*/ Pos2i *f20_pMousePos;
-
+        
         virtual ~Obj672844();
         void dump() {
             printf("f4_pobj: Obj6723B8(%p)\n", this->f4_pobj);
-            printf("f8_hSema: %p\n", this->f8_hSema);
+            printf("f8_hSema: void(%p)\n", this->f8_hSema);
             printf("fC_hThread: %d\n", this->fC_hThread);
             printf("f10: %d\n", this->f10);
             printf("f11_aBool: %d\n", this->f11_aBool);
@@ -7448,19 +7481,23 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyCb6723D0 {
     public:
-        static uint32_t const VFTABLE = 0x006723D0;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *call;
-            /*   4*/ void *scalar_destructor;
+            /*   0*/ int(__thiscall *call)(MyCb6723D0 *self, int, uint32_t *);  // int (__thiscall *)(MyCb6723D0 *this, int a2, int *a3)
+            /*   4*/ void *(__thiscall *scalar_destructor)(MyCb6723D0 *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x8);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ MyCbHandle f4_cbhandle;
         /*  10*/ Obj672844 f10_obj;
-
+        
         virtual ~MyCb6723D0();
         void dump() {
         }
@@ -7471,19 +7508,23 @@ namespace dk2 {
 #pragma pack(push, 1)
     class ControlSurf {
     public:
-        static uint32_t const VFTABLE = 0x006729F8;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *sub_5F80D0;
+            /*   0*/ void *(__thiscall *sub_5F80D0)(ControlSurf *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ MyDdSurfaceEx f4_ddSurfEx;
         /*  54*/ int f54_isSurfCreated;
         /*  58*/ int f58__isSurfBusy;
-
+        
         virtual ~ControlSurf();
         void dump() {
             printf("f54_isSurfCreated: %d\n", this->f54_isSurfCreated);
@@ -7496,15 +7537,19 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CursorDrawer {
     public:
-        static uint32_t const VFTABLE = 0x00672854;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *Obj672854_scalar_destructor;
+            /*   0*/ void *(__thiscall *Obj672854_scalar_destructor)(CursorDrawer *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ uint8_t f4_00;
         /*   5*/ char f5_isCursorsCreated;
         /*   6*/ char f6_00;
@@ -7529,7 +7574,7 @@ namespace dk2 {
         /* 1C4*/ AABB f1C4_cursorAabbScreenCut[3];
         /* 1F4*/ AABB f1F4_bpt_cursorIntersection[3];
         /* 224*/ MyDdSurfaceEx * f224_pScreen[3];
-
+        
         virtual ~CursorDrawer();
         void dump() {
             printf("f4_00: %d\n", this->f4_00);
@@ -7554,11 +7599,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyLList_fields {
     public:
-
+        
         /*   0*/ MyLListEntry *f0_first;
         /*   4*/ MyLListEntry *f4_last;
         /*   8*/ int f8_count;
-
+        
         void dump() {
             printf("f0_first: MyLListEntry(%p)\n", this->f0_first);
             printf("f4_last: MyLListEntry(%p)\n", this->f4_last);
@@ -7571,17 +7616,21 @@ namespace dk2 {
 #pragma pack(push, 1)
     class SharedArr79DBD0List {
     public:
-        static uint32_t const VFTABLE = 0x00672340;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *SharedArr79DBD0List_scalar_destructor;
+            /*   0*/ void *(__thiscall *SharedArr79DBD0List_scalar_destructor)(SharedArr79DBD0List *self, char);  // void *(__thiscall *)(void *Block, char a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ MyLList_fields f4_list;
-
+        
         virtual ~SharedArr79DBD0List();
         void dump() {
         }
@@ -7592,11 +7641,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class SharedArr79DBD0 {
     public:
-
+        
         /*   0*/ SharedArr79DBD0List f0_arr[6];
         /*  60*/ _RTL_CRITICAL_SECTION *f60_crit_section;
         /*  64*/ int field_64;
-
+        
         void dump() {
             printf("f60_crit_section: _RTL_CRITICAL_SECTION(%p)\n", this->f60_crit_section);
             printf("field_64: %d\n", this->field_64);
@@ -7608,13 +7657,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class SharedArr79DBD0Item {
     public:
-
+        
         /*   0*/ void *f0_obj;
         /*   4*/ void *f4_fun;
-
+        
         void dump() {
-            printf("f0_obj: %p\n", this->f0_obj);
-            printf("f4_fun: %p\n", this->f4_fun);
+            printf("f0_obj: void(%p)\n", this->f0_obj);
+            printf("f4_fun: void(%p)\n", this->f4_fun);
         }
     };
 #pragma pack(pop)
@@ -7623,17 +7672,21 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyCallback {
     public:
-        static uint32_t const VFTABLE = 0x006723E0;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *call;
-            /*   4*/ void *Obj6723E0_scalar_destructor;
+            /*   0*/ int(__thiscall *call)(MyCallback *self, int, void *);  // int (__thiscall *)(MyCallback *, int, void *)
+            /*   4*/ void *(__thiscall *Obj6723E0_scalar_destructor)(MyCallback *self, char);  // std::locale::facet *(__thiscall *)(std::locale::facet *this, char a2)
         };
-
-
+        static_assert(sizeof(vtbl_t) == 0x8);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        
         virtual ~MyCallback();
         void dump() {
         }
@@ -7644,20 +7697,23 @@ namespace dk2 {
 #pragma pack(push, 1)
     class ControlKeysUpdater : public MyComEx {
     public:
-        static uint32_t const VFTABLE = 0x00672888;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t /*: public MyComEx::vtbl_t */{
-            /*   0*/ void *super;
+        struct vtbl_t : public MyComEx::vtbl_t {
         };
-
+        static_assert(sizeof(vtbl_t) == 0x1C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ MyCallback fC_mycb;
         /*  10*/ MyCbHandle f10_cbhandle;
         /*  1C*/ MyDirectInput *f1C_dinput;
         /*  20*/ int f20_controlKey_flags;
-
+        
         virtual ~ControlKeysUpdater();
         void dump() {
             printf("f1C_dinput: MyDirectInput(%p)\n", this->f1C_dinput);
@@ -7670,10 +7726,10 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Event5_keyboard {
     public:
-
+        
         /*   0*/ int f0_v11;
         /*   4*/ MyDxDevice *f4_dev;
-
+        
         void dump() {
             printf("f0_v11: %d\n", this->f0_v11);
             printf("f4_dev: MyDxDevice(%p)\n", this->f4_dev);
@@ -7685,13 +7741,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyDxInputStateCb_vtbl {
     public:
-
+        
         /*   0*/ void *sub_5DB630;
         /*   4*/ void *sub_5DB7B0;
-
+        
         void dump() {
-            printf("sub_5DB630: %p\n", this->sub_5DB630);
-            printf("sub_5DB7B0: %p\n", this->sub_5DB7B0);
+            printf("sub_5DB630: void(%p)\n", this->sub_5DB630);
+            printf("sub_5DB7B0: void(%p)\n", this->sub_5DB7B0);
         }
     };
 #pragma pack(pop)
@@ -7700,15 +7756,18 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyDxInputState : public MyComEx {
     public:
-        static uint32_t const VFTABLE = 0x00672828;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t /*: public MyComEx::vtbl_t */{
-            /*   0*/ void *super;
+        struct vtbl_t : public MyComEx::vtbl_t {
         };
-
+        static_assert(sizeof(vtbl_t) == 0x1C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ MyDxInputStateCb_vtbl *fC_cb;
         /*  10*/ MyCbHandle f10_cbhandle;
         /*  1C*/ uint8_t f1C_keyboardState[240];
@@ -7716,7 +7775,7 @@ namespace dk2 {
         /* 110*/ char field_110[12];
         /* 11C*/ MyDxKeyboard *f11C_dxkeyboard;
         /* 120*/ MyDxMouse *f120_dxmouse;
-
+        
         virtual ~MyDxInputState();
         void dump() {
             printf("fC_cb: MyDxInputStateCb_vtbl(%p)\n", this->fC_cb);
@@ -7733,12 +7792,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class LPDIDEVICEOBJECTDATA_10 {
     public:
-
+        
         /*   0*/ int f0_dwOfs;
         /*   4*/ int f4_dwData;
         /*   8*/ int f8_dwTimeStamp;
         /*   C*/ int fC_dwSequence;
-
+        
         void dump() {
             printf("f0_dwOfs: %d\n", this->f0_dwOfs);
             printf("f4_dwData: %d\n", this->f4_dwData);
@@ -7752,12 +7811,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class DIMOUSESTATE {
     public:
-
+        
         /*   0*/ LONG lX;
         /*   4*/ LONG lY;
         /*   8*/ LONG lZ;
         /*   C*/ BYTE rgbButtons[4];
-
+        
         void dump() {
             printf("lX: %d\n", this->lX);
             printf("lY: %d\n", this->lY);
@@ -7771,14 +7830,15 @@ namespace dk2 {
 #pragma pack(push, 1)
     class DxAction {
     public:
-
         struct vtbl_t {
-            /*   0*/ void *applyToState;
+            /*   0*/ int(__thiscall *applyToState)(DxAction *self, MyDxInputState *);  // int (__thiscall *)(DxAction *this, MyDxInputState *)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
         /*   4*/ int f4_timestamp;
         /*   8*/ int f8_isNotHandled;
-
+        
         virtual ~DxAction();
         void dump() {
             printf("f4_timestamp: %d\n", this->f4_timestamp);
@@ -7791,18 +7851,22 @@ namespace dk2 {
 #pragma pack(push, 1)
     class WndMsgDxAction : public DxAction {
     public:
-        static uint32_t const VFTABLE = 0x0067244C;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public DxAction::vtbl_t */{
-            /*   0*/ void *Obj67244C_sub_5BBA00;
+            /*   0*/ int(__thiscall *Obj67244C_sub_5BBA00)(WndMsgDxAction *self, int);  // int (__thiscall *)(void *this, int a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ int fC_uMsg;
         /*  10*/ int f10_wParam;
-
+        
         virtual ~WndMsgDxAction();
         void dump() {
             printf("fC_uMsg: %d\n", this->fC_uMsg);
@@ -7815,24 +7879,28 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyInputListenersHolder : public MyComEx {
     public:
-        static uint32_t const VFTABLE = 0x006723E8;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public MyComEx::vtbl_t */{
-            /*   0*/ void *MySharedObj_release;
-            /*   4*/ void *MySharedObj_addRef;
-            /*   8*/ void *Obj6723E8___scalar_deleting_destructor_uint;
-            /*   C*/ void *ret_void_1args;
-            /*  10*/ void *sub_5DC9E0;
-            /*  14*/ void *MySharedObj_fun3;
-            /*  18*/ void *sub_5DC920;
+            /*   0*/ LONG(__thiscall *MySharedObj_release)(MyInputListenersHolder *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   4*/ LONG(__thiscall *MySharedObj_addRef)(MyInputListenersHolder *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   8*/ void *(__thiscall *Obj6723E8___scalar_deleting_destructor_uint)(MyInputListenersHolder *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   C*/ void(__stdcall *ret_void_1args)(int);  // void (__stdcall *)(int a1)
+            /*  10*/ void *(__thiscall *sub_5DC9E0)(MyInputListenersHolder *self, int);  // int (__cdecl *(__thiscall *)(_DWORD *this, int a2))(int, _DWORD, _DWORD, int)
+            /*  14*/ int(__thiscall *MySharedObj_fun3)(MyInputListenersHolder *self, int);  // int (__thiscall *)(MyComEx *this, int a2)
+            /*  18*/ void(__thiscall *sub_5DC920)(MyInputListenersHolder *self, uint32_t *);  // void (__thiscall *)(_DWORD *this, _DWORD *a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x1C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ StaticListeners *fC_static_listeners;
         /*  10*/ CComponent *f10_ccomponent;
-
+        
         virtual ~MyInputListenersHolder();
         void dump() {
             printf("fC_static_listeners: StaticListeners(%p)\n", this->fC_static_listeners);
@@ -7845,13 +7913,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyCollectDxAction_Action {
     public:
-
+        
         /*   0*/ char type;
         /*   1*/ char KeyCode;
         /*   2*/ __int16 uMsg_isPressed;
         /*   4*/ int wParam_xy;
         /*   8*/ int btnPressFlags;
-
+        
         void dump() {
             printf("type: %d\n", this->type);
             printf("KeyCode: %d\n", this->KeyCode);
@@ -7866,23 +7934,27 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyCollectDxAction : public MyComEx {
     public:
-        static uint32_t const VFTABLE = 0x00672458;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public MyComEx::vtbl_t */{
-            /*   0*/ void *MySharedObj_release;
-            /*   4*/ void *MySharedObj_addRef;
-            /*   8*/ void *Obj672458_scalar_destructor;
-            /*   C*/ void *ret_void_1args;
-            /*  10*/ void *sub_5DCB20;
-            /*  14*/ void *MySharedObj_fun3;
-            /*  18*/ void *sub_5DCAE0;
+            /*   0*/ LONG(__thiscall *MySharedObj_release)(MyCollectDxAction *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   4*/ LONG(__thiscall *MySharedObj_addRef)(MyCollectDxAction *self);  // LONG (__thiscall *)(MySharedObj *this)
+            /*   8*/ void *(__thiscall *Obj672458_scalar_destructor)(MyCollectDxAction *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   C*/ void(__stdcall *ret_void_1args)(int);  // void (__stdcall *)(int a1)
+            /*  10*/ int(__thiscall *sub_5DCB20)(MyCollectDxAction *self, int);  // int (__thiscall *)(int this, int a2)
+            /*  14*/ int(__thiscall *MySharedObj_fun3)(MyCollectDxAction *self, int);  // int (__thiscall *)(MyComEx *this, int a2)
+            /*  18*/ int(__thiscall *sub_5DCAE0)(MyCollectDxAction *self, int);  // int (__thiscall *)(int this, int a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x1C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ MyCollectDxAction_Action fC_act;
-
+        
         virtual ~MyCollectDxAction();
         void dump() {
         }
@@ -7893,21 +7965,24 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MouseRgbDxAction : public DxAction {
     public:
-        static uint32_t const VFTABLE = 0x006728F8;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t /*: public DxAction::vtbl_t */{
-            /*   0*/ void *super;
+        struct vtbl_t : public DxAction::vtbl_t {
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ uint8_t gap_C[4];
         /*  10*/ uint32_t f10_KeyCode_F0toF3;
         /*  14*/ Pos2i f14_pos;
         /*  1C*/ int f1C_data;
         /*  20*/ int f20_btnPressFlags;
-
+        
         virtual ~MouseRgbDxAction();
         void dump() {
             printf("gap_C: %d\n", this->gap_C);
@@ -7922,18 +7997,21 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MouseXyzDxAction : public DxAction {
     public:
-        static uint32_t const VFTABLE = 0x00672900;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t /*: public DxAction::vtbl_t */{
-            /*   0*/ void *super;
+        struct vtbl_t : public DxAction::vtbl_t {
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ int fC_actedAxe;
         /*  10*/ int f10_value;
-
+        
         virtual ~MouseXyzDxAction();
         void dump() {
             printf("fC_actedAxe: %d\n", this->fC_actedAxe);
@@ -7946,23 +8024,27 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CNetworkComponent : public CComponent {
     public:
-        static uint32_t const VFTABLE = 0x0066EC84;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public CComponent::vtbl_t */{
-            /*   0*/ void *CNetworkComponent__fun_5274C0;
-            /*   4*/ void *CNetworkComponent__fun_527530;
-            /*   8*/ void *ret_void_0args_0;
-            /*   C*/ void *CNetworkComponent__fun_527560;
-            /*  10*/ void *CNetworkComponent__fun_527750;
-            /*  14*/ void *CNetworkComponent__fun_527790;
+            /*   0*/ void *(__thiscall *CNetworkComponent__fun_5274C0)(CNetworkComponent *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ int(__thiscall *CNetworkComponent__fun_527530)(CNetworkComponent *self);  // int (__thiscall *)(_DWORD *this)
+            /*   8*/ void(__thiscall *ret_void_0args_0)(CNetworkComponent *self);  // void (__thiscall *)(void *this)
+            /*   C*/ int(__thiscall *CNetworkComponent__fun_527560)(CNetworkComponent *self);  // int (__thiscall *)(_DWORD *this)
+            /*  10*/ int(__thiscall *CNetworkComponent__fun_527750)(CNetworkComponent *self);  // int (__thiscall *)(int *this)
+            /*  14*/ int(__thiscall *CNetworkComponent__fun_527790)(CNetworkComponent *self);  // int (__thiscall *)(_DWORD *this)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x18);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ StaticListeners fC_static_listeners;
         /*  20*/ MyStaticStruct f20_obj;
-
+        
         virtual ~CNetworkComponent();
         void dump() {
         }
@@ -7973,17 +8055,17 @@ namespace dk2 {
 #pragma pack(push, 1)
     class TbWType_t_TbPalette_t__vtbl {
     public:
-
+        
         /*   0*/ void *loc_401150;
         /*   4*/ void *TbWItemBase__fun_5B2D50;
         /*   8*/ void *TbWType__fun_5B2D10;
         /*   C*/ void *TbWType__fun_5B2C70;
-
+        
         void dump() {
-            printf("loc_401150: %p\n", this->loc_401150);
-            printf("TbWItemBase__fun_5B2D50: %p\n", this->TbWItemBase__fun_5B2D50);
-            printf("TbWType__fun_5B2D10: %p\n", this->TbWType__fun_5B2D10);
-            printf("TbWType__fun_5B2C70: %p\n", this->TbWType__fun_5B2C70);
+            printf("loc_401150: void(%p)\n", this->loc_401150);
+            printf("TbWItemBase__fun_5B2D50: void(%p)\n", this->TbWItemBase__fun_5B2D50);
+            printf("TbWType__fun_5B2D10: void(%p)\n", this->TbWType__fun_5B2D10);
+            printf("TbWType__fun_5B2C70: void(%p)\n", this->TbWType__fun_5B2C70);
         }
     };
 #pragma pack(pop)
@@ -7992,26 +8074,30 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CEntryComponent : public CComponent {
     public:
-        static uint32_t const VFTABLE = 0x0066C424;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public CComponent::vtbl_t */{
-            /*   0*/ void *CEntryComponent___scalar_deleting_destructor_uint;
-            /*   4*/ void *CEntryComponent__fun_4011D0;
-            /*   8*/ void *ret_void_0args_0;
-            /*   C*/ void *CEntryComponent__init_console_commands;
-            /*  10*/ void *CEntryComponent__fun_4013E0;
-            /*  14*/ void *CEntryComponent__fun_401410;
+            /*   0*/ void *(__thiscall *CEntryComponent___scalar_deleting_destructor_uint)(CEntryComponent *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ int(__thiscall *CEntryComponent__fun_4011D0)(CEntryComponent *self);  // int (__thiscall *)(_DWORD *this)
+            /*   8*/ void(__thiscall *ret_void_0args_0)(CEntryComponent *self);  // void (__thiscall *)(void *this)
+            /*   C*/ int(__thiscall *CEntryComponent__init_console_commands)(CEntryComponent *self);  // int (__thiscall *)(_DWORD *this)
+            /*  10*/ int(__thiscall *CEntryComponent__fun_4013E0)(CEntryComponent *self);  // int (__thiscall *)(int *this)
+            /*  14*/ int(__thiscall *CEntryComponent__fun_401410)(CEntryComponent *self);  // int (__thiscall *)(_DWORD *this)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x18);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   C*/ StaticListeners fC_static_listeners;
         /*  20*/ TbWType_t_TbPalette_t__vtbl *f20__vftable;
         /*  24*/ int field_24;
         /*  28*/ int field_28;
         /*  2C*/ MyStaticStruct f2C_obj;
-
+        
         virtual ~CEntryComponent();
         void dump() {
             printf("f20__vftable: TbWType_t_TbPalette_t__vtbl(%p)\n", this->f20__vftable);
@@ -8025,11 +8111,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class GameObj6A0B00 {
     public:
-
+        
         /*   0*/ __int16 f0_flags;
         /*   2*/ GameObj6A0B00Item *f2_pitems;
         /*   6*/ uint32_t field_6;
-
+        
         void dump() {
             printf("f0_flags: %d\n", this->f0_flags);
             printf("f2_pitems: GameObj6A0B00Item(%p)\n", this->f2_pitems);
@@ -8042,11 +8128,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class GameObj6A0B00Item {
     public:
-
+        
         /*   0*/ uint16_t field_0;
         /*   2*/ unsigned __int16 field_2;
         /*   4*/ int field_4;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_2: %d\n", this->field_2);
@@ -8059,7 +8145,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CvtItem {
     public:
-
+        
         /*   0*/ int f0_code;
         /*   4*/ char f4_acode[8];
         /*   C*/ void *fC_name;
@@ -8068,13 +8154,13 @@ namespace dk2 {
         /*  18*/ char f18_short_country[4];
         /*  1C*/ char f1C_acode2[8];
         /*  24*/ char f24_acode3[8];
-
+        
         void dump() {
             printf("f0_code: %d\n", this->f0_code);
             printf("f4_acode: %d\n", this->f4_acode);
-            printf("fC_name: %p\n", this->fC_name);
+            printf("fC_name: void(%p)\n", this->fC_name);
             printf("f10_short_name: %d\n", this->f10_short_name);
-            printf("f14_country: %p\n", this->f14_country);
+            printf("f14_country: void(%p)\n", this->f14_country);
             printf("f18_short_country: %d\n", this->f18_short_country);
             printf("f1C_acode2: %d\n", this->f1C_acode2);
             printf("f24_acode3: %d\n", this->f24_acode3);
@@ -8086,12 +8172,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Item5B06D0 {
     public:
-
+        
         /*   0*/ uint32_t field_0;
         /*   4*/ int f4_flags;
         /*   8*/ int field_8;
         /*   C*/ int fC_bitf;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("f4_flags: %d\n", this->f4_flags);
@@ -8105,7 +8191,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class StubStruc6787B8 {
     public:
-
+        
         /*   0*/ int field_0;
         /*   4*/ int field_4;
         /*   8*/ int field_8;
@@ -8170,7 +8256,7 @@ namespace dk2 {
         /*  F4*/ int field_F4;
         /*  F8*/ int field_F8;
         /*  FC*/ int field_FC;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_4: %d\n", this->field_4);
@@ -8244,12 +8330,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class StubStruc67B320 {
     public:
-
+        
         /*   0*/ int field_0;
         /*   4*/ int field_4;
         /*   8*/ int field_8;
         /*   C*/ int field_C;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_4: %d\n", this->field_4);
@@ -8263,7 +8349,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class StubStruc68F650 {
     public:
-
+        
         /*   0*/ char *f0_name;
         /*   4*/ int field_4;
         /*   8*/ int field_8;
@@ -8277,7 +8363,7 @@ namespace dk2 {
         /*  28*/ int field_28;
         /*  2C*/ int field_2C;
         /*  30*/ int field_30;
-
+        
         void dump() {
             printf("f0_name: %s\n", this->f0_name);
             printf("field_4: %d\n", this->field_4);
@@ -8286,7 +8372,7 @@ namespace dk2 {
             printf("field_10: %d\n", this->field_10);
             printf("field_14: %d\n", this->field_14);
             printf("field_18: %d\n", this->field_18);
-            printf("field_1C: %p\n", this->field_1C);
+            printf("field_1C: void(%p)\n", this->field_1C);
             printf("field_20: %d\n", this->field_20);
             printf("field_24: %d\n", this->field_24);
             printf("field_28: %d\n", this->field_28);
@@ -8300,7 +8386,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class StubStruc6A1EC8 {
     public:
-
+        
         /*   0*/ char field_0;
         /*   1*/ void *field_1;
         /*   5*/ void *field_5;
@@ -8312,15 +8398,15 @@ namespace dk2 {
         /*  1D*/ int field_1D;
         /*  21*/ int field_21;
         /*  25*/ int field_25;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
-            printf("field_1: %p\n", this->field_1);
-            printf("field_5: %p\n", this->field_5);
-            printf("field_9: %p\n", this->field_9);
-            printf("field_D: %p\n", this->field_D);
-            printf("field_11: %p\n", this->field_11);
-            printf("field_15: %p\n", this->field_15);
+            printf("field_1: void(%p)\n", this->field_1);
+            printf("field_5: void(%p)\n", this->field_5);
+            printf("field_9: void(%p)\n", this->field_9);
+            printf("field_D: void(%p)\n", this->field_D);
+            printf("field_11: void(%p)\n", this->field_11);
+            printf("field_15: void(%p)\n", this->field_15);
             printf("field_19: %d\n", this->field_19);
             printf("field_1D: %d\n", this->field_1D);
             printf("field_21: %d\n", this->field_21);
@@ -8333,13 +8419,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class StubStruc6B84C8 {
     public:
-
+        
         /*   0*/ char *f0_name;
         /*   4*/ int field_4;
         /*   8*/ int field_8;
         /*   C*/ int field_C;
         /*  10*/ int field_10;
-
+        
         void dump() {
             printf("f0_name: %s\n", this->f0_name);
             printf("field_4: %d\n", this->field_4);
@@ -8354,7 +8440,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class StubStruc6BF280 {
     public:
-
+        
         /*   0*/ int field_0;
         /*   4*/ int field_4;
         /*   8*/ int field_8;
@@ -8371,7 +8457,7 @@ namespace dk2 {
         /*  34*/ int field_34;
         /*  38*/ int field_38;
         /*  3C*/ int field_3C;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_4: %d\n", this->field_4);
@@ -8397,11 +8483,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class StubStruc6C3DA0 {
     public:
-
+        
         /*   0*/ char field_0[6];
         /*   6*/ unsigned __int8 field_6;
         /*   7*/ char field_7;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_6: %d\n", this->field_6);
@@ -8414,12 +8500,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class GameScoreRecord {
     public:
-
+        
         /*   0*/ void *f0_name;
         /*   4*/ int f4_score;
-
+        
         void dump() {
-            printf("f0_name: %p\n", this->f0_name);
+            printf("f0_name: void(%p)\n", this->f0_name);
             printf("f4_score: %d\n", this->f4_score);
         }
     };
@@ -8429,12 +8515,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class arr_769A78_t {
     public:
-
+        
         /*   0*/ int field_0[1];
         /*   4*/ int field_4[1];
         /*   8*/ float f8_sqr[1];
         /*   C*/ int fC_pCEngineDynamicMesh;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_4: %d\n", this->field_4);
@@ -8448,11 +8534,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class arr_7793A8_t {
     public:
-
+        
         /*   0*/ int field_0;
         /*   4*/ int field_4;
         /*   8*/ int field_8;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("field_4: %d\n", this->field_4);
@@ -8465,10 +8551,10 @@ namespace dk2 {
 #pragma pack(push, 1)
     class VLCtable {
     public:
-
+        
         /*   0*/ char code;
         /*   1*/ char len;
-
+        
         void dump() {
             printf("code: %d\n", this->code);
             printf("len: %d\n", this->len);
@@ -8480,9 +8566,9 @@ namespace dk2 {
 #pragma pack(push, 1)
     class arr_6BEA7E_t1 {
     public:
-
+        
         /*   0*/ VLCtable field_0[5];
-
+        
         void dump() {
         }
     };
@@ -8492,16 +8578,16 @@ namespace dk2 {
 #pragma pack(push, 1)
     class arr_66C780_t {
     public:
-
+        
         /*   0*/ int f0_idx;
         /*   4*/ void *f8_name;
         /*   8*/ __int16 field_8;
         /*   A*/ __int16 field_A;
         /*   C*/ int field_C;
-
+        
         void dump() {
             printf("f0_idx: %d\n", this->f0_idx);
-            printf("f8_name: %p\n", this->f8_name);
+            printf("f8_name: void(%p)\n", this->f8_name);
             printf("field_8: %d\n", this->field_8);
             printf("field_A: %d\n", this->field_A);
             printf("field_C: %d\n", this->field_C);
@@ -8513,19 +8599,19 @@ namespace dk2 {
 #pragma pack(push, 1)
     class EXCEPTION_RECORD {
     public:
-
+        
         /*   0*/ DWORD ExceptionCode;
         /*   4*/ DWORD ExceptionFlags;
         /*   8*/ _EXCEPTION_RECORD *ExceptionRecord;
         /*   C*/ void *ExceptionAddress;
         /*  10*/ DWORD NumberParameters;
         /*  14*/ ULONG_PTR ExceptionInformation[15];
-
+        
         void dump() {
             printf("ExceptionCode: %d\n", this->ExceptionCode);
             printf("ExceptionFlags: %d\n", this->ExceptionFlags);
             printf("ExceptionRecord: _EXCEPTION_RECORD(%p)\n", this->ExceptionRecord);
-            printf("ExceptionAddress: %p\n", this->ExceptionAddress);
+            printf("ExceptionAddress: void(%p)\n", this->ExceptionAddress);
             printf("NumberParameters: %d\n", this->NumberParameters);
             printf("ExceptionInformation: %d\n", this->ExceptionInformation);
         }
@@ -8536,13 +8622,13 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyDblNamedSurface {
     public:
-
+        
         /*   0*/ uint32_t f0_blWidth;
         /*   4*/ uint32_t f4_blHeight;
         /*   8*/ char *f8_name;
         /*   C*/ uint32_t fC_name2;
         /*  10*/ char *f10_name;
-        /*  14*/ void *f14_names;
+        /*  14*/ uint32_t *f14_names;
         /*  18*/ int f18_init1__height;
         /*  1C*/ MySurface f1C_surf;
         /*  44*/ int f44_flags;
@@ -8551,14 +8637,14 @@ namespace dk2 {
         /*  50*/ int f50_init0;
         /*  54*/ int f54_init0;
         /*  58*/ int f58_init0;
-
+        
         void dump() {
             printf("f0_blWidth: %d\n", this->f0_blWidth);
             printf("f4_blHeight: %d\n", this->f4_blHeight);
             printf("f8_name: %s\n", this->f8_name);
             printf("fC_name2: %d\n", this->fC_name2);
             printf("f10_name: %s\n", this->f10_name);
-            printf("f14_names: %p\n", this->f14_names);
+            printf("f14_names: uint32_t(%p)\n", this->f14_names);
             printf("f18_init1__height: %d\n", this->f18_init1__height);
             printf("f44_flags: %d\n", this->f44_flags);
             printf("f48_init1__width: %d\n", this->f48_init1__width);
@@ -8574,11 +8660,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class BufCx400 {
     public:
-
+        
         /*   0*/ int f0_count_to_add;
         /*   4*/ uint32_t f4_max_count;
         /*   8*/ BufCx400Item *f8_buf;
-
+        
         void dump() {
             printf("f0_count_to_add: %d\n", this->f0_count_to_add);
             printf("f4_max_count: %d\n", this->f4_max_count);
@@ -8591,11 +8677,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyNameObjMap {
     public:
-
+        
         /*   0*/ uint32_t f0_hashTable[256];
         /* 400*/ uint32_t f400_idx;
         /* 404*/ BufCx400 f404_buf;
-
+        
         void dump() {
             printf("f0_hashTable: %d\n", this->f0_hashTable);
             printf("f400_idx: %d\n", this->f400_idx);
@@ -8607,14 +8693,14 @@ namespace dk2 {
 #pragma pack(push, 1)
     class BufCx400Item {
     public:
-
+        
         /*   0*/ int f0_name;
         /*   4*/ void *f4_value;
         /*   8*/ int f8_prev_idx_for_same_hash;
-
+        
         void dump() {
             printf("f0_name: %d\n", this->f0_name);
-            printf("f4_value: %p\n", this->f4_value);
+            printf("f4_value: void(%p)\n", this->f4_value);
             printf("f8_prev_idx_for_same_hash: %d\n", this->f8_prev_idx_for_same_hash);
         }
     };
@@ -8624,16 +8710,16 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Arrp31x400 {
     public:
-
+        
         /*   0*/ uint32_t f0_count_to_add;
         /*   4*/ int f4_max_count;
-        /*   8*/ void *f8_buf;
+        /*   8*/ uint32_t *f8_buf;
         /*   C*/ int fC_count;
-
+        
         void dump() {
             printf("f0_count_to_add: %d\n", this->f0_count_to_add);
             printf("f4_max_count: %d\n", this->f4_max_count);
-            printf("f8_buf: %p\n", this->f8_buf);
+            printf("f8_buf: uint32_t(%p)\n", this->f8_buf);
             printf("fC_count: %d\n", this->fC_count);
         }
     };
@@ -8643,7 +8729,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Arrp31x400Item {
     public:
-
+        
         /*   0*/ uint32_t f0_idx;
         /*   4*/ MyCESurfScale *f4_scaledSurfArr;
         /*   8*/ MyCESurfHandle *f8_surfh;
@@ -8657,7 +8743,7 @@ namespace dk2 {
         /*  25*/ float field_25;
         /*  29*/ float field_29;
         /*  2D*/ int field_2D;
-
+        
         void dump() {
             printf("f0_idx: %d\n", this->f0_idx);
             printf("f4_scaledSurfArr: MyCESurfScale(%p)\n", this->f4_scaledSurfArr);
@@ -8680,7 +8766,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyCESurfHandle {
     public:
-
+        
         /*   0*/ CEngineSurface *f0_cesurf;
         /*   4*/ SurfaceHolder *f4_holder_parent;
         /*   8*/ MyCESurfHandle *f8_gnext;
@@ -8703,7 +8789,7 @@ namespace dk2 {
         /*  43*/ char f43_y8;
         /*  44*/ int field_44;
         /*  48*/ int f48_sortTick;
-
+        
         void dump() {
             printf("f0_cesurf: CEngineSurface(%p)\n", this->f0_cesurf);
             printf("f4_holder_parent: SurfaceHolder(%p)\n", this->f4_holder_parent);
@@ -8735,28 +8821,32 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CEngineSurfaceBase {
     public:
-        static uint32_t const VFTABLE = 0x00670374;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *scalar_destructor;
-            /*   4*/ void *fill;
-            /*   8*/ void *copySurf;
-            /*   C*/ void *paintSurf;
-            /*  10*/ void *f10_unk;
-            /*  14*/ void *hasBuf;
-            /*  18*/ void *lockBuf;
-            /*  1C*/ void *unlockBuf;
-            /*  20*/ void *getBufWithSize;
+            /*   0*/ void *(__thiscall *scalar_destructor)(CEngineSurfaceBase *self, unsigned int);  // void *(__thiscall *)(void *this, unsigned int a2)
+            /*   4*/ int(__thiscall *fill)(CEngineSurfaceBase *self, __int16);  // int (__thiscall *)(_DWORD *this, __int16 pix)
+            /*   8*/ int(__thiscall *copySurf)(CEngineSurfaceBase *self, CEngineSurfaceBase *, int, int);  // int (__thiscall *)(_DWORD *this, CEngineSurfaceBase *, int a3, int a4)
+            /*   C*/ int(__thiscall *paintSurf)(CEngineSurfaceBase *self, CEngineSurfaceBase *, int, int);  // int (__thiscall *)(_DWORD *this, CEngineSurfaceBase *, int a3, int a4)
+            /*  10*/ void(__stdcall *f10_unk)();  // void (__stdcall __noreturn *)()
+            /*  14*/ int(__thiscall *hasBuf)(CEngineSurfaceBase *self);  // int (__thiscall *)(_DWORD *this)
+            /*  18*/ void *(__thiscall *lockBuf)(CEngineSurfaceBase *self);  // void *(__thiscall *)(_DWORD *this)
+            /*  1C*/ int(__thiscall *unlockBuf)(CEngineSurfaceBase *self, int);  // int (__thiscall *)(_DWORD **this, int a2)
+            /*  20*/ void *(__thiscall *getBufWithSize)(CEngineSurfaceBase *self, uint32_t *);  // void *(__thiscall *)(void *this, _DWORD *pSize)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x24);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ int f4_width;
         /*   8*/ int f8_height;
         /*   C*/ int fC_lineWidth;
         /*  10*/ MyCEngineSurfDesc *fC_desc;
-
+        
         virtual ~CEngineSurfaceBase();
         void dump() {
             printf("f4_width: %d\n", this->f4_width);
@@ -8771,17 +8861,20 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CEngineSurface : public CEngineSurfaceBase {
     public:
-        static uint32_t const VFTABLE = 0x0067034C;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t /*: public CEngineSurfaceBase::vtbl_t */{
-            /*   0*/ void *_;
+        struct vtbl_t : public CEngineSurfaceBase::vtbl_t {
         };
-
+        static_assert(sizeof(vtbl_t) == 0x24);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*  14*/ int f14_pixels;
-
+        
         virtual ~CEngineSurface();
         void dump() {
             printf("f14_pixels: %d\n", this->f14_pixels);
@@ -8793,14 +8886,14 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MySurfaceWrapper {
     public:
-
+        
         /*   0*/ uint32_t f0_flags;
         /*   4*/ uint32_t f4_prescaleWigth;
         /*   8*/ uint32_t f8_prescaleHeight;
         /*   C*/ char *fC_name;
         /*  10*/ MySurface f10_surf;
         /*  38*/ int field_38;
-
+        
         void dump() {
             printf("f0_flags: %d\n", this->f0_flags);
             printf("f4_prescaleWigth: %d\n", this->f4_prescaleWigth);
@@ -8815,9 +8908,9 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyCESurfScale {
     public:
-
+        
         /*   0*/ MyCESurfHandle * f0_surfScaledArr[4];
-
+        
         void dump() {
             printf("f0_surfScaledArr: %d\n", this->f0_surfScaledArr);
         }
@@ -8828,17 +8921,17 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Obj792D48 {
     public:
-
+        
         /*   0*/ char f0_aBool;
         /*   1*/ CEngineSurface *f1_cEngineSurf;
-        /*   5*/ void *f5_cEngineSurf;
+        /*   5*/ uint32_t *f5_cEngineSurf;
         /*   9*/ int f9_prescaleWigth;
         /*   D*/ int fD_prescaleHeight;
-
+        
         void dump() {
             printf("f0_aBool: %d\n", this->f0_aBool);
             printf("f1_cEngineSurf: CEngineSurface(%p)\n", this->f1_cEngineSurf);
-            printf("f5_cEngineSurf: %p\n", this->f5_cEngineSurf);
+            printf("f5_cEngineSurf: uint32_t(%p)\n", this->f5_cEngineSurf);
             printf("f9_prescaleWigth: %d\n", this->f9_prescaleWigth);
             printf("fD_prescaleHeight: %d\n", this->fD_prescaleHeight);
         }
@@ -8849,12 +8942,12 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Obj79DC68 {
     public:
-
+        
         /*   0*/ Obj672520Interface *f0_Obj672520Interface;
         /*   4*/ uint32_t f4_s1_dwRGBBitCount_aligned8;
         /*   8*/ uint32_t f8_s2_dwRGBBitCount_aligned8;
         /*   C*/ int fC_objKind;
-
+        
         void dump() {
             printf("f0_Obj672520Interface: Obj672520Interface(%p)\n", this->f0_Obj672520Interface);
             printf("f4_s1_dwRGBBitCount_aligned8: %d\n", this->f4_s1_dwRGBBitCount_aligned8);
@@ -8868,18 +8961,22 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Obj672520Interface {
     public:
-        static uint32_t const VFTABLE = 0x00672520;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *scalar_destructor;
-            /*   4*/ void *convertPixel;
-            /*   8*/ void *selfConvertPixel;
+            /*   0*/ void *(__thiscall *scalar_destructor)(Obj672520Interface *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ int(__thiscall *convertPixel)(Obj672520Interface *self, uint8_t *, uint32_t *, int);  // int (__thiscall *)(_DWORD *this, _BYTE *a2, _DWORD *a3, int a4)
+            /*   8*/ int(__thiscall *selfConvertPixel)(Obj672520Interface *self, int, int, int);  // int (__thiscall *)(_DWORD *this, int a2, int a3, int a4)
         };
-
-
+        static_assert(sizeof(vtbl_t) == 0xC);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        
         virtual ~Obj672520Interface();
         void dump() {
         }
@@ -8890,11 +8987,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Obj672510 {
     public:
-        static uint32_t const VFTABLE = 0x00672510;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
+        
         /*   4*/ int field_4;
         /*   8*/ int field_8;
         /*   C*/ int field_C;
@@ -8915,7 +9008,7 @@ namespace dk2 {
         /*  48*/ int f48_s1_dwRGBBitCount_align8;
         /*  4C*/ int field_4C;
         /*  50*/ int field_50;
-
+        
         virtual ~Obj672510();
         void dump() {
             printf("field_4: %d\n", this->field_4);
@@ -8946,11 +9039,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Obj672E70 {
     public:
-        static uint32_t const VFTABLE = 0x00672E70;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
+        
         /*   4*/ uint8_t f4_arr[1024];
         /* 404*/ int field_404;
         /* 408*/ int field_408;
@@ -8966,7 +9055,7 @@ namespace dk2 {
         /* 430*/ int field_430;
         /* 434*/ int field_434;
         /* 438*/ int field_438;
-
+        
         virtual ~Obj672E70();
         void dump() {
             printf("f4_arr: %d\n", this->f4_arr);
@@ -8992,11 +9081,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Obj672500 {
     public:
-        static uint32_t const VFTABLE = 0x00672500;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
+        
         /*   4*/ int f4__rMask;
         /*   8*/ int f8__gMask;
         /*   C*/ int fC__bMask;
@@ -9009,7 +9094,7 @@ namespace dk2 {
         /*  28*/ int field_28;
         /*  2C*/ int f2C;
         /*  30*/ int field_30[256];
-
+        
         virtual ~Obj672500();
         void dump() {
             printf("f4__rMask: %d\n", this->f4__rMask);
@@ -9032,11 +9117,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class Obj672E80 {
     public:
-        static uint32_t const VFTABLE = 0x00672E80;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
+        
         /*   4*/ int field_4;
         /*   8*/ int f8_dst_dwRGBAlphaBitMask;
         /*   C*/ int field_C;
@@ -9047,7 +9128,7 @@ namespace dk2 {
         /*  20*/ int field_20;
         /*  24*/ int field_24;
         /*  28*/ int field_28;
-
+        
         virtual ~Obj672E80();
         void dump() {
             printf("field_4: %d\n", this->field_4);
@@ -9066,21 +9147,64 @@ namespace dk2 {
     static_assert(sizeof(Obj672E80) == 0x2C);
 
 #pragma pack(push, 1)
+    class CDirectIFFFile {
+    public:
+        struct vtbl_t {
+            /*   0*/ FILE *(__thiscall *read)(CDirectIFFFile *self, void *, size_t);  // FILE *(__thiscall *)(_DWORD *this, void *Buffer, size_t ElementSize)
+            /*   4*/ FILE *(__thiscall *write)(CDirectIFFFile *self, void *, size_t);  // FILE *(__thiscall *)(_DWORD *this, void *Buffer, size_t ElementSize)
+            /*   8*/ int(__thiscall *seek)(CDirectIFFFile *self, int);  // int (__thiscall *)(FILE **this, int Offset)
+        };
+        static_assert(sizeof(vtbl_t) == 0xC);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        /*   4*/ uint32_t f4_offset;
+        /*   8*/ int f8_aBool;
+        /*   C*/ uint8_t gap_C[4];
+        /*  10*/ int f10_count;
+        /*  14*/ int f14_arr1[128];
+        /* 214*/ int f214_arr2[128];
+        /* 414*/ int field_414;
+        /* 418*/ uint8_t gap_418[8];
+        /* 420*/ FILE *f420_stdFileHandle;
+        
+        virtual ~CDirectIFFFile();
+        void dump() {
+            printf("f4_offset: %d\n", this->f4_offset);
+            printf("f8_aBool: %d\n", this->f8_aBool);
+            printf("gap_C: %d\n", this->gap_C);
+            printf("f10_count: %d\n", this->f10_count);
+            printf("f14_arr1: %d\n", this->f14_arr1);
+            printf("f214_arr2: %d\n", this->f214_arr2);
+            printf("field_414: %d\n", this->field_414);
+            printf("gap_418: %d\n", this->gap_418);
+            printf("f420_stdFileHandle: FILE(%p)\n", this->f420_stdFileHandle);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(CDirectIFFFile) == 0x424);
+
+#pragma pack(push, 1)
     class MyTextures {
     public:
-
-        /*   0*/ char *f0_dirPath;
-        /*   4*/ char *f4_datPath;
+        
+        /*   0*/ char *f0_textureCacheFile_dir;
+        /*   4*/ char *f4_textureCacheFile_dat;
         /*   8*/ FILE *f8_fileHandle;
-        /*   C*/ uint8_t gap_C[1060];
+        /*   C*/ CDirectIFFFile fC_rwfile;
         /* 430*/ uint32_t field_430;
         /* 434*/ MyNameObjMap f434_texNameToFileOffsetMap;
-
+        
         void dump() {
-            printf("f0_dirPath: %s\n", this->f0_dirPath);
-            printf("f4_datPath: %s\n", this->f4_datPath);
+            printf("f0_textureCacheFile_dir: %s\n", this->f0_textureCacheFile_dir);
+            printf("f4_textureCacheFile_dat: %s\n", this->f4_textureCacheFile_dat);
             printf("f8_fileHandle: FILE(%p)\n", this->f8_fileHandle);
-            printf("gap_C: %d\n", this->gap_C);
             printf("field_430: %d\n", this->field_430);
         }
     };
@@ -9090,18 +9214,21 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CEngineCompressedSurface : public CEngineSurfaceBase {
     public:
-        static uint32_t const VFTABLE = 0x0067039C;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t /*: public CEngineSurfaceBase::vtbl_t */{
-            /*   0*/ void *_;
+        struct vtbl_t : public CEngineSurfaceBase::vtbl_t {
         };
-
+        static_assert(sizeof(vtbl_t) == 0x24);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*  14*/ int f14_pixelBuf;
         /*  18*/ int f18_bufSize;
-
+        
         virtual ~CEngineCompressedSurface();
         void dump() {
             printf("f14_pixelBuf: %d\n", this->f14_pixelBuf);
@@ -9114,20 +9241,23 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CEngineDDSurface : public CEngineSurfaceBase {
     public:
-        static uint32_t const VFTABLE = 0x006703C4;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t /*: public CEngineSurfaceBase::vtbl_t */{
-            /*   0*/ void *_;
+        struct vtbl_t : public CEngineSurfaceBase::vtbl_t {
         };
-
+        static_assert(sizeof(vtbl_t) == 0x24);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*  14*/ uint32_t field_14;
         /*  18*/ IDirectDrawSurface4 *f18_ddSurf;
         /*  1C*/ IDirect3DTexture2 *f1C_d3dTex;
         /*  20*/ int field_20;
-
+        
         virtual ~CEngineDDSurface();
         void dump() {
             printf("field_14: %d\n", this->field_14);
@@ -9142,7 +9272,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class MyCEngineSurfDesc {
     public:
-
+        
         /*   0*/ uint32_t field_0;
         /*   4*/ int f4__bitsiz;
         /*   8*/ int f8_bytesize;
@@ -9157,7 +9287,7 @@ namespace dk2 {
         /*  2C*/ char field_2C;
         /*  2D*/ MySurfDesc f2D_desc;
         /*  45*/ DDPIXELFORMAT f45_ddPixFmt;
-
+        
         void dump() {
             printf("field_0: %d\n", this->field_0);
             printf("f4__bitsiz: %d\n", this->f4__bitsiz);
@@ -9180,10 +9310,10 @@ namespace dk2 {
 #pragma pack(push, 1)
     class sVLCtable {
     public:
-
+        
         /*   0*/ __int16 code;
         /*   2*/ uint8_t len;
-
+        
         void dump() {
             printf("code: %d\n", this->code);
             printf("len: %d\n", this->len);
@@ -9195,9 +9325,9 @@ namespace dk2 {
 #pragma pack(push, 1)
     class VLCtable_tab2 {
     public:
-
+        
         /*   0*/ VLCtable arr[5];
-
+        
         void dump() {
         }
     };
@@ -9207,35 +9337,39 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CLocalCommunication : public CCommunicationInterface {
     public:
-        static uint32_t const VFTABLE = 0x0066EB8C;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public CCommunicationInterface::vtbl_t */{
-            /*   0*/ void *CLocalCommunication___scalar_deleting_destructor_uint;
-            /*   4*/ void *CLocalCommunication__fun_522740;
-            /*   8*/ void *ret_void_0args_0;
-            /*   C*/ void *ret_0_2args;
-            /*  10*/ void *CLocalCommunication__fun_522750;
-            /*  14*/ void *CLocalCommunication__fun_522760;
-            /*  18*/ void *ret_1_0args_0;
-            /*  1C*/ void *ret_void_2args;
-            /*  20*/ void *duplicate_7_1;
-            /*  24*/ void *duplicate_7_2;
-            /*  28*/ void *ret_void_1args;
-            /*  2C*/ void *ret_void_0args;
-            /*  30*/ void *ret_1_0args;
-            /*  34*/ void *duplicate_12_1;
-            /*  38*/ void *ret_0_0args_0;
-            /*  3C*/ void *CCommunicationInterface__fun_521B40;
-            /*  40*/ void *duplicate_7_3;
-            /*  44*/ void *CCommunicationInterface__fun_52B700;
-            /*  48*/ void *ret_void_1args_0;
+            /*   0*/ void *(__thiscall *CLocalCommunication___scalar_deleting_destructor_uint)(CLocalCommunication *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ int(__thiscall *CLocalCommunication__fun_522740)(CLocalCommunication *self);  // int (__thiscall *)(_DWORD *this)
+            /*   8*/ void(__thiscall *ret_void_0args_0)(CLocalCommunication *self);  // void (__thiscall *)(void *this)
+            /*   C*/ int(__stdcall *ret_0_2args)(int, int);  // int (__stdcall *)(int a1, int a2)
+            /*  10*/ int(__thiscall *CLocalCommunication__fun_522750)(CLocalCommunication *self, GameAction *);  // int (__thiscall *)(int this, GameAction *a2)
+            /*  14*/ int(__thiscall *CLocalCommunication__fun_522760)(CLocalCommunication *self, int);  // int (__thiscall *)(CCommunicationInterface *this, int a2)
+            /*  18*/ int(__stdcall *ret_1_0args_0)();  // int (__stdcall *)()
+            /*  1C*/ void(__stdcall *ret_void_2args)(int, int);  // void (__stdcall *)(int a1, int a2)
+            /*  20*/ void *(__stdcall *duplicate_7_1)();  // void *(__stdcall *)()
+            /*  24*/ void *(__stdcall *duplicate_7_2)();  // void *(__stdcall *)()
+            /*  28*/ void(__stdcall *ret_void_1args)(int);  // void (__stdcall *)(int a1)
+            /*  2C*/ void(__cdecl *ret_void_0args)();  // void (__cdecl *)()
+            /*  30*/ int(__stdcall *ret_1_0args)();  // int (__stdcall *)()
+            /*  34*/ void *(__stdcall *duplicate_12_1)();  // void *(__stdcall *)()
+            /*  38*/ int(__stdcall *ret_0_0args_0)();  // int (__stdcall *)()
+            /*  3C*/ int(__stdcall *CCommunicationInterface__fun_521B40)(int);  // int (__stdcall *)(int a1)
+            /*  40*/ void *(__stdcall *duplicate_7_3)();  // void *(__stdcall *)()
+            /*  44*/ int(__stdcall *CCommunicationInterface__fun_52B700)(int);  // int (__stdcall *)(int a1)
+            /*  48*/ void(__stdcall *ret_void_1args_0)(int);  // void (__stdcall *)(int a1)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*  14*/ GameActionArray f14_clickList;
-
+        
         virtual ~CLocalCommunication();
         void dump() {
         }
@@ -9246,7 +9380,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class GameActionCtx {
     public:
-
+        
         /*   0*/ unsigned __int8 f0_nextIdx;
         /*   1*/ int field_1;
         /*   5*/ int field_5;
@@ -9256,7 +9390,7 @@ namespace dk2 {
         /*   F*/ char field_F;
         /*  10*/ uint8_t field_10;
         /*  11*/ GameAction f11_actionArr[16];
-
+        
         void dump() {
             printf("f0_nextIdx: %d\n", this->f0_nextIdx);
             printf("field_1: %d\n", this->field_1);
@@ -9274,10 +9408,10 @@ namespace dk2 {
 #pragma pack(push, 1)
     class GameActionRecord {
     public:
-
+        
         /*   0*/ int f0_actionKind;
         /*   4*/ GameActionHandler f4_handler;
-
+        
         void dump() {
             printf("f0_actionKind: %d\n", this->f0_actionKind);
         }
@@ -9288,23 +9422,27 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CListBox : public CButton {
     public:
-        static uint32_t const VFTABLE = 0x0066ED54;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t /*: public CButton::vtbl_t */{
-            /*   0*/ void *CClickButton__fun_52CAA0;
-            /*   4*/ void *CListBox__fun_52AFB0;
-            /*   8*/ void *CListBox__fun_52B160;
-            /*   C*/ void *CListBox__add_CVerticalSlider;
+            /*   0*/ void *(__thiscall *CClickButton__fun_52CAA0)(CListBox *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ int(__thiscall *CListBox__fun_52AFB0)(CListBox *self, int, int);  // int (__thiscall *)(int this, int a2, int a3)
+            /*   8*/ int(__thiscall *CListBox__fun_52B160)(CListBox *self, int);  // int (__thiscall *)(int this, int a2)
+            /*   C*/ int(__thiscall *CListBox__add_CVerticalSlider)(CListBox *self, int);  // int (__thiscall *)(int this, int a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x10);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*  80*/ int field_80;
         /*  84*/ int field_84;
         /*  88*/ int field_88;
         /*  8C*/ int field_8C;
-
+        
         virtual ~CListBox();
         void dump() {
             printf("field_80: %d\n", this->field_80);
@@ -9319,28 +9457,32 @@ namespace dk2 {
 #pragma pack(push, 1)
     class TbAudioSystem {
     public:
-        static uint32_t const VFTABLE = 0x0066F90C;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *TbAudioSystem___scalar_deleting_destructor_uint;
-            /*   4*/ void *TbAudioSystem__fun_608A50;
-            /*   8*/ void *TbAudioSystem__fun_608B70;
-            /*   C*/ void *TbAudioSystem__fun_608DA0;
-            /*  10*/ void *TbAudioSystem__fun_608C20;
-            /*  14*/ void *TbAudioSystem__fun_608FB0;
-            /*  18*/ void *TbAudioSystem__fun_608870;
+            /*   0*/ void *(__thiscall *TbAudioSystem___scalar_deleting_destructor_uint)(TbAudioSystem *self, char);  // std::locale::facet *(__thiscall *)(std::locale::facet *this, char a2)
+            /*   4*/ uint32_t *(__thiscall *TbAudioSystem__fun_608A50)(TbAudioSystem *self, uint32_t *);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2)
+            /*   8*/ uint32_t *(__thiscall *TbAudioSystem__fun_608B70)(TbAudioSystem *self, uint32_t *, int, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2, int a3, int a4, int a5)
+            /*   C*/ int(__thiscall *TbAudioSystem__fun_608DA0)(TbAudioSystem *self);  // int (__thiscall *)(_DWORD *this)
+            /*  10*/ int(__thiscall *TbAudioSystem__fun_608C20)(TbAudioSystem *self, int, uint32_t *);  // int (__thiscall *)(_DWORD *this, int a2, _DWORD *a3)
+            /*  14*/ int(__stdcall *TbAudioSystem__fun_608FB0)(int);  // int (__stdcall *)(int a1)
+            /*  18*/ int(__thiscall *TbAudioSystem__fun_608870)(TbAudioSystem *self);  // int (__thiscall *)(_DWORD *this)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x1C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ int field_0;
         /*   8*/ int field_4;
         /*   C*/ int field_8;
         /*  10*/ int field_C;
         /*  14*/ int field_10;
         /*  18*/ int f14_numberOfChannels;
-
+        
         virtual ~TbAudioSystem();
         void dump() {
             printf("field_0: %d\n", this->field_0);
@@ -9355,52 +9497,32 @@ namespace dk2 {
     static_assert(sizeof(TbAudioSystem) == 0x1C);
 
 #pragma pack(push, 1)
-    class TbAudioSystem_fields {
+    class MyTbAudioSystem : public TbAudioSystem {
     public:
-
-        /*   0*/ int field_0;
-        /*   4*/ int field_4;
-        /*   8*/ int field_8;
-        /*   C*/ int field_C;
-        /*  10*/ int field_10;
-        /*  14*/ int f14_numberOfChannels;
-
-        void dump() {
-            printf("field_0: %d\n", this->field_0);
-            printf("field_4: %d\n", this->field_4);
-            printf("field_8: %d\n", this->field_8);
-            printf("field_C: %d\n", this->field_C);
-            printf("field_10: %d\n", this->field_10);
-            printf("f14_numberOfChannels: %d\n", this->f14_numberOfChannels);
-        }
-    };
-#pragma pack(pop)
-    static_assert(sizeof(TbAudioSystem_fields) == 0x18);
-
-#pragma pack(push, 1)
-    class MyTbAudioSystem {
-    public:
-        static uint32_t const VFTABLE = 0x00673E48;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
-        struct vtbl_t {
-            /*   0*/ void *MyTbAudioSystem___scalar_deleting_destructor_uint;
-            /*   4*/ void *sub_6086F0;
-            /*   8*/ void *TbAudioSystem__fun_608B70;
-            /*   C*/ void *TbAudioSystem__fun_608DA0;
-            /*  10*/ void *TbAudioSystem__fun_608C20;
-            /*  14*/ void *sub_608800;
-            /*  18*/ void *sub_608720;
+        struct vtbl_t /*: public TbAudioSystem::vtbl_t */{
+            /*   0*/ void *(__thiscall *MyTbAudioSystem___scalar_deleting_destructor_uint)(MyTbAudioSystem *self, char);  // void *(__thiscall *)(void *Block, char a2)
+            /*   4*/ uint32_t *(__thiscall *sub_6086F0)(MyTbAudioSystem *self, uint32_t *);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2)
+            /*   8*/ uint32_t *(__thiscall *TbAudioSystem__fun_608B70)(MyTbAudioSystem *self, uint32_t *, int, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2, int a3, int a4, int a5)
+            /*   C*/ int(__thiscall *TbAudioSystem__fun_608DA0)(MyTbAudioSystem *self);  // int (__thiscall *)(_DWORD *this)
+            /*  10*/ int(__thiscall *TbAudioSystem__fun_608C20)(MyTbAudioSystem *self, int, uint32_t *);  // int (__thiscall *)(_DWORD *this, int a2, _DWORD *a3)
+            /*  14*/ uint32_t *(__thiscall *sub_608800)(MyTbAudioSystem *self, uint32_t *);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2)
+            /*  18*/ int(__thiscall *sub_608720)(MyTbAudioSystem *self);  // int (__thiscall *)(_DWORD *this)
         };
-
-        /*   4*/ TbAudioSystem_fields super;
+        static_assert(sizeof(vtbl_t) == 0x1C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*  1C*/ void *f1C_obj_MyUnk673EB0;
-
+        
         virtual ~MyTbAudioSystem();
         void dump() {
-            printf("f1C_obj_MyUnk673EB0: %p\n", this->f1C_obj_MyUnk673EB0);
+            printf("f1C_obj_MyUnk673EB0: void(%p)\n", this->f1C_obj_MyUnk673EB0);
         }
     };
 #pragma pack(pop)
@@ -9409,46 +9531,50 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CSoundSystem {
     public:
-        static uint32_t const VFTABLE = 0x0066F7FC;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *CSoundSystem___scalar_deleting_destructor_uint;
-            /*   4*/ void *sub_567210;
-            /*   8*/ void *CSoundSystem__set_number_of_channels;
-            /*   C*/ void *CSoundSystem__fun_5677E0;
-            /*  10*/ void *CSoundSystem__fun_567410;
-            /*  14*/ void *CSoundSystem__fun_5677D0;
-            /*  18*/ void *CSoundSystem__fun_5674F0;
-            /*  1C*/ void *CSoundSystem__fun_567790;
-            /*  20*/ void *CSoundSystem__fun_5678F0;
-            /*  24*/ void *CSoundSystem__fun_567810;
-            /*  28*/ void *CSoundSystem__fun_567730;
-            /*  2C*/ void *CSoundSystem__fun_567AF0;
-            /*  30*/ void *CSoundSystem__fun_567A70;
-            /*  34*/ void *CSoundSystem__fun_567A10;
-            /*  38*/ void *CSoundSystem__fun_567A40;
-            /*  3C*/ void *CSoundSystem__update_room_ambience;
-            /*  40*/ void *sub_567220;
-            /*  44*/ void *sub_567230;
-            /*  48*/ void *CSoundSystem__set_listener_direction;
-            /*  4C*/ void *CSoundSystem__fun_567BC0;
-            /*  50*/ void *CSoundSystem__fun_567BE0;
-            /*  54*/ void *CSoundSystem__setProperty;
-            /*  58*/ void *sub_567240;
-            /*  5C*/ void *CSoundSystem__set_view;
-            /*  60*/ void *CSoundSystem__fun_567440;
-            /*  64*/ void *CSoundSystem__destroy_sound;
-            /*  68*/ void *sub_567250;
-            /*  6C*/ void *sub_567260;
-            /*  70*/ void *sub_567270;
-            /*  74*/ void *sub_567280;
-            /*  78*/ void *CSoundSystem__init_sound;
-            /*  7C*/ void *sub_567290;
+            /*   0*/ uint32_t *(__thiscall *CSoundSystem___scalar_deleting_destructor_uint)(CSoundSystem *self, char);  // _DWORD *(__thiscall *)(_DWORD *Block, char a2)
+            /*   4*/ int(__thiscall *sub_567210)(CSoundSystem *self);  // int (__thiscall *)(_DWORD *this)
+            /*   8*/ int(__thiscall *CSoundSystem__set_number_of_channels)(CSoundSystem *self, int);  // int (__thiscall *)(int *this, int a2)
+            /*   C*/ BOOL(__thiscall *CSoundSystem__fun_5677E0)(CSoundSystem *self);  // BOOL (__thiscall *)(_DWORD *this)
+            /*  10*/ int(__thiscall *CSoundSystem__fun_567410)(CSoundSystem *self);  // int (__thiscall *)(_DWORD *this)
+            /*  14*/ int(__thiscall *CSoundSystem__fun_5677D0)(CSoundSystem *self);  // int (__thiscall *)(_DWORD *this)
+            /*  18*/ int(__thiscall *CSoundSystem__fun_5674F0)(CSoundSystem *self);  // int (__thiscall *)(int *this)
+            /*  1C*/ int(__thiscall *CSoundSystem__fun_567790)(CSoundSystem *self, int, char *);  // int (__thiscall *)(_DWORD *this, int a2, const char *a3)
+            /*  20*/ int(__thiscall *CSoundSystem__fun_5678F0)(CSoundSystem *self, int, int, int, uint32_t *);  // int (__thiscall *)(int *this, int a2, int a3, int a4, _DWORD *a5)
+            /*  24*/ int(__thiscall *CSoundSystem__fun_567810)(CSoundSystem *self, int, int, int);  // int (__thiscall *)(_DWORD *this, int a2, int a3, int a4)
+            /*  28*/ int(__thiscall *CSoundSystem__fun_567730)(CSoundSystem *self, int, int);  // int (__thiscall *)(int *this, int a2, int a3)
+            /*  2C*/ int(__thiscall *CSoundSystem__fun_567AF0)(CSoundSystem *self, int);  // int (__thiscall *)(_DWORD *this, int a2)
+            /*  30*/ int(__thiscall *CSoundSystem__fun_567A70)(CSoundSystem *self, int, uint32_t *);  // int (__thiscall *)(_DWORD *this, int a2, _DWORD *a3)
+            /*  34*/ int(__thiscall *CSoundSystem__fun_567A10)(CSoundSystem *self, int, int, int);  // int (__thiscall *)(_DWORD *this, int a2, int a3, int a4)
+            /*  38*/ uint32_t *(__thiscall *CSoundSystem__fun_567A40)(CSoundSystem *self, uint32_t *, uint32_t *);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2, void (__thiscall ***a3)(_DWORD, int, void *))
+            /*  3C*/ int(__thiscall *CSoundSystem__update_room_ambience)(CSoundSystem *self, uint32_t *, uint32_t *, uint32_t *, int);  // int (__thiscall *)(_DWORD *this, void (__thiscall **a2)(_DWORD, int, void *), void (__thiscall **a3)(_DWORD, int, void *), void (__thiscall **a4)(_DWORD, int, void *), int a5)
+            /*  40*/ int(__thiscall *sub_567220)(CSoundSystem *self, int);  // int (__thiscall *)(_DWORD *this, int a2)
+            /*  44*/ void(__thiscall *sub_567230)(CSoundSystem *self);  // void (__thiscall *)(_DWORD *this)
+            /*  48*/ int(__thiscall *CSoundSystem__set_listener_direction)(CSoundSystem *self, uint16_t *);  // int (__thiscall *)(_DWORD *this, unsigned __int16 *a2)
+            /*  4C*/ unsigned int(__thiscall *CSoundSystem__fun_567BC0)(CSoundSystem *self, unsigned int);  // unsigned int (__thiscall *)(_DWORD *this, unsigned int a2)
+            /*  50*/ int(__thiscall *CSoundSystem__fun_567BE0)(CSoundSystem *self, int);  // int (__thiscall *)(_DWORD *this, int a2)
+            /*  54*/ int(__thiscall *CSoundSystem__setProperty)(CSoundSystem *self, int, uint32_t *);  // int (__thiscall *)(_DWORD *this, int a2, void (__thiscall **a3)(_DWORD, int, void *))
+            /*  58*/ int(__thiscall *sub_567240)(CSoundSystem *self);  // int (__thiscall *)(_DWORD *this)
+            /*  5C*/ int(__thiscall *CSoundSystem__set_view)(CSoundSystem *self, uint32_t *);  // int (__thiscall *)(_DWORD *this, void (__thiscall **a2)(_DWORD, int, void *))
+            /*  60*/ int(__thiscall *CSoundSystem__fun_567440)(CSoundSystem *self);  // int (__thiscall *)(_DWORD *this)
+            /*  64*/ int(__thiscall *CSoundSystem__destroy_sound)(CSoundSystem *self);  // int (__thiscall *)(_DWORD *this)
+            /*  68*/ int(__thiscall *sub_567250)(CSoundSystem *self);  // int (__thiscall *)(_DWORD *this)
+            /*  6C*/ int(__thiscall *sub_567260)(CSoundSystem *self);  // int (__thiscall *)(_DWORD *this)
+            /*  70*/ int(__thiscall *sub_567270)(CSoundSystem *self, int);  // int (__thiscall *)(_DWORD *this, int a2)
+            /*  74*/ int(__thiscall *sub_567280)(CSoundSystem *self);  // int (__thiscall *)(_DWORD *this)
+            /*  78*/ uint32_t *(__thiscall *CSoundSystem__init_sound)(CSoundSystem *self, uint32_t *);  // void **(__thiscall *)(_DWORD *this, void **a2)
+            /*  7C*/ int(__thiscall *sub_567290)(CSoundSystem *self, uint32_t *);  // int (__thiscall *)(_DWORD *this, _DWORD *a2)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x80);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ int field_4;
         /*   8*/ int field_8;
         /*   C*/ MyTbAudioSystem fC_audio;
@@ -9465,7 +9591,7 @@ namespace dk2 {
         /*  54*/ int field_54;
         /*  58*/ int field_58;
         /*  5C*/ int field_5C;
-
+        
         virtual ~CSoundSystem();
         void dump() {
             printf("field_4: %d\n", this->field_4);
@@ -9491,13 +9617,14 @@ namespace dk2 {
 #pragma pack(push, 1)
     class TbSysCommand_SetNumberOfChannels {
     public:
-
         struct vtbl_t {
-            /*   0*/ void *TbSysCommand__SetNumberOfChannels__fun_608360;
+            /*   0*/ void(__thiscall *TbSysCommand__SetNumberOfChannels__fun_608360)(TbSysCommand_SetNumberOfChannels *self, int, MyTbAudioSystem *);  // void (__thiscall *)(TbSysCommand_SetNumberOfChannels *, int, MyTbAudioSystem *)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x4);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
         /*   4*/ int f4_value;
-
+        
         virtual ~TbSysCommand_SetNumberOfChannels();
         void dump() {
             printf("f4_value: %d\n", this->f4_value);
@@ -9509,7 +9636,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class SurfHashList {
     public:
-
+        
         /*   0*/ SurfHashListItem * f0_arr5x5[5][5];
         /*  64*/ MyCEngineSurfDesc *f64_pSurfDesc;
         /*  68*/ MyCESurfHandle *f68_surfh_first;
@@ -9517,7 +9644,7 @@ namespace dk2 {
         /*  70*/ SurfaceHolder *f70_holder_first;
         /*  74*/ int f74_holders_count;
         /*  78*/ int f78_squareSide_size;
-
+        
         void dump() {
             printf("f0_arr5x5: %d\n", this->f0_arr5x5);
             printf("f64_pSurfDesc: MyCEngineSurfDesc(%p)\n", this->f64_pSurfDesc);
@@ -9534,7 +9661,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class SurfaceHolder {
     public:
-
+        
         /*   0*/ SceneObject30 *f0_SceneObject30;
         /*   4*/ MyCESurfHandle *f4_surfh_first;
         /*   8*/ int f8_a3;
@@ -9543,7 +9670,7 @@ namespace dk2 {
         /*  14*/ SurfaceHolder *f14_next;
         /*  18*/ SurfHashListItem *f18_hashItem_link;
         /*  1C*/ float f1C_1divSize;
-
+        
         void dump() {
             printf("f0_SceneObject30: SceneObject30(%p)\n", this->f0_SceneObject30);
             printf("f4_surfh_first: MyCESurfHandle(%p)\n", this->f4_surfh_first);
@@ -9561,7 +9688,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class SurfHashListItem {
     public:
-
+        
         /*   0*/ SurfaceHolder *f0_holder_link;
         /*   4*/ SurfHashListItem *f4_next;
         /*   8*/ SurfHashListItem *f8_prev;
@@ -9572,7 +9699,7 @@ namespace dk2 {
         /*  21*/ char f21_y;
         /*  22*/ char f22__aBool;
         /*  23*/ char field_23;
-
+        
         void dump() {
             printf("f0_holder_link: SurfaceHolder(%p)\n", this->f0_holder_link);
             printf("f4_next: SurfHashListItem(%p)\n", this->f4_next);
@@ -9592,22 +9719,26 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CEngineSprite {
     public:
-        static uint32_t const VFTABLE = 0x0066FCCC;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *CEngine2DPrimitive__fun_5769D0;
-            /*   4*/ void *CEngineSprite__fun_57F3D0;
-            /*   8*/ void *CEngineSprite__fun_57F7E0;
-            /*   C*/ void *CEngineWorldPrimitive__fun_57F1C0;
-            /*  10*/ void *CEngineVirtualPerspective2DAnimMesh__fun_5785E0;
-            /*  14*/ void *ret_0_0args;
-            /*  18*/ void *ret_0_1args;
-            /*  1C*/ void *ret_void_1args;
+            /*   0*/ uint32_t *(__thiscall *CEngine2DPrimitive__fun_5769D0)(CEngineSprite *self, char);  // _DWORD *(__thiscall *)(_DWORD *this, char a2)
+            /*   4*/ int(__thiscall *CEngineSprite__fun_57F3D0)(CEngineSprite *self, int, int);  // int (__thiscall *)(int this, int a2, int a3)
+            /*   8*/ void(__thiscall *CEngineSprite__fun_57F7E0)(CEngineSprite *self, int);  // void (__thiscall *)(int this, int a2)
+            /*   C*/ int(__stdcall *CEngineWorldPrimitive__fun_57F1C0)(int, int, int, uint32_t *, int);  // int (__stdcall *)(int a1, int a2, int a3, _DWORD *a4, int a5)
+            /*  10*/ uint32_t *(__stdcall *CEngineVirtualPerspective2DAnimMesh__fun_5785E0)(uint32_t *, int);  // _DWORD *(__stdcall *)(_DWORD *a1, int a2)
+            /*  14*/ int(__stdcall *ret_0_0args)();  // int (__stdcall *)()
+            /*  18*/ int(__stdcall *ret_0_1args)(int);  // int (__stdcall *)(int a1)
+            /*  1C*/ void(__stdcall *ret_void_1args)(int);  // void (__stdcall *)(int a1)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x20);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ int field_4;
         /*   8*/ int field_8;
         /*   C*/ int field_C;
@@ -9626,7 +9757,7 @@ namespace dk2 {
         /*  48*/ int field_48;
         /*  4C*/ int field_4C;
         /*  50*/ int field_50;
-
+        
         virtual ~CEngineSprite();
         void dump() {
             printf("field_4: %d\n", this->field_4);
@@ -9655,11 +9786,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class SceneObject2EList {
     public:
-
+        
         /*   0*/ int f0_unk;
         /*   4*/ int f4_maxCount;
         /*   8*/ SceneObject2E *f8_arr;
-
+        
         void dump() {
             printf("f0_unk: %d\n", this->f0_unk);
             printf("f4_maxCount: %d\n", this->f4_maxCount);
@@ -9672,11 +9803,11 @@ namespace dk2 {
 #pragma pack(push, 1)
     class SceneObject30List {
     public:
-
+        
         /*   0*/ int f0_blockSize;
         /*   4*/ int f4_maxCount;
         /*   8*/ SceneObject30 *f8_arr;
-
+        
         void dump() {
             printf("f0_blockSize: %d\n", this->f0_blockSize);
             printf("f4_maxCount: %d\n", this->f4_maxCount);
@@ -9689,7 +9820,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class SceneObject2E {
     public:
-
+        
         /*   0*/ MyCESurfHandle * f0_surfh[4];
         /*  10*/ uint32_t f10_props_flags;
         /*  14*/ int f14_props_reductionLevel_andFlags;
@@ -9705,7 +9836,7 @@ namespace dk2 {
         /*  24*/ int f24_onj__meshSprite;
         /*  28*/ SceneObject2E *f28_next;
         /*  2C*/ __int16 f2C_;
-
+        
         void dump() {
             printf("f0_surfh: %d\n", this->f0_surfh);
             printf("f10_props_flags: %d\n", this->f10_props_flags);
@@ -9729,16 +9860,20 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CEngine2DMeshSurface {
     public:
-        static uint32_t const VFTABLE = 0x0066FB04;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *CEngine2DMeshSurface_scalar_destructor;
-            /*   4*/ void *CEngine2DMeshSurface__fun_578C00;
+            /*   0*/ void *(__thiscall *CEngine2DMeshSurface_scalar_destructor)(CEngine2DMeshSurface *self, unsigned int);  // std::ios_base *(__thiscall *)(std::ios_base *this, unsigned int a2)
+            /*   4*/ int(__thiscall *CEngine2DMeshSurface__fun_578C00)(CEngine2DMeshSurface *self, int, int);  // int (__thiscall *)(int this, int a2, int a3)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x8);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ int f4_zeroinit;
         /*   8*/ void *f8_16xbuf;
         /*   C*/ void *fC_6xbuf;
@@ -9749,12 +9884,12 @@ namespace dk2 {
         /*  20*/ float f20_f1;
         /*  24*/ float f24_f2;
         /*  28*/ int field_28;
-
+        
         virtual ~CEngine2DMeshSurface();
         void dump() {
             printf("f4_zeroinit: %d\n", this->f4_zeroinit);
-            printf("f8_16xbuf: %p\n", this->f8_16xbuf);
-            printf("fC_6xbuf: %p\n", this->fC_6xbuf);
+            printf("f8_16xbuf: void(%p)\n", this->f8_16xbuf);
+            printf("fC_6xbuf: void(%p)\n", this->fC_6xbuf);
             printf("f10_buf16_maxCount: %d\n", this->f10_buf16_maxCount);
             printf("f14_buf6_maxCount: %d\n", this->f14_buf6_maxCount);
             printf("field_18: %d\n", this->field_18);
@@ -9770,24 +9905,28 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CEngineStaticMesh {
     public:
-        static uint32_t const VFTABLE = 0x0066FD8C;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *CEngineStaticMesh_scalar_destructor;
-            /*   4*/ void *CEngineStaticMesh__fun_586150;
-            /*   8*/ void *CEngineStaticMesh_appendToSceneObject2EList;
-            /*   C*/ void *CEngineWorldPrimitive__fun_57F1C0;
-            /*  10*/ void *CEngineWorldPrimitive__fun_5785E0;
-            /*  14*/ void *ret_0_0args;
-            /*  18*/ void *ret_0_1args;
-            /*  1C*/ void *CEngineStaticMesh__fun_586130;
+            /*   0*/ void *(__thiscall *CEngineStaticMesh_scalar_destructor)(CEngineStaticMesh *self, char);  // std::ios_base *(__thiscall *)(std::ios_base *this, char a2)
+            /*   4*/ int(__thiscall *CEngineStaticMesh__fun_586150)(CEngineStaticMesh *self, int, int);  // int (__thiscall *)(int this, int a2, int a3)
+            /*   8*/ int(__thiscall *CEngineStaticMesh_appendToSceneObject2EList)(CEngineStaticMesh *self, int);  // int (__thiscall *)(int this, int a2)
+            /*   C*/ int(__stdcall *CEngineWorldPrimitive__fun_57F1C0)(int, int, int, uint32_t *, int);  // int (__stdcall *)(int a1, int a2, int a3, _DWORD *a4, int a5)
+            /*  10*/ uint32_t *(__stdcall *CEngineWorldPrimitive__fun_5785E0)(uint32_t *, int);  // _DWORD *(__stdcall *)(_DWORD *a1, int a2)
+            /*  14*/ int(__stdcall *ret_0_0args)();  // int (__stdcall *)()
+            /*  18*/ int(__stdcall *ret_0_1args)(int);  // int (__stdcall *)(int a1)
+            /*  1C*/ int(__stdcall *CEngineStaticMesh__fun_586130)(int);  // int (__stdcall *)(int a1)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x20);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ int f4_zeroinit;
-        /*   8*/ void *f8_v14;
+        /*   8*/ uint32_t *f8_v14;
         /*   C*/ uint8_t gap_C[4];
         /*  10*/ int f10_a5;
         /*  14*/ uint8_t gap_14[8];
@@ -9797,11 +9936,11 @@ namespace dk2 {
         /*  28*/ uint32_t field_28;
         /*  2C*/ uint8_t gap_2C[5];
         /*  31*/ char field_31;
-
+        
         virtual ~CEngineStaticMesh();
         void dump() {
             printf("f4_zeroinit: %d\n", this->f4_zeroinit);
-            printf("f8_v14: %p\n", this->f8_v14);
+            printf("f8_v14: uint32_t(%p)\n", this->f8_v14);
             printf("gap_C: %d\n", this->gap_C);
             printf("f10_a5: %d\n", this->f10_a5);
             printf("gap_14: %d\n", this->gap_14);
@@ -9819,29 +9958,33 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CEngineStaticHeightField {
     public:
-        static uint32_t const VFTABLE = 0x0066FDB4;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *CEngineStaticHeightField__fun_586F70;
-            /*   4*/ void *CEngineStaticHeightField__fun_587010;
-            /*   8*/ void *CEngineStaticHeightField_appendToSceneObject2EList;
-            /*   C*/ void *CEngineWorldPrimitive__fun_57F1C0;
-            /*  10*/ void *CEngineWorldPrimitive__fun_5785E0;
-            /*  14*/ void *ret_0_0args;
-            /*  18*/ void *ret_0_1args;
-            /*  1C*/ void *CEngineStaticHeightField__fun_586FF0;
+            /*   0*/ void *(__thiscall *CEngineStaticHeightField__fun_586F70)(CEngineStaticHeightField *self, char);  // std::ios_base *(__thiscall *)(std::ios_base *this, char a2)
+            /*   4*/ int(__thiscall *CEngineStaticHeightField__fun_587010)(CEngineStaticHeightField *self, int, int);  // int (__thiscall *)(int this, int a2, int a3)
+            /*   8*/ int(__thiscall *CEngineStaticHeightField_appendToSceneObject2EList)(CEngineStaticHeightField *self, int);  // int (__thiscall *)(int this, int a2)
+            /*   C*/ int(__stdcall *CEngineWorldPrimitive__fun_57F1C0)(int, int, int, uint32_t *, int);  // int (__stdcall *)(int a1, int a2, int a3, _DWORD *a4, int a5)
+            /*  10*/ uint32_t *(__stdcall *CEngineWorldPrimitive__fun_5785E0)(uint32_t *, int);  // _DWORD *(__stdcall *)(_DWORD *a1, int a2)
+            /*  14*/ int(__stdcall *ret_0_0args)();  // int (__stdcall *)()
+            /*  18*/ int(__stdcall *ret_0_1args)(int);  // int (__stdcall *)(int a1)
+            /*  1C*/ int(__stdcall *CEngineStaticHeightField__fun_586FF0)(int);  // int (__stdcall *)(int a1)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x20);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ int f4_zeroinit;
         /*   8*/ int f8_a8;
         /*   C*/ uint8_t gap_C[4];
         /*  10*/ uint32_t f10_buf;
         /*  14*/ int field_14;
         /*  18*/ int field_18;
-
+        
         virtual ~CEngineStaticHeightField();
         void dump() {
             printf("f4_zeroinit: %d\n", this->f4_zeroinit);
@@ -9858,22 +10001,26 @@ namespace dk2 {
 #pragma pack(push, 1)
     class CEngineUnlitProceduralMesh {
     public:
-        static uint32_t const VFTABLE = 0x0066FE04;
-
-        template<typename T>
-        bool isa() { return (*(uint32_t *) this) == T::VFTABLE; }
-
         struct vtbl_t {
-            /*   0*/ void *CEngineUnlitProceduralMesh__fun_588480;
-            /*   4*/ void *CEngineUnlitProceduralMesh__fun_5884F0;
-            /*   8*/ void *CEngineUnlitProceduralMesh_appendToSceneObject2EList;
-            /*   C*/ void *CEngineWorldPrimitive__fun_57F1C0;
-            /*  10*/ void *CEngineWorldPrimitive__fun_5785E0;
-            /*  14*/ void *ret_0_0args;
-            /*  18*/ void *ret_0_1args;
-            /*  1C*/ void *ret_void_1args;
+            /*   0*/ uint32_t *(__thiscall *CEngineUnlitProceduralMesh__fun_588480)(CEngineUnlitProceduralMesh *self, char);  // _DWORD *(__thiscall *)(_DWORD *this, char a2)
+            /*   4*/ int(__thiscall *CEngineUnlitProceduralMesh__fun_5884F0)(CEngineUnlitProceduralMesh *self, int, int);  // int (__thiscall *)(_DWORD *this, int a2, int a3)
+            /*   8*/ unsigned int(__thiscall *CEngineUnlitProceduralMesh_appendToSceneObject2EList)(CEngineUnlitProceduralMesh *self, int);  // unsigned int (__thiscall *)(_DWORD *this, int a2)
+            /*   C*/ int(__stdcall *CEngineWorldPrimitive__fun_57F1C0)(int, int, int, uint32_t *, int);  // int (__stdcall *)(int a1, int a2, int a3, _DWORD *a4, int a5)
+            /*  10*/ uint32_t *(__stdcall *CEngineWorldPrimitive__fun_5785E0)(uint32_t *, int);  // _DWORD *(__stdcall *)(_DWORD *a1, int a2)
+            /*  14*/ int(__stdcall *ret_0_0args)();  // int (__stdcall *)()
+            /*  18*/ int(__stdcall *ret_0_1args)(int);  // int (__stdcall *)(int a1)
+            /*  1C*/ void(__stdcall *ret_void_1args)(int);  // void (__stdcall *)(int a1)
         };
-
+        static_assert(sizeof(vtbl_t) == 0x20);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
         /*   4*/ int f4_zeroinit;
         /*   8*/ int f8_a2;
         /*   C*/ uint32_t field_C;
@@ -9889,7 +10036,7 @@ namespace dk2 {
         /*  54*/ unsigned __int16 field_54;
         /*  56*/ uint8_t gap_56[2];
         /*  58*/ int field_58;
-
+        
         virtual ~CEngineUnlitProceduralMesh();
         void dump() {
             printf("f4_zeroinit: %d\n", this->f4_zeroinit);
@@ -9915,22 +10062,21 @@ namespace dk2 {
 #pragma pack(push, 1)
     class SceneObject30 {
     public:
-
+        
         /*   0*/ SurfaceHolder * f0_holders[4];
         /*  10*/ uint32_t f10_props_flags;
         /*  14*/ int f14_props_reductionLevel_andFlags;
         /*  18*/ uint16_t f18_props_surfWidth8;
         /*  1A*/ uint16_t f1A_props_surfHeight8;
         /*  1C*/ char f1C_surfhCount;
-        /*  1D*/ char f1D_countOf_f1E;
-        /*  1E*/ char f1E_sceneObj2E_f1F;
-        /*  1F*/ uint8_t gap_1F;
+        /*  1D*/ char f1D_texStageCountArrSize;
+        /*  1E*/ unsigned __int8 f1E_d3dtexStageCount[2];
         /*  20*/ char f20_sceneObj2E_f21;
         /*  21*/ uint8_t gap_21[3];
         /*  24*/ SceneObject2E *f24_pobj2E;
         /*  28*/ SceneObject30 *f28_prev;
         /*  2C*/ SceneObject30 *f2C_next;
-
+        
         void dump() {
             printf("f0_holders: %d\n", this->f0_holders);
             printf("f10_props_flags: %d\n", this->f10_props_flags);
@@ -9938,9 +10084,8 @@ namespace dk2 {
             printf("f18_props_surfWidth8: %d\n", this->f18_props_surfWidth8);
             printf("f1A_props_surfHeight8: %d\n", this->f1A_props_surfHeight8);
             printf("f1C_surfhCount: %d\n", this->f1C_surfhCount);
-            printf("f1D_countOf_f1E: %d\n", this->f1D_countOf_f1E);
-            printf("f1E_sceneObj2E_f1F: %d\n", this->f1E_sceneObj2E_f1F);
-            printf("gap_1F: %d\n", this->gap_1F);
+            printf("f1D_texStageCountArrSize: %d\n", this->f1D_texStageCountArrSize);
+            printf("f1E_d3dtexStageCount: %d\n", this->f1E_d3dtexStageCount);
             printf("f20_sceneObj2E_f21: %d\n", this->f20_sceneObj2E_f21);
             printf("f24_pobj2E: SceneObject2E(%p)\n", this->f24_pobj2E);
             printf("f28_prev: SceneObject30(%p)\n", this->f28_prev);
@@ -9953,7 +10098,7 @@ namespace dk2 {
 #pragma pack(push, 1)
     class SurfHashList2 {
     public:
-
+        
         /*   0*/ MyCEngineSurfDesc *f0_surfDesc;
         /*   4*/ MyCESurfHandle *f4_surfh_first;
         /*   8*/ MyCESurfHandle * f8_arr5x5_surfh[5][5];
@@ -9963,7 +10108,7 @@ namespace dk2 {
         /*  D8*/ SurfaceHolder *fD8_holder_first;
         /*  DC*/ uint32_t fDC_holder_count;
         /*  E0*/ int fE0_holder_size;
-
+        
         void dump() {
             printf("f0_surfDesc: MyCEngineSurfDesc(%p)\n", this->f0_surfDesc);
             printf("f4_surfh_first: MyCESurfHandle(%p)\n", this->f4_surfh_first);
@@ -9978,6 +10123,99 @@ namespace dk2 {
     };
 #pragma pack(pop)
     static_assert(sizeof(SurfHashList2) == 0xE4);
+
+#pragma pack(push, 1)
+    class DxDeviceInfo {
+    public:
+        
+        /*   0*/ char f0_name[30];
+        /*  1E*/ char f1E_desc[80];
+        /*  6E*/ int f6E_pGuid;
+        /*  72*/ GUID f72_guid;
+        /*  82*/ DDCAPS f82_ddcaps;
+        /* 1FE*/ int f1FE_modeListCount;
+        /* 202*/ int f202_infoListCount;
+        /* 206*/ DxModeInfo *f206_modeList;
+        /* 20A*/ DxD3dInfo *f20A_infoList;
+        /* 20E*/ int f20E_dwVendorId;
+        /* 212*/ int f212_dwDeviceId;
+        /* 216*/ int f216_isVendor121A;
+        
+        void dump() {
+            printf("f0_name: %d\n", this->f0_name);
+            printf("f1E_desc: %d\n", this->f1E_desc);
+            printf("f6E_pGuid: %d\n", this->f6E_pGuid);
+            printf("f72_guid: %d\n", this->f72_guid);
+            printf("f82_ddcaps: %d\n", this->f82_ddcaps);
+            printf("f1FE_modeListCount: %d\n", this->f1FE_modeListCount);
+            printf("f202_infoListCount: %d\n", this->f202_infoListCount);
+            printf("f206_modeList: DxModeInfo(%p)\n", this->f206_modeList);
+            printf("f20A_infoList: DxD3dInfo(%p)\n", this->f20A_infoList);
+            printf("f20E_dwVendorId: %d\n", this->f20E_dwVendorId);
+            printf("f212_dwDeviceId: %d\n", this->f212_dwDeviceId);
+            printf("f216_isVendor121A: %d\n", this->f216_isVendor121A);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(DxDeviceInfo) == 0x21A);
+
+#pragma pack(push, 1)
+    class DxD3dInfo {
+    public:
+        
+        /*   0*/ char f0_name[30];
+        /*  1E*/ char f1E_desc[80];
+        /*  6E*/ GUID *f6E_pGuid;
+        /*  72*/ GUID f72_guid;
+        /*  82*/ int field_82;
+        /*  86*/ D3DDEVICEDESC f86_devDesc;
+        /* 182*/ uint32_t f182_hasDesc;
+        /* 186*/ uint32_t f186_texCapsAnd1;
+        /* 18A*/ uint32_t f18A_hasZbuffer;
+        /* 18E*/ int field_18E;
+        /* 192*/ int field_192;
+        /* 196*/ int field_196;
+        
+        void dump() {
+            printf("f0_name: %d\n", this->f0_name);
+            printf("f1E_desc: %d\n", this->f1E_desc);
+            printf("f6E_pGuid: GUID(%p)\n", this->f6E_pGuid);
+            printf("f72_guid: %d\n", this->f72_guid);
+            printf("field_82: %d\n", this->field_82);
+            printf("f86_devDesc: %d\n", this->f86_devDesc);
+            printf("f182_hasDesc: %d\n", this->f182_hasDesc);
+            printf("f186_texCapsAnd1: %d\n", this->f186_texCapsAnd1);
+            printf("f18A_hasZbuffer: %d\n", this->f18A_hasZbuffer);
+            printf("field_18E: %d\n", this->field_18E);
+            printf("field_192: %d\n", this->field_192);
+            printf("field_196: %d\n", this->field_196);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(DxD3dInfo) == 0x19A);
+
+#pragma pack(push, 1)
+    class DxModeInfo {
+    public:
+        
+        /*   0*/ uint32_t f0_dwWidth;
+        /*   4*/ uint32_t f4_dwHeight;
+        /*   8*/ uint32_t f8_dwRGBBitCount;
+        /*   C*/ uint32_t fC_hasFlag_shr5and1;
+        /*  10*/ uint8_t gap_10[107];
+        /*  7B*/ char field_7B;
+        
+        void dump() {
+            printf("f0_dwWidth: %d\n", this->f0_dwWidth);
+            printf("f4_dwHeight: %d\n", this->f4_dwHeight);
+            printf("f8_dwRGBBitCount: %d\n", this->f8_dwRGBBitCount);
+            printf("fC_hasFlag_shr5and1: %d\n", this->fC_hasFlag_shr5and1);
+            printf("gap_10: %d\n", this->gap_10);
+            printf("field_7B: %d\n", this->field_7B);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(DxModeInfo) == 0x7C);
 
 }  // namespace dk2
 

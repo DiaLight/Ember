@@ -31,7 +31,7 @@ dk2::SceneObject30 *SceneObject30_findFromO2E(
     ) {
   dk2::SceneObject30 *obj30 = holders[0]->f0_SceneObject30;
   for(; obj30; obj30 = obj30->f28_prev) {
-    if(obj30->f1D_countOf_f1E != obj2E.f1E_propsCount) continue;
+    if(obj30->f1D_texStageCountArrSize != obj2E.f1E_propsCount) continue;
     if(obj30->f20_sceneObj2E_f21 != obj2E.field_21) continue;
     uint32_t *propsArr30 = &obj30->f10_props_flags;
     uint32_t *propsArr2E = &obj2E.f10_props_flags;
@@ -63,7 +63,7 @@ void SceneObject30_initFromO2E(
     obj30->f0_holders[j] = holders[j];
   }
   uint32_t *propsArr30 = &obj30->f10_props_flags;
-  uint8_t *props2Arr30 = (uint8_t *) &obj30->f1E_sceneObj2E_f1F;
+  uint8_t *props2Arr30 = (uint8_t *) &obj30->f1E_d3dtexStageCount;
   uint32_t *propsArr2E = (uint32_t *) &obj2E.f10_props_flags;
   uint8_t *props2Arr2E = (uint8_t *) &obj2E.f1F_trgObj;
   for (int j = 0; j < obj2E.f1E_propsCount; ++j) {
@@ -72,7 +72,7 @@ void SceneObject30_initFromO2E(
   }
   obj30->f1C_surfhCount = obj2E.f1D_surfhCount;
   obj30->f20_sceneObj2E_f21 = obj2E.field_21;
-  obj30->f1D_countOf_f1E = obj2E.f1E_propsCount;
+  obj30->f1D_texStageCountArrSize = obj2E.f1E_propsCount;
   obj30->f18_props_surfWidth8 = 0;
   obj30->f1A_props_surfHeight8 = 0;
   obj30->f24_pobj2E = 0;

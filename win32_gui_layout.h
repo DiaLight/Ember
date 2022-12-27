@@ -6,10 +6,13 @@
 #define EMBER_WIN32_GUI_LAYOUT_H
 
 #include <ShellScalingApi.h>
+#include <functional>
+#include <cstdint>
+#include <CommCtrl.h>
 
 namespace gui {
 
-  HINSTANCE g_hInst = nullptr;
+  extern HINSTANCE g_hInst;
 
   struct pos2i_t {
     int x = 0;
@@ -20,31 +23,14 @@ namespace gui {
     int h = 0;
   };
 
-  int g_dpi = USER_DEFAULT_SCREEN_DPI;
+  extern int g_dpi;
 
-  int getDpi() {
-    UINT dpiX = 0, dpiY;
-    POINT pt = { 1, 1 };
-    auto hMonitor = MonitorFromPoint(pt, MONITOR_DEFAULTTONEAREST);
-    if (SUCCEEDED(GetDpiForMonitor(hMonitor, MDT_EFFECTIVE_DPI, &dpiX, &dpiY))) {
-      return dpiX;
-    }
-    return 96; // default
-  }
-  int applyDpi(int size) {
-    return MulDiv(size, g_dpi, USER_DEFAULT_SCREEN_DPI);
-  }
-  int revertDpi(int size) {
-    return MulDiv(size, USER_DEFAULT_SCREEN_DPI, g_dpi);
-  }
-  void applyDpi(size2i_t &size) {
-    size.w = applyDpi(size.w);
-    size.h = applyDpi(size.h);
-  }
-  void applyDpi(pos2i_t &pos) {
-    pos.x = applyDpi(pos.x);
-    pos.y = applyDpi(pos.y);
-  }
+  bool initDPI();
+  int getDpi();
+  int applyDpi(int size);
+  int revertDpi(int size);
+  void applyDpi(size2i_t &size);
+  void applyDpi(pos2i_t &pos);
 
   struct gui_elem_t {
     static HMENU nextId;
@@ -107,8 +93,6 @@ namespace gui {
     }
 
   };
-
-  HMENU gui_elem_t::nextId = (HMENU) 1;
 
 
   struct edit_elem_t : public gui_elem_t {
@@ -406,58 +390,9 @@ namespace gui {
 #define     GetWindowStyle(hwnd)    ((DWORD)GetWindowLong(hwnd, GWL_STYLE))
 #define     GetWindowExStyle(hwnd)  ((DWORD)GetWindowLong(hwnd, GWL_EXSTYLE))
 
-  void resizeWin(HWND hwnd, int width, int height) {
-    RECT rect = {0, 0, applyDpi(width), applyDpi(height)};
-    AdjustWindowRectEx(&rect, GetWindowStyle(hwnd), GetMenu(hwnd) != NULL, GetWindowExStyle(hwnd));
-    size2i_t winSize = { rect.right - rect.left, rect.bottom - rect.top };
-    pos2i_t winPos = {
-        (GetSystemMetrics(SM_CXSCREEN) - winSize.w) / 2,
-        (GetSystemMetrics(SM_CYSCREEN) - winSize.h) / 2
-    };
-    SetWindowPos(
-        hwnd, HWND_TOP,
-        winPos.x, winPos.y, winSize.w, winSize.h,
-        SWP_NOCOPYBITS | SWP_NOACTIVATE | SWP_NOZORDER
-    );
-  }
+  void resizeWin(HWND hwnd, int width, int height);
 
-  bool initDPI() {
-    HMODULE userDLL = LoadLibrary("User32.dll");
-    if (userDLL) {
-      typedef BOOL (WINAPI *SetProcessDpiAwarenessContext_fun)(DPI_AWARENESS_CONTEXT value);
-      auto SetProcessDpiAwarenessContext = (SetProcessDpiAwarenessContext_fun) GetProcAddress(userDLL, "SetProcessDpiAwarenessContext");
-      if(SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2)) return true;
-    }
-
-
-    HMODULE shcoreDLL = LoadLibrary("SHCORE.DLL");
-    if (shcoreDLL) {
-      typedef HRESULT(WINAPI *SetProcessDpiAwareness_fun)(PROCESS_DPI_AWARENESS);
-      auto SetProcessDpiAwareness = (SetProcessDpiAwareness_fun) GetProcAddress(shcoreDLL, "SetProcessDpiAwareness");
-
-      if (SetProcessDpiAwareness) {
-        /* Try Windows 8.1+ version */
-        if(SUCCEEDED(SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE))) return true;
-      }
-    }
-    if (userDLL) {
-      typedef BOOL(WINAPI *SetProcessDPIAware_fun)(void);
-      auto SetProcessDPIAware = (SetProcessDPIAware_fun) GetProcAddress(userDLL, "SetProcessDPIAware");
-      if (SetProcessDPIAware) {
-        /* Try Vista - Windows 8 version.
-        This has a constant scale factor for all monitors.
-        */
-        if(SetProcessDPIAware()) return true;
-      }
-    }
-    return false;
-  }
-
-  void initLayout(HINSTANCE hInstance) {
-    initDPI();
-    g_dpi = getDpi();
-    g_hInst = hInstance;
-  }
+  void initLayout(HINSTANCE hInstance);
 
 }
 
