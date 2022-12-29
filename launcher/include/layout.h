@@ -27,6 +27,7 @@ extern gui::button_elem_t DPIBtn;
 extern gui::button_elem_t FullscreenBtn;
 extern gui::button_elem_t ResExtractBtn;
 extern gui::button_elem_t ResOpenBtn;
+extern gui::button_elem_t ResRedirectBtn;
 
 void launcher_layout(HWND hwnd, int width, int height, bool reset=false);
 

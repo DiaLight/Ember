@@ -184,7 +184,7 @@ bool replaceXrefs(uint8_t *fun, void *proxy) {
   {
     auto it = lockedRva.find(rva);
     if(it != lockedRva.end()) {
-      fprintf(stderr, "rva %08X is already locked\n", rva);
+      fprintf(stderr, "[ERROR] rva %08X is already locked\n", rva);
       return false;
     }
     lockedRva[rva] = true;
@@ -192,7 +192,7 @@ bool replaceXrefs(uint8_t *fun, void *proxy) {
 
   auto it = xrefs.find(rva);
   if(it == xrefs.end()) {
-    printf("xrefs not found for %08X\n", rva);
+    printf("[ERROR] xrefs not found for %08X\n", rva);
     return false;
   }
   for(auto &ref : *it->second) {

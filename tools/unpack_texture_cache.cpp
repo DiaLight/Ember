@@ -63,11 +63,13 @@ void save32_(int width, int height, int pitch, std::vector<uint8_t> &buffer, con
   }
 }
 
-typedef int (__cdecl *initSurfHashLists_mydd_cpy3_t)(dk2::MyDirectDraw *a1);
-typedef dk2::CEngineCompressedSurface *(__fastcall *MyTextures_loadCompressed_t)(dk2::MyTextures *_this, void *edx, char *texName);
-initSurfHashLists_mydd_cpy3_t initSurfHashLists_mydd_cpy3 = nullptr;
-MyTextures_loadCompressed_t MyTextures_loadCompressed = nullptr;
-dk2::MyTextures *tex = nullptr;
+namespace {
+  typedef int (__cdecl *initSurfHashLists_mydd_cpy3_t)(dk2::MyDirectDraw *a1);
+  typedef dk2::CEngineCompressedSurface *(__fastcall *MyTextures_loadCompressed_t)(dk2::MyTextures *_this, void *edx, char *texName);
+  initSurfHashLists_mydd_cpy3_t initSurfHashLists_mydd_cpy3 = nullptr;
+  MyTextures_loadCompressed_t MyTextures_loadCompressed = nullptr;
+  dk2::MyTextures *tex = nullptr;
+}
 
 void unpackAndExit() {
 //  InitCommonControls();
@@ -150,7 +152,7 @@ void unpackAndExit() {
       dec.fC_lineWidth = dec.f4_width * dec.fC_desc->f8_bytesize;
       std::vector<uint8_t> buffer;
       buffer.resize(dec.f4_width * dec.f8_height * dec.fC_desc->f8_bytesize);
-      dec.f14_pixels = (int) &buffer[0];
+      dec.f14_pixels = &buffer[0];
       if(!ret->vtbl()->copySurf(ret, &dec, 0, 0)) {
         printf("failed to decompress %s\n", name.c_str());
       } else {

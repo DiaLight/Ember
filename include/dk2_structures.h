@@ -90,6 +90,7 @@ namespace dk2 {
     class MyTextText;
     class FileStorageBase;
     class TbDiscFileStorage;
+    class MyFileInfo;
     class CFileManager;
     class MyKeyboard;
     class MyResources_f29CB;
@@ -264,6 +265,8 @@ namespace dk2 {
     class DxDeviceInfo;
     class DxD3dInfo;
     class DxModeInfo;
+    class CFileManager_f130;
+    class CFileManager_f130Item;
 
 #pragma pack(push, 1)
     class MyLock {
@@ -835,8 +838,8 @@ namespace dk2 {
             /*  78*/ void(__stdcall *anonymous_4)(int);  // void (__stdcall *)(int)
             /*  7C*/ void *CPCEngineInterface__fun_59C130;
             /*  80*/ void *CPCEngineInterface__fun_59C140;
-            /*  84*/ void *CPCEngineInterface__fun_59D5B0;
-            /*  88*/ void *CPCEngineInterface__fun_59D900;
+            /*  84*/ unsigned int(__thiscall *setStr_59D5B0)(CPCEngineInterface *self, char *);  // unsigned int (__thiscall *)(CPCEngineInterface *this, const char *a2)
+            /*  88*/ int(__thiscall *CPCEngineInterface__fun_59D900)(CPCEngineInterface *self);  // int (__thiscall *)(CPCEngineInterface *this)
             /*  8C*/ void *CPCEngineInterface__fun_59DAB0;
             /*  90*/ int(__stdcall *CEngineInterface__fun_4430D0)(int, int, int, int, int, int);  // int (__stdcall *)(int, int, int, int, int, int)
             /*  94*/ int(__stdcall *ret_0_5args)(int, int, int, int, int);  // int (__stdcall *)(int, int, int, int, int)
@@ -917,8 +920,7 @@ namespace dk2 {
         /* 1C2*/ CWorldEntry world_entry2;
         /* 1DD*/ uint8_t gap_1DD[36];
         /* 201*/ uint32_t field_201;
-        /* 205*/ uint8_t field_205;
-        /* 206*/ uint8_t gap_206[31];
+        /* 205*/ char f205_str[32];
         /* 225*/ int field_225;
         /* 229*/ int field_229;
         /* 22D*/ CBridge *pCBridge;
@@ -956,8 +958,7 @@ namespace dk2 {
             printf("field_10E: %d\n", this->field_10E);
             printf("gap_1DD: %d\n", this->gap_1DD);
             printf("field_201: %d\n", this->field_201);
-            printf("field_205: %d\n", this->field_205);
-            printf("gap_206: %d\n", this->gap_206);
+            printf("f205_str: %d\n", this->f205_str);
             printf("field_225: %d\n", this->field_225);
             printf("field_229: %d\n", this->field_229);
             printf("pCBridge: CBridge(%p)\n", this->pCBridge);
@@ -4868,12 +4869,12 @@ namespace dk2 {
     public:
         struct vtbl_t {
             /*   0*/ LONG(__thiscall *releaseContent)(FileStorageBase *self);  // LONG (__thiscall *)(FileStorageBase *this)
-            /*   4*/ uint32_t *(__thiscall *FileStorageBase_fun_5B9DD0)(FileStorageBase *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int, int)
+            /*   4*/ uint32_t *(__thiscall *firstFile_5B9DD0)(FileStorageBase *self, uint32_t *, char *, MyFileInfo *);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, char *, MyFileInfo *p_f8_fileInfo)
             /*   8*/ uint32_t *(__thiscall *FileStorageBase_fun_5B9E00)(FileStorageBase *self, uint32_t *, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int)
             /*   C*/ uint32_t *(__thiscall *openInputStream)(FileStorageBase *self, uint32_t *, TbDiscFile *, char *, int, int);  // _DWORD *(__thiscall *)(TbDiscFileStorage *this, _DWORD *status, TbDiscFile *diskFile, char *fileName, int flags, int a6)
             /*  10*/ uint32_t *(__thiscall *FileStorageBase_fun_5B9D60)(FileStorageBase *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int, int)
             /*  14*/ uint32_t *(__thiscall *formatFilePath)(FileStorageBase *self, uint32_t *, char *, char *, int);  // _DWORD *(__thiscall *)(FileStorageBase *this, _DWORD *status, char *buf, char *fileName, int bufLimit)
-            /*  18*/ void *TbWadFileStorage__fun_5B9E70;
+            /*  18*/ int(__thiscall *TbWadFileStorage__fun_5B9E70)(FileStorageBase *self);  // int (__thiscall *)(FileStorageBase *this)
             /*  1C*/ uint32_t *(__thiscall *FileStorageBase_fun_5B9EB0)(FileStorageBase *self, uint32_t *, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int, int)
             /*  20*/ uint32_t *(__thiscall *FileStorageBase_fun_5B9EE0)(FileStorageBase *self, uint32_t *, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int)
             /*  24*/ uint32_t *(__thiscall *FileStorageBase_fun_5B9F10)(FileStorageBase *self, uint32_t *, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *, int)
@@ -4936,6 +4937,31 @@ namespace dk2 {
     static_assert(sizeof(TbDiscFileStorage) == 0x8);
 
 #pragma pack(push, 1)
+    class MyFileInfo {
+    public:
+        
+        /*   0*/ DWORD f0_fileSizeLow;
+        /*   4*/ DWORD f4_fileAttributes;
+        /*   8*/ FILETIME f8_lastWriteTime;
+        /*  10*/ FILETIME f10_lastAccessTime;
+        /*  18*/ FILETIME f18_creationTime;
+        /*  20*/ char *f20_pFileName;
+        /*  24*/ char f24_str[260];
+        
+        void dump() {
+            printf("f0_fileSizeLow: %d\n", this->f0_fileSizeLow);
+            printf("f4_fileAttributes: %d\n", this->f4_fileAttributes);
+            printf("f8_lastWriteTime: %d\n", this->f8_lastWriteTime);
+            printf("f10_lastAccessTime: %d\n", this->f10_lastAccessTime);
+            printf("f18_creationTime: %d\n", this->f18_creationTime);
+            printf("f20_pFileName: %s\n", this->f20_pFileName);
+            printf("f24_str: %d\n", this->f24_str);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(MyFileInfo) == 0x128);
+
+#pragma pack(push, 1)
     class CFileManager : public FileStorageBase {
     public:
         struct vtbl_t /*: public FileStorageBase::vtbl_t */{
@@ -4962,18 +4988,12 @@ namespace dk2 {
         template<typename T>
         bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
         
-        /*   8*/ uint8_t gap_8[32];
-        /*  28*/ uint32_t field_28;
-        /*  2C*/ uint32_t field_2C;
-        /*  30*/ uint8_t gap_30[256];
-        /* 130*/ int field_130;
+        /*   8*/ MyFileInfo f8_fileInfo;
+        /* 130*/ CFileManager_f130 *f130_list;
         
         virtual ~CFileManager();
         void dump() {
-            printf("field_28: %d\n", this->field_28);
-            printf("field_2C: %d\n", this->field_2C);
-            printf("gap_30: %d\n", this->gap_30);
-            printf("field_130: %d\n", this->field_130);
+            printf("f130_list: CFileManager_f130(%p)\n", this->f130_list);
         }
     };
 #pragma pack(pop)
@@ -8625,33 +8645,33 @@ namespace dk2 {
         
         /*   0*/ uint32_t f0_blWidth;
         /*   4*/ uint32_t f4_blHeight;
-        /*   8*/ char *f8_name;
-        /*   C*/ uint32_t fC_name2;
+        /*   8*/ char *f8_curName;
+        /*   C*/ uint32_t fC_prevName;
         /*  10*/ char *f10_name;
-        /*  14*/ uint32_t *f14_names;
+        /*  14*/ uint32_t *f14_pNames;
         /*  18*/ int f18_init1__height;
         /*  1C*/ MySurface f1C_surf;
         /*  44*/ int f44_flags;
         /*  48*/ int f48_init1__width;
         /*  4C*/ int f4C_init0;
-        /*  50*/ int f50_init0;
-        /*  54*/ int f54_init0;
-        /*  58*/ int f58_init0;
+        /*  50*/ int f50_initx;
+        /*  54*/ int f54_inity;
+        /*  58*/ int f58_initz;
         
         void dump() {
             printf("f0_blWidth: %d\n", this->f0_blWidth);
             printf("f4_blHeight: %d\n", this->f4_blHeight);
-            printf("f8_name: %s\n", this->f8_name);
-            printf("fC_name2: %d\n", this->fC_name2);
+            printf("f8_curName: %s\n", this->f8_curName);
+            printf("fC_prevName: %d\n", this->fC_prevName);
             printf("f10_name: %s\n", this->f10_name);
-            printf("f14_names: uint32_t(%p)\n", this->f14_names);
+            printf("f14_pNames: uint32_t(%p)\n", this->f14_pNames);
             printf("f18_init1__height: %d\n", this->f18_init1__height);
             printf("f44_flags: %d\n", this->f44_flags);
             printf("f48_init1__width: %d\n", this->f48_init1__width);
             printf("f4C_init0: %d\n", this->f4C_init0);
-            printf("f50_init0: %d\n", this->f50_init0);
-            printf("f54_init0: %d\n", this->f54_init0);
-            printf("f58_init0: %d\n", this->f58_init0);
+            printf("f50_initx: %d\n", this->f50_initx);
+            printf("f54_inity: %d\n", this->f54_inity);
+            printf("f58_initz: %d\n", this->f58_initz);
         }
     };
 #pragma pack(pop)
@@ -8742,7 +8762,7 @@ namespace dk2 {
         /*  21*/ float field_21;
         /*  25*/ float field_25;
         /*  29*/ float field_29;
-        /*  2D*/ int field_2D;
+        /*  2D*/ Arrp31x400Item *f2D_nextPrescaledItem;
         
         void dump() {
             printf("f0_idx: %d\n", this->f0_idx);
@@ -8757,7 +8777,7 @@ namespace dk2 {
             printf("field_21: %d\n", this->field_21);
             printf("field_25: %d\n", this->field_25);
             printf("field_29: %d\n", this->field_29);
-            printf("field_2D: %d\n", this->field_2D);
+            printf("f2D_nextPrescaledItem: Arrp31x400Item(%p)\n", this->f2D_nextPrescaledItem);
         }
     };
 #pragma pack(pop)
@@ -8873,11 +8893,11 @@ namespace dk2 {
         template<typename T>
         bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
         
-        /*  14*/ int f14_pixels;
+        /*  14*/ void *f14_pixels;
         
         virtual ~CEngineSurface();
         void dump() {
-            printf("f14_pixels: %d\n", this->f14_pixels);
+            printf("f14_pixels: void(%p)\n", this->f14_pixels);
         }
     };
 #pragma pack(pop)
@@ -10216,6 +10236,40 @@ namespace dk2 {
     };
 #pragma pack(pop)
     static_assert(sizeof(DxModeInfo) == 0x7C);
+
+#pragma pack(push, 1)
+    class CFileManager_f130 {
+    public:
+        
+        /*   0*/ char field_0;
+        /*   1*/ uint8_t gap_1[3];
+        /*   4*/ CFileManager_f130Item *f4_first;
+        /*   8*/ uint32_t f8_size;
+        
+        void dump() {
+            printf("field_0: %d\n", this->field_0);
+            printf("f4_first: CFileManager_f130Item(%p)\n", this->f4_first);
+            printf("f8_size: %d\n", this->f8_size);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(CFileManager_f130) == 0xC);
+
+#pragma pack(push, 1)
+    class CFileManager_f130Item {
+    public:
+        
+        /*   0*/ CFileManager_f130Item *f0_prev;
+        /*   4*/ CFileManager_f130Item *f4_next;
+        /*   8*/ FileStorageBase f8_stor;
+        
+        void dump() {
+            printf("f0_prev: CFileManager_f130Item(%p)\n", this->f0_prev);
+            printf("f4_next: CFileManager_f130Item(%p)\n", this->f4_next);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(CFileManager_f130Item) == 0x10);
 
 }  // namespace dk2
 

@@ -24,6 +24,7 @@ gui::button_elem_t FullscreenBtn(L"Fullscreen:", BS_CHECKBOX | BS_AUTO3STATE | B
 gui::label_elem_t ResLabel(L"Resources:", WS_VISIBLE | WS_TABSTOP);
 gui::button_elem_t ResExtractBtn(L"Extract", WS_VISIBLE | WS_BORDER);
 gui::button_elem_t ResOpenBtn(L"Open", WS_VISIBLE | WS_BORDER);
+gui::button_elem_t ResRedirectBtn(L"Redirect resources:", BS_CHECKBOX | BS_AUTOCHECKBOX | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
 
 
 struct : gui::layout_t {
@@ -63,6 +64,8 @@ struct : gui::layout_t {
           visit(ResExtractBtn, 80, size.h);
           gap(20);
           visit(ResOpenBtn, 80, size.h);
+          gap(20);
+          visit(ResRedirectBtn, 130, size.h);
         });
         // body end
 

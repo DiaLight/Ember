@@ -23,6 +23,10 @@ namespace patch {
   bool fix_surface_buffer_size_on_max_resolution();
   bool replace_custom_heap();
   bool dpi_aware();
+  bool redirect_load_cached_textures();
+  bool break_texture_resolution();
+  bool upscale_texture_buffer();
+  bool expand_size_hash_table();
 
 }
 

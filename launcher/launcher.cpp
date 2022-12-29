@@ -193,11 +193,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
         }
       }
       {
-        DWORD isDpiAware = 0;
-        if(persistence_getDword(L"dpi_aware", isDpiAware)) {
-          DPIBtn.setCheck((int) isDpiAware);
+        DWORD check = 0;
+        if(persistence_getDword(L"dpi_aware", check)) {
+          DPIBtn.setCheck((int) check);
         } else {
           DPIBtn.setCheck(BST_UNCHECKED);
+        }
+      }
+      {
+        DWORD check = 0;
+        if(persistence_getDword(L"redirect_textures", check)) {
+          ResRedirectBtn.setCheck((int) check);
+        } else {
+          ResRedirectBtn.setCheck(BST_UNCHECKED);
         }
       }
       std::wstring menu_resolution;
@@ -263,9 +271,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
               std::wstringstream wss;
               wss << L'\"' << g_curExeDir << L"/bootstrap_patcher.exe" << L'\"';
               wss << " -32BITEVERYTHING";
-              int check = DPIBtn.getCheck();
+              int check;
+              check = DPIBtn.getCheck();
               if(check == BST_CHECKED) {
                 wss << " -ember:dpi_aware";
+              }
+              check = ResRedirectBtn.getCheck();
+              if(check == BST_CHECKED) {
+                wss << " -ember:redirect_textures";
               }
               check = FullscreenBtn.getCheck();
               if(check != BST_INDETERMINATE) {
@@ -379,6 +392,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
     case WM_DESTROY:
       persistence_setDword(L"fullscreen", (DWORD) FullscreenBtn.getCheck());
       persistence_setDword(L"dpi_aware", (DWORD) DPIBtn.getCheck());
+      persistence_setDword(L"redirect_textures", (DWORD) ResRedirectBtn.getCheck());
       {
         auto &mode = g_screenModeList[MenuModesCombo.getCurSel()];
         std::wstringstream ss;

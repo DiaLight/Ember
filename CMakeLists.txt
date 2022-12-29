@@ -117,6 +117,9 @@ set(SOURCES
         patches/screen_resolution/replace_custom_heap.cpp
         patches/screen_resolution/dpi_aware.cpp
         patches/screen_resolution/fix_surface_buffer_size_on_max_resolution.cpp
+        patches/hires_textures/redirect_load_cached_textures.cpp
+        patches/hires_textures/upscale_texture_buffer.cpp
+        patches/hires_textures/expand_size_hash_table.cpp
         reimpl/SurfHashList__probablySort.cpp
         reimpl/draw3dScene.cpp
         tools/unpack_texture_cache.cpp
