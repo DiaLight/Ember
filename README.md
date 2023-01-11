@@ -17,6 +17,17 @@ As dll has `export table`, you can generate lib file with Visual Studio tool `li
 I've collected all the `esp register modification instruction locations`, so you can walk the stack based on this mapping(`mappings/stack.map`).
 - Launcher with gui. (Planned for the future) users can enable/disable/configure patches in launcher
 
+Usage:
+- Download zip archive from [releases](https://github.com/DiaLight/Ember/releases/latest) 
+- Unpack wherever you like. Consider it a separate program with its own folder
+- Run `launcher.exe`
+- First you need to find the `Dungeon Keeper 2` directory using launcher. The program looks for the `DKII.exe` file and determines its version. Currently only version `1.70` is supported.
+- Then you can configure resolution, etc
+- Start the game with the big `start` button
+
+The program does not modify existing game files.
+For a complete removal, you must remove launcher's and `Dungeon Keeper 2\resources` directories and remove `HKEY_CURRENT_USER\SOFTWARE\Ember Launcher` registry key
+
 Requirements:
 - Python 3
 - Visual Studio 2022

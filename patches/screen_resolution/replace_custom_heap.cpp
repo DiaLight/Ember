@@ -21,7 +21,9 @@ MyHeap_free_t MyHeap_free = nullptr;
 HANDLE hHeap = NULL;
 void *heap_malloc(int size) {
 //  return HeapAlloc(hHeap, HEAP_ZERO_MEMORY, size);
-  return _aligned_malloc(size, 0x100);
+  void *ptr = _aligned_malloc(size, 0x100);
+  ZeroMemory(ptr, size);
+  return ptr;
 }
 void heap_free(void *ptr) {
 //  HeapFree(hHeap, 0, ptr);

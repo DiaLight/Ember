@@ -20,18 +20,20 @@ void PatchBuilder::writeAsm(void (*asmFun)()) {
   write(pos, size);
 }
 
-void write_jump(uint8_t *pos, void *to) {
+void write_jump(uint8_t *pos, void *to, size_t orig_size) {
   DWORD oldProtect;
   VirtualProtect(pos, 5, PAGE_EXECUTE_READWRITE, &oldProtect);
   pos[0] = 0xE9;
   *((uint32_t *) (pos + 1)) = (uint8_t *) to - (pos + 5);
+  for (int i = 5; i < orig_size; ++i) pos[i] = 0x90;
   VirtualProtect(pos, 5, oldProtect, NULL);
 }
-void write_call(uint8_t *pos, void *to) {
+void write_call(uint8_t *pos, void *to, size_t orig_size) {
   DWORD oldProtect;
   VirtualProtect(pos, 5, PAGE_EXECUTE_READWRITE, &oldProtect);
   pos[0] = 0xE8;
   *((uint32_t *) (pos + 1)) = (uint8_t *) to - (pos + 5);
+  for (int i = 5; i < orig_size; ++i) pos[i] = 0x90;
   VirtualProtect(pos, 5, oldProtect, NULL);
 }
 
@@ -172,7 +174,7 @@ HookHandle *HookHandle::_create(uint8_t *orig_addr, size_t orig_size, size_t rel
   }
 
   // jump proxy
-  write_jump(orig_addr, handle->code);
+  write_jump(orig_addr, handle->code, orig_size);
   return handle;
 }
 HookHandle *HookHandle::create(uint8_t *orig_addr, size_t orig_size, size_t reloc_offs) {

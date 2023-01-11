@@ -12,8 +12,8 @@
 typedef void (__stdcall *draw3dScene_t)();
 typedef int (*_probablySortSurfListX3_593F20_t)();
 typedef int (__thiscall *SceneObject30List_enlarge_t)(dk2::SceneObject30List *_this, unsigned int count);
-typedef int *(__cdecl *something_static_setSceneObject30_589D90_t)(dk2::SceneObject30 *a1);
-typedef void (__stdcall *setupLastSceneObject_t)();
+typedef int *(__cdecl *addObjectToScene_t)(dk2::SceneObject30 *a1);
+typedef void (__stdcall *drawTexToSurfTriangles_t)();
 
 draw3dScene_t draw3dScene_orig = nullptr;
 _probablySortSurfListX3_593F20_t _probablySortSurfListX3_593F20 = nullptr;
@@ -21,8 +21,8 @@ uint32_t *pobjectsToDraw_count = nullptr;
 dk2::SceneObject30List *SceneObject30List_instance = nullptr;
 SceneObject30List_enlarge_t SceneObject30List_enlarge = nullptr;
 dk2::SceneObject2EList *SceneObject2EList_instance = nullptr;
-something_static_setSceneObject30_589D90_t something_static_setSceneObject30_589D90 = nullptr;
-setupLastSceneObject_t setupLastSceneObject = nullptr;
+addObjectToScene_t addObjectToScene = nullptr;
+drawTexToSurfTriangles_t drawTexToSurfTriangles = nullptr;
 
 
 dk2::SceneObject30 *SceneObject30_findFromO2E(
@@ -73,8 +73,8 @@ void SceneObject30_initFromO2E(
   obj30->f1C_surfhCount = obj2E.f1D_surfhCount;
   obj30->f20_sceneObj2E_f21 = obj2E.field_21;
   obj30->f1D_texStageCountArrSize = obj2E.f1E_propsCount;
-  obj30->f18_props_surfWidth8 = 0;
-  obj30->f1A_props_surfHeight8 = 0;
+  obj30->f18_props_surfWidth8_triangles = 0;
+  obj30->f1A_props_surfHeight8_vertices = 0;
   obj30->f24_pobj2E = 0;
   // add to linked list
   obj30->f28_prev = holders[0]->f0_SceneObject30;
@@ -96,7 +96,7 @@ void reimpl_draw3dScene() {
         holders[j] = surfh->f1C_curReduction->f4_holder_parent;
       }
       dk2::SceneObject30 *obj30 = SceneObject30_findFromO2E(obj2E, holders);
-      if(obj30 && (obj2E.f18_props_surfWidth8 + obj30->f18_props_surfWidth8) > 256) {
+      if(obj30 && (obj2E.f18_props_surfWidth8 + obj30->f18_props_surfWidth8_triangles) > 256) {
         obj30 = nullptr;
       }
       if(!obj30) {
@@ -109,19 +109,16 @@ void reimpl_draw3dScene() {
 
       obj2E.f28_next = obj30->f24_pobj2E;
       obj30->f24_pobj2E = &obj2E;
-      obj30->f18_props_surfWidth8 += obj2E.f18_props_surfWidth8;
-      obj30->f1A_props_surfHeight8 += obj2E.f1A_props_surfHeight8;
+      obj30->f18_props_surfWidth8_triangles += obj2E.f18_props_surfWidth8;
+      obj30->f1A_props_surfHeight8_vertices += obj2E.f1A_props_surfHeight8;
     }
   }
   for (dk2::SceneObject30 *obj30 = last; obj30; obj30 = obj30->f2C_next) {
-    something_static_setSceneObject30_589D90(obj30);
+    addObjectToScene(obj30);
     for (auto *obj2E = obj30->f24_pobj2E; obj2E; obj2E = obj2E->f28_next) {
-      (*(void (__thiscall **)(int, uint32_t, dk2::SceneObject2E *))(*(uint32_t *)obj2E->f24_onj__meshSprite + 4))(
-          obj2E->f24_onj__meshSprite,
-          (unsigned __int16)obj2E->f2C_,
-          obj2E);
+      obj2E->f24_onj__meshSprite->vtbl()->__addRenderObj(obj2E->f24_onj__meshSprite, (unsigned __int16)obj2E->f2C_, obj2E);
     }
-    setupLastSceneObject();
+    drawTexToSurfTriangles();
     obj30->f0_holders[0]->f0_SceneObject30 = nullptr;
   }
   *pobjectsToDraw_count = 0;
@@ -129,8 +126,8 @@ void reimpl_draw3dScene() {
 
 
 bool reimpl::draw3dScene() {
-  setupLastSceneObject = (setupLastSceneObject_t) (dk2_base + (0x0058A150 - dk2_virtual_base));
-  something_static_setSceneObject30_589D90 = (something_static_setSceneObject30_589D90_t) (dk2_base + (0x00589D90 - dk2_virtual_base));
+  drawTexToSurfTriangles = (drawTexToSurfTriangles_t) (dk2_base + (0x0058A150 - dk2_virtual_base));
+  addObjectToScene = (addObjectToScene_t) (dk2_base + (0x00589D90 - dk2_virtual_base));
   SceneObject2EList_instance = (dk2::SceneObject2EList *) (dk2_base + (0x007820A8 - dk2_virtual_base));
   SceneObject30List_enlarge = (SceneObject30List_enlarge_t) (dk2_base + (0x0058F8E0 - dk2_virtual_base));
   SceneObject30List_instance = (dk2::SceneObject30List *) (dk2_base + (0x007820B8 - dk2_virtual_base));

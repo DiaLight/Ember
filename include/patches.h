@@ -27,6 +27,8 @@ namespace patch {
   bool break_texture_resolution();
   bool upscale_texture_buffer();
   bool expand_size_hash_table();
+  bool fix_usage_uninitialized_structure();
+  bool unlimited_zoom_hack();
 
 }
 

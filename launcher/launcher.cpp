@@ -202,6 +202,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
       }
       {
         DWORD check = 0;
+        if(persistence_getDword(L"unlimited_zoom", check)) {
+          UnlimitedZoomBtn.setCheck((int) check);
+        } else {
+          UnlimitedZoomBtn.setCheck(BST_UNCHECKED);
+        }
+      }
+      {
+        DWORD check = 0;
         if(persistence_getDword(L"redirect_textures", check)) {
           ResRedirectBtn.setCheck((int) check);
         } else {
@@ -275,6 +283,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
               check = DPIBtn.getCheck();
               if(check == BST_CHECKED) {
                 wss << " -ember:dpi_aware";
+              }
+              check = UnlimitedZoomBtn.getCheck();
+              if(check == BST_CHECKED) {
+                wss << " -ember:unlimited_zoom";
               }
               check = ResRedirectBtn.getCheck();
               if(check == BST_CHECKED) {
@@ -392,6 +404,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
     case WM_DESTROY:
       persistence_setDword(L"fullscreen", (DWORD) FullscreenBtn.getCheck());
       persistence_setDword(L"dpi_aware", (DWORD) DPIBtn.getCheck());
+      persistence_setDword(L"unlimited_zoom", (DWORD) UnlimitedZoomBtn.getCheck());
       persistence_setDword(L"redirect_textures", (DWORD) ResRedirectBtn.getCheck());
       {
         auto &mode = g_screenModeList[MenuModesCombo.getCurSel()];

@@ -20,6 +20,7 @@ gui::label_elem_t GameLabel(L"Game resolution:", WS_VISIBLE | WS_TABSTOP);
 gui::combobox_elem_t GameModesCombo(L"", CBS_DISABLENOSCROLL | CBS_DROPDOWNLIST | CBS_DROPDOWN | WS_OVERLAPPED | WS_VISIBLE);
 gui::button_elem_t DPIBtn(L"DPI aware:", BS_CHECKBOX | BS_AUTOCHECKBOX | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
 gui::button_elem_t FullscreenBtn(L"Fullscreen:", BS_CHECKBOX | BS_AUTO3STATE | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
+gui::button_elem_t UnlimitedZoomBtn(L"Unlimited zoom:", BS_CHECKBOX | BS_AUTOCHECKBOX | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
 
 gui::label_elem_t ResLabel(L"Resources:", WS_VISIBLE | WS_TABSTOP);
 gui::button_elem_t ResExtractBtn(L"Extract", WS_VISIBLE | WS_BORDER);
@@ -56,6 +57,8 @@ struct : gui::layout_t {
           visit(DPIBtn, 80, size.h);
           gap(20);
           visit(FullscreenBtn, 80, size.h);
+          gap(20);
+          visit(UnlimitedZoomBtn, 105, size.h);
         });
         gap(10);
         hor(-1, 20, [this] {

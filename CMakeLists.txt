@@ -120,6 +120,8 @@ set(SOURCES
         patches/hires_textures/redirect_load_cached_textures.cpp
         patches/hires_textures/upscale_texture_buffer.cpp
         patches/hires_textures/expand_size_hash_table.cpp
+        patches/fix_usage_unitialized_structure.cpp
+        patches/unlimited_zoom_hack.cpp
         reimpl/SurfHashList__probablySort.cpp
         reimpl/draw3dScene.cpp
         tools/unpack_texture_cache.cpp
@@ -145,7 +147,7 @@ target_include_directories(bootstrap_patcher PRIVATE include)
 target_link_libraries(bootstrap_patcher PRIVATE Dbghelp Shcore Comctl32 win32_gui_layout)
 target_compile_definitions(bootstrap_patcher PRIVATE DIRECTINPUT_VERSION=0x0500 DIRECT3D_VERSION=0x0600)
 
-add_subdirectory(vendor)
+add_subdirectory(3rdparty)
 target_link_libraries(bootstrap_patcher PRIVATE lodepng)
 
 set_target_properties(bootstrap_patcher PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BIN_DIR}")

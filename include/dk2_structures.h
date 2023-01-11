@@ -75,6 +75,7 @@ namespace dk2 {
     class CFrontEndComponent;
     class CButton;
     class Size2i;
+    class Pos2p;
     class CClickButton;
     class CRadioButton;
     class CVerticalSlider;
@@ -252,6 +253,8 @@ namespace dk2 {
     class SurfHashList;
     class SurfaceHolder;
     class SurfHashListItem;
+    class CEnginePrimitiveBase;
+    class CEngine2DPrimitive;
     class CEngineSprite;
     class SceneObject2EList;
     class SceneObject30List;
@@ -267,6 +270,23 @@ namespace dk2 {
     class DxModeInfo;
     class CFileManager_f130;
     class CFileManager_f130Item;
+    class VerticesData;
+    class My512Triangles24Buf;
+    class My512VertexIndciesMap2;
+    class My512Buf;
+    class CEngineVirtualPerspective2DAnimMesh;
+    class CEngine2DRotatableSprite;
+    class CEngine2DSprite;
+    class CEngine2DStaticMesh;
+    class CEngine2DAnimMesh;
+    class CEngineQuadPlane;
+    class CEngineWorldPrimitive;
+    class CEngineDynamicMesh;
+    class CEngineAnimMesh;
+    class CEngineDynamicHeightField;
+    class Vertex1C;
+    class Tiangle24;
+    class Vertex18;
 
 #pragma pack(push, 1)
     class MyLock {
@@ -1354,7 +1374,7 @@ namespace dk2 {
         /*  20*/ int cmd_flag_32BITTEXTURES;
         /*  24*/ int cmd_flag_SOFTWAREFILTER;
         /*  28*/ int selected_3D_engine;
-        /*  2C*/ int field_2C;
+        /*  2C*/ int f2C_dup_selected_3D_engine;
         /*  30*/ int cmd_flag_SOFTWARE;
         /*  34*/ uint8_t gap_34[16];
         /*  44*/ int gamma_level;
@@ -1398,7 +1418,7 @@ namespace dk2 {
             printf("cmd_flag_32BITTEXTURES: %d\n", this->cmd_flag_32BITTEXTURES);
             printf("cmd_flag_SOFTWAREFILTER: %d\n", this->cmd_flag_SOFTWAREFILTER);
             printf("selected_3D_engine: %d\n", this->selected_3D_engine);
-            printf("field_2C: %d\n", this->field_2C);
+            printf("f2C_dup_selected_3D_engine: %d\n", this->f2C_dup_selected_3D_engine);
             printf("cmd_flag_SOFTWARE: %d\n", this->cmd_flag_SOFTWARE);
             printf("gap_34: %d\n", this->gap_34);
             printf("gamma_level: %d\n", this->gamma_level);
@@ -1463,7 +1483,7 @@ namespace dk2 {
         /*  14*/ IDirect3DViewport3 *d3d_viewport3;
         /*  18*/ uint32_t *f18_buf;
         /*  1C*/ uint16_t *f1C_buf2;
-        /*  20*/ int textures;
+        /*  20*/ int texturesCount;
         /*  24*/ int f24_reductionLevel;
         /*  28*/ char f28_flags;
         /*  29*/ char field_29;
@@ -1477,7 +1497,7 @@ namespace dk2 {
             printf("d3d_viewport3: IDirect3DViewport3(%p)\n", this->d3d_viewport3);
             printf("f18_buf: uint32_t(%p)\n", this->f18_buf);
             printf("f1C_buf2: uint16_t(%p)\n", this->f1C_buf2);
-            printf("textures: %d\n", this->textures);
+            printf("texturesCount: %d\n", this->texturesCount);
             printf("f24_reductionLevel: %d\n", this->f24_reductionLevel);
             printf("f28_flags: %d\n", this->f28_flags);
             printf("field_29: %d\n", this->field_29);
@@ -1559,7 +1579,7 @@ namespace dk2 {
     class CGadget {
     public:
         struct vtbl_t {
-            /*   0*/ void *(__thiscall *CGadget___scalar_deleting_destructor_uint)(CGadget *self, char);  // std::locale::facet *(__thiscall *)(std::locale::facet *this, char a2)
+            /*   0*/ void *(__thiscall *CGadget___scalar_deleting_destructor_uint)(CGadget *self, char);  // void *(__thiscall *)(void *this, char a2)
         };
         static_assert(sizeof(vtbl_t) == 0x4);
         inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
@@ -2314,16 +2334,22 @@ namespace dk2 {
         /* D44*/ int field_D44;
         /* D48*/ int field_D48;
         /* D4C*/ int fD4C;
-        /* D50*/ uint8_t gap_D50[24];
+        /* D50*/ uint32_t fD50_minZoomLevel;
+        /* D54*/ uint32_t fD54_maxZoomLevel;
+        /* D58*/ uint8_t gap_D58[16];
         /* D68*/ uint32_t fD68_arrx3[3];
         /* D74*/ uint32_t fD74_arrx3[3];
-        /* D80*/ uint8_t gapD80[4];
-        /* D84*/ uint8_t field_D84[18];
+        /* D80*/ uint32_t fD80_curZoomLevel;
+        /* D84*/ uint8_t gap_D84[14];
+        /* D92*/ char field_D92;
+        /* D93*/ uint8_t gap_D93[3];
         /* D96*/ uint32_t fD96_arrx3[3];
         /* DA2*/ uint8_t field_DA2[20];
         /* DB6*/ uint32_t fDB6_arrx3[3];
         /* DC2*/ uint8_t gapDC2[4];
-        /* DC6*/ uint8_t field_DC6[40];
+        /* DC6*/ uint8_t gap_DC6[18];
+        /* DD8*/ int field_DD8;
+        /* DDC*/ uint8_t gap_DDC[18];
         /* DEE*/ uint32_t fDEE_arrx3[3];
         /* DFA*/ uint8_t gapDFA[10];
         /* E04*/ uint32_t fE04_arrx3[3];
@@ -2369,16 +2395,18 @@ namespace dk2 {
             printf("field_D44: %d\n", this->field_D44);
             printf("field_D48: %d\n", this->field_D48);
             printf("fD4C: %d\n", this->fD4C);
-            printf("gap_D50: %d\n", this->gap_D50);
+            printf("fD50_minZoomLevel: %d\n", this->fD50_minZoomLevel);
+            printf("fD54_maxZoomLevel: %d\n", this->fD54_maxZoomLevel);
+            printf("gap_D58: %d\n", this->gap_D58);
             printf("fD68_arrx3: %d\n", this->fD68_arrx3);
             printf("fD74_arrx3: %d\n", this->fD74_arrx3);
-            printf("gapD80: %d\n", this->gapD80);
-            printf("field_D84: %d\n", this->field_D84);
+            printf("fD80_curZoomLevel: %d\n", this->fD80_curZoomLevel);
+            printf("field_D92: %d\n", this->field_D92);
             printf("fD96_arrx3: %d\n", this->fD96_arrx3);
             printf("field_DA2: %d\n", this->field_DA2);
             printf("fDB6_arrx3: %d\n", this->fDB6_arrx3);
             printf("gapDC2: %d\n", this->gapDC2);
-            printf("field_DC6: %d\n", this->field_DC6);
+            printf("field_DD8: %d\n", this->field_DD8);
             printf("fDEE_arrx3: %d\n", this->fDEE_arrx3);
             printf("gapDFA: %d\n", this->gapDFA);
             printf("fE04_arrx3: %d\n", this->fE04_arrx3);
@@ -3461,7 +3489,7 @@ namespace dk2 {
     class Obj6723B8 {
     public:
         struct vtbl_t {
-            /*   0*/ void *(__thiscall *scalar_destructor)(Obj6723B8 *self, char);  // std::locale::facet *(__thiscall *)(std::locale::facet *this, char a2)
+            /*   0*/ void *(__thiscall *scalar_destructor)(Obj6723B8 *self, char);  // void *(__thiscall *)(void *this, char a2)
             /*   4*/ MyDdSurface *(__thiscall *getDdSurface1)(Obj6723B8 *self);  // MyDdSurface *(__thiscall *)(Obj6723B8 *)
             /*   8*/ MyDdSurfaceEx *(__thiscall *getDdSurface2)(Obj6723B8 *self);  // MyDdSurfaceEx *(__thiscall *)(Obj6723B8 *)
             /*   C*/ AABB *(__thiscall *getAabb)(Obj6723B8 *self, AABB *);  // AABB *(__thiscall *)(Obj6723B8 *, AABB *)
@@ -4319,6 +4347,21 @@ namespace dk2 {
     };
 #pragma pack(pop)
     static_assert(sizeof(Size2i) == 0x8);
+
+#pragma pack(push, 1)
+    class Pos2p {
+    public:
+        
+        /*   0*/ uint32_t *fr;
+        /*   4*/ uint32_t *to;
+        
+        void dump() {
+            printf("fr: uint32_t(%p)\n", this->fr);
+            printf("to: uint32_t(%p)\n", this->to);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(Pos2p) == 0x8);
 
 #pragma pack(push, 1)
     class CClickButton : public CButton {
@@ -5941,7 +5984,7 @@ namespace dk2 {
         struct vtbl_t {
             /*   0*/ int(__cdecl *format)(int, char *, ...);  // int (*)(int a1, char *Format, ...)
             /*   4*/ int(__thiscall *resize)(MyLocalStr *self, unsigned int);  // int (__thiscall *)(MyLocalStr *this, unsigned int length)
-            /*   8*/ void *(__thiscall *scalar_destructor)(MyLocalStr *self, char);  // std::locale::facet *(__thiscall *)(std::locale::facet *this, char a2)
+            /*   8*/ void *(__thiscall *scalar_destructor)(MyLocalStr *self, char);  // void *(__thiscall *)(void *this, char a2)
             /*   C*/ uint32_t *(__thiscall *assignChar)(MyLocalStr *self, uint8_t *);  // _BYTE **(__thiscall *)(_BYTE **this, _BYTE *a2)
             /*  10*/ void *(__thiscall *assign)(MyLocalStr *self, char *);  // void *(__thiscall *)(void *this, char *Source)
             /*  14*/ uint32_t *(__thiscall *assignMyStr)(MyLocalStr *self, MyStr *);  // char **(__thiscall *)(char **this, MyStr *a2)
@@ -5981,7 +6024,7 @@ namespace dk2 {
         struct vtbl_t {
             /*   0*/ LONG(__thiscall *release)(MyTextBase *self);  // LONG (__thiscall *)(MySharedObj *this)
             /*   4*/ LONG(__thiscall *addRef)(MyTextBase *self);  // LONG (__thiscall *)(MySharedObj *this)
-            /*   8*/ void *(__thiscall *scalar_destructor)(MyTextBase *self, char);  // std::locale::facet *(__thiscall *)(std::locale::facet *this, char a2)
+            /*   8*/ void *(__thiscall *scalar_destructor)(MyTextBase *self, char);  // void *(__thiscall *)(void *this, char a2)
             /*   C*/ LONG(__thiscall *j_release)(MyTextBase *self);  // LONG (__thiscall *)(volatile LONG *this)
             /*  10*/ LONG(__thiscall *j_addRef)(MyTextBase *self);  // LONG (__thiscall *)(volatile LONG *this)
         };
@@ -7694,7 +7737,7 @@ namespace dk2 {
     public:
         struct vtbl_t {
             /*   0*/ int(__thiscall *call)(MyCallback *self, int, void *);  // int (__thiscall *)(MyCallback *, int, void *)
-            /*   4*/ void *(__thiscall *Obj6723E0_scalar_destructor)(MyCallback *self, char);  // std::locale::facet *(__thiscall *)(std::locale::facet *this, char a2)
+            /*   4*/ void *(__thiscall *Obj6723E0_scalar_destructor)(MyCallback *self, char);  // void *(__thiscall *)(void *this, char a2)
         };
         static_assert(sizeof(vtbl_t) == 0x8);
         inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
@@ -8912,14 +8955,14 @@ namespace dk2 {
         /*   8*/ uint32_t f8_prescaleHeight;
         /*   C*/ char *fC_name;
         /*  10*/ MySurface f10_surf;
-        /*  38*/ int field_38;
+        /*  38*/ int f38_texFlags;
         
         void dump() {
             printf("f0_flags: %d\n", this->f0_flags);
             printf("f4_prescaleWigth: %d\n", this->f4_prescaleWigth);
             printf("f8_prescaleHeight: %d\n", this->f8_prescaleHeight);
             printf("fC_name: %s\n", this->fC_name);
-            printf("field_38: %d\n", this->field_38);
+            printf("f38_texFlags: %d\n", this->f38_texFlags);
         }
     };
 #pragma pack(pop)
@@ -9478,7 +9521,7 @@ namespace dk2 {
     class TbAudioSystem {
     public:
         struct vtbl_t {
-            /*   0*/ void *(__thiscall *TbAudioSystem___scalar_deleting_destructor_uint)(TbAudioSystem *self, char);  // std::locale::facet *(__thiscall *)(std::locale::facet *this, char a2)
+            /*   0*/ void *(__thiscall *TbAudioSystem___scalar_deleting_destructor_uint)(TbAudioSystem *self, char);  // void *(__thiscall *)(void *this, char a2)
             /*   4*/ uint32_t *(__thiscall *TbAudioSystem__fun_608A50)(TbAudioSystem *self, uint32_t *);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2)
             /*   8*/ uint32_t *(__thiscall *TbAudioSystem__fun_608B70)(TbAudioSystem *self, uint32_t *, int, int, int);  // _DWORD *(__thiscall *)(_DWORD *this, _DWORD *a2, int a3, int a4, int a5)
             /*   C*/ int(__thiscall *TbAudioSystem__fun_608DA0)(TbAudioSystem *self);  // int (__thiscall *)(_DWORD *this)
@@ -9737,9 +9780,61 @@ namespace dk2 {
     static_assert(sizeof(SurfHashListItem) == 0x24);
 
 #pragma pack(push, 1)
-    class CEngineSprite {
+    class CEnginePrimitiveBase {
     public:
         struct vtbl_t {
+            /*   0*/ uint32_t *(__thiscall *scalar_destructor)(CEnginePrimitiveBase *self, char);  // _DWORD *(__thiscall *)(_DWORD *this, char a2)
+            /*   4*/ int(__thiscall *__addRenderObj)(CEnginePrimitiveBase *self, int, SceneObject2E *);  // int (__thiscall *)(_DWORD *this, int a2, SceneObject2E *i)
+        };
+        static_assert(sizeof(vtbl_t) == 0x8);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        /*   4*/ CEnginePrimitiveBase *f0_parent;
+        
+        virtual ~CEnginePrimitiveBase();
+        void dump() {
+            printf("f0_parent: CEnginePrimitiveBase(%p)\n", this->f0_parent);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(CEnginePrimitiveBase) == 0x8);
+
+#pragma pack(push, 1)
+    class CEngine2DPrimitive : public CEnginePrimitiveBase {
+    public:
+        struct vtbl_t /*: public CEnginePrimitiveBase::vtbl_t */{
+            /*   0*/ uint32_t *(__thiscall *CEngine2DPrimitive__scalar_destructor)(CEngine2DPrimitive *self, char);  // _DWORD *(__thiscall *)(_DWORD *this, char a2)
+            /*   4*/ int(__thiscall *__addRenderObj)(CEngine2DPrimitive *self, int, SceneObject2E *);  // int (__thiscall *)(int this, int a2, SceneObject2E *a3)
+        };
+        static_assert(sizeof(vtbl_t) == 0x8);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        
+        virtual ~CEngine2DPrimitive();
+        void dump() {
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(CEngine2DPrimitive) == 0x8);
+
+#pragma pack(push, 1)
+    class CEngineSprite : public CEngine2DPrimitive {
+    public:
+        struct vtbl_t /*: public CEngine2DPrimitive::vtbl_t */{
             /*   0*/ uint32_t *(__thiscall *CEngine2DPrimitive__fun_5769D0)(CEngineSprite *self, char);  // _DWORD *(__thiscall *)(_DWORD *this, char a2)
             /*   4*/ int(__thiscall *CEngineSprite__fun_57F3D0)(CEngineSprite *self, int, int);  // int (__thiscall *)(int this, int a2, int a3)
             /*   8*/ void(__thiscall *CEngineSprite__fun_57F7E0)(CEngineSprite *self, int);  // void (__thiscall *)(int this, int a2)
@@ -9759,12 +9854,11 @@ namespace dk2 {
         template<typename T>
         bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
         
-        /*   4*/ int field_4;
-        /*   8*/ int field_8;
-        /*   C*/ int field_C;
-        /*  10*/ int field_10;
-        /*  14*/ int field_14;
-        /*  18*/ int field_18;
+        /*   8*/ int field_4;
+        /*   C*/ int field_8;
+        /*  10*/ int field_C;
+        /*  14*/ int field_10;
+        /*  18*/ int field_14;
         /*  1C*/ float f1C_float;
         /*  20*/ float f20_float;
         /*  24*/ float f24_float;
@@ -9772,11 +9866,11 @@ namespace dk2 {
         /*  34*/ float f34_float;
         /*  38*/ float f38_float;
         /*  3C*/ float f3C_float;
-        /*  40*/ uint32_t field_40;
-        /*  44*/ int field_44;
-        /*  48*/ int field_48;
-        /*  4C*/ int field_4C;
-        /*  50*/ int field_50;
+        /*  40*/ uint32_t field_3C;
+        /*  44*/ int field_40;
+        /*  48*/ int field_44;
+        /*  4C*/ int field_48;
+        /*  50*/ int field_4C;
         
         virtual ~CEngineSprite();
         void dump() {
@@ -9785,7 +9879,6 @@ namespace dk2 {
             printf("field_C: %d\n", this->field_C);
             printf("field_10: %d\n", this->field_10);
             printf("field_14: %d\n", this->field_14);
-            printf("field_18: %d\n", this->field_18);
             printf("f1C_float: %d\n", this->f1C_float);
             printf("f20_float: %d\n", this->f20_float);
             printf("f24_float: %d\n", this->f24_float);
@@ -9793,11 +9886,11 @@ namespace dk2 {
             printf("f34_float: %d\n", this->f34_float);
             printf("f38_float: %d\n", this->f38_float);
             printf("f3C_float: %d\n", this->f3C_float);
+            printf("field_3C: %d\n", this->field_3C);
             printf("field_40: %d\n", this->field_40);
             printf("field_44: %d\n", this->field_44);
             printf("field_48: %d\n", this->field_48);
             printf("field_4C: %d\n", this->field_4C);
-            printf("field_50: %d\n", this->field_50);
         }
     };
 #pragma pack(pop)
@@ -9853,7 +9946,7 @@ namespace dk2 {
         /*  20*/ char field_20;
         /*  21*/ char field_21;
         /*  22*/ uint8_t gap_22[2];
-        /*  24*/ int f24_onj__meshSprite;
+        /*  24*/ CEnginePrimitiveBase *f24_onj__meshSprite;
         /*  28*/ SceneObject2E *f28_next;
         /*  2C*/ __int16 f2C_;
         
@@ -9869,7 +9962,7 @@ namespace dk2 {
             printf("f1F_trgObj: %d\n", this->f1F_trgObj);
             printf("field_20: %d\n", this->field_20);
             printf("field_21: %d\n", this->field_21);
-            printf("f24_onj__meshSprite: %d\n", this->f24_onj__meshSprite);
+            printf("f24_onj__meshSprite: CEnginePrimitiveBase(%p)\n", this->f24_onj__meshSprite);
             printf("f28_next: SceneObject2E(%p)\n", this->f28_next);
             printf("f2C_: %d\n", this->f2C_);
         }
@@ -9878,11 +9971,11 @@ namespace dk2 {
     static_assert(sizeof(SceneObject2E) == 0x2E);
 
 #pragma pack(push, 1)
-    class CEngine2DMeshSurface {
+    class CEngine2DMeshSurface : public CEnginePrimitiveBase {
     public:
-        struct vtbl_t {
+        struct vtbl_t /*: public CEnginePrimitiveBase::vtbl_t */{
             /*   0*/ void *(__thiscall *CEngine2DMeshSurface_scalar_destructor)(CEngine2DMeshSurface *self, unsigned int);  // std::ios_base *(__thiscall *)(std::ios_base *this, unsigned int a2)
-            /*   4*/ int(__thiscall *CEngine2DMeshSurface__fun_578C00)(CEngine2DMeshSurface *self, int, int);  // int (__thiscall *)(int this, int a2, int a3)
+            /*   4*/ int(__thiscall *CEngine2DMeshSurface__fun_578C00)(CEngine2DMeshSurface *self, int, SceneObject2E *);  // int (__thiscall *)(int this, int a2, SceneObject2E *a3)
         };
         static_assert(sizeof(vtbl_t) == 0x8);
         inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
@@ -9894,40 +9987,38 @@ namespace dk2 {
         template<typename T>
         bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
         
-        /*   4*/ int f4_zeroinit;
         /*   8*/ void *f8_16xbuf;
         /*   C*/ void *fC_6xbuf;
         /*  10*/ int f10_buf16_maxCount;
         /*  14*/ int f14_buf6_maxCount;
-        /*  18*/ int field_18;
+        /*  18*/ int field_14;
         /*  1C*/ float f1C_f0;
         /*  20*/ float f20_f1;
         /*  24*/ float f24_f2;
-        /*  28*/ int field_28;
+        /*  28*/ int field_24;
         
         virtual ~CEngine2DMeshSurface();
         void dump() {
-            printf("f4_zeroinit: %d\n", this->f4_zeroinit);
             printf("f8_16xbuf: void(%p)\n", this->f8_16xbuf);
             printf("fC_6xbuf: void(%p)\n", this->fC_6xbuf);
             printf("f10_buf16_maxCount: %d\n", this->f10_buf16_maxCount);
             printf("f14_buf6_maxCount: %d\n", this->f14_buf6_maxCount);
-            printf("field_18: %d\n", this->field_18);
+            printf("field_14: %d\n", this->field_14);
             printf("f1C_f0: %d\n", this->f1C_f0);
             printf("f20_f1: %d\n", this->f20_f1);
             printf("f24_f2: %d\n", this->f24_f2);
-            printf("field_28: %d\n", this->field_28);
+            printf("field_24: %d\n", this->field_24);
         }
     };
 #pragma pack(pop)
     static_assert(sizeof(CEngine2DMeshSurface) == 0x2C);
 
 #pragma pack(push, 1)
-    class CEngineStaticMesh {
+    class CEngineStaticMesh : public CEnginePrimitiveBase {
     public:
-        struct vtbl_t {
+        struct vtbl_t /*: public CEnginePrimitiveBase::vtbl_t */{
             /*   0*/ void *(__thiscall *CEngineStaticMesh_scalar_destructor)(CEngineStaticMesh *self, char);  // std::ios_base *(__thiscall *)(std::ios_base *this, char a2)
-            /*   4*/ int(__thiscall *CEngineStaticMesh__fun_586150)(CEngineStaticMesh *self, int, int);  // int (__thiscall *)(int this, int a2, int a3)
+            /*   4*/ int(__thiscall *CEngineStaticMesh__fun_586150)(CEngineStaticMesh *self, int, SceneObject2E *);  // int (__thiscall *)(int this, int a2, SceneObject2E *a3)
             /*   8*/ int(__thiscall *CEngineStaticMesh_appendToSceneObject2EList)(CEngineStaticMesh *self, int);  // int (__thiscall *)(int this, int a2)
             /*   C*/ int(__stdcall *CEngineWorldPrimitive__fun_57F1C0)(int, int, int, uint32_t *, int);  // int (__stdcall *)(int a1, int a2, int a3, _DWORD *a4, int a5)
             /*  10*/ uint32_t *(__stdcall *CEngineWorldPrimitive__fun_5785E0)(uint32_t *, int);  // _DWORD *(__stdcall *)(_DWORD *a1, int a2)
@@ -9945,42 +10036,42 @@ namespace dk2 {
         template<typename T>
         bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
         
-        /*   4*/ int f4_zeroinit;
         /*   8*/ uint32_t *f8_v14;
         /*   C*/ uint8_t gap_C[4];
         /*  10*/ int f10_a5;
         /*  14*/ uint8_t gap_14[8];
-        /*  1C*/ int field_1C;
-        /*  20*/ uint32_t field_20;
-        /*  24*/ uint32_t field_24;
-        /*  28*/ uint32_t field_28;
-        /*  2C*/ uint8_t gap_2C[5];
-        /*  31*/ char field_31;
+        /*  1C*/ int field_18;
+        /*  20*/ uint32_t field_1C;
+        /*  24*/ uint32_t field_20;
+        /*  28*/ uint32_t field_24;
+        /*  2C*/ float f2C;
+        /*  30*/ unsigned __int8 f30;
+        /*  31*/ char field_2D;
         
         virtual ~CEngineStaticMesh();
         void dump() {
-            printf("f4_zeroinit: %d\n", this->f4_zeroinit);
             printf("f8_v14: uint32_t(%p)\n", this->f8_v14);
             printf("gap_C: %d\n", this->gap_C);
             printf("f10_a5: %d\n", this->f10_a5);
             printf("gap_14: %d\n", this->gap_14);
+            printf("field_18: %d\n", this->field_18);
             printf("field_1C: %d\n", this->field_1C);
             printf("field_20: %d\n", this->field_20);
             printf("field_24: %d\n", this->field_24);
-            printf("field_28: %d\n", this->field_28);
-            printf("gap_2C: %d\n", this->gap_2C);
-            printf("field_31: %d\n", this->field_31);
+            printf("f2C: %d\n", this->f2C);
+            printf("f30: %d\n", this->f30);
+            printf("field_2D: %d\n", this->field_2D);
         }
     };
 #pragma pack(pop)
     static_assert(sizeof(CEngineStaticMesh) == 0x32);
 
 #pragma pack(push, 1)
-    class CEngineStaticHeightField {
+    class CEngineStaticHeightField : public CEnginePrimitiveBase {
     public:
-        struct vtbl_t {
-            /*   0*/ void *(__thiscall *CEngineStaticHeightField__fun_586F70)(CEngineStaticHeightField *self, char);  // std::ios_base *(__thiscall *)(std::ios_base *this, char a2)
-            /*   4*/ int(__thiscall *CEngineStaticHeightField__fun_587010)(CEngineStaticHeightField *self, int, int);  // int (__thiscall *)(int this, int a2, int a3)
+        struct vtbl_t /*: public CEnginePrimitiveBase::vtbl_t */{
+            /*   0*/ void *(__thiscall *CEngineStaticHeightField_scalar_destructor)(CEngineStaticHeightField *self, char);  // std::ios_base *(__thiscall *)(std::ios_base *this, char a2)
+            /*   4*/ int(__thiscall *CEngineStaticHeightField__fun_587010)(CEngineStaticHeightField *self, int, SceneObject2E *);  // int (__thiscall *)(int this, int a2, SceneObject2E *a3)
             /*   8*/ int(__thiscall *CEngineStaticHeightField_appendToSceneObject2EList)(CEngineStaticHeightField *self, int);  // int (__thiscall *)(int this, int a2)
             /*   C*/ int(__stdcall *CEngineWorldPrimitive__fun_57F1C0)(int, int, int, uint32_t *, int);  // int (__stdcall *)(int a1, int a2, int a3, _DWORD *a4, int a5)
             /*  10*/ uint32_t *(__stdcall *CEngineWorldPrimitive__fun_5785E0)(uint32_t *, int);  // _DWORD *(__stdcall *)(_DWORD *a1, int a2)
@@ -9998,32 +10089,34 @@ namespace dk2 {
         template<typename T>
         bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
         
-        /*   4*/ int f4_zeroinit;
         /*   8*/ int f8_a8;
         /*   C*/ uint8_t gap_C[4];
         /*  10*/ uint32_t f10_buf;
-        /*  14*/ int field_14;
-        /*  18*/ int field_18;
+        /*  14*/ int field_10;
+        /*  18*/ int field_14;
+        /*  1C*/ int field_18;
+        /*  20*/ int field_1C;
         
         virtual ~CEngineStaticHeightField();
         void dump() {
-            printf("f4_zeroinit: %d\n", this->f4_zeroinit);
             printf("f8_a8: %d\n", this->f8_a8);
             printf("gap_C: %d\n", this->gap_C);
             printf("f10_buf: %d\n", this->f10_buf);
+            printf("field_10: %d\n", this->field_10);
             printf("field_14: %d\n", this->field_14);
             printf("field_18: %d\n", this->field_18);
+            printf("field_1C: %d\n", this->field_1C);
         }
     };
 #pragma pack(pop)
-    static_assert(sizeof(CEngineStaticHeightField) == 0x1C);
+    static_assert(sizeof(CEngineStaticHeightField) == 0x24);
 
 #pragma pack(push, 1)
-    class CEngineUnlitProceduralMesh {
+    class CEngineUnlitProceduralMesh : public CEnginePrimitiveBase {
     public:
-        struct vtbl_t {
-            /*   0*/ uint32_t *(__thiscall *CEngineUnlitProceduralMesh__fun_588480)(CEngineUnlitProceduralMesh *self, char);  // _DWORD *(__thiscall *)(_DWORD *this, char a2)
-            /*   4*/ int(__thiscall *CEngineUnlitProceduralMesh__fun_5884F0)(CEngineUnlitProceduralMesh *self, int, int);  // int (__thiscall *)(_DWORD *this, int a2, int a3)
+        struct vtbl_t /*: public CEnginePrimitiveBase::vtbl_t */{
+            /*   0*/ uint32_t *(__thiscall *CEngineUnlitProceduralMesh_scalar_destructor)(CEngineUnlitProceduralMesh *self, char);  // _DWORD *(__thiscall *)(_DWORD *this, char a2)
+            /*   4*/ int(__thiscall *CEngineUnlitProceduralMesh__fun_5884F0)(CEngineUnlitProceduralMesh *self, int, SceneObject2E *);  // int (__thiscall *)(int this, int a2, SceneObject2E *a3)
             /*   8*/ unsigned int(__thiscall *CEngineUnlitProceduralMesh_appendToSceneObject2EList)(CEngineUnlitProceduralMesh *self, int);  // unsigned int (__thiscall *)(_DWORD *this, int a2)
             /*   C*/ int(__stdcall *CEngineWorldPrimitive__fun_57F1C0)(int, int, int, uint32_t *, int);  // int (__stdcall *)(int a1, int a2, int a3, _DWORD *a4, int a5)
             /*  10*/ uint32_t *(__stdcall *CEngineWorldPrimitive__fun_5785E0)(uint32_t *, int);  // _DWORD *(__stdcall *)(_DWORD *a1, int a2)
@@ -10041,39 +10134,37 @@ namespace dk2 {
         template<typename T>
         bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
         
-        /*   4*/ int f4_zeroinit;
         /*   8*/ int f8_a2;
-        /*   C*/ uint32_t field_C;
-        /*  10*/ char *field_10;
+        /*   C*/ uint32_t field_8;
+        /*  10*/ char *field_C;
         /*  14*/ char *f14_compBuf;
-        /*  18*/ char *field_18;
-        /*  1C*/ char *field_1C;
-        /*  20*/ uint32_t field_20;
+        /*  18*/ char *field_14;
+        /*  1C*/ char *field_18;
+        /*  20*/ uint32_t field_1C;
         /*  24*/ char *f24_bufPos;
-        /*  28*/ char *field_28;
+        /*  28*/ char *field_24;
         /*  2C*/ uint8_t gap_2C[36];
-        /*  50*/ int field_50;
-        /*  54*/ unsigned __int16 field_54;
+        /*  50*/ int field_4C;
+        /*  54*/ unsigned __int16 field_50;
         /*  56*/ uint8_t gap_56[2];
-        /*  58*/ int field_58;
+        /*  58*/ int field_54;
         
         virtual ~CEngineUnlitProceduralMesh();
         void dump() {
-            printf("f4_zeroinit: %d\n", this->f4_zeroinit);
             printf("f8_a2: %d\n", this->f8_a2);
-            printf("field_C: %d\n", this->field_C);
-            printf("field_10: %s\n", this->field_10);
+            printf("field_8: %d\n", this->field_8);
+            printf("field_C: %s\n", this->field_C);
             printf("f14_compBuf: %s\n", this->f14_compBuf);
+            printf("field_14: %s\n", this->field_14);
             printf("field_18: %s\n", this->field_18);
-            printf("field_1C: %s\n", this->field_1C);
-            printf("field_20: %d\n", this->field_20);
+            printf("field_1C: %d\n", this->field_1C);
             printf("f24_bufPos: %s\n", this->f24_bufPos);
-            printf("field_28: %s\n", this->field_28);
+            printf("field_24: %s\n", this->field_24);
             printf("gap_2C: %d\n", this->gap_2C);
+            printf("field_4C: %d\n", this->field_4C);
             printf("field_50: %d\n", this->field_50);
-            printf("field_54: %d\n", this->field_54);
             printf("gap_56: %d\n", this->gap_56);
-            printf("field_58: %d\n", this->field_58);
+            printf("field_54: %d\n", this->field_54);
         }
     };
 #pragma pack(pop)
@@ -10086,8 +10177,8 @@ namespace dk2 {
         /*   0*/ SurfaceHolder * f0_holders[4];
         /*  10*/ uint32_t f10_props_flags;
         /*  14*/ int f14_props_reductionLevel_andFlags;
-        /*  18*/ uint16_t f18_props_surfWidth8;
-        /*  1A*/ uint16_t f1A_props_surfHeight8;
+        /*  18*/ uint16_t f18_props_surfWidth8_triangles;
+        /*  1A*/ uint16_t f1A_props_surfHeight8_vertices;
         /*  1C*/ char f1C_surfhCount;
         /*  1D*/ char f1D_texStageCountArrSize;
         /*  1E*/ unsigned __int8 f1E_d3dtexStageCount[2];
@@ -10101,8 +10192,8 @@ namespace dk2 {
             printf("f0_holders: %d\n", this->f0_holders);
             printf("f10_props_flags: %d\n", this->f10_props_flags);
             printf("f14_props_reductionLevel_andFlags: %d\n", this->f14_props_reductionLevel_andFlags);
-            printf("f18_props_surfWidth8: %d\n", this->f18_props_surfWidth8);
-            printf("f1A_props_surfHeight8: %d\n", this->f1A_props_surfHeight8);
+            printf("f18_props_surfWidth8_triangles: %d\n", this->f18_props_surfWidth8_triangles);
+            printf("f1A_props_surfHeight8_vertices: %d\n", this->f1A_props_surfHeight8_vertices);
             printf("f1C_surfhCount: %d\n", this->f1C_surfhCount);
             printf("f1D_texStageCountArrSize: %d\n", this->f1D_texStageCountArrSize);
             printf("f1E_d3dtexStageCount: %d\n", this->f1E_d3dtexStageCount);
@@ -10270,6 +10361,697 @@ namespace dk2 {
     };
 #pragma pack(pop)
     static_assert(sizeof(CFileManager_f130Item) == 0x10);
+
+#pragma pack(push, 1)
+    class VerticesData {
+    public:
+        
+        /*   0*/ Vertex1C *f0_verticies1C_pos;
+        /*   4*/ Vertex18 *f4_vertices18hx2_pos;
+        /*   8*/ Vertex1C *f8_verticies1C;
+        /*   C*/ Vertex18 *fC_vertices18x2;
+        
+        void dump() {
+            printf("f0_verticies1C_pos: Vertex1C(%p)\n", this->f0_verticies1C_pos);
+            printf("f4_vertices18hx2_pos: Vertex18(%p)\n", this->f4_vertices18hx2_pos);
+            printf("f8_verticies1C: Vertex1C(%p)\n", this->f8_verticies1C);
+            printf("fC_vertices18x2: Vertex18(%p)\n", this->fC_vertices18x2);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(VerticesData) == 0x10);
+
+#pragma pack(push, 1)
+    class My512Triangles24Buf {
+    public:
+        
+        /*   0*/ int f0_appendSize;
+        /*   4*/ int f4_size;
+        /*   8*/ Tiangle24 *f8_buf;
+        
+        void dump() {
+            printf("f0_appendSize: %d\n", this->f0_appendSize);
+            printf("f4_size: %d\n", this->f4_size);
+            printf("f8_buf: Tiangle24(%p)\n", this->f8_buf);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(My512Triangles24Buf) == 0xC);
+
+#pragma pack(push, 1)
+    class My512VertexIndciesMap2 {
+    public:
+        
+        /*   0*/ int f0_appendSize;
+        /*   4*/ int f4_size;
+        /*   8*/ uint16_t *f8_buf;
+        
+        void dump() {
+            printf("f0_appendSize: %d\n", this->f0_appendSize);
+            printf("f4_size: %d\n", this->f4_size);
+            printf("f8_buf: uint16_t(%p)\n", this->f8_buf);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(My512VertexIndciesMap2) == 0xC);
+
+#pragma pack(push, 1)
+    class My512Buf {
+    public:
+        
+        /*   0*/ int f0_appendSize;
+        /*   4*/ int f4_size;
+        /*   8*/ void *f8_buf;
+        
+        void dump() {
+            printf("f0_appendSize: %d\n", this->f0_appendSize);
+            printf("f4_size: %d\n", this->f4_size);
+            printf("f8_buf: void(%p)\n", this->f8_buf);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(My512Buf) == 0xC);
+
+#pragma pack(push, 1)
+    class CEngineVirtualPerspective2DAnimMesh : public CEngine2DPrimitive {
+    public:
+        struct vtbl_t /*: public CEngine2DPrimitive::vtbl_t */{
+            /*   0*/ uint32_t *(__thiscall *CEngine2DPrimitive_scalar_destructor)(CEngineVirtualPerspective2DAnimMesh *self, char);  // _DWORD *(__thiscall *)(_DWORD *this, char a2)
+            /*   4*/ int(__thiscall *CEngineVirtualPerspective2DAnimMesh__fun_578600)(CEngineVirtualPerspective2DAnimMesh *self, int, SceneObject2E *);  // int (__thiscall *)(int this, int a2, SceneObject2E *a3)
+            /*   8*/ uint32_t *(__stdcall *CEngineWorldPrimitive__fun_5785E0)(uint32_t *, int);  // _DWORD *(__stdcall *)(_DWORD *a1, int a2)
+            /*   C*/ int(__stdcall *ret_0_0args)();  // int (__stdcall *)()
+            /*  10*/ int(__stdcall *ret_0_1args)(int);  // int (__stdcall *)(int a1)
+        };
+        static_assert(sizeof(vtbl_t) == 0x14);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        /*   8*/ int field_4;
+        /*   C*/ int field_8;
+        /*  10*/ int field_C;
+        /*  14*/ int field_10;
+        /*  18*/ uint8_t field_14[36];
+        /*  3C*/ int field_38;
+        /*  40*/ int field_3C;
+        /*  44*/ float field_40;
+        /*  48*/ int field_44;
+        /*  4C*/ float field_48;
+        /*  50*/ float field_4C;
+        /*  54*/ float field_50;
+        /*  58*/ int field_54;
+        
+        virtual ~CEngineVirtualPerspective2DAnimMesh();
+        void dump() {
+            printf("field_4: %d\n", this->field_4);
+            printf("field_8: %d\n", this->field_8);
+            printf("field_C: %d\n", this->field_C);
+            printf("field_10: %d\n", this->field_10);
+            printf("field_14: %d\n", this->field_14);
+            printf("field_38: %d\n", this->field_38);
+            printf("field_3C: %d\n", this->field_3C);
+            printf("field_40: %d\n", this->field_40);
+            printf("field_44: %d\n", this->field_44);
+            printf("field_48: %d\n", this->field_48);
+            printf("field_4C: %d\n", this->field_4C);
+            printf("field_50: %d\n", this->field_50);
+            printf("field_54: %d\n", this->field_54);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(CEngineVirtualPerspective2DAnimMesh) == 0x5C);
+
+#pragma pack(push, 1)
+    class CEngine2DRotatableSprite : public CEngine2DPrimitive {
+    public:
+        struct vtbl_t /*: public CEngine2DPrimitive::vtbl_t */{
+            /*   0*/ uint32_t *(__thiscall *CEngine2DPrimitive__scalar_destructor)(CEngine2DRotatableSprite *self, char);  // _DWORD *(__thiscall *)(_DWORD *this, char a2)
+            /*   4*/ int(__thiscall *CEngine2DRotatableSprite__fun_5776C0)(CEngine2DRotatableSprite *self, int, SceneObject2E *);  // int (__thiscall *)(int this, int a2, SceneObject2E *a3)
+        };
+        static_assert(sizeof(vtbl_t) == 0x8);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        /*   8*/ __int16 field_4;
+        /*   A*/ __int16 field_6;
+        /*   C*/ __int16 field_8;
+        /*   E*/ __int16 field_A;
+        /*  10*/ int field_C;
+        /*  14*/ int field_10;
+        /*  18*/ float field_14;
+        /*  1C*/ float field_18;
+        /*  20*/ float field_1C;
+        /*  24*/ int field_20;
+        /*  28*/ int field_24;
+        
+        virtual ~CEngine2DRotatableSprite();
+        void dump() {
+            printf("field_4: %d\n", this->field_4);
+            printf("field_6: %d\n", this->field_6);
+            printf("field_8: %d\n", this->field_8);
+            printf("field_A: %d\n", this->field_A);
+            printf("field_C: %d\n", this->field_C);
+            printf("field_10: %d\n", this->field_10);
+            printf("field_14: %d\n", this->field_14);
+            printf("field_18: %d\n", this->field_18);
+            printf("field_1C: %d\n", this->field_1C);
+            printf("field_20: %d\n", this->field_20);
+            printf("field_24: %d\n", this->field_24);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(CEngine2DRotatableSprite) == 0x2C);
+
+#pragma pack(push, 1)
+    class CEngine2DSprite : public CEngine2DPrimitive {
+    public:
+        struct vtbl_t /*: public CEngine2DPrimitive::vtbl_t */{
+            /*   0*/ uint32_t *(__thiscall *CEngine2DPrimitive__scalar_destructor)(CEngine2DSprite *self, char);  // _DWORD *(__thiscall *)(_DWORD *this, char a2)
+            /*   4*/ int(__thiscall *CEngine2DSprite__fun_577640)(CEngine2DSprite *self, int, SceneObject2E *);  // int (__thiscall *)(int this, int a2, SceneObject2E *a3)
+        };
+        static_assert(sizeof(vtbl_t) == 0x8);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        /*   8*/ __int16 field_4;
+        /*   A*/ __int16 field_6;
+        /*   C*/ __int16 field_8;
+        /*   E*/ __int16 field_A;
+        /*  10*/ float field_C;
+        /*  14*/ int field_10;
+        /*  18*/ int field_14;
+        /*  1C*/ int field_18;
+        /*  20*/ int field_1C;
+        /*  24*/ int field_20;
+        /*  28*/ __int16 field_24;
+        /*  2A*/ __int16 field_26;
+        /*  2C*/ __int16 field_28;
+        /*  2E*/ __int16 field_2A;
+        
+        virtual ~CEngine2DSprite();
+        void dump() {
+            printf("field_4: %d\n", this->field_4);
+            printf("field_6: %d\n", this->field_6);
+            printf("field_8: %d\n", this->field_8);
+            printf("field_A: %d\n", this->field_A);
+            printf("field_C: %d\n", this->field_C);
+            printf("field_10: %d\n", this->field_10);
+            printf("field_14: %d\n", this->field_14);
+            printf("field_18: %d\n", this->field_18);
+            printf("field_1C: %d\n", this->field_1C);
+            printf("field_20: %d\n", this->field_20);
+            printf("field_24: %d\n", this->field_24);
+            printf("field_26: %d\n", this->field_26);
+            printf("field_28: %d\n", this->field_28);
+            printf("field_2A: %d\n", this->field_2A);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(CEngine2DSprite) == 0x30);
+
+#pragma pack(push, 1)
+    class CEngine2DStaticMesh : public CEngine2DPrimitive {
+    public:
+        struct vtbl_t /*: public CEngine2DPrimitive::vtbl_t */{
+            /*   0*/ uint32_t *(__thiscall *CEngine2DPrimitive__scalar_destructor)(CEngine2DStaticMesh *self, char);  // _DWORD *(__thiscall *)(_DWORD *this, char a2)
+            /*   4*/ int(__thiscall *CEngine2DStaticMesh__fun_577A00)(CEngine2DStaticMesh *self, int, SceneObject2E *);  // int (__thiscall *)(int this, int a2, SceneObject2E *a3)
+            /*   8*/ uint32_t *(__thiscall *CEngine2DStaticMesh__fun_577DC0)(CEngine2DStaticMesh *self, uint32_t *, int);  // float *(__thiscall *)(int this, float *a2, int a3)
+            /*   C*/ int(__thiscall *CEngine2DStaticMesh__fun_577D70)(CEngine2DStaticMesh *self);  // int (__thiscall *)(int **this)
+            /*  10*/ int(__thiscall *CEngine2DStaticMesh__fun_577D90)(CEngine2DStaticMesh *self, int);  // int (__thiscall *)(int **this, int a2)
+        };
+        static_assert(sizeof(vtbl_t) == 0x14);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        /*   8*/ int field_4;
+        /*   C*/ int field_8;
+        /*  10*/ int field_C;
+        /*  14*/ uint8_t field_10[36];
+        /*  38*/ int field_34;
+        /*  3C*/ int field_38;
+        /*  40*/ float field_3C;
+        /*  44*/ float field_40;
+        /*  48*/ float field_44;
+        /*  4C*/ float field_48;
+        /*  50*/ int field_4C;
+        
+        virtual ~CEngine2DStaticMesh();
+        void dump() {
+            printf("field_4: %d\n", this->field_4);
+            printf("field_8: %d\n", this->field_8);
+            printf("field_C: %d\n", this->field_C);
+            printf("field_10: %d\n", this->field_10);
+            printf("field_34: %d\n", this->field_34);
+            printf("field_38: %d\n", this->field_38);
+            printf("field_3C: %d\n", this->field_3C);
+            printf("field_40: %d\n", this->field_40);
+            printf("field_44: %d\n", this->field_44);
+            printf("field_48: %d\n", this->field_48);
+            printf("field_4C: %d\n", this->field_4C);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(CEngine2DStaticMesh) == 0x54);
+
+#pragma pack(push, 1)
+    class CEngine2DAnimMesh : public CEngine2DPrimitive {
+    public:
+        struct vtbl_t /*: public CEngine2DPrimitive::vtbl_t */{
+            /*   0*/ uint32_t *(__thiscall *CEngine2DPrimitive__scalar_destructor)(CEngine2DAnimMesh *self, char);  // _DWORD *(__thiscall *)(_DWORD *this, char a2)
+            /*   4*/ int(__thiscall *CEngine2DAnimMesh__fun_577F10)(CEngine2DAnimMesh *self, int, SceneObject2E *);  // int (__thiscall *)(int this, int a2, SceneObject2E *a3)
+            /*   8*/ int(__thiscall *CEngine2DAnimMesh__fun_5783D0)(CEngine2DAnimMesh *self, int, float);  // int (__thiscall *)(int this, int a2, float a3)
+            /*   C*/ int(__thiscall *CEngine2DAnimMesh__fun_583680)(CEngine2DAnimMesh *self);  // int (__thiscall *)(int **this)
+            /*  10*/ int(__thiscall *CEngine2DAnimMesh__fun_5783A0)(CEngine2DAnimMesh *self, int);  // int (__thiscall *)(int **this, int a2)
+        };
+        static_assert(sizeof(vtbl_t) == 0x14);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        /*   8*/ int field_4;
+        /*   C*/ int field_8;
+        /*  10*/ int field_C;
+        /*  14*/ uint8_t field_10[36];
+        /*  38*/ int field_34;
+        /*  3C*/ int field_38;
+        /*  40*/ float field_3C;
+        /*  44*/ int field_40;
+        /*  48*/ float field_44;
+        /*  4C*/ float field_48;
+        /*  50*/ float field_4C;
+        /*  54*/ int field_50;
+        
+        virtual ~CEngine2DAnimMesh();
+        void dump() {
+            printf("field_4: %d\n", this->field_4);
+            printf("field_8: %d\n", this->field_8);
+            printf("field_C: %d\n", this->field_C);
+            printf("field_10: %d\n", this->field_10);
+            printf("field_34: %d\n", this->field_34);
+            printf("field_38: %d\n", this->field_38);
+            printf("field_3C: %d\n", this->field_3C);
+            printf("field_40: %d\n", this->field_40);
+            printf("field_44: %d\n", this->field_44);
+            printf("field_48: %d\n", this->field_48);
+            printf("field_4C: %d\n", this->field_4C);
+            printf("field_50: %d\n", this->field_50);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(CEngine2DAnimMesh) == 0x58);
+
+#pragma pack(push, 1)
+    class CEngineQuadPlane : public CEngine2DPrimitive {
+    public:
+        struct vtbl_t /*: public CEngine2DPrimitive::vtbl_t */{
+            /*   0*/ uint32_t *(__thiscall *CEngine2DPrimitive__scalar_destructor)(CEngineQuadPlane *self, char);  // _DWORD *(__thiscall *)(_DWORD *this, char a2)
+            /*   4*/ int(__thiscall *CEngineQuadPlane__fun_57FB80)(CEngineQuadPlane *self, int, SceneObject2E *);  // int (__thiscall *)(int this, int a2, SceneObject2E *a3)
+            /*   8*/ int(__thiscall *CEngineQuadPlane_appendToSceneObject2EList)(CEngineQuadPlane *self, int);  // int (__thiscall *)(int this, int a2)
+            /*   C*/ int(__stdcall *CEngineWorldPrimitive__fun_57F1C0)(int, int, int, uint32_t *, int);  // int (__stdcall *)(int a1, int a2, int a3, _DWORD *a4, int a5)
+            /*  10*/ uint32_t *(__stdcall *CEngineWorldPrimitive__fun_5785E0)(uint32_t *, int);  // _DWORD *(__stdcall *)(_DWORD *a1, int a2)
+            /*  14*/ int(__stdcall *ret_0_0args)();  // int (__stdcall *)()
+            /*  18*/ int(__stdcall *ret_0_1args)(int);  // int (__stdcall *)(int a1)
+            /*  1C*/ void(__stdcall *ret_void_1args)(int);  // void (__stdcall *)(int a1)
+        };
+        static_assert(sizeof(vtbl_t) == 0x20);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        /*   8*/ int field_4;
+        /*   C*/ int field_8;
+        /*  10*/ float field_C;
+        /*  14*/ float field_10;
+        /*  18*/ float field_14;
+        /*  1C*/ double field_18;
+        /*  24*/ double field_20;
+        /*  2C*/ int field_28;
+        /*  30*/ int field_2C;
+        /*  34*/ int field_30;
+        
+        virtual ~CEngineQuadPlane();
+        void dump() {
+            printf("field_4: %d\n", this->field_4);
+            printf("field_8: %d\n", this->field_8);
+            printf("field_C: %d\n", this->field_C);
+            printf("field_10: %d\n", this->field_10);
+            printf("field_14: %d\n", this->field_14);
+            printf("field_18: %d\n", this->field_18);
+            printf("field_20: %d\n", this->field_20);
+            printf("field_28: %d\n", this->field_28);
+            printf("field_2C: %d\n", this->field_2C);
+            printf("field_30: %d\n", this->field_30);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(CEngineQuadPlane) == 0x38);
+
+#pragma pack(push, 1)
+    class CEngineWorldPrimitive : public CEngine2DPrimitive {
+    public:
+        struct vtbl_t /*: public CEngine2DPrimitive::vtbl_t */{
+            /*   0*/ uint32_t *(__thiscall *CEngine2DPrimitive__scalar_destructor)(CEngineWorldPrimitive *self, char);  // _DWORD *(__thiscall *)(_DWORD *this, char a2)
+            /*   4*/ int(__thiscall *__addRenderObj)(CEngineWorldPrimitive *self, int, SceneObject2E *);  // int (__thiscall *)(int this, int a2, SceneObject2E *a3)
+            /*   8*/ void(__stdcall *ret_void_1args)(int);  // void (__stdcall *)(int a1)
+            /*   C*/ int(__stdcall *CEngineWorldPrimitive__fun_57F1C0)(int, int, int, uint32_t *, int);  // int (__stdcall *)(int a1, int a2, int a3, _DWORD *a4, int a5)
+            /*  10*/ uint32_t *(__stdcall *CEngineWorldPrimitive__fun_5785E0)(uint32_t *, int);  // _DWORD *(__stdcall *)(_DWORD *a1, int a2)
+            /*  14*/ int(__stdcall *ret_0_0args)();  // int (__stdcall *)()
+            /*  18*/ int(__stdcall *ret_0_1args)(int);  // int (__stdcall *)(int a1)
+        };
+        static_assert(sizeof(vtbl_t) == 0x1C);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        
+        virtual ~CEngineWorldPrimitive();
+        void dump() {
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(CEngineWorldPrimitive) == 0x8);
+
+#pragma pack(push, 1)
+    class CEngineDynamicMesh : public CEngineWorldPrimitive {
+    public:
+        struct vtbl_t /*: public CEngineWorldPrimitive::vtbl_t */{
+            /*   0*/ uint32_t *(__thiscall *CEngine2DPrimitive__scalar_destructor)(CEngineDynamicMesh *self, char);  // _DWORD *(__thiscall *)(_DWORD *this, char a2)
+            /*   4*/ int(__thiscall *CEngineDynamicMesh__fun_582CE0)(CEngineDynamicMesh *self, int, SceneObject2E *);  // int (__thiscall *)(int this, int a2, SceneObject2E *a3)
+            /*   8*/ void(__thiscall *CEngineDynamicMesh_appendToSceneObject2EList)(CEngineDynamicMesh *self, int);  // void (__thiscall *)(int this, int a2)
+            /*   C*/ int(__thiscall *CEngineDynamicMesh__fun_582D30)(CEngineDynamicMesh *self, float, float, int, int, int);  // int (__thiscall *)(int this, float a2, float a3, int a4, int a5, int a6)
+            /*  10*/ uint32_t *(__thiscall *CEngineDynamicMesh__fun_580E40)(CEngineDynamicMesh *self, uint32_t *, int);  // float *(__thiscall *)(int this, float *a2, int a3)
+            /*  14*/ int(__thiscall *CEngineDynamicMesh__fun_580DF0)(CEngineDynamicMesh *self);  // int (__thiscall *)(int **this)
+            /*  18*/ int(__thiscall *CEngineDynamicMesh__fun_580E10)(CEngineDynamicMesh *self, int);  // int (__thiscall *)(int **this, int a2)
+            /*  1C*/ void(__stdcall *ret_void_1args)(int);  // void (__stdcall *)(int a1)
+        };
+        static_assert(sizeof(vtbl_t) == 0x20);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        /*   8*/ int field_4;
+        /*   C*/ uint32_t field_8;
+        /*  10*/ int field_C;
+        /*  14*/ uint8_t field_10[36];
+        /*  38*/ uint32_t field_34;
+        /*  3C*/ double field_38;
+        /*  44*/ double field_40;
+        /*  4C*/ int field_48;
+        /*  50*/ int field_4C;
+        /*  54*/ int field_50;
+        /*  58*/ float field_54;
+        /*  5C*/ uint8_t gap_5C[8];
+        /*  64*/ uint32_t field_60;
+        /*  68*/ uint32_t field_64;
+        /*  6C*/ uint32_t field_68;
+        /*  70*/ uint8_t gap_70[4];
+        /*  74*/ uint32_t field_70;
+        /*  78*/ uint8_t gap_78[4];
+        /*  7C*/ char field_78;
+        /*  7D*/ char field_79;
+        
+        virtual ~CEngineDynamicMesh();
+        void dump() {
+            printf("field_4: %d\n", this->field_4);
+            printf("field_8: %d\n", this->field_8);
+            printf("field_C: %d\n", this->field_C);
+            printf("field_10: %d\n", this->field_10);
+            printf("field_34: %d\n", this->field_34);
+            printf("field_38: %d\n", this->field_38);
+            printf("field_40: %d\n", this->field_40);
+            printf("field_48: %d\n", this->field_48);
+            printf("field_4C: %d\n", this->field_4C);
+            printf("field_50: %d\n", this->field_50);
+            printf("field_54: %d\n", this->field_54);
+            printf("gap_5C: %d\n", this->gap_5C);
+            printf("field_60: %d\n", this->field_60);
+            printf("field_64: %d\n", this->field_64);
+            printf("field_68: %d\n", this->field_68);
+            printf("gap_70: %d\n", this->gap_70);
+            printf("field_70: %d\n", this->field_70);
+            printf("gap_78: %d\n", this->gap_78);
+            printf("field_78: %d\n", this->field_78);
+            printf("field_79: %d\n", this->field_79);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(CEngineDynamicMesh) == 0x7E);
+
+#pragma pack(push, 1)
+    class CEngineAnimMesh : public CEngineWorldPrimitive {
+    public:
+        struct vtbl_t /*: public CEngineWorldPrimitive::vtbl_t */{
+            /*   0*/ uint32_t *(__thiscall *CEngine2DPrimitive__scalar_destructor)(CEngineAnimMesh *self, char);  // _DWORD *(__thiscall *)(_DWORD *this, char a2)
+            /*   4*/ int(__thiscall *CEngineAnimMesh__fun_5848B0)(CEngineAnimMesh *self, int, SceneObject2E *);  // int (__thiscall *)(int this, int a2, SceneObject2E *a3)
+            /*   8*/ void(__thiscall *CEngineAnimMesh_appendToSceneObject2EList)(CEngineAnimMesh *self, int);  // void (__thiscall *)(int this, int a2)
+            /*   C*/ int(__thiscall *CEngineAnimMesh__fun_585AD0)(CEngineAnimMesh *self, float, float, int, int, int);  // int (__thiscall *)(int this, float a2, float a3, int a4, int a5, int a6)
+            /*  10*/ uint32_t *(__thiscall *CEngineAnimMesh__fun_5835E0)(CEngineAnimMesh *self, uint32_t *, int);  // float *(__thiscall *)(int this, float *a2, int a3)
+            /*  14*/ int(__thiscall *CEngine2DAnimMesh__fun_583680)(CEngineAnimMesh *self);  // int (__thiscall *)(int **this)
+            /*  18*/ int(__thiscall *CEngine2DAnimMesh__fun_5783A0)(CEngineAnimMesh *self, int);  // int (__thiscall *)(int **this, int a2)
+            /*  1C*/ void(__stdcall *ret_void_1args)(int);  // void (__stdcall *)(int a1)
+        };
+        static_assert(sizeof(vtbl_t) == 0x20);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        /*   8*/ float field_4;
+        /*   C*/ float field_8;
+        /*  10*/ float field_C;
+        /*  14*/ uint8_t field_10[36];
+        /*  38*/ double field_34;
+        /*  40*/ double field_3C;
+        /*  48*/ double field_44;
+        /*  50*/ int field_4C;
+        /*  54*/ uint32_t field_50;
+        /*  58*/ int field_54;
+        /*  5C*/ uint8_t gap_5C[4];
+        /*  60*/ float field_5C;
+        /*  64*/ double field_60;
+        /*  6C*/ uint8_t gap_6C[4];
+        /*  70*/ uint32_t field_6C;
+        /*  74*/ uint32_t field_70;
+        /*  78*/ uint32_t field_74;
+        /*  7C*/ uint8_t gap_7C[4];
+        /*  80*/ uint32_t field_7C;
+        /*  84*/ uint8_t gap_84[4];
+        /*  88*/ char field_84;
+        /*  89*/ char field_85;
+        /*  8A*/ uint8_t gap_8A[14];
+        /*  98*/ char field_94;
+        
+        virtual ~CEngineAnimMesh();
+        void dump() {
+            printf("field_4: %d\n", this->field_4);
+            printf("field_8: %d\n", this->field_8);
+            printf("field_C: %d\n", this->field_C);
+            printf("field_10: %d\n", this->field_10);
+            printf("field_34: %d\n", this->field_34);
+            printf("field_3C: %d\n", this->field_3C);
+            printf("field_44: %d\n", this->field_44);
+            printf("field_4C: %d\n", this->field_4C);
+            printf("field_50: %d\n", this->field_50);
+            printf("field_54: %d\n", this->field_54);
+            printf("gap_5C: %d\n", this->gap_5C);
+            printf("field_5C: %d\n", this->field_5C);
+            printf("field_60: %d\n", this->field_60);
+            printf("gap_6C: %d\n", this->gap_6C);
+            printf("field_6C: %d\n", this->field_6C);
+            printf("field_70: %d\n", this->field_70);
+            printf("field_74: %d\n", this->field_74);
+            printf("gap_7C: %d\n", this->gap_7C);
+            printf("field_7C: %d\n", this->field_7C);
+            printf("gap_84: %d\n", this->gap_84);
+            printf("field_84: %d\n", this->field_84);
+            printf("field_85: %d\n", this->field_85);
+            printf("gap_8A: %d\n", this->gap_8A);
+            printf("field_94: %d\n", this->field_94);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(CEngineAnimMesh) == 0x99);
+
+#pragma pack(push, 1)
+    class CEngineDynamicHeightField : public CEngineWorldPrimitive {
+    public:
+        struct vtbl_t /*: public CEngineWorldPrimitive::vtbl_t */{
+            /*   0*/ void *(__thiscall *CEngineDynamicHeightField_scalar_destructor)(CEngineDynamicHeightField *self, char);  // std::ios_base *(__thiscall *)(std::ios_base *this, char a2)
+            /*   4*/ int(__thiscall *CEngineDynamicHeightField__fun_5875D0)(CEngineDynamicHeightField *self, int, SceneObject2E *);  // int (__thiscall *)(int this, int a2, SceneObject2E *a3)
+            /*   8*/ void(__thiscall *CEngineDynamicHeightField_appendToSceneObject2EList)(CEngineDynamicHeightField *self, float);  // void (__thiscall *)(int this, float a2)
+            /*   C*/ int(__stdcall *CEngineWorldPrimitive__fun_57F1C0)(int, int, int, uint32_t *, int);  // int (__stdcall *)(int a1, int a2, int a3, _DWORD *a4, int a5)
+            /*  10*/ uint32_t *(__stdcall *CEngineWorldPrimitive__fun_5785E0)(uint32_t *, int);  // _DWORD *(__stdcall *)(_DWORD *a1, int a2)
+            /*  14*/ int(__stdcall *ret_0_0args)();  // int (__stdcall *)()
+            /*  18*/ int(__stdcall *ret_0_1args)(int);  // int (__stdcall *)(int a1)
+            /*  1C*/ void(__stdcall *ret_void_1args)(int);  // void (__stdcall *)(int a1)
+        };
+        static_assert(sizeof(vtbl_t) == 0x20);
+        inline vtbl_t *&vtbl() { return *(vtbl_t **) this; }
+        
+    private:
+        static vtbl_t vtbl_instance;
+    public:
+        inline static vtbl_t *class_vtbl() { return (vtbl_t *) funptr<&vtbl_instance>(); };
+        template<typename T>
+        bool isa() { return (*(uint32_t *) this) == T::class_vtbl(); }
+        
+        /*   8*/ int field_4;
+        /*   C*/ void *field_8;
+        /*  10*/ void *field_C;
+        /*  14*/ int field_10;
+        /*  18*/ int field_14;
+        /*  1C*/ int field_18;
+        /*  20*/ uint32_t field_1C;
+        /*  24*/ uint32_t field_20;
+        /*  28*/ uint32_t field_24;
+        /*  2C*/ float field_28;
+        /*  30*/ double field_2C;
+        /*  38*/ float field_34;
+        /*  3C*/ int field_38;
+        /*  40*/ double field_3C;
+        /*  48*/ double field_44;
+        
+        virtual ~CEngineDynamicHeightField();
+        void dump() {
+            printf("field_4: %d\n", this->field_4);
+            printf("field_8: void(%p)\n", this->field_8);
+            printf("field_C: void(%p)\n", this->field_C);
+            printf("field_10: %d\n", this->field_10);
+            printf("field_14: %d\n", this->field_14);
+            printf("field_18: %d\n", this->field_18);
+            printf("field_1C: %d\n", this->field_1C);
+            printf("field_20: %d\n", this->field_20);
+            printf("field_24: %d\n", this->field_24);
+            printf("field_28: %d\n", this->field_28);
+            printf("field_2C: %d\n", this->field_2C);
+            printf("field_34: %d\n", this->field_34);
+            printf("field_38: %d\n", this->field_38);
+            printf("field_3C: %d\n", this->field_3C);
+            printf("field_44: %d\n", this->field_44);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(CEngineDynamicHeightField) == 0x50);
+
+#pragma pack(push, 1)
+    class Vertex1C {
+    public:
+        
+        /*   0*/ float f0_x;
+        /*   4*/ float f4_y;
+        /*   8*/ float f8_z;
+        /*   C*/ float fC_rhv__colorWeight;
+        /*  10*/ int f10_diffuse;
+        /*  14*/ float f14_texX;
+        /*  18*/ float f18_texY;
+        
+        void dump() {
+            printf("f0_x: %d\n", this->f0_x);
+            printf("f4_y: %d\n", this->f4_y);
+            printf("f8_z: %d\n", this->f8_z);
+            printf("fC_rhv__colorWeight: %d\n", this->fC_rhv__colorWeight);
+            printf("f10_diffuse: %d\n", this->f10_diffuse);
+            printf("f14_texX: %d\n", this->f14_texX);
+            printf("f18_texY: %d\n", this->f18_texY);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(Vertex1C) == 0x1C);
+
+#pragma pack(push, 1)
+    class Tiangle24 {
+    public:
+        
+        /*   0*/ uint32_t f0_prevTriangleIdx;
+        /*   4*/ uint32_t f4_props_flags;
+        /*   8*/ SurfaceHolder * f8_holders[3];
+        /*  14*/ uint32_t f14_surfhCount;
+        /*  18*/ int f18_vertIdx0;
+        /*  1C*/ int f1C_vertIdx1;
+        /*  20*/ int f20_vertIdx2;
+        
+        void dump() {
+            printf("f0_prevTriangleIdx: %d\n", this->f0_prevTriangleIdx);
+            printf("f4_props_flags: %d\n", this->f4_props_flags);
+            printf("f8_holders: %d\n", this->f8_holders);
+            printf("f14_surfhCount: %d\n", this->f14_surfhCount);
+            printf("f18_vertIdx0: %d\n", this->f18_vertIdx0);
+            printf("f1C_vertIdx1: %d\n", this->f1C_vertIdx1);
+            printf("f20_vertIdx2: %d\n", this->f20_vertIdx2);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(Tiangle24) == 0x24);
+
+#pragma pack(push, 1)
+    class Vertex18 {
+    public:
+        
+        /*   0*/ uint32_t f0_f4;
+        /*   4*/ int f4_f6;
+        /*   8*/ int f8_fc;
+        /*   C*/ int fC_multi;
+        /*  10*/ int f10_texX;
+        /*  14*/ int f14_texY;
+        
+        void dump() {
+            printf("f0_f4: %d\n", this->f0_f4);
+            printf("f4_f6: %d\n", this->f4_f6);
+            printf("f8_fc: %d\n", this->f8_fc);
+            printf("fC_multi: %d\n", this->fC_multi);
+            printf("f10_texX: %d\n", this->f10_texX);
+            printf("f14_texY: %d\n", this->f14_texY);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(Vertex18) == 0x18);
 
 }  // namespace dk2
 

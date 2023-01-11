@@ -494,6 +494,7 @@
 00449470 ProbablyGlobalRenderObj_init fun
 00449AC0 ProbablyGlobalRenderObj_sub_449AC0 fun
 00449B30 ProbablyGlobalRenderObj_sub_449B30 fun
+00449CA0 ProbablyGlobalRenderObj_zoomRel_449CA0 fun
 00449DA3 def_449D9C 
 00449E5A def_449E53 
 00449EE8 jpt_449D9C 
@@ -2112,12 +2113,13 @@
 00556704 jpt_5566AF 
 005567F0 CWindowTest_sub_5567F0 fun
 00556870 ??0CFileManager@@QAE@XZ fun
-005568A0 CFileManager::fun_5568A0 fun
+005568A0 CFileManager_scalar_destructor fun
 005568C0 ??1CFileManager@@UAE@XZ fun
-00556980 CFileManager::fun_556980 fun
+00556980 CFileManager_clearDirsList fun
 00556A20 CFileManager_sub_556A20 fun
 00556B70 CFileManager::fun_556B70 fun
-00556C90 CFileManager_sub_556C90 fun
+00556C90 CFileManager_addFileDir fun
+00556D90 CFileManager_findFile fun
 00557230 calc_moon_age fun
 00557390 ?static_init@MyGame@@SAXXZ fun
 005573B0 ?static_destroy@MyGame@@SAXXZ fun
@@ -2188,6 +2190,7 @@
 0055C660 ??1TbCharStringList@@UAE@XZ fun
 0055C6B0 set_cd_path fun
 0055C700 set_enable_file_patching fun
+0055C8E0 MyResources_55C8E0 fun
 0055CC40 ??_G?$TbTList@V?$TbDynamicStringTemplate@D@@AAV1@@@UAEPAXI@Z fun
 0055DD70 ___sub_55DD70_newCampagin fun
 0055E0C0 string_appendIpWithHostname fun
@@ -2211,7 +2214,7 @@
 00561E40 MyKeyboard_sub_561E40 fun
 005621E0 RegKey_close fun
 00562670 RegKey_setValue_562670 fun
-005626C0 settings_fun fun
+005626C0 settings_readValue fun
 00562960 MyResources_f29CB_constructor fun
 005629C0 MyResources_f29CB_resolveValues fun
 00562C30 MyResources_f29CB_setDefaults fun
@@ -2231,11 +2234,13 @@
 00563B40 MyResources_f29CB_setSfx fun
 00563BD0 MyResources_f29CB_setNumberOfVoices fun
 00563C50 MyVideoSettings_constructor fun
+00563DC0 MyVideoSettings_563DC0 fun
 00563E30 RegKey_static_checkDk2Keys_563E30 fun
 00563FB0 MyVideoSettings_563FB0 fun
 00564B00 MyVideoSettings_564B00 fun
 00565CF0 set_spec fun
 00565FD0 MyVideoSettings_565FD0 fun
+005661A0 MyVideoSettings_setSelected3dEngine fun
 005663A0 set_shadows_type fun
 005665A0 set_high_resolution_textures_enabled fun
 00566620 set_texture_reduction_level fun
@@ -2248,6 +2253,7 @@
 00566AC4 jpt_566A86 
 00566DA0 MyVideoSettings_sub_566DA0 fun
 00566DB0 set_pmesh_reduction_level fun
+00566E40 MyVideoSettings_566E40 fun
 00567100 ?static_init@CSoundSystem@@SAXXZ fun
 00567120 ?static_destroy@CSoundSystem@@SAXXZ fun
 00567130 MySound::static_init fun
@@ -2316,8 +2322,11 @@
 005747C0 setPmeshReductionLevel fun
 00575780 drawScene fun
 00576940 ??0CEngine2DSprite@@QAE@FFFFHHHHHHFFFF@Z fun
-005769D0 CEngine2DPrimitive::scalar_destructor fun
+005769D0 CEngine2DPrimitive_scalar_destructor fun
 005769F0 ??_GCEnginePrimitiveBase@@UAEPAXI@Z fun
+00576A10 CEngine2DSprite_addVert1CTriangle fun
+00576E50 CEngine2DSprite_addVert18Triangle fun
+00577400 CEngine2DSprite_577400 fun
 00577640 CEngine2DSprite::fun_577640 fun
 005776C0 CEngine2DRotatableSprite::fun_5776C0 fun
 00577960 ??0CEngine2DStaticMesh@@QAE@HHHPBXHHIHPAH@Z fun
@@ -2368,6 +2377,7 @@
 0057C7B0 Arrp31x400_static_alloc fun
 0057C850 MyDblNamedSurface_registerInArrp31x400 fun
 0057C920 CPCEngineInterface_57C920 fun
+0057C970 MyDblNamedSurface_createPrescaled fun
 0057CB70 Arrp31x400_resize fun
 0057CBE0 MyHeap_static_init fun
 0057CCF0 MyHeap_static_destroy fun
@@ -2392,6 +2402,7 @@
 0057EC90 ??1CMeshGroup@@UAE@XZ fun
 0057EDE0 cleanup_57EDE0 fun
 0057F020 nullsub_32 fun
+0057F090 transformFlags fun
 0057F110 ??0CEngineSprite@@QAE@PAMHHH0HHHHHH@Z fun
 0057F1C0 CEngineWorldPrimitive::fun_57F1C0 fun
 0057F1D0 ??1CEnginePrimitiveBase@@UAE@XZ fun
@@ -2410,11 +2421,17 @@
 00580E40 CEngineDynamicMesh::fun_580E40 fun
 00580EC0 CEngineDynamicMesh_appendToSceneObject2EList fun
 00581B80 Arrp31x400Item_581B80 fun
+00581BE0 CEngineDynamicMesh_581BE0 fun
+00582180 CEngineDynamicMesh_582180 fun
+00582290 CEngineDynamicMesh_582290 fun
 00582CE0 CEngineDynamicMesh::fun_582CE0 fun
 00582D30 CEngineDynamicMesh::fun_582D30 fun
 00583120 ??0CEngineAnimMesh@@QAE@HHMMMMMMHHHMMHHHHHHDHH@Z fun
 005835E0 CEngineAnimMesh::fun_5835E0 fun
 00583680 CEngine2DAnimMesh::fun_583680 fun
+005836A0 CEngineAnimMesh_5836A0 fun
+00583CA0 CEngineAnimMesh_583CA0 fun
+00583DC0 CEngineAnimMesh_583DC0 fun
 005848B0 CEngineAnimMesh::fun_5848B0 fun
 00584900 CEngineAnimMesh_appendToSceneObject2EList fun
 00585AD0 CEngineAnimMesh::fun_585AD0 fun
@@ -2426,30 +2443,37 @@
 00586190 CEngineStaticMesh_appendToSceneObject2EList fun
 00586A70 static_appendToSceneObject2EList fun
 00586BC0 ??0CEngineStaticHeightField@@QAE@PAMHHHHHHHH@Z fun
-00586F70 CEngineStaticHeightField::fun_586F70 fun
+00586F70 CEngineStaticHeightField_scalar_destructor fun
 00586F90 ??1CEngineStaticHeightField@@UAE@XZ fun
 00586FF0 CEngineStaticHeightField::fun_586FF0 fun
 00587010 CEngineStaticHeightField::fun_587010 fun
 00587060 CEngineStaticHeightField_appendToSceneObject2EList fun
 005873A0 ??0CEngineDynamicHeightField@@QAE@HHHHHHHHMHM@Z fun
-00587550 CEngineDynamicHeightField::fun_587550 fun
+00587550 CEngineDynamicHeightField_scalar_destructor fun
 00587570 ??1CEngineDynamicHeightField@@UAE@XZ fun
 005875D0 CEngineDynamicHeightField::fun_5875D0 fun
 00587DA0 CEngineDynamicHeightField_appendToSceneObject2EList fun
 00588190 ??0CEngineUnlitProceduralMesh@@QAE@HHHPBX0PAGHH@Z fun
-00588480 CEngineUnlitProceduralMesh::fun_588480 fun
+00588480 CEngineUnlitProceduralMesh_scalar_destructor fun
 005884A0 ??1CEngineUnlitProceduralMesh@@UAE@XZ fun
 005884F0 CEngineUnlitProceduralMesh::fun_5884F0 fun
 005888A0 CEngineUnlitProceduralMesh_appendToSceneObject2EList fun
+00588AE0 mymgsr_vertices_Static_destructor fun
+00588B00 my_indicies_static_destroy fun
+00588C40 my_triangles_push fun
 00588D00 draw_tex_to_buf_impl2 fun
 00588F90 draw_tex_to_buf_impl1 fun
 00589140 MyCESurfHandle_static_addToHashList_flagsOr400 fun
-00589160 DirectDraw_setProp fun
+00589160 mgsr_setDrawFun fun
 00589250 DirectDraw_prepareTexture fun
 005898F0 draw_tex_to_buf fun
-005899F0 init_mydd_cpy fun
-00589D90 something_static_setSceneObject30_589D90 fun
-0058A150 setupLastSceneObject fun
+00589910 mydd_cpy_destroy fun
+005899F0 mydd_cpy_init fun
+00589D90 addObjectToScene fun
+0058A000 DrawTriangleList fun
+0058A150 drawTexToSurfTriangles fun
+0058A2B0 My512Triangles24Buf_expand24h fun
+0058A330 My512Buf_expand18h fun
 0058A3E5 __cfltcvt_init_3 
 0058A421 __cfltcvt_init_4 
 0058A480 nullsub_33 fun
@@ -2459,13 +2483,14 @@
 0058A4C0 nullsub_37 fun
 0058A4D0 nullsub_38 fun
 0058A4E0 nullsub_39 fun
-0058A520 init_mydd_cpy2 fun
+0058A520 mydd_cpy2_init fun
+0058A970 __renderFun_setSceneObject2E fun
 0058DD60 MyNameObjMap_of_MyCESurfHandle_constructor fun
 0058DD90 MyNameObjMap_cleanup fun
 0058DE00 ?put@MyNameObjMap@dk2@@QAEHPBDPAX@Z fun
 0058DF40 MyNameObjMap_getSlotIdx fun
 0058E000 BufCx400_resize fun
-0058E330 init_shadows fun
+0058E330 shadows_init fun
 0058EE40 nullsub_40 fun
 0058EE50 nullsub_41 fun
 0058F510 SceneObject2EList_static_destructor fun
@@ -2507,13 +2532,14 @@
 00590AC0 CEngineDDSurface_lockBuf fun
 00590B20 CEngineDDSurface_unlockBuf fun
 00590B40 MySurfaceWrapper_init fun
-00590BC0 MySurface::MySurface_withData fun
+00590B70 MySurfaceWrapper_590B70 fun
+00590BC0 MySurfaceWrapper_withData fun
 00590BF0 MyCESurfHandle_init fun
 00590C30 MyCESurfHandle_590C30 fun
 00590DA0 MyCESurfHandle_createReduction fun
 00590EC0 MyCESurfHandle_resolveSurface fun
 00591070 MyTextures_loadCompressed fun
-005911E0 MyCESurfHandle_sub_5911E0 fun
+005911E0 MyCESurfHandle_loadPrescaled fun
 005914E0 Obj792D48_convertCopyFrom fun
 00591820 Obj792D48_createCEngineCompressedSurface fun
 00591BF0 ??0CEngineSurfaceBase@@QAE@HHH@Z fun
@@ -2522,6 +2548,8 @@
 00591DA0 SurfaceHolder_create fun
 00591ED0 SurfaceHolder_calcWeight fun
 00591F90 SurfHashListItem_recursive_scalar_delete fun
+00591FF0 SurfaceHolder_draw fun
+00592380 SurfaceHolder_draw_mgsr fun
 005924A0 MyNameObjMap_createPrescaled fun
 00592720 MyTextures_resetCacheDir fun
 00592890 SurfHashList_clear fun
@@ -2529,12 +2557,13 @@
 00592B80 SurfaceHolder_setTexture fun
 00592BD0 SurfHashList2_init fun
 00592DB0 SurfHashList_init fun
-00592EA0 initSurfHashLists_mydd_cpy3 fun
+00592EA0 mydd_cpy3_initSurfHashLists fun
 00593280 surfaces_cleanup fun
 00593350 D3DENUMPIXELFORMATSCALLBACK_proc fun
 005934C0 MyCESurfHandle_cleanup fun
 005935C0 SurfHashList_markAndDeleteP1of4_recursive fun
 00593600 SurfHashList2_deleteHolders fun
+00593670 SurfHashList2_593670 fun
 00593720 MyCESurfHandle_static_addToHashList fun
 00593880 SurfHashList2_593880 fun
 00593E10 SurfHashList2_calcHandleCountToFitHolder fun
@@ -2546,7 +2575,9 @@
 005941B0 SurfHashList_addSurfhAndPaint fun
 00594790 SurfHashList_deleteItem fun
 005948D0 SurfHashList__probablySort fun
+00594BA0 MyCESurfHandle_getName fun
 00594BC0 SurfHashList2_deleteHolder fun
+00594C70 MyTextures_hasTexture fun
 005964B8 def_5964B1 
 00596523 def_596437 
 00596534 jpt_596437 
@@ -2585,6 +2616,7 @@
 00599C60 CPCEngineInterface::fun_599C60 fun
 0059A050 CPCEngineInterface::fun_59A050 fun
 0059A200 CPCEngineInterface::fun_59A200 fun
+0059A3C0 hasTexture fun
 0059A4B0 ?loadPng@MyResources@dk2@@SAPAUMySurface@2@PBD@Z fun
 0059A650 CPCEngineInterface_createAndPutInArrp31x400 fun
 0059A6A0 CPCEngineInterface::fun_59A6A0 fun
@@ -2603,7 +2635,7 @@
 0059D380 CPCEngineInterface::fun_59D380 fun
 0059D420 CPCEngineInterface::fun_59D420 fun
 0059D580 CPCEngineInterface::fun_59D580 fun
-0059D5B0 CPCEngineInterface::fun_59D5B0 fun
+0059D5B0 CPCEngineInterface_setStr fun
 0059D5E0 CPCEngineInterface::fun_59D5E0 fun
 0059D760 CPCEngineInterface::fun_59D760 fun
 0059D7F0 CPCEngineInterface::drawScene fun
@@ -2625,19 +2657,20 @@
 005A5980 mpeg2::putintrablk fun
 005A5DA0 ?main@dk2@@YAHHQAPAD@Z fun
 005A63B0 parse_command_line fun
-005A6CD0 drawToSurface fun
+005A6CD0 drawToSurface_mgsr fun
 005A7100 drawToSurface32bit fun
 005A7210 render_clearBuffers fun
-005A7270 draw_1024tex_to_buf_impl4 fun
-005A73F0 draw_1024tex_to_buf_impl2 fun
-005A74B0 draw_1024tex_to_buf_impl1 fun
-005A7550 draw_1024tex_to_buf_impl3 fun
-005A7600 mydd_allocateBuffers fun
-005A7980 mydd_alloc_buf fun
-005A79C0 mydd_alloc_buf2 fun
-005A7A00 mydd_freeBuffers fun
-005A7A20 mydd_free_buf fun
-005A7A50 mydd_free_buf2 fun
+005A7270 drawTriangle_impl4 fun
+005A73F0 drawTriangle_impl2 fun
+005A74B0 drawTriangle_impl1 fun
+005A7550 drawTriangle_impl3 fun
+005A7600 init_mgsr fun
+005A7920 mgsr_initBuffers fun
+005A7980 mgsr_alloc_buf fun
+005A79C0 mgsr_alloc_buf2 fun
+005A7A00 release_mgsr fun
+005A7A20 mgsr_free_buf fun
+005A7A50 mgsr_free_buf2 fun
 005A88D0 def_5A8891 
 005A88F4 jpt_5A8891 
 005A8AE0 StartAddress fun
@@ -2648,6 +2681,7 @@
 005AA95D def_5AA808 
 005AAA28 jpt_5AA808 
 005AE220 fun_5AE220_no_stack_no_return fun
+005B21E0 tqi_5B21E0 fun
 005B2450 tqia_init fun
 005B26F0 tqia_decompressJpeg fun
 005B29F0 DirectDrawEnumerateA fun
@@ -2833,12 +2867,12 @@
 005B9C80 SharedArr79DBD0ListBase_scalar_destructor fun
 005B9CD0 ??0FileStorageBase@@QAE@XZ fun
 005B9CE0 ??_GFileStorageBase@@UAEPAXI@Z fun
-005B9D00 FileStorageBase_constructor fun
+005B9D00 FileStorageBase_copy_constructor fun
 005B9D30 ??1FileStorageBase@@UAE@XZ fun
 005B9D40 FileStorageBase_releaseContent fun
 005B9D60 FileStorageBase_fun_5B9D60 fun
 005B9D90 FileStorageBase_formatFilePath fun
-005B9DD0 FileStorageBase_fun_5B9DD0 fun
+005B9DD0 FileStorageBase_firstFile fun
 005B9E00 FileStorageBase_fun_5B9E00 fun
 005B9E30 TbDiscFileStorage_openInputStream fun
 005B9E70 TbWadFileStorage::fun_5B9E70 fun
@@ -2924,6 +2958,60 @@
 005BC900 MyMouseCb_scalar_destructor fun
 005BC920 unknown_libname_51 fun
 005BC940 unknown_libname_52 fun
+005BC950 My8BitTexture_5BC950 fun
+005BC9E0 My8BitTexture_5BC9E0 fun
+005BD260 My8BitTexture_5BD260 fun
+005BD400 My8BitTexture_5BD400 fun
+005BDA00 My8BitTexture_5BDA00 fun
+005BDBB0 My8BitTexture_5BDBB0 fun
+005BDD50 My8BitTexture_5BDD50 fun
+005BF820 My8BitTexture_5BF820 fun
+005C01D0 My8BitTexture_5C01D0 fun
+005C0270 My8BitTexture_5C0270 fun
+005C0440 My8BitTexture_5C0440 fun
+005C05C0 My8BitTexture_5C05C0 fun
+005C0740 My24BitTexture_5C0740 fun
+005C08E0 MyNBitTexture_5C08E0 fun
+005C09A0 My24BitTexture_5C09A0 fun
+005C1080 My24BitTexture_5C1080 fun
+005C1230 My24BitTexture_5C1230 fun
+005C1400 MyNBitTexture_5C1400 fun
+005C1460 My24BitTexture_5C1460 fun
+005C2FA0 My24BitTexture_5C2FA0 fun
+005C35D0 My24BitTexture_5C35D0 fun
+005C3650 My24BitTexture_5C3650 fun
+005C3800 My24BitTexture_5C3800 fun
+005C3A00 My24BitTexture_5C3A00 fun
+005C3C00 My24BitTexture_5C3C00 fun
+005C4490 My24BitTexture_5C4490 fun
+005C4B50 My32BitTexture_5C4B50 fun
+005C4D40 MyNBitTexture_5C4D40 fun
+005C4D90 My32BitTexture_5C4D90 fun
+005C53E0 My32BitTexture_5C53E0 fun
+005C55E0 My32BitTexture_5C55E0 fun
+005C57F0 My32BitTexture_5C57F0 fun
+005C7AB0 My32BitTexture_5C7AB0 fun
+005C83F0 MyNBitTexture_5C83F0 fun
+005C8770 My32BitTexture_5C8770 fun
+005C8810 My32BitTexture_5C8810 fun
+005C8A40 My32BitTexture_5C8A40 fun
+005C8D10 My32BitTexture_5C8D10 fun
+005C8FC0 My32BitTexture_5C8FC0 fun
+005C9930 My32BitTexture_5C9930 fun
+005CA100 My16BitTexture_5CA100 fun
+005CA330 My16BitTexture_5CA330 fun
+005CAE20 My16BitTexture_5CAE20 fun
+005CB0E0 My16BitTexture_5CB0E0 fun
+005CB3C0 My16BitTexture_5CB3C0 fun
+005CDF40 My16BitTexture_5CDF40 fun
+005CEBB0 My16BitTexture_5CEBB0 fun
+005CECB0 My16BitTexture_5CECB0 fun
+005CEFB0 My16BitTexture_5CEFB0 fun
+005CF380 My16BitTexture_5CF380 fun
+005CF760 My16BitTexture_5CF760 fun
+005D0470 My16BitTexture_5D0470 fun
+005D0FA0 AABB_getWidth fun
+005D0FB0 AABB_getHeight fun
 005D0FC0 AABB_intersect fun
 005D1040 AABB_collapseToMax fun
 005D1050 AABB_normalize fun
@@ -3013,6 +3101,8 @@
 005D72D0 MyInputStream_unmap_redirect fun
 005D72E0 MyInputStream_getSemaphore_redirect fun
 005D72F0 MyInputStream_flush_stub fun
+005D7360 __tqi_5D7360 fun
+005D77A0 __tqi_5D77A0 fun
 005D7A70 strlen_ fun
 005D7A90 fast_strcpy fun
 005D7AC0 __strncpy fun
@@ -3059,6 +3149,7 @@
 005D9290 MyDiskDirectory_sub_5D9290 fun
 005D93E0 MyDiskDirectory_sub_5D93E0 fun
 005D9450 MyDiskDirectory_close fun
+005D9470 MyFileInfo_init fun
 005D94D0 MyDiskDirectory_createFileStream fun
 005D9620 MyDiskDirectory_setPath fun
 005D96C0 MyDiskDirectory_sub_5D96C0 fun
@@ -5377,12 +5468,96 @@
 00652A58 SEH_634330 
 00652A70 unknown_libname_123 
 00652A80 SEH_634490 
-00653080 draw_1024tex_to_buf_impl5 fun
-00653B6E draw_1024tex_to_buf_impl6 fun
-006542E0 draw_1024tex_to_buf_impl7 fun
-00654C10 draw_1024tex_to_buf_impl8 fun
-0065C120 fill_buf_special fun
+00653000 mgsr_aMmxSoftwareRen str
+00653080 mgsr_drawTriangle_impl5 fun
+00653B6E mgsr_draw_1024tex_to_buf_impl6 fun
+006542E0 mgsr_drawTriangle_impl7 fun
+00654C10 mgsr_draw_1024tex_to_buf_impl8 fun
+006551C0 mgsr_drawFuns 
+006552B0 mgsr_6552B0 fun
+00655320 mgsr_655320 fun
+006554B0 mgsr_6554B0 fun
+006555F0 mgsr_draw48_copy_withMode fun
+00655660 mgsr_draw48_copy_drawMode0 fun
+00655840 mgsr_draw48_copy_drawMode1 fun
+006559C0 mgsr_draw49 fun
+00655A30 mgsr_draw49_655A30 fun
+00655C40 mgsr_draw49_655C40 fun
+00655DF0 mgsr_draw51 fun
+00655E60 mgsr_draw51_655E60 fun
+00656060 mgsr_draw51_656060 fun
+00656200 mgsr_draw50 fun
+00656270 mgsr_draw50_656270 fun
+00656450 mgsr_draw50_656450 fun
+006565E0 mgsr_draw53 fun
+00656650 mgsr_draw53_656650 fun
+006568D0 mgsr_draw53_6568D0 fun
+00656AF0 mgsr_draw52 fun
+00656B60 mgsr_draw52_656B60 fun
+00656DE0 mgsr_draw52_656DE0 fun
+00657000 mgsr_draw54 fun
+00657070 mgsr_draw54_657070 fun
+00657310 mgsr_draw54_657310 fun
+00657560 mgsr_draw55 fun
+006575D0 mgsr_draw55_6575D0 fun
+00657870 mgsr_draw55_657870 fun
+00657AB0 mgsr_draw56 fun
+00657B20 mgsr_draw56_657B20 fun
+00657CB0 mgsr_draw56_657CB0 fun
+00657DE0 mgsr_draw57 fun
+00657E50 mgsr_draw57_657E50 fun
+00658000 mgsr_draw57_658000 fun
+00658160 mgsr_draw58 fun
+006581D0 mgsr_draw58_6581D0 fun
+00658390 mgsr_draw58_658390 fun
+006584F0 mgsr_draw59 fun
+00658560 mgsr_draw59_658560 fun
+00658710 mgsr_draw59_658710 fun
+00658870 mgsr_draw40 fun
+006588D0 mgsr_draw40_6588D0 fun
+006589B0 mgsr_draw32 fun
+00658A10 mgsr_draw32_658A10 fun
+00658AF0 mgsr_draw33 fun
+00658B50 mgsr_draw33_658B50 fun
+00658C60 mgsr_draw34 fun
+00658CC0 mgsr_draw34_658CC0 fun
+00658DA0 mgsr_draw35 fun
+00658E00 mgsr_draw35_658E00 fun
+00658F10 mgsr_draw36 fun
+00658F70 mgsr_draw36_658F70 fun
+006590E0 mgsr_draw37 fun
+00659140 mgsr_draw37_659140 fun
+006592B0 mgsr_draw38 fun
+00659310 mgsr_draw38_659310 fun
+006594B0 mgsr_draw39 fun
+00659510 mgsr_draw39_659510 fun
+00659580 tqia_dec_659580 fun
+006595C0 tqia_dec_6595C0 fun
+00659608 tqia_reset_659608 fun
+00659930 tqia_659930 fun
+00659A90 tqia_659A90 fun
+00659B90 tqia_dec_659B90 fun
+0065AEB0 tqia_dec_65AEB0 fun
+0065C120 tqia_fill_buf_special fun
+0065C290 tqia_65C290 fun
+0065CA50 tqia_dec_65CA50 fun
+0065E280 tqia_dec_65E280 fun
+0065FAE0 asm_update_65FAE0 fun
+0065FB14 asm_update_wordArr 
+0065FB54 asm_update2_65FB54 fun
+0065FC94 asm_update2_wordArr 
+0065FEA0 m8bit_asm_65FEA0 fun
+00664AA8 asm_unk_65FEA0_jumptable 
+006654A8 asm_unk_65FEA0_jumptable2 
+00665EB0 tqi_asm_665EB0 fun
 00665EBB __cfltcvt_init_16 
+00665EF0 tqi_asm_reset_665EF0 fun
+00666210 tqi_asm_666210 fun
+00666370 tqi_asm_666370 fun
+00666480 tqi_asm_666480 fun
+00668810 tqi_asm_668810 fun
+00669A80 m8bit_asm_669A80 fun
+0066BAF8 m8bit_asm_66BAF8 fun
 0066C000 RegQueryValueExA import
 0066C004 RegOpenKeyExA import
 0066C008 GetUserNameA import
@@ -5804,7 +5979,7 @@
 00671E10 CLSID_IDirectDrawSurface2 
 00671E20 CLSID_IDirectDraw4 
 00671E30 CLSID_IDirectDraw2 
-00671E40 ??_7MyDefBitTexture@@6B@ 
+00671E40 ??_7My8BitTexture@@6B@ 
 00671E80 ??_7My16BitTexture@@6B@ 
 00671EC0 ??_7My24BitTexture@@6B@ 
 00671F00 ??_7My32BitTexture@@6B@ 
@@ -5849,6 +6024,7 @@
 00672510 ??_7Obj672510@@6B@ 
 00672520 ??_7Obj672520Interface@@6B@ 
 006725D8 ??_7MyInputStream@@6B@ 
+00672608 tqi_dword_672608 
 00672708 ??_7MyDirectory@@6B@ 
 00672740 ??_7MyWadDirectory@@6B@ 
 00672774 ??_7TbCharStringList@@6B@_0 
@@ -10891,6 +11067,8 @@
 00764BC4 EngineTestLight_a31x400_idx 
 00764BC8 EngineTextureWhite_a31x400_idx 
 00764BE8 gamma_ramp 
+007651F4 g_isCurDdSurfLost 
+00765200 mgsr_initialized 
 00765224 g_pCEngine2DPrimitive 
 007656E8 MyNameObjMap_instance 
 00765AF8 Arrp31x400_instance 
@@ -10901,28 +11079,27 @@
 00766228 CMemLoadIFFFile_instance 
 00769A78 arr_769A78 
 0076AA78 arr_769A78_itemsCount 
-0076C280 my_buf_4800_width_512 
-0076C284 my_buf_4800_height_512 
-0076C288 my_buf_4800 
-0076C28C textures_buf 
-0076C290 tex_and_header_size2 
-0076C2A0 my_buf1_tex_and_header 
-0076C2A4 my_buf1_6000 
-0076C2B0 my_buf2_tex_and_header 
-0076C2B4 my_buf2_6000 
+0076AA80 DrawTriangleList_lpwIndices 
+0076C280 my_triangles_24hx512 
+0076C28C g_flexibleVertices 
+0076C290 DrawTriangleList_dwVertexTypeDesc 
+0076C294 mgsr_currentDrawFlags 
+0076C298 g_vertices 
 0076C2B8 mydd_cpy 
+0076C2E4 DrawTriangleList_trianglesCount 
+0076C2E8 g_lpwTrianglesIndices 
 0076C2F0 lastSceneObject 
-0076D2F8 tex_and_header_size1 
-0076D300 my_buf_400_width_512 
-0076D304 my_buf_400_height_512 
-0076D308 my_buf_400 
-0076F310 my_buf_unk_512 
-0076F318 my_buf_6800_width_512 
-0076F31C my_buf_6800_height_512 
-0076F320 my_buf_6800 
-0076F328 my_buf_3000_width_512 
-0076F32C my_buf_3000_height_512 
-0076F330 my_buf_3000 
+0076C2F8 sceneObj2E_f21_to_triangleIndices 
+0076D2F8 g_flexibleVertex_size 
+0076D300 my_indicies_2hx512 
+0076D310 drawnTrianglesArr 
+0076F310 g_flexibleVertices_maxCount 
+0076F314 DrawTriangleList_verticesCount 
+0076F318 mymgsr_buf_34hx512 
+0076F328 mymgsr_vertices_18hx512 
+0076F334 g_totalVerticesCount 
+0076F338 g_totalTrianglesCount 
+00779358 __renderFun 
 007793A8 arr_7793A8 
 0077F3F0 mydd_cpy2_buf 
 0077F8F8 mydd_cpy2 
@@ -10954,11 +11131,11 @@
 007962A8 cmd_flag_FrontEnd3D_unk8 
 007962AC cmd_flag_DDD 
 007962B0 cmd_flag_DDD_value 
-00797B5C mydd_bufsAllocated 
-00797B74 mydd_buf_25635 
-00797B78 mydd_buf_aligned32 
-00797B7C mydd_buf2_12835 
-00797B80 mydd_buf2_aligned32 
+00797B5C mgsr_bufsAllocated 
+00797B74 mgsr_buf_25635 
+00797B78 mgsr_buf_aligned32 
+00797B7C mgsr_buf2_12835 
+00797B80 mgsr_buf2_aligned32 
 0079CF90 ?instance@MyInputManagerCb@dk2@@0U12@A 
 0079D018 appCloseStatus 
 0079D01C ?hInstance@globals@dk2@@0PAUHINSTANCE__@@A 
@@ -10969,7 +11146,7 @@
 0079D048 pMyNBitTexture 
 0079D050 g_surfAabb 
 0079D060 g_myRenderSurface 
-0079D068 pMyDefBitTexture_vtbl 
+0079D068 pMy8BitTexture_vtbl 
 0079D070 pMy16BitTexture_vtbl 
 0079D074 pMy24BitTexture_vtbl 
 0079D078 pMy32BitTexture_vtbl 
@@ -10997,8 +11174,44 @@
 0079DBD0 SharedArr79DBD0_instance 
 0079DC68 Obj79DC68_instance 
 0079F174 isBullfrogWindowCreated 
+0079F4F0 tqi_byte_79F4F0 
+0079F5F8 tqi_dword_79F5F8 
+0079F5FC tqi_dword_79F5FC 
+0079F600 tqi_dword_79F600 
+0079F604 tqi_dword_79F604 
+0079F608 tqi_dword_79F608 
+0079F60C tqi_dword_79F60C 
+0079F610 tqi_dword_79F610 
+0079F614 tqi_dword_79F614 
+0079F618 tqi_dword_79F618 
+0079F61C tqi_dword_79F61C 
+0079F620 tqi_dword_79F620 
+0079F624 tqi_dword_79F624 
+0079F62C tqi_dword_79F62C 
 0079F630 ?initialized@CursorDrawer@dk2@@2_NA 
 0079F638 ?instance@CursorDrawer@dk2@@2U12@A 
+0079F878 m8bit_lPitch 
+0079F87C m8bit_width 
+0079F880 m8bit_height 
+0079F884 m8bit_79F884 
+0079F888 m8bit_lpSurface 
+0079F88C m8bit_79F88C 
+0079F898 m8bit_x 
+0079F89C m8bit_y 
+0079F8A0 tqi_dword_79F8A0 
+0079F9A0 tqi_dword_79F9A0 
+0079FAA0 tqi_dword_79FAA0 
+0079FAC4 tqi_dword_79FAC4 
+0079FAE8 tqi_dword_79FAE8 
+0079FB0C tqi_dword_79FB0C 
+0079FB30 tqi_dword_79FB30 
+0079FB54 tqi_dword_79FB54 
+0079FB78 tqi_dword_79FB78 
+0079FB9C tqi_dword_79FB9C 
+007A043C tqi_dword_7A043C 
+007A143C tqi_dword_7A143C 
+007A2440 tqi_unk_7A2440 
+007A3440 tqi_unk_7A3440 
 007A4440 g_filePath 
 007A4548 pszFileName 
 007A53B8 MyUnk674058_instance_start 
@@ -11045,21 +11258,164 @@
 007A5DB0 Addend 
 007A6DC0 Count 
 007A6DC4 g_commandLineA 
-007A7020 mydd_buf 
-007A7024 mydd_buf2 
-007A7028 mydd_buf_width 
-007A702C mydd_buf2_width 
-007A7034 currentTex_lockedBuf 
-007A7044 g_redShift 
-007A7048 g_greenShift 
-007A704C g_blueShift 
-007A7050 g_red 
-007A7054 g_green 
-007A7058 g_blue 
+007A7000 mgsr_qword_7A7000 
+007A7008 mgsr_qword_7A7008 
+007A7010 grpoly_dword_7A7010 
+007A7014 grpoly_dword_7A7014 
+007A7018 grpoly_dword_7A7018 
+007A701C grpoly_dword_7A701C 
+007A7020 grpoly_mydd_buf 
+007A7024 grpoly_mydd_buf2 
+007A7028 mgsr_buf_width 
+007A702C mgsr_buf2_width 
+007A7030 mgsr_drawMode 
+007A7034 mgsr_lockedBuf 
+007A7040 mgsr_pDrawFun 
+007A7044 grpoly_redShift 
+007A7048 grpoly_greenShift 
+007A704C grpoly_blueShift 
+007A7050 grpoly_red 
+007A7054 grpoly_green 
+007A7058 grpoly_blue 
+007A705C grpoly_dword_7A705C 
+007A7060 grpoly_dword_7A7060 
+007A7064 grpoly_dword_7A7064 
+007A7068 grpoly_dword_7A7068 
+007A706C grpoly_dword_7A706C 
+007A7070 grpoly_dword_7A7070 
+007A7074 grpoly_dword_7A7074 
+007A7078 grpoly_dword_7A7078 
+007A707C grpoly_dword_7A707C 
+007A7080 grpoly_dword_7A7080 
+007A7084 grpoly_dword_7A7084 
+007A7088 grpoly_dword_7A7088 
+007A708C grpoly_dword_7A708C 
+007A7090 grpoly_dword_7A7090 
+007A7094 grpoly_dword_7A7094 
+007A70B0 mgsr_dword_7A70B0 
+007A70B4 mgsr_dword_7A70B4 
+007A70B8 mgsr_dword_7A70B8 
+007A70BC mgsr_dword_7A70BC 
+007A70C0 mgsr_dword_7A70C0 
+007A70C4 mgsr_qword_7A70C4 
+007A70CC mgsr_qword_7A70CC 
+007A70D4 mgsr_qword_7A70D4 
+007A70DC mgsr_qword_7A70DC 
+007A70E4 mgsr_qword_7A70E4 
+007A7138 mgsr_qword_7A7138 
+007A7140 mgsr_dword_7A7140 
+007A7144 mgsr_dword_7A7144 
+007A7148 mgsr_qword_7A7148 
+007A7150 mgsr_qword_7A7150 
+007A7154 mgsr_dword_7A7154 
+007A7158 mgsr_qword_7A7158 
+007A7160 mgsr_qword_7A7160 
+007A7168 mgsr_dword_7A7168 
+007A7190 grpoly_qword_7A7190 
+007A7198 grpoly_qword_7A7198 
+007A71A0 grpoly_qword_7A71A0 
+007A71A8 grpoly_dword_7A71A8 
+007A71AC grpoly_dword_7A71AC 
+007A71B8 mgsr_qword_7A71B8 
+007A71F8 mgsr_savedEdi 
+007A71FC mgsr_savedEbp 
+007A7200 mgsr_lastDrawHeight 
+007A7204 mgsr_lastDrawWidth 
+007A7208 mgsr_pos_dst 
+007A7210 mgsr_qword_src 
+007A7218 mgsr_savedEsp 
+007A7228 mgsr_pixelsCount 
+007A7240 mgsr_dword_7A7240 
+007A7244 mgsr_dword_7A7244 
+007A7248 mgsr_dword_7A7248 
+007A724C mgsr_dword_7A724C 
+007A7250 mgsr_dword_7A7250 
+007A7254 mgsr_dword_7A7254 
+007A7258 mgsr_qword_7A7258 
+007A7260 mgsr_qword_7A7260 
+007A7268 mgsr_dword_7A7268 
+007A726C mgsr_dword_7A726C 
+007A7270 mgsr_dword_7A7270 
+007A7274 mgsr_dword_7A7274 
+007A7278 mgsr_dword_7A7278 
+007A727C mgsr_dword_7A727C 
+007A7280 mgsr_dword_7A7280 
+007A7284 mgsr_dword_7A7284 
+007A7288 mgsr_dword_7A7288 
+007A728C mgsr_qword_7A728C 
+007A7294 mgsr_qword_7A7294 
+007A729C mgsr_dword_7A729C 
+007A72A0 mgsr_dword_7A72A0 
+007A72A4 mgsr_dword_7A72A4 
+007A72A8 mgsr_dword_7A72A8 
+007A72AC mgsr_dword_7A72AC 
+007A72B0 mgsr_dword_7A72B0 
+007A72B4 mgsr_dword_7A72B4 
+007A72B8 mgsr_dword_7A72B8 
+007A72BC mgsr_dword_7A72BC 
+007A72C0 mgsr_qword_7A72C0 
+007A72C8 mgsr_qword_7A72C8 
+007A72D0 mgsr_dword_7A72D0 
+007A72D4 mgsr_dword_7A72D4 
+007A72D8 mgsr_dword_7A72D8 
+007A72DC mgsr_dword_7A72DC 
+007A72E0 mgsr_qword_7A72E0 
+007A74D8 mgsr_dword_7A74D8 
+007A74DC mgsr_dword_7A74DC 
+007A74E0 mgsr_qword_7A74E0 
+007A76F0 mgsr_off_7A76F0 
+007A76F8 mgsr_off_7A76F8 
+007A7710 mgsr_dword_7A7710 
 007ACAAC jpt_5AC905 
+007AF000 tqi_dword_7AF000 
+007AF004 tqi_flt_7AF004 
+007AF008 tqi_flt_7AF008 
+007AF00C tqi_flt_7AF00C 
+007AF010 tqi_flt_7AF010 
+007AF014 tqi_flt_7AF014 
+007AF018 tqi_flt_7AF018 
+007AF020 tqi_dbl_7AF020 
+007AF028 tqi_dbl_7AF028 
+007AF030 tqi_dbl_7AF030 
+007AF038 tqi_dword_7AF038 
+007AF03C tqi_flt_7AF03C 
+007AF040 tqi_flt_7AF040 
+007AF044 tqi_flt_7AF044 
+007AF048 tqi_dbl_7AF048 
+007AF050 tqi_dword_7AF050 
 007AF058 tqia_src_pos 
+007AF05C tqi_dword_7AF05C 
+007AF060 tqi_dword_7AF060 
+007AF064 tqi_dword_7AF064 
+007AF068 tqi_dword_7AF068 
+007AF06C tqi_dword_7AF06C 
+007AF074 tqi_dword_7AF074 
+007AF078 tqi_dword_7AF078 
+007AF07C tqi_dword_7AF07C 
+007AF080 tqi_dword_7AF080 
+007AF084 tqi_dword_7AF084 
+007AF088 tqi_dword_7AF088 
 007AF08C tqia_offs 
+007AF090 tqi_dword_7AF090 
+007AF094 tqi_dword_7AF094 
+007AF098 tqi_dword_7AF098 
+007AF09C tqi_dword_7AF09C 
+007AF0A0 tqi_dword_7AF0A0 
+007AF0A4 tqi_dword_7AF0A4 
+007AF0A8 tqi_dword_7AF0A8 
+007AF0AC tqi_dword_7AF0AC 
+007AF0B0 tqi_dword_7AF0B0 
+007AF0B4 tqi_dword_7AF0B4 
+007AF0B8 tqi_dword_7AF0B8 
+007AF0BC tqi_dword_7AF0BC 
+007AF0C0 tqi_dword_7AF0C0 
+007AF0C4 tqi_dword_7AF0C4 
+007AF0C8 tqi_dword_7AF0C8 
+007AF0CC tqi_dword_7AF0CC 
+007AF0D0 tqi_dword_7AF0D0 
 007AF0D4 tqia_is32BitPair 
+007AF0D8 tqi_dword_7AF0D8 
+007AF0DC tqi_dword_7AF0DC 
 007AF0E0 jpeg_zigzag 
 007AF1E0 jpeg_007AF1E0 
 007AF200 tqia_ge2048 
@@ -11068,5 +11424,49 @@
 007AF360 tqia_ge128 
 007AF3A0 tqia_ge64 
 007AF3E0 tqia_ge32 
+007AF4E0 tqi_byte_7AF4E0 
+007AF5E0 tqi_qword_7AF5E0 
+007AF5E8 tqi_qword_7AF5E8 
+007AF5F0 tqi_dword_7AF5F0 
+007AF5F4 tqi_flt_7AF5F4 
+007AF5F8 tqi_flt_7AF5F8 
+007AF5FC tqi_flt_7AF5FC 
+007AF600 tqi_dword_7AF600 
+007AF604 tqi_byte_7AF604 
+007AF60C tqi_dword_7AF60C 
+007AF610 tqi_dword_7AF610 
+007AF614 tqi_dword_7AF614 
+007AF618 tqi_dword_7AF618 
+007AF61C tqi_dword_7AF61C 
+007AF620 tqi_dword_7AF620 
+007AF624 tqi_dword_7AF624 
+007AF628 tqi_dword_7AF628 
+007AF62C tqi_dword_7AF62C 
+007AF630 tqi_dword_7AF630 
+007AF634 tqi_dword_7AF634 
+007AF638 tqi_dword_7AF638 
+007AF63C tqi_dword_7AF63C 
+007AF640 tqi_dword_7AF640 
+007AF644 tqi_dword_7AF644 
+007AF648 tqi_dword_7AF648 
+007AF64C tqi_dword_7AF64C 
+007AF650 tqi_dword_7AF650 
+007AF654 tqi_dword_7AF654 
+007AF658 tqi_dword_7AF658 
+007AF65C tqi_dword_7AF65C 
+007AF660 tqi_dword_7AF660 
+007AF664 tqi_dword_7AF664 
+007AF668 tqi_dword_7AF668 
+007AF66C tqi_dword_7AF66C 
+007AF670 tqi_dword_7AF670 
+007AF674 tqi_dword_7AF674 
+007AF678 tqi_dword_7AF678 
+007AF67C tqi_dword_7AF67C 
 007AF680 jpeg_zigzag2 
 007AF780 jpeg_007AF780 
+007AF7A0 tqi_byte_7AF7A0 
+007AF880 tqi_byte_7AF880 
+007AF8C0 tqi_byte_7AF8C0 
+007AF900 tqi_byte_7AF900 
+007AF940 tqi_byte_7AF940 
+007AF980 tqi_byte_7AF980 

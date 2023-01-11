@@ -8,8 +8,8 @@
 #include <vector>
 #include <functional>
 
-void write_jump(uint8_t *pos, void *to);
-void write_call(uint8_t *pos, void *to);
+void write_jump(uint8_t *pos, void *to, size_t orig_size = 0);
+void write_call(uint8_t *pos, void *to, size_t orig_size = 0);
 
 class PatchBuilder {
   std::vector<uint8_t> proxy;

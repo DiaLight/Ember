@@ -54,8 +54,13 @@ int getByteOffs(uint32_t mask) {
 }
 
 dk2::CEngineSurfaceBase *__fastcall replace_MyTextures_loadCompressed(dk2::MyTextures *_this, void *edx, char *texName) {
+  if(strstr(texName, "PRESCALED_TO") != NULL) {
+    // don't try to load prescaled textures
+    return MyTextures_loadCompressed(_this, edx, texName);
+  }
+
   std::stringstream ss;
-  ss << dk2::globals::getDk2HomeDir() << "/resources/default/" << texName << ".png";
+  ss << dk2::globals::getDk2HomeDir() << "/resources/default/EngineTextures/" << texName << ".png";
   std::string file = ss.str();
 
   unsigned error;

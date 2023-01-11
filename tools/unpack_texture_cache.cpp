@@ -54,7 +54,7 @@ void save32_(int width, int height, int pitch, std::vector<uint8_t> &buffer, con
     MessageBoxA(NULL, "ERROR", "ERROR", MB_OK);
   } else {
     std::stringstream ss;
-    ss << dk2::globals::getDk2HomeDir() << "/resources/default/" << name << ".png";
+    ss << dk2::globals::getDk2HomeDir() << "/resources/default/EngineTextures/" << name << ".png";
     std::string file = ss.str();
     std::filesystem::path path(file);
     std::filesystem::create_directories(path.parent_path());

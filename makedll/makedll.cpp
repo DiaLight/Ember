@@ -34,17 +34,6 @@ void printf(const char *fmt, ...) {
 #define assert(cond) ((cond) || (printf(__FILE__ ":%d assertion failed: " #cond, __LINE__), ExitProcess(-1), 0))
 
 
-void *__cdecl memcpy(void *dst, void const *src, size_t size) {
-  auto *s = (const uint8_t *) src;
-  auto *d = (uint8_t *) dst;
-  while(size--) *d++ = *s++;
-  return d;
-}
-void *__cdecl memset(void *dst, int val, size_t size) {
-  auto *d = (uint8_t *) dst;
-  while(size--) *d++ = val;
-  return d;
-}
 void *__cdecl malloc(size_t size) {
   return HeapAlloc(GetProcessHeap(), 0, size);
 }
@@ -63,18 +52,7 @@ void __cdecl operator delete(void *ptr) noexcept {
 void __cdecl operator delete(void *ptr, unsigned int) noexcept {
   free(ptr);
 }
-size_t __cdecl strlen(char const *str) {
-  char const *p = str;
-  while(*p) p++;
-  return p - str;
-}
 
-int strcmp(const char *s1, const char *s2) {
-  while(*s1 && (*s1 == *s2)) {
-    s1++; s2++;
-  }
-  return *(const unsigned char *)s1 - *(const unsigned char *)s2;
-}
 bool streq(const char *s1, const char *s2) {
   while(*s1) if(*s1++ != *s2++) return false;
   return true;
