@@ -3,16 +3,6 @@ project(ember)
 
 set(CMAKE_CXX_STANDARD 20)
 
-option(DK2_DIR "Dungeon Keeper 2 directory")
-if(NOT DK2_DIR)
-    message(FATAL_ERROR "You need to specify Dungeon Keeper 2 dir with cmake flag -DDK2_DIR=\"D:/Games/Dungeon Keeper 2\"")
-else()
-    message(STATUS "Dungeon Keeper 2 directory: ${DK2_DIR}")
-endif()
-if(NOT EXISTS "${DK2_DIR}/DKII.EXE")
-    message(FATAL_ERROR "\"${DK2_DIR}/DKII.EXE\" is not found")
-endif()
-
 if(MSVC)
     add_compile_options(/we4715)
 endif()
@@ -25,11 +15,10 @@ set(DK2_NAMES_SRC "${CMAKE_CURRENT_LIST_DIR}/mappings/names.map")
 set(DK2_REFERENCES_SRC "${CMAKE_CURRENT_LIST_DIR}/mappings/references.map")
 set(DK2_STACK_SRC "${CMAKE_CURRENT_LIST_DIR}/mappings/stack.map")
 
-set(BIN_DIR "${CMAKE_BINARY_DIR}/bin")
-file(MAKE_DIRECTORY ${BIN_DIR})
-set(DK2_REFERENCES "${BIN_DIR}/references.map")
-set(DK2_STACK "${BIN_DIR}/stack.map")
-set(DK2_EXPORTS "${BIN_DIR}/exports.map")
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+set(DK2_REFERENCES "${CMAKE_CURRENT_BINARY_DIR}/references.map")
+set(DK2_STACK "${CMAKE_CURRENT_BINARY_DIR}/stack.map")
+set(DK2_EXPORTS "${CMAKE_CURRENT_BINARY_DIR}/exports.map")
 add_custom_command(
         OUTPUT ${DK2_REFERENCES}
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${DK2_REFERENCES_SRC} ${DK2_REFERENCES}
@@ -52,6 +41,12 @@ add_custom_command(
         COMMENT "Generating exports.map"
 )
 add_custom_target(dll_exports DEPENDS ${DK2_EXPORTS})
+install(FILES
+        ${DK2_REFERENCES}
+        ${DK2_STACK}
+        ${DK2_EXPORTS}
+        DESTINATION "${CMAKE_INSTALL_PREFIX}"
+)
 
 set(DK2_LIB "${CMAKE_CURRENT_BINARY_DIR}/dk2.lib")
 add_custom_command(
@@ -74,17 +69,28 @@ add_custom_command(
 )
 
 add_subdirectory(makedll)
-set(DK2_DLL "${BIN_DIR}/dk2.dll")
-add_custom_command(
-        OUTPUT ${DK2_DLL}
-        COMMAND $<TARGET_FILE:makedll> "${DK2_DLL}" "${DK2_DIR}/DKII.exe" "${DK2_EXPORTS}" "${DK2_REFERENCES}"
-        DEPENDS
-        ${DK2_EXPORTS}
-        ${DK2_REFERENCES}
-        makedll
-        WORKING_DIRECTORY ${DK2_DIR}
-        COMMENT "Generating dk2.dll"
-)
+
+option(DK2_DIR "Dungeon Keeper 2 directory")
+if(DK2_DIR)
+    message(STATUS "Dungeon Keeper 2 directory: ${DK2_DIR}")
+    if(NOT EXISTS "${DK2_DIR}/DKII.EXE")
+        message(FATAL_ERROR "\"${DK2_DIR}/DKII.EXE\" is not found")
+    endif()
+    set(DK2_DLL "${CMAKE_CURRENT_BINARY_DIR}/dk2.dll")
+    add_custom_command(
+            OUTPUT ${DK2_DLL}
+            COMMAND $<TARGET_FILE:makedll> "${DK2_DLL}" "${DK2_DIR}/DKII.exe" "${DK2_EXPORTS}" "${DK2_REFERENCES}"
+            DEPENDS
+            ${DK2_EXPORTS}
+            ${DK2_REFERENCES}
+            makedll
+            WORKING_DIRECTORY ${DK2_DIR}
+            COMMENT "Generating dk2.dll"
+    )
+else()
+    message(WARNING "You can specify Dungeon Keeper 2 dir with cmake flag -DDK2_DIR=\"D:/Games/Dungeon Keeper 2\"")
+    set(DK2_DLL "")
+endif()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /GS- /Gz")
 
@@ -151,7 +157,7 @@ target_compile_definitions(bootstrap_patcher PRIVATE DIRECTINPUT_VERSION=0x0500 
 add_subdirectory(3rdparty)
 target_link_libraries(bootstrap_patcher PRIVATE lodepng)
 
-set_target_properties(bootstrap_patcher PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BIN_DIR}")
+install(TARGETS bootstrap_patcher RUNTIME DESTINATION ".")
 
 if(NOT REVERSE_MODE)
     add_subdirectory(launcher)
