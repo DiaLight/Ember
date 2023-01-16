@@ -266,8 +266,29 @@ namespace api {
   }
 
   bool initialize() {
+
+    int nArgs;
+    LPWSTR *szArglist = CommandLineToArgvW(GetCommandLineW(), &nArgs);
+    if(szArglist == NULL) {
+      printf("CommandLineToArgvW failed\n");
+      return false;
+    }
+    for(int i = 0; i < nArgs; i++) {
+      std::wstring warg(szArglist[i]);
+      std::string arg = utf8_encode(warg);
+      if(i != 0 && arg.starts_with("-ember:")) {
+        arg = arg.substr(7);
+        EMBER_ARGS.push_back(arg);
+      } else DK2_ARGS.push_back(arg);
+    }
 #ifdef REVERSE_MODE
     AllocConsole();
+#else
+    if(api::hasFlag("console")) {
+      AllocConsole();
+      freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
+      freopen_s((FILE**)stderr, "CONOUT$", "w", stderr);
+    }
 #endif
     RedirectStandardIo();
     g_bootstrap_patcher = GetModuleHandleW(L"bootstrap_patcher.dll");
@@ -285,22 +306,14 @@ namespace api {
     printf("bootstrap patcher base: %p\n", g_bootstrap_patcher);
     printf("dk2 base: %p\n", dk2_base);
 
-    int nArgs;
-    LPWSTR *szArglist = CommandLineToArgvW(GetCommandLineW(), &nArgs);
-    if(szArglist == NULL) {
-      printf("CommandLineToArgvW failed\n");
-      return false;
+    printf("dk2 args:\n");
+    for(auto &arg : DK2_ARGS) {
+      printf("  %s\n", arg.c_str());
     }
-    for(int i = 0; i < nArgs; i++) {
-      std::wstring warg(szArglist[i]);
-      std::string arg = utf8_encode(warg);
-      printf("%d: %ws\n", i, szArglist[i]);
-      if(i != 0 && arg.starts_with("-ember:")) {
-        arg = arg.substr(7);
-        EMBER_ARGS.push_back(arg);
-      } else DK2_ARGS.push_back(arg);
+    printf("ember args:\n");
+    for(auto &arg : EMBER_ARGS) {
+      printf("  -ember:%s\n", arg.c_str());
     }
-
 
     LocalFree(szArglist);
 

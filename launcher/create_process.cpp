@@ -29,7 +29,7 @@ BOOL CALLBACK CollectWindows_WndEnumProc(HWND hWnd, LPARAM lParam) {
   return TRUE;
 }
 
-bool CreateProcess_runAndWait(const wchar_t *cmd, const wchar_t *dir, DWORD &lastError, DWORD &exitCode) {
+bool CreateProcess_runAndWait(const wchar_t *cmd, const wchar_t *dir, DWORD &lastError, DWORD &exitCode, bool redirectConsole) {
   SECURITY_ATTRIBUTES saAttr;
   saAttr.nLength = sizeof(SECURITY_ATTRIBUTES);
   saAttr.bInheritHandle = TRUE;
@@ -37,14 +37,16 @@ bool CreateProcess_runAndWait(const wchar_t *cmd, const wchar_t *dir, DWORD &las
 
   HANDLE hChildStd_OUT_Rd = NULL;
   HANDLE hChildStd_OUT_Wr = NULL;
-  if (!CreatePipe(&hChildStd_OUT_Rd, &hChildStd_OUT_Wr, &saAttr, 0) ) {
-    printStatus("CreatePipe failed: %08X", GetLastError());
-    return false;
-  }
+  if(redirectConsole) {
+    if (!CreatePipe(&hChildStd_OUT_Rd, &hChildStd_OUT_Wr, &saAttr, 0) ) {
+      printStatus("CreatePipe failed: %08X", GetLastError());
+      return false;
+    }
 
-  if (!SetHandleInformation(hChildStd_OUT_Rd, HANDLE_FLAG_INHERIT, 0) ) {
-    printStatus("SetHandleInformation failed: %08X", GetLastError());
-    return false;
+    if (!SetHandleInformation(hChildStd_OUT_Rd, HANDLE_FLAG_INHERIT, 0) ) {
+      printStatus("SetHandleInformation failed: %08X", GetLastError());
+      return false;
+    }
   }
 
   STARTUPINFOW si;
@@ -53,7 +55,9 @@ bool CreateProcess_runAndWait(const wchar_t *cmd, const wchar_t *dir, DWORD &las
   si.hStdError = hChildStd_OUT_Wr;
   si.hStdOutput = hChildStd_OUT_Wr;
   si.hStdInput = GetStdHandle(STD_INPUT_HANDLE);
-  si.dwFlags |= STARTF_USESTDHANDLES;
+  if(redirectConsole) {
+    si.dwFlags |= STARTF_USESTDHANDLES;
+  }
 
   PROCESS_INFORMATION	pi;
   ZeroMemory(&pi, sizeof(pi));
@@ -67,11 +71,11 @@ bool CreateProcess_runAndWait(const wchar_t *cmd, const wchar_t *dir, DWORD &las
       NULL, mcmd, NULL, NULL, TRUE,
       0, NULL, dir, &si, &pi
   );
-  CloseHandle(hChildStd_OUT_Wr);
+  if(hChildStd_OUT_Wr) CloseHandle(hChildStd_OUT_Wr);
   free(mcmd);
   if(!created) {
     lastError = GetLastError();
-    CloseHandle(hChildStd_OUT_Rd);
+    if(hChildStd_OUT_Rd) CloseHandle(hChildStd_OUT_Rd);
     return false;
   }
 
@@ -95,32 +99,34 @@ bool CreateProcess_runAndWait(const wchar_t *cmd, const wchar_t *dir, DWORD &las
       }
     }
   });
+  if(redirectConsole) {
 #define BUFSIZE 4096
-  DWORD dwRead;
-  std::string line;
-  size_t lineEndOffs = 0;
-  BOOL bSuccess = FALSE;
-  for (;;) {
-    line.resize(lineEndOffs + BUFSIZE);
-    bSuccess = ReadFile(hChildStd_OUT_Rd, (&*line.begin()) + lineEndOffs, BUFSIZE, &dwRead, NULL);
-    if(!bSuccess || dwRead == 0) break;
-    char *pos = (&*line.begin()) + lineEndOffs;
-    char *end = pos + dwRead;
-    lineEndOffs += dwRead;
-    for(;pos < end; pos++) {
-      if(*pos == '\n') {
-        size_t lineLen = pos - (&*line.begin());
-        std::string tmp(&*line.begin(), lineLen);
-        printStatus(tmp.c_str());
-        line.erase(0, lineLen + 1);
-        lineEndOffs -= lineLen + 1;
+    DWORD dwRead;
+    std::string line;
+    size_t lineEndOffs = 0;
+    BOOL bSuccess = FALSE;
+    for (;;) {
+      line.resize(lineEndOffs + BUFSIZE);
+      bSuccess = ReadFile(hChildStd_OUT_Rd, (&*line.begin()) + lineEndOffs, BUFSIZE, &dwRead, NULL);
+      if(!bSuccess || dwRead == 0) break;
+      char *pos = (&*line.begin()) + lineEndOffs;
+      char *end = pos + dwRead;
+      lineEndOffs += dwRead;
+      for(;pos < end; pos++) {
+        if(*pos == '\n') {
+          size_t lineLen = pos - (&*line.begin());
+          std::string tmp(&*line.begin(), lineLen);
+          printStatus(tmp.c_str());
+          line.erase(0, lineLen + 1);
+          lineEndOffs -= lineLen + 1;
+        }
       }
     }
+    if(!line.empty()) {
+      printStatus(line.c_str());
+    }
   }
-  if(!line.empty()) {
-    printStatus(line.c_str());
-  }
-  CloseHandle(hChildStd_OUT_Rd);
+  if(hChildStd_OUT_Rd) CloseHandle(hChildStd_OUT_Rd);
 
   WaitForSingleObject(pi.hProcess, INFINITE);
   thr.join();

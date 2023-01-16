@@ -33,6 +33,8 @@ extern gui::button_elem_t ResExtractBtn;
 extern gui::button_elem_t ResOpenBtn;
 extern gui::button_elem_t ResRedirectChk;
 
+extern gui::button_elem_t AllocConsoleChk;
+
 void launcher_layout(HWND hwnd, int width, int height, bool reset=false);
 
 #endif //EMBER_LAYOUT_H

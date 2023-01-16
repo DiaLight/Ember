@@ -44,7 +44,7 @@ bool patch::use_wheel_to_zoom() {
         DWORD zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
         DWORD xPos = GET_X_LPARAM(lParam);
         DWORD yPos = GET_Y_LPARAM(lParam);
-//        printf("k=%08X d=%d {%d %d}\n", fwKeys, zDelta, xPos, yPos);
+        printf("k=%08X d=%d {%d %d}\n", fwKeys, zDelta, xPos, yPos);
         zoom2(-zDelta * 50);
         break;
       }

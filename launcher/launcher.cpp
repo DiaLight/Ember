@@ -34,6 +34,7 @@ std::wstring g_pathEnv;
 
 
 void genDll() {
+  bool redirectConsole = AllocConsoleChk.getCheck() != BST_CHECKED;
   DWORD exitCode = 0;
   DWORD lastError = 0;
   std::wstringstream wss;
@@ -43,7 +44,7 @@ void genDll() {
   wss << " " << L'\"' << g_curExeDir << L"/exports.map" << L'\"';
   wss << " " << L'\"' << g_curExeDir << L"/references.map" << L'\"';
   std::wstring cmd = wss.str();
-  if(CreateProcess_runAndWait(cmd.c_str(), NULL, lastError, exitCode)) {
+  if(CreateProcess_runAndWait(cmd.c_str(), NULL, lastError, exitCode, redirectConsole)) {
     if(exitCode == 0) return;
   }
   if(lastError) printStatus("start makedll failed: %08X", lastError);
@@ -51,10 +52,11 @@ void genDll() {
 }
 
 void startEmber(HWND hwnd, std::wstring &cmd) {
+  bool redirectConsole = AllocConsoleChk.getCheck() != BST_CHECKED;
   DWORD exitCode = 0;
   DWORD lastError = 0;
   ShowWindow(hwnd, SW_HIDE);
-  bool created = CreateProcess_runAndWait(cmd.c_str(), g_dk2Dir.c_str(), lastError, exitCode);
+  bool created = CreateProcess_runAndWait(cmd.c_str(), g_dk2Dir.c_str(), lastError, exitCode, redirectConsole);
   ShowWindow(hwnd, SW_SHOW);
   SetForegroundWindow(hwnd);
   if(created && exitCode == 0) return;
@@ -225,6 +227,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
           ResRedirectChk.setCheck(BST_UNCHECKED);
         }
       }
+      {
+        DWORD check = 0;
+        if(persistence_getDword(L"console", check)) {
+          AllocConsoleChk.setCheck((int) check);
+        } else {
+          AllocConsoleChk.setCheck(BST_UNCHECKED);
+        }
+      }
       std::wstring menu_resolution;
       persistence_getStr(L"menu_resolution", menu_resolution);
       std::wstring game_resolution;
@@ -304,6 +314,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
               check = ResRedirectChk.getCheck();
               if(check == BST_CHECKED) {
                 wss << " -ember:redirect_textures";
+              }
+              check = AllocConsoleChk.getCheck();
+              if(check == BST_CHECKED) {
+                wss << " -ember:console";
               }
               check = FullscreenChk.getCheck();
               if(check != BST_INDETERMINATE) {
@@ -424,6 +438,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
       persistence_setDword(L"unlimited_zoom", (DWORD) UnlimitedZoomChk.getCheck());
       persistence_setDword(L"wheel2zoom", (DWORD) Wheel2ZoomChk.getCheck());
       persistence_setDword(L"redirect_textures", (DWORD) ResRedirectChk.getCheck());
+      persistence_setDword(L"console", (DWORD) AllocConsoleChk.getCheck());
       {
         auto &mode = g_screenModeList[MenuModesCombo.getCurSel()];
         std::wstringstream ss;

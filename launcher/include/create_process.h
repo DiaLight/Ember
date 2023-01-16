@@ -7,6 +7,6 @@
 
 #include <Windows.h>
 
-bool CreateProcess_runAndWait(const wchar_t *cmd, const wchar_t *dir, DWORD &lastError, DWORD &exitCode);
+bool CreateProcess_runAndWait(const wchar_t *cmd, const wchar_t *dir, DWORD &lastError, DWORD &exitCode, bool redirectConsole=true);
 
 #endif //EMBER_CREATE_PROCESS_H
