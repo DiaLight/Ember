@@ -122,6 +122,7 @@ set(SOURCES
         patches/hires_textures/expand_size_hash_table.cpp
         patches/fix_usage_unitialized_structure.cpp
         patches/unlimited_zoom_hack.cpp
+        patches/use_wheel_to_zoom.cpp
         reimpl/SurfHashList__probablySort.cpp
         reimpl/draw3dScene.cpp
         tools/unpack_texture_cache.cpp

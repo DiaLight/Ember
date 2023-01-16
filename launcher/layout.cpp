@@ -18,14 +18,17 @@ gui::label_elem_t MenuLabel(L"Menu resolution:", WS_VISIBLE | WS_TABSTOP);
 gui::combobox_elem_t MenuModesCombo(L"", CBS_DISABLENOSCROLL | CBS_DROPDOWNLIST | CBS_DROPDOWN | WS_OVERLAPPED | WS_VISIBLE);
 gui::label_elem_t GameLabel(L"Game resolution:", WS_VISIBLE | WS_TABSTOP);
 gui::combobox_elem_t GameModesCombo(L"", CBS_DISABLENOSCROLL | CBS_DROPDOWNLIST | CBS_DROPDOWN | WS_OVERLAPPED | WS_VISIBLE);
-gui::button_elem_t DPIBtn(L"DPI aware:", BS_CHECKBOX | BS_AUTOCHECKBOX | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
-gui::button_elem_t FullscreenBtn(L"Fullscreen:", BS_CHECKBOX | BS_AUTO3STATE | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
-gui::button_elem_t UnlimitedZoomBtn(L"Unlimited zoom:", BS_CHECKBOX | BS_AUTOCHECKBOX | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
+gui::button_elem_t DPIChk(L"DPI aware:", BS_CHECKBOX | BS_AUTOCHECKBOX | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
+gui::button_elem_t FullscreenChk(L"Fullscreen:", BS_CHECKBOX | BS_AUTO3STATE | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
+gui::button_elem_t UnlimitedZoomChk(L"Unlimited zoom:", BS_CHECKBOX | BS_AUTOCHECKBOX | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
+gui::button_elem_t Wheel2ZoomChk(L"Wheel to zoom:", BS_CHECKBOX | BS_AUTOCHECKBOX | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
+gui::button_elem_t BindWasdBtn(L"Bind WASD", WS_VISIBLE | WS_BORDER);
+
 
 gui::label_elem_t ResLabel(L"Resources:", WS_VISIBLE | WS_TABSTOP);
 gui::button_elem_t ResExtractBtn(L"Extract", WS_VISIBLE | WS_BORDER);
 gui::button_elem_t ResOpenBtn(L"Open", WS_VISIBLE | WS_BORDER);
-gui::button_elem_t ResRedirectBtn(L"Redirect resources:", BS_CHECKBOX | BS_AUTOCHECKBOX | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
+gui::button_elem_t ResRedirectChk(L"Redirect resources:", BS_CHECKBOX | BS_AUTOCHECKBOX | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
 
 
 struct : gui::layout_t {
@@ -54,11 +57,15 @@ struct : gui::layout_t {
         });
         gap(10);
         hor(-1, 20, [this] {
-          visit(DPIBtn, 80, size.h);
+          visit(DPIChk, 80, size.h);
           gap(20);
-          visit(FullscreenBtn, 80, size.h);
+          visit(FullscreenChk, 80, size.h);
           gap(20);
-          visit(UnlimitedZoomBtn, 105, size.h);
+          visit(UnlimitedZoomChk, 105, size.h);
+          gap(20);
+          visit(Wheel2ZoomChk, 105, size.h);
+          gap(20);
+          visit(BindWasdBtn, 70, size.h);
         });
         gap(10);
         hor(-1, 20, [this] {
@@ -68,7 +75,7 @@ struct : gui::layout_t {
           gap(20);
           visit(ResOpenBtn, 80, size.h);
           gap(20);
-          visit(ResRedirectBtn, 130, size.h);
+          visit(ResRedirectChk, 130, size.h);
         });
         // body end
 

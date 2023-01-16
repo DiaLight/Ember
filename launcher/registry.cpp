@@ -2,8 +2,8 @@
 // Created by DiaLight on 27.12.2022.
 //
 #include <Windows.h>
-#include <string>
-
+#include <registry.h>
+#include <status.h>
 
 
 bool persistence_getStr(const std::wstring &name, std::wstring &value) {
@@ -112,4 +112,92 @@ void loadDk2Path(std::wstring &dk2Dir) {
   } else {
     dk2Dir.resize(wcslen(&*dk2Dir.begin()));
   }
+}
+
+
+bool dk2Cfg_getDword(const std::wstring &section, const std::wstring &name, DWORD &value) {
+  LSTATUS status;
+  DWORD BufferSize = sizeof(DWORD);
+  std::wstring key = L"SOFTWARE\\Bullfrog Productions Ltd\\Dungeon Keeper II\\Configuration\\";
+  key += section;
+  status = RegGetValueW(
+      HKEY_CURRENT_USER,
+      key.c_str(),
+      name.c_str(), RRF_RT_REG_DWORD, NULL, (PVOID) &value, &BufferSize
+  );
+  if(status != ERROR_SUCCESS) {
+      return false;
+  }
+  return true;
+}
+
+bool dk2Cfg_setDword(const std::wstring &section, const std::wstring &name, DWORD value) {
+  LSTATUS status;
+  HKEY hKey = NULL;
+  std::wstring key = L"SOFTWARE\\Bullfrog Productions Ltd\\Dungeon Keeper II\\Configuration\\";
+  key += section;
+  status = RegOpenKeyExW(HKEY_CURRENT_USER, key.c_str(), REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, &hKey);
+  if(status == ERROR_FILE_NOT_FOUND) {
+    status = RegCreateKeyExW(HKEY_CURRENT_USER, key.c_str(), 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, NULL);
+  }
+  bool ret = false;
+  if(status == ERROR_SUCCESS) {
+    status = RegSetValueExW(hKey, name.c_str(), 0, REG_DWORD, (BYTE *) &value, sizeof(value));
+    if(status == ERROR_SUCCESS) {
+      ret = true;
+    }
+    RegCloseKey(hKey);
+  }
+  return ret;
+}
+
+
+bool dk2Cfg_getBytes(const std::wstring &section, const std::wstring &name, std::vector<char> &value) {
+  LSTATUS status;
+  std::wstring key = L"SOFTWARE\\Bullfrog Productions Ltd\\Dungeon Keeper II\\Configuration\\";
+  key += section;
+  DWORD BufferSize = 0;
+  DWORD Type = 0;
+  status = RegGetValueW(
+      HKEY_CURRENT_USER,
+      key.c_str(),
+      name.c_str(), RRF_RT_ANY, &Type, NULL, &BufferSize
+  );
+  if(status != ERROR_SUCCESS) {
+    printStatus("RegGetValueW1 failed with %08X", status);
+    return false;
+  }
+  value.resize(BufferSize);
+  status = RegGetValueW(
+      HKEY_CURRENT_USER,
+      key.c_str(),
+      name.c_str(), RRF_RT_ANY, &Type, (PVOID) value.data(), &BufferSize
+  );
+  if(status != ERROR_SUCCESS) {
+    printStatus("RegGetValueW2 %d failed with %08X", Type, status);
+    return false;
+  }
+  return true;
+}
+
+bool dk2Cfg_setBytes(const std::wstring &section, const std::wstring &name, const std::vector<char> &value) {
+  LSTATUS status;
+  HKEY hKey = NULL;
+  std::wstring key = L"SOFTWARE\\Bullfrog Productions Ltd\\Dungeon Keeper II\\Configuration\\";
+  key += section;
+  status = RegOpenKeyExW(HKEY_CURRENT_USER, key.c_str(), REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, &hKey);
+  if(status == ERROR_FILE_NOT_FOUND) {
+    status = RegCreateKeyExW(HKEY_CURRENT_USER, key.c_str(), 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, NULL);
+  }
+  bool ret = false;
+  if(status == ERROR_SUCCESS) {
+    status = RegSetValueExW(hKey, name.c_str(), 0, REG_NONE, (BYTE *) value.data(), value.size());
+    if(status == ERROR_SUCCESS) {
+      ret = true;
+    } else {
+      printStatus("RegSetValueExW failed with %08X", status);
+    }
+    RegCloseKey(hKey);
+  }
+  return ret;
 }

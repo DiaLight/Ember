@@ -23,12 +23,15 @@ extern gui::edit_elem_t TextField;
 extern gui::button_elem_t StartBtn;
 extern gui::combobox_elem_t MenuModesCombo;
 extern gui::combobox_elem_t GameModesCombo;
-extern gui::button_elem_t DPIBtn;
-extern gui::button_elem_t FullscreenBtn;
-extern gui::button_elem_t UnlimitedZoomBtn;
+extern gui::button_elem_t DPIChk;
+extern gui::button_elem_t FullscreenChk;
+extern gui::button_elem_t UnlimitedZoomChk;
+extern gui::button_elem_t Wheel2ZoomChk;
+extern gui::button_elem_t BindWasdBtn;
+
 extern gui::button_elem_t ResExtractBtn;
 extern gui::button_elem_t ResOpenBtn;
-extern gui::button_elem_t ResRedirectBtn;
+extern gui::button_elem_t ResRedirectChk;
 
 void launcher_layout(HWND hwnd, int width, int height, bool reset=false);
 

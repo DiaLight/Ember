@@ -29,6 +29,7 @@ namespace patch {
   bool expand_size_hash_table();
   bool fix_usage_uninitialized_structure();
   bool unlimited_zoom_hack();
+  bool use_wheel_to_zoom();
 
 }
 

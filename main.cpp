@@ -29,6 +29,7 @@ extern "C" __declspec(dllexport) bool __cdecl ember_initialize() {
   if(!patch::replace_custom_heap()) return false;
   if(!patch::dpi_aware()) return false;
   if(!patch::unlimited_zoom_hack()) return false;
+  if(!patch::use_wheel_to_zoom()) return false;
 
 //  if(!patch::break_texture_resolution()) return false;
   if(!patch::redirect_load_cached_textures()) return false;

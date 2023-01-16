@@ -20,6 +20,7 @@
 #include "utils.h"
 #include "launcher.h"
 #include "status.h"
+#include "keyboard_bind.h"
 
 std::wstring g_dk2Dir;
 std::wstring g_curExeDir;
@@ -187,33 +188,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
       {
         DWORD isFullscreen = 0;
         if(persistence_getDword(L"fullscreen", isFullscreen)) {
-          FullscreenBtn.setCheck((int) isFullscreen);
+          FullscreenChk.setCheck((int) isFullscreen);
         } else {
-          FullscreenBtn.setCheck(BST_INDETERMINATE);
+          FullscreenChk.setCheck(BST_INDETERMINATE);
         }
       }
       {
         DWORD check = 0;
         if(persistence_getDword(L"dpi_aware", check)) {
-          DPIBtn.setCheck((int) check);
+          DPIChk.setCheck((int) check);
         } else {
-          DPIBtn.setCheck(BST_UNCHECKED);
+          DPIChk.setCheck(BST_UNCHECKED);
         }
       }
       {
         DWORD check = 0;
         if(persistence_getDword(L"unlimited_zoom", check)) {
-          UnlimitedZoomBtn.setCheck((int) check);
+          UnlimitedZoomChk.setCheck((int) check);
         } else {
-          UnlimitedZoomBtn.setCheck(BST_UNCHECKED);
+          UnlimitedZoomChk.setCheck(BST_UNCHECKED);
+        }
+      }
+      {
+        DWORD check = 0;
+        if(persistence_getDword(L"wheel2zoom", check)) {
+          Wheel2ZoomChk.setCheck((int) check);
+        } else {
+          Wheel2ZoomChk.setCheck(BST_UNCHECKED);
         }
       }
       {
         DWORD check = 0;
         if(persistence_getDword(L"redirect_textures", check)) {
-          ResRedirectBtn.setCheck((int) check);
+          ResRedirectChk.setCheck((int) check);
         } else {
-          ResRedirectBtn.setCheck(BST_UNCHECKED);
+          ResRedirectChk.setCheck(BST_UNCHECKED);
         }
       }
       std::wstring menu_resolution;
@@ -280,19 +289,23 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
               wss << L'\"' << g_curExeDir << L"/bootstrap_patcher.exe" << L'\"';
               wss << " -32BITEVERYTHING";
               int check;
-              check = DPIBtn.getCheck();
+              check = DPIChk.getCheck();
               if(check == BST_CHECKED) {
                 wss << " -ember:dpi_aware";
               }
-              check = UnlimitedZoomBtn.getCheck();
+              check = UnlimitedZoomChk.getCheck();
               if(check == BST_CHECKED) {
                 wss << " -ember:unlimited_zoom";
               }
-              check = ResRedirectBtn.getCheck();
+              check = Wheel2ZoomChk.getCheck();
+              if(check == BST_CHECKED) {
+                wss << " -ember:wheel2zoom";
+              }
+              check = ResRedirectChk.getCheck();
               if(check == BST_CHECKED) {
                 wss << " -ember:redirect_textures";
               }
-              check = FullscreenBtn.getCheck();
+              check = FullscreenChk.getCheck();
               if(check != BST_INDETERMINATE) {
                 wss << " -ember:fullscreen=";
                 wss << (check == BST_CHECKED ? "true" : "false");
@@ -330,11 +343,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
               std::wstringstream wss;
               wss << L'\"' << g_curExeDir << L"/bootstrap_patcher.exe" << L'\"';
               wss << " -32BITEVERYTHING";
-              int check = DPIBtn.getCheck();
+              int check = DPIChk.getCheck();
               if(check == BST_CHECKED) {
                 wss << " -ember:dpi_aware";
               }
-              check = FullscreenBtn.getCheck();
+              check = FullscreenChk.getCheck();
               if(check != BST_INDETERMINATE) {
                 wss << " -ember:fullscreen=";
                 wss << (check == BST_CHECKED ? "true" : "false");
@@ -375,6 +388,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
         std::wstring path = ss.str();
         std::filesystem::create_directories(path);
         ShellExecuteW(NULL, L"open", path.c_str(), NULL, NULL, SW_SHOWNORMAL);
+      } else if (hm == BindWasdBtn.id) {
+        bindWasd();
+        updateStatus();
+
 //      } else if (hm == GameModesCombo.id) {
 //        if(HIWORD(wParam) == CBN_SELCHANGE) {
 //          auto &mode = screenModeList[GameModesCombo.getCurSel()];
@@ -402,10 +419,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
       return (INT_PTR)(HBRUSH)BGColorBrush;
     }
     case WM_DESTROY:
-      persistence_setDword(L"fullscreen", (DWORD) FullscreenBtn.getCheck());
-      persistence_setDword(L"dpi_aware", (DWORD) DPIBtn.getCheck());
-      persistence_setDword(L"unlimited_zoom", (DWORD) UnlimitedZoomBtn.getCheck());
-      persistence_setDword(L"redirect_textures", (DWORD) ResRedirectBtn.getCheck());
+      persistence_setDword(L"fullscreen", (DWORD) FullscreenChk.getCheck());
+      persistence_setDword(L"dpi_aware", (DWORD) DPIChk.getCheck());
+      persistence_setDword(L"unlimited_zoom", (DWORD) UnlimitedZoomChk.getCheck());
+      persistence_setDword(L"wheel2zoom", (DWORD) Wheel2ZoomChk.getCheck());
+      persistence_setDword(L"redirect_textures", (DWORD) ResRedirectChk.getCheck());
       {
         auto &mode = g_screenModeList[MenuModesCombo.getCurSel()];
         std::wstringstream ss;
@@ -507,4 +525,8 @@ int WINAPI WinMain(
   }
 
   return (int)msg.wParam;
+}
+
+int main() {
+  return WinMain(GetModuleHandleA(NULL), NULL, NULL, SW_NORMAL);
 }
