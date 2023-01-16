@@ -21,6 +21,10 @@ jobs:
         run: |
           mkdir -p build && cd build
           cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install ..
-          cmake --build . --target launcher
+          cmake --build .
           cmake --install .
           dir ..
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ember
+          path: install/
