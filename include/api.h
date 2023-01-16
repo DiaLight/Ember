@@ -7,6 +7,7 @@
 
 #include <Windows.h>
 #include <cstdint>
+#include <string>
 #include <functional>
 #include <api/window.h>
 #include <api/imports.h>
