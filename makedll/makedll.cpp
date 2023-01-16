@@ -43,13 +43,13 @@ void __cdecl free(void *ptr) {
 void *__cdecl realloc(void *block, size_t size) {
   return HeapReAlloc(GetProcessHeap(), 0, block, size);
 }
-void *__cdecl operator new(unsigned int size) {
+void *__cdecl operator new(size_t size) {
   return malloc(size);
 }
 void __cdecl operator delete(void *ptr) noexcept {
   free(ptr);
 }
-void __cdecl operator delete(void *ptr, unsigned int) noexcept {
+void __cdecl operator delete(void *ptr, size_t) noexcept {
   free(ptr);
 }
 
