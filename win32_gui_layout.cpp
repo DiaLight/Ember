@@ -42,8 +42,16 @@ int gui::getDpi() {
   UINT dpiX = 0, dpiY;
   POINT pt = { 1, 1 };
   auto hMonitor = MonitorFromPoint(pt, MONITOR_DEFAULTTONEAREST);
-  if (SUCCEEDED(GetDpiForMonitor(hMonitor, MDT_EFFECTIVE_DPI, &dpiX, &dpiY))) {
-    return dpiX;
+
+  HMODULE shcoreDLL = LoadLibrary("SHCORE.DLL");
+  if (shcoreDLL) {
+    typedef HRESULT (STDAPICALLTYPE *GetDpiForMonitor_fun)(HMONITOR hmonitor, MONITOR_DPI_TYPE dpiType, UINT *dpiX, UINT *dpiY);
+    auto GetDpiForMonitor = (GetDpiForMonitor_fun) GetProcAddress(shcoreDLL, "GetDpiForMonitor");
+    if(GetDpiForMonitor) {
+      if (SUCCEEDED(GetDpiForMonitor(hMonitor, MDT_EFFECTIVE_DPI, &dpiX, &dpiY))) {
+        return dpiX;
+      }
+    }
   }
   return 96; // default
 }
