@@ -93,9 +93,17 @@ else()
 endif()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /GS- /Gz")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4477")
 
 add_library(win32_gui_layout STATIC win32_gui_layout.cpp)
 target_include_directories(win32_gui_layout PUBLIC ${CMAKE_CURRENT_LIST_DIR})
+
+add_subdirectory(3rdparty)
+
+if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/dev")
+    add_subdirectory(dev)
+endif()
+add_subdirectory(reimpl/gog_patch_dll)
 
 set(SOURCES
         main.cpp
@@ -129,6 +137,7 @@ set(SOURCES
         patches/fix_usage_unitialized_structure.cpp
         patches/unlimited_zoom_hack.cpp
         patches/use_wheel_to_zoom.cpp
+        patches/replace_dll.cpp
         reimpl/SurfHashList__probablySort.cpp
         reimpl/draw3dScene.cpp
         tools/unpack_texture_cache.cpp
@@ -151,11 +160,17 @@ else()
 endif()
 add_dependencies(bootstrap_patcher dll_exports stack_map references_map)
 target_include_directories(bootstrap_patcher PRIVATE include)
-target_link_libraries(bootstrap_patcher PRIVATE Dbghelp Shcore Comctl32 win32_gui_layout)
 target_compile_definitions(bootstrap_patcher PRIVATE DIRECTINPUT_VERSION=0x0500 DIRECT3D_VERSION=0x0600)
 
-add_subdirectory(3rdparty)
-target_link_libraries(bootstrap_patcher PRIVATE lodepng)
+target_link_libraries(bootstrap_patcher PRIVATE
+        Dbghelp Shcore Comctl32
+        lodepng
+        win32_gui_layout
+        gog_patch_dll
+)
+if(EXISTS dev)
+    target_link_libraries(bootstrap_patcher PRIVATE dev)
+endif()
 
 install(TARGETS bootstrap_patcher RUNTIME DESTINATION ".")
 

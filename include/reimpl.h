@@ -9,6 +9,7 @@ namespace reimpl {
 
   bool SurfHashList__probablySort();
   bool draw3dScene();
+  bool gog_patch_dll();
 
 }
 

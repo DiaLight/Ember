@@ -31,6 +31,7 @@ gui::button_elem_t ResOpenBtn(L"Open", WS_VISIBLE | WS_BORDER);
 gui::button_elem_t ResRedirectChk(L"Redirect resources:", BS_CHECKBOX | BS_AUTOCHECKBOX | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
 
 gui::button_elem_t AllocConsoleChk(L"Alloc console:", BS_CHECKBOX | BS_AUTOCHECKBOX | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
+gui::button_elem_t GogPatchChk(L"Gog patch:", BS_CHECKBOX | BS_AUTOCHECKBOX | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
 
 struct : gui::layout_t {
   void operator()(HWND hwnd, int width, int height, bool reset=false) {
@@ -81,6 +82,8 @@ struct : gui::layout_t {
         gap(10);
         hor(-1, 20, [this] {
           visit(AllocConsoleChk, 95, size.h);
+          gap(20);
+          visit(GogPatchChk, 95, size.h);
         });
         // body end
 

@@ -235,6 +235,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
           AllocConsoleChk.setCheck(BST_UNCHECKED);
         }
       }
+      {
+        DWORD check = 0;
+        if(persistence_getDword(L"gog_patch", check)) {
+          GogPatchChk.setCheck((int) check);
+        } else {
+          GogPatchChk.setCheck(BST_UNCHECKED);
+        }
+      }
       std::wstring menu_resolution;
       persistence_getStr(L"menu_resolution", menu_resolution);
       std::wstring game_resolution;
@@ -318,6 +326,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
               check = AllocConsoleChk.getCheck();
               if(check == BST_CHECKED) {
                 wss << " -ember:console";
+              }
+              check = GogPatchChk.getCheck();
+              if(check == BST_CHECKED) {
+                wss << " -ember:gog_patch";
               }
               check = FullscreenChk.getCheck();
               if(check != BST_INDETERMINATE) {
@@ -439,6 +451,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
       persistence_setDword(L"wheel2zoom", (DWORD) Wheel2ZoomChk.getCheck());
       persistence_setDword(L"redirect_textures", (DWORD) ResRedirectChk.getCheck());
       persistence_setDword(L"console", (DWORD) AllocConsoleChk.getCheck());
+      persistence_setDword(L"gog_patch", (DWORD) GogPatchChk.getCheck());
       {
         auto &mode = g_screenModeList[MenuModesCombo.getCurSel()];
         std::wstringstream ss;

@@ -256,6 +256,16 @@ namespace api {
     return std::string();
   }
 
+  std::vector<std::string> findArgValues(const std::string &name) {
+    std::vector<std::string> list;
+    for(auto &arg : EMBER_ARGS) {
+      if(arg.starts_with(name + "=")) {
+        list.push_back(arg.substr(name.length() + 1));
+      }
+    }
+    return list;
+  }
+
   bool hasFlag(const std::string &name) {
     for(auto &arg : EMBER_ARGS) {
       if(arg == name) {
@@ -281,6 +291,7 @@ namespace api {
         EMBER_ARGS.push_back(arg);
       } else DK2_ARGS.push_back(arg);
     }
+    LocalFree(szArglist);
 #ifdef REVERSE_MODE
     AllocConsole();
 #else
@@ -314,8 +325,6 @@ namespace api {
     for(auto &arg : EMBER_ARGS) {
       printf("  -ember:%s\n", arg.c_str());
     }
-
-    LocalFree(szArglist);
 
     g_curExeDir.resize(MAX_PATH, L'\0');
     if(GetModuleFileNameW(g_bootstrap_patcher, &*g_curExeDir.begin(), MAX_PATH) == 0) return false;

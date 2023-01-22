@@ -32,6 +32,7 @@ namespace api {
   bool initialize();
 
   std::string findArgValue(const std::string &name);
+  std::vector<std::string> findArgValues(const std::string &name);
   bool hasFlag(const std::string &name);
 
 }

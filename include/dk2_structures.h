@@ -93,10 +93,12 @@ namespace dk2 {
     class TbDiscFileStorage;
     class MyFileInfo;
     class CFileManager;
+    class DxKeyEntry;
     class MyKeyboard;
     class MyResources_f29CB;
     class MyResources_f2E38Obj;
     class MyResources;
+    class Vec3i;
     class KeyEntry;
     class MyTextFont;
     class MyInputStream;
@@ -284,6 +286,7 @@ namespace dk2 {
     class CEngineDynamicMesh;
     class CEngineAnimMesh;
     class CEngineDynamicHeightField;
+    class TexCoord;
     class Vertex1C;
     class Tiangle24;
     class Vertex18;
@@ -1398,7 +1401,7 @@ namespace dk2 {
         /*  8C*/ int res_1280_1024_enable;
         /*  90*/ int res_1600_1200_enable;
         /*  94*/ int should_draw_opt_background_alpha;
-        /*  98*/ uint32_t f98__untouched1_eq_0;
+        /*  98*/ uint32_t f98_isBumpmappingEnabled;
         /*  9C*/ int field_9C;
         /*  A0*/ int stipple_alpha;
         /*  A4*/ int pmesh_reduction_level;
@@ -1442,7 +1445,7 @@ namespace dk2 {
             printf("res_1280_1024_enable: %d\n", this->res_1280_1024_enable);
             printf("res_1600_1200_enable: %d\n", this->res_1600_1200_enable);
             printf("should_draw_opt_background_alpha: %d\n", this->should_draw_opt_background_alpha);
-            printf("f98__untouched1_eq_0: %d\n", this->f98__untouched1_eq_0);
+            printf("f98_isBumpmappingEnabled: %d\n", this->f98_isBumpmappingEnabled);
             printf("field_9C: %d\n", this->field_9C);
             printf("stipple_alpha: %d\n", this->stipple_alpha);
             printf("pmesh_reduction_level: %d\n", this->pmesh_reduction_level);
@@ -2340,16 +2343,18 @@ namespace dk2 {
         /* D68*/ uint32_t fD68_arrx3[3];
         /* D74*/ uint32_t fD74_arrx3[3];
         /* D80*/ uint32_t fD80_curZoomLevel;
-        /* D84*/ uint8_t gap_D84[14];
+        /* D84*/ uint8_t gapD84[14];
         /* D92*/ char field_D92;
-        /* D93*/ uint8_t gap_D93[3];
+        /* D93*/ uint8_t gapD93[3];
         /* D96*/ uint32_t fD96_arrx3[3];
-        /* DA2*/ uint8_t field_DA2[20];
+        /* DA2*/ uint8_t gap_DA2[6];
+        /* DA8*/ uint32_t fDA8;
+        /* DAC*/ uint8_t gap_DAC[10];
         /* DB6*/ uint32_t fDB6_arrx3[3];
         /* DC2*/ uint8_t gapDC2[4];
-        /* DC6*/ uint8_t gap_DC6[18];
-        /* DD8*/ int field_DD8;
-        /* DDC*/ uint8_t gap_DDC[18];
+        /* DC6*/ uint8_t gapDC6[18];
+        /* DD8*/ int fDD8;
+        /* DDC*/ uint8_t gapDDC[18];
         /* DEE*/ uint32_t fDEE_arrx3[3];
         /* DFA*/ uint8_t gapDFA[10];
         /* E04*/ uint32_t fE04_arrx3[3];
@@ -2401,12 +2406,18 @@ namespace dk2 {
             printf("fD68_arrx3: %d\n", this->fD68_arrx3);
             printf("fD74_arrx3: %d\n", this->fD74_arrx3);
             printf("fD80_curZoomLevel: %d\n", this->fD80_curZoomLevel);
+            printf("gapD84: %d\n", this->gapD84);
             printf("field_D92: %d\n", this->field_D92);
+            printf("gapD93: %d\n", this->gapD93);
             printf("fD96_arrx3: %d\n", this->fD96_arrx3);
-            printf("field_DA2: %d\n", this->field_DA2);
+            printf("gap_DA2: %d\n", this->gap_DA2);
+            printf("fDA8: %d\n", this->fDA8);
+            printf("gap_DAC: %d\n", this->gap_DAC);
             printf("fDB6_arrx3: %d\n", this->fDB6_arrx3);
             printf("gapDC2: %d\n", this->gapDC2);
-            printf("field_DD8: %d\n", this->field_DD8);
+            printf("gapDC6: %d\n", this->gapDC6);
+            printf("fDD8: %d\n", this->fDD8);
+            printf("gapDDC: %d\n", this->gapDDC);
             printf("fDEE_arrx3: %d\n", this->fDEE_arrx3);
             printf("gapDFA: %d\n", this->gapDFA);
             printf("fE04_arrx3: %d\n", this->fE04_arrx3);
@@ -2536,7 +2547,7 @@ namespace dk2 {
             /*  C4*/ int(__thiscall *CBridge__fun_440F80)(CBridge *self);  // int (__thiscall *)(int this)
             /*  C8*/ int(__thiscall *CBridge__fun_440F90)(CBridge *self, int);  // int (__thiscall *)(int this, int a2)
             /*  CC*/ int(__thiscall *loc_43A970)(CBridge *self);  // int (__thiscall *)(CBridge *)
-            /*  D0*/ ProbablyGlobalRenderObj *(__thiscall *loc_43A980)(CBridge *self);  // ProbablyGlobalRenderObj *(__thiscall *)(CBridge *)
+            /*  D0*/ ProbablyGlobalRenderObj *(__thiscall *getProbablyGlobalRenderObj)(CBridge *self);  // ProbablyGlobalRenderObj *(__thiscall *)(CBridge *this)
             /*  D4*/ int(__stdcall *CBridge__fun_4412E0)(int, int);  // int (__stdcall *)(int a1, int a2)
             /*  D8*/ int(__thiscall *CBridge__fun_441370)(CBridge *self, int, int, int);  // int (__thiscall *)(int this, int a2, int a3, int a4)
             /*  DC*/ int(__thiscall *CBridge__fun_441B00)(CBridge *self, int, int);  // int (__thiscall *)(_DWORD *this, int a2, int a3)
@@ -5043,6 +5054,21 @@ namespace dk2 {
     static_assert(sizeof(CFileManager) == 0x134);
 
 #pragma pack(push, 1)
+    class DxKeyEntry {
+    public:
+        
+        /*   0*/ int f0_dxKey;
+        /*   4*/ int f4_modifierFlags;
+        
+        void dump() {
+            printf("f0_dxKey: %d\n", this->f0_dxKey);
+            printf("f4_modifierFlags: %d\n", this->f4_modifierFlags);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(DxKeyEntry) == 0x8);
+
+#pragma pack(push, 1)
     class MyKeyboard {
     public:
         
@@ -5064,136 +5090,12 @@ namespace dk2 {
         /*  FD*/ uint8_t gap_FD[14];
         /* 10B*/ char f10B_layoutName[24];
         /* 123*/ uint8_t f123;
-        /* 124*/ uint8_t gap_124[319];
-        /* 263*/ uint8_t field_263;
-        /* 264*/ uint8_t gap_264[7];
-        /* 26B*/ uint32_t field_26B;
-        /* 26F*/ uint8_t gap_26F[4];
-        /* 273*/ int field_273;
-        /* 277*/ uint8_t gap_277[4];
-        /* 27B*/ int field_27B;
-        /* 27F*/ uint8_t gap_27F[4];
-        /* 283*/ int field_283;
-        /* 287*/ uint8_t gap_287[4];
-        /* 28B*/ int field_28B;
-        /* 28F*/ uint8_t gap_28F[4];
-        /* 293*/ uint32_t field_293;
-        /* 297*/ uint8_t gap_297[4];
-        /* 29B*/ uint32_t field_29B;
-        /* 29F*/ uint8_t gap_29F[4];
-        /* 2A3*/ int field_2A3;
-        /* 2A7*/ uint8_t gap_2A7[4];
-        /* 2AB*/ int field_2AB;
-        /* 2AF*/ uint8_t gap_2AF[4];
-        /* 2B3*/ int field_2B3;
-        /* 2B7*/ uint8_t gap_2B7[4];
-        /* 2BB*/ int field_2BB;
-        /* 2BF*/ uint8_t gap_2BF[4];
-        /* 2C3*/ int field_2C3;
-        /* 2C7*/ uint8_t gap_2C7[4];
-        /* 2CB*/ int field_2CB;
-        /* 2CF*/ int field_2CF;
-        /* 2D3*/ int field_2D3;
-        /* 2D7*/ uint8_t gap_2D7[4];
-        /* 2DB*/ int field_2DB;
-        /* 2DF*/ uint8_t gap_2DF[4];
-        /* 2E3*/ int field_2E3;
-        /* 2E7*/ uint8_t gap_2E7[4];
-        /* 2EB*/ int field_2EB;
-        /* 2EF*/ uint8_t gap_2EF[4];
-        /* 2F3*/ int field_2F3;
-        /* 2F7*/ uint8_t gap_2F7[4];
-        /* 2FB*/ int field_2FB;
-        /* 2FF*/ uint8_t gap_2FF[4];
-        /* 303*/ int field_303;
-        /* 307*/ uint8_t gap_307[4];
-        /* 30B*/ int field_30B;
-        /* 30F*/ uint8_t gap_30F[4];
-        /* 313*/ int field_313;
-        /* 317*/ uint8_t gap_317[4];
-        /* 31B*/ int field_31B;
-        /* 31F*/ uint8_t gap_31F[4];
-        /* 323*/ int field_323;
-        /* 327*/ uint8_t gap_327[4];
-        /* 32B*/ uint32_t field_32B;
-        /* 32F*/ uint8_t gap_32F[4];
-        /* 333*/ int field_333;
-        /* 337*/ uint8_t gap_337[4];
-        /* 33B*/ int field_33B;
-        /* 33F*/ uint8_t gap_33F[4];
-        /* 343*/ uint32_t field_343;
-        /* 347*/ uint8_t gap_347[4];
-        /* 34B*/ uint32_t field_34B;
-        /* 34F*/ uint8_t gap_34F[4];
-        /* 353*/ int field_353;
-        /* 357*/ uint8_t gap_357[4];
-        /* 35B*/ int field_35B;
-        /* 35F*/ uint8_t gap_35F[4];
-        /* 363*/ int field_363;
-        /* 367*/ uint8_t gap_367[4];
-        /* 36B*/ int field_36B;
-        /* 36F*/ uint8_t gap_36F[4];
-        /* 373*/ int field_373;
-        /* 377*/ uint8_t gap_377[4];
-        /* 37B*/ int field_37B;
-        /* 37F*/ uint8_t gap_37F[4];
-        /* 383*/ int field_383;
-        /* 387*/ uint8_t gap_387[4];
-        /* 38B*/ int field_38B;
-        /* 38F*/ uint8_t gap_38F[4];
-        /* 393*/ int field_393;
-        /* 397*/ uint8_t gap_397[4];
-        /* 39B*/ int field_39B;
-        /* 39F*/ uint8_t gap_39F[4];
-        /* 3A3*/ int field_3A3;
-        /* 3A7*/ uint8_t gap_3A7[4];
-        /* 3AB*/ int field_3AB;
-        /* 3AF*/ uint8_t gap_3AF[4];
-        /* 3B3*/ int field_3B3;
-        /* 3B7*/ uint8_t gap_3B7[4];
-        /* 3BB*/ int field_3BB;
-        /* 3BF*/ uint8_t gap_3BF[4];
-        /* 3C3*/ int field_3C3;
-        /* 3C7*/ uint8_t gap_3C7[4];
-        /* 3CB*/ int field_3CB;
-        /* 3CF*/ int field_3CF;
-        /* 3D3*/ int field_3D3;
-        /* 3D7*/ int field_3D7;
-        /* 3DB*/ int field_3DB;
-        /* 3DF*/ int field_3DF;
-        /* 3E3*/ int field_3E3;
-        /* 3E7*/ int field_3E7;
-        /* 3EB*/ int field_3EB;
-        /* 3EF*/ int field_3EF;
-        /* 3F3*/ int field_3F3;
-        /* 3F7*/ int field_3F7;
-        /* 3FB*/ int field_3FB;
-        /* 3FF*/ int field_3FF;
-        /* 403*/ int field_403;
-        /* 407*/ int field_407;
-        /* 40B*/ int field_40B;
-        /* 40F*/ int field_40F;
-        /* 413*/ int field_413;
-        /* 417*/ int field_417;
-        /* 41B*/ int field_41B;
-        /* 41F*/ int field_41F;
-        /* 423*/ int field_423;
-        /* 427*/ int field_427;
-        /* 42B*/ int field_42B;
-        /* 42F*/ int field_42F;
-        /* 433*/ int field_433;
-        /* 437*/ int field_437;
-        /* 43B*/ int field_43B;
-        /* 43F*/ int field_43F;
-        /* 443*/ int field_443;
-        /* 447*/ int field_447;
-        /* 44B*/ int field_44B;
-        /* 44F*/ int field_44F;
-        /* 453*/ int field_453;
-        /* 457*/ int field_457;
-        /* 45B*/ int field_45B;
-        /* 45F*/ int field_45F;
-        /* 463*/ uint32_t f463_keys[256];
+        /* 124*/ uint8_t gap_124[151];
+        /* 1BB*/ int field_1BB;
+        /* 1BF*/ int f1BF_count;
+        /* 1C3*/ int f1C3_levelAttempts[40];
+        /* 263*/ DxKeyEntry f263_actionToDxKey[64];
+        /* 463*/ uint32_t f463_idxToKey_map[256];
         /* 863*/ uint8_t gap_863[190];
         /* 921*/ uint8_t field_921;
         /* 922*/ uint8_t gap_922[65];
@@ -5222,136 +5124,10 @@ namespace dk2 {
             printf("field_F9: %d\n", this->field_F9);
             printf("f10B_layoutName: %d\n", this->f10B_layoutName);
             printf("f123: %d\n", this->f123);
-            printf("gap_124: %d\n", this->gap_124);
-            printf("field_263: %d\n", this->field_263);
-            printf("gap_264: %d\n", this->gap_264);
-            printf("field_26B: %d\n", this->field_26B);
-            printf("gap_26F: %d\n", this->gap_26F);
-            printf("field_273: %d\n", this->field_273);
-            printf("gap_277: %d\n", this->gap_277);
-            printf("field_27B: %d\n", this->field_27B);
-            printf("gap_27F: %d\n", this->gap_27F);
-            printf("field_283: %d\n", this->field_283);
-            printf("gap_287: %d\n", this->gap_287);
-            printf("field_28B: %d\n", this->field_28B);
-            printf("gap_28F: %d\n", this->gap_28F);
-            printf("field_293: %d\n", this->field_293);
-            printf("gap_297: %d\n", this->gap_297);
-            printf("field_29B: %d\n", this->field_29B);
-            printf("gap_29F: %d\n", this->gap_29F);
-            printf("field_2A3: %d\n", this->field_2A3);
-            printf("gap_2A7: %d\n", this->gap_2A7);
-            printf("field_2AB: %d\n", this->field_2AB);
-            printf("gap_2AF: %d\n", this->gap_2AF);
-            printf("field_2B3: %d\n", this->field_2B3);
-            printf("gap_2B7: %d\n", this->gap_2B7);
-            printf("field_2BB: %d\n", this->field_2BB);
-            printf("gap_2BF: %d\n", this->gap_2BF);
-            printf("field_2C3: %d\n", this->field_2C3);
-            printf("gap_2C7: %d\n", this->gap_2C7);
-            printf("field_2CB: %d\n", this->field_2CB);
-            printf("field_2CF: %d\n", this->field_2CF);
-            printf("field_2D3: %d\n", this->field_2D3);
-            printf("gap_2D7: %d\n", this->gap_2D7);
-            printf("field_2DB: %d\n", this->field_2DB);
-            printf("gap_2DF: %d\n", this->gap_2DF);
-            printf("field_2E3: %d\n", this->field_2E3);
-            printf("gap_2E7: %d\n", this->gap_2E7);
-            printf("field_2EB: %d\n", this->field_2EB);
-            printf("gap_2EF: %d\n", this->gap_2EF);
-            printf("field_2F3: %d\n", this->field_2F3);
-            printf("gap_2F7: %d\n", this->gap_2F7);
-            printf("field_2FB: %d\n", this->field_2FB);
-            printf("gap_2FF: %d\n", this->gap_2FF);
-            printf("field_303: %d\n", this->field_303);
-            printf("gap_307: %d\n", this->gap_307);
-            printf("field_30B: %d\n", this->field_30B);
-            printf("gap_30F: %d\n", this->gap_30F);
-            printf("field_313: %d\n", this->field_313);
-            printf("gap_317: %d\n", this->gap_317);
-            printf("field_31B: %d\n", this->field_31B);
-            printf("gap_31F: %d\n", this->gap_31F);
-            printf("field_323: %d\n", this->field_323);
-            printf("gap_327: %d\n", this->gap_327);
-            printf("field_32B: %d\n", this->field_32B);
-            printf("gap_32F: %d\n", this->gap_32F);
-            printf("field_333: %d\n", this->field_333);
-            printf("gap_337: %d\n", this->gap_337);
-            printf("field_33B: %d\n", this->field_33B);
-            printf("gap_33F: %d\n", this->gap_33F);
-            printf("field_343: %d\n", this->field_343);
-            printf("gap_347: %d\n", this->gap_347);
-            printf("field_34B: %d\n", this->field_34B);
-            printf("gap_34F: %d\n", this->gap_34F);
-            printf("field_353: %d\n", this->field_353);
-            printf("gap_357: %d\n", this->gap_357);
-            printf("field_35B: %d\n", this->field_35B);
-            printf("gap_35F: %d\n", this->gap_35F);
-            printf("field_363: %d\n", this->field_363);
-            printf("gap_367: %d\n", this->gap_367);
-            printf("field_36B: %d\n", this->field_36B);
-            printf("gap_36F: %d\n", this->gap_36F);
-            printf("field_373: %d\n", this->field_373);
-            printf("gap_377: %d\n", this->gap_377);
-            printf("field_37B: %d\n", this->field_37B);
-            printf("gap_37F: %d\n", this->gap_37F);
-            printf("field_383: %d\n", this->field_383);
-            printf("gap_387: %d\n", this->gap_387);
-            printf("field_38B: %d\n", this->field_38B);
-            printf("gap_38F: %d\n", this->gap_38F);
-            printf("field_393: %d\n", this->field_393);
-            printf("gap_397: %d\n", this->gap_397);
-            printf("field_39B: %d\n", this->field_39B);
-            printf("gap_39F: %d\n", this->gap_39F);
-            printf("field_3A3: %d\n", this->field_3A3);
-            printf("gap_3A7: %d\n", this->gap_3A7);
-            printf("field_3AB: %d\n", this->field_3AB);
-            printf("gap_3AF: %d\n", this->gap_3AF);
-            printf("field_3B3: %d\n", this->field_3B3);
-            printf("gap_3B7: %d\n", this->gap_3B7);
-            printf("field_3BB: %d\n", this->field_3BB);
-            printf("gap_3BF: %d\n", this->gap_3BF);
-            printf("field_3C3: %d\n", this->field_3C3);
-            printf("gap_3C7: %d\n", this->gap_3C7);
-            printf("field_3CB: %d\n", this->field_3CB);
-            printf("field_3CF: %d\n", this->field_3CF);
-            printf("field_3D3: %d\n", this->field_3D3);
-            printf("field_3D7: %d\n", this->field_3D7);
-            printf("field_3DB: %d\n", this->field_3DB);
-            printf("field_3DF: %d\n", this->field_3DF);
-            printf("field_3E3: %d\n", this->field_3E3);
-            printf("field_3E7: %d\n", this->field_3E7);
-            printf("field_3EB: %d\n", this->field_3EB);
-            printf("field_3EF: %d\n", this->field_3EF);
-            printf("field_3F3: %d\n", this->field_3F3);
-            printf("field_3F7: %d\n", this->field_3F7);
-            printf("field_3FB: %d\n", this->field_3FB);
-            printf("field_3FF: %d\n", this->field_3FF);
-            printf("field_403: %d\n", this->field_403);
-            printf("field_407: %d\n", this->field_407);
-            printf("field_40B: %d\n", this->field_40B);
-            printf("field_40F: %d\n", this->field_40F);
-            printf("field_413: %d\n", this->field_413);
-            printf("field_417: %d\n", this->field_417);
-            printf("field_41B: %d\n", this->field_41B);
-            printf("field_41F: %d\n", this->field_41F);
-            printf("field_423: %d\n", this->field_423);
-            printf("field_427: %d\n", this->field_427);
-            printf("field_42B: %d\n", this->field_42B);
-            printf("field_42F: %d\n", this->field_42F);
-            printf("field_433: %d\n", this->field_433);
-            printf("field_437: %d\n", this->field_437);
-            printf("field_43B: %d\n", this->field_43B);
-            printf("field_43F: %d\n", this->field_43F);
-            printf("field_443: %d\n", this->field_443);
-            printf("field_447: %d\n", this->field_447);
-            printf("field_44B: %d\n", this->field_44B);
-            printf("field_44F: %d\n", this->field_44F);
-            printf("field_453: %d\n", this->field_453);
-            printf("field_457: %d\n", this->field_457);
-            printf("field_45B: %d\n", this->field_45B);
-            printf("field_45F: %d\n", this->field_45F);
-            printf("f463_keys: %d\n", this->f463_keys);
+            printf("field_1BB: %d\n", this->field_1BB);
+            printf("f1BF_count: %d\n", this->f1BF_count);
+            printf("f1C3_levelAttempts: %d\n", this->f1C3_levelAttempts);
+            printf("f463_idxToKey_map: %d\n", this->f463_idxToKey_map);
             printf("gap_863: %d\n", this->gap_863);
             printf("field_921: %d\n", this->field_921);
             printf("gap_922: %d\n", this->gap_922);
@@ -5551,6 +5327,23 @@ namespace dk2 {
     };
 #pragma pack(pop)
     static_assert(sizeof(MyResources) == 0x2FD0);
+
+#pragma pack(push, 1)
+    class Vec3i {
+    public:
+        
+        /*   0*/ int f0_x;
+        /*   4*/ int f4_y;
+        /*   8*/ int f8_z;
+        
+        void dump() {
+            printf("f0_x: %d\n", this->f0_x);
+            printf("f4_y: %d\n", this->f4_y);
+            printf("f8_z: %d\n", this->f8_z);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(Vec3i) == 0xC);
 
 #pragma pack(push, 1)
     class KeyEntry {
@@ -10981,6 +10774,21 @@ namespace dk2 {
     static_assert(sizeof(CEngineDynamicHeightField) == 0x50);
 
 #pragma pack(push, 1)
+    class TexCoord {
+    public:
+        
+        /*   0*/ float x;
+        /*   4*/ float y;
+        
+        void dump() {
+            printf("x: %d\n", this->x);
+            printf("y: %d\n", this->y);
+        }
+    };
+#pragma pack(pop)
+    static_assert(sizeof(TexCoord) == 0x8);
+
+#pragma pack(push, 1)
     class Vertex1C {
     public:
         
@@ -10989,8 +10797,7 @@ namespace dk2 {
         /*   8*/ float f8_z;
         /*   C*/ float fC_rhv__colorWeight;
         /*  10*/ int f10_diffuse;
-        /*  14*/ float f14_texX;
-        /*  18*/ float f18_texY;
+        /*  14*/ TexCoord f14_tex;
         
         void dump() {
             printf("f0_x: %d\n", this->f0_x);
@@ -10998,8 +10805,6 @@ namespace dk2 {
             printf("f8_z: %d\n", this->f8_z);
             printf("fC_rhv__colorWeight: %d\n", this->fC_rhv__colorWeight);
             printf("f10_diffuse: %d\n", this->f10_diffuse);
-            printf("f14_texX: %d\n", this->f14_texX);
-            printf("f18_texY: %d\n", this->f18_texY);
         }
     };
 #pragma pack(pop)

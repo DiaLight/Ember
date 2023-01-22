@@ -63,9 +63,9 @@
 00404E00 MyGame_get_f4C fun
 00405010 CDefaultPlayerInterface_onKeyboardAction fun
 00406530 CDefaultPlayerInterface_onMouseAction fun
-004066A0 CDefaultPlayerInterface_sub_4066A0 fun
-00406DF0 CDefaultPlayerInterface_sub_406DF0 fun
-00407070 CDefaultPlayerInterface_sub_407070 fun
+004066A0 CDefaultPlayerInterface_tickKeyboard fun
+00406DF0 CDefaultPlayerInterface_tickKeyboard2 fun
+00407070 CDefaultPlayerInterface_pushKeyAction fun
 004071D9 def_4070B5 
 00407248 jpt_4070B5 
 00407380 CDefaultPlayerInterface_sub_407380 fun
@@ -80,6 +80,7 @@
 00409640 CDefaultPlayerInterface_onWindowMsg fun
 004096B0 CDefaultPlayerInterface::fun_4096B0 fun
 00409740 isGameKeyPressed fun
+004097E0 isActionKeyPressed fun
 00409880 CDefaultPlayerInterface::fun_409880 fun
 004098A0 CDefaultPlayerInterface::fun_4098A0 fun
 004098D0 CDefaultPlayerInterface::fun_4098D0 fun
@@ -335,7 +336,7 @@
 0043A8A0 ret_0_8args fun
 0043A960 CBridge_get_field_ fun
 0043A970 CBridge_43A970 fun
-0043A980 CBridge_get_field_3E5 fun
+0043A980 CBridge_getProbablyGlobalRenderObj fun
 0043AA30 ??1CBridge@@UAE@XZ fun
 0043AAD0 CBridge::connectEngine fun
 0043ACF0 CBridge::fun_43ACF0 fun
@@ -413,12 +414,12 @@
 00441EE0 CBridge::fun_441EE0 fun
 00441F10 idx_handler2_2 fun
 00441F50 idx_handler2_83 fun
-00441FB0 idx_handler2_3 fun
+00441FB0 CBridge_idx_handler2_3_moveCam fun
 004420A0 idx_handler2_7F fun
 004420F0 idx_handler2_80 fun
 00442140 idx_handler2_7E fun
 00442290 idx_handler2_6 fun
-004422B0 idx_handler2_7 fun
+004422B0 CBridge_idx_handler2_7_zoom fun
 004422F0 idx_handler2_8 fun
 00442350 idx_handler2_85 fun
 00442380 idx_handler2_9 fun
@@ -494,6 +495,7 @@
 00449470 ProbablyGlobalRenderObj_init fun
 00449AC0 ProbablyGlobalRenderObj_sub_449AC0 fun
 00449B30 ProbablyGlobalRenderObj_sub_449B30 fun
+00449BD0 ProbablyGlobalRenderObj_449BD0 fun
 00449CA0 ProbablyGlobalRenderObj_zoomRel_449CA0 fun
 00449DA3 def_449D9C 
 00449E5A def_449E53 
@@ -558,6 +560,7 @@
 0044C7DD def_44C1E7 
 0044CE1C jpt_44C1E7 
 0044D290 unknown_libname_8 fun
+0044D590 ProbablyGlobalRenderObj_44D590 fun
 0044D69E def_44D694 
 0044D6A4 jpt_44D694 
 0044D6D0 CBridge_sub_44D6D0 fun
@@ -2200,7 +2203,10 @@
 0055EA10 MyResources_f2E38Obj_55EA10 fun
 0055EAB0 MyResources_f2E38Obj_55EAB0 fun
 0055EC20 MyKeyboard_init fun
-005604C0 init_keyboard fun
+0055EE50 MyKeyboard_55EE50 fun
+0055F040 MyKeyboard_55F040 fun
+0055F6D0 MyKeyboard_55F6D0 fun
+005604C0 MyKeyboard_fillKeyMaps fun
 005609C0 MyKeyboard_getLayoutName fun
 00560A3E def_5609F1 
 00560A68 jpt_5609F1 
@@ -2213,6 +2219,8 @@
 00561BF0 MyKeyboard_sub_561BF0_totalEvilRating fun
 00561E40 MyKeyboard_sub_561E40 fun
 005621E0 RegKey_close fun
+00562260 settings_readBytes fun
+005622B0 settings_readBytesCount fun
 00562670 RegKey_setValue_562670 fun
 005626C0 settings_readValue fun
 00562960 MyResources_f29CB_constructor fun
