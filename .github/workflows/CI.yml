@@ -22,13 +22,13 @@ jobs:
         run: mkdir build && cd build
       - name: "configure cmake"
         shell: cmd
-        run: cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install ..
+        run: cd build && cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install ..
       - name: "cmake build"
         shell: cmd
-        run: cmake --build .
+        run: cd build && cmake --build .
       - name: "cmake install"
         shell: cmd
-        run: cmake --install .
+        run: cd build && cmake --install .
       - uses: actions/upload-artifact@v3
         with:
           name: ember
