@@ -28,6 +28,8 @@ namespace patch {
   bool upscale_texture_buffer();
   bool expand_size_hash_table();
   bool fix_usage_uninitialized_structure();
+  bool fix_keyboard_state_on_alt_tab();
+  bool notify_another_instance_is_running();
   bool unlimited_zoom_hack();
   bool use_wheel_to_zoom();
   bool replace_dll();

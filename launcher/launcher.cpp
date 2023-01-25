@@ -26,6 +26,7 @@ std::wstring g_dk2Dir;
 std::wstring g_curExeDir;
 std::wstring g_cwdDir;
 std::wstring g_pathEnv;
+std::vector<std::wstring> ARGS;
 
 
 #include "dk2_versions.h"
@@ -172,6 +173,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
       launcher_layout(hwnd, size.w, size.h);
       gui::resizeWin(hwnd, size.w, size.h);
       DirPath.setWndProc(DirPath_WndProc);
+      initIncompatibles();
 
       SendMessage(TextField.hwnd, WM_SETFONT, WPARAM(CreateFont(
           -MulDiv(11, GetDeviceCaps(GetDC(hwnd), LOGPIXELSY), 72),
@@ -186,6 +188,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
       loadDk2Path(g_dk2Dir);
       DirPath.setText(g_dk2Dir.c_str());
       onDK2DirUpdated();
+
+      if(!ARGS.empty()) {
+        printStatus("additional args:");
+        for(auto &arg : ARGS) {
+          printStatus(L" %s", arg.c_str());
+        }
+      }
+      updateStatus();
 
       {
         DWORD isFullscreen = 0;
@@ -348,6 +358,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 wss << " -ember:game_resolution=";
                 wss << mode.width << "x" << mode.height;
               }
+              for(auto &arg : ARGS) wss << " " << arg;
               std::wstring cmd = wss.str();
               startEmber(hwnd, cmd);
             }
@@ -435,6 +446,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
 //          printStatus("selected %s", value.c_str());
 //          updateStatus();
 //        }
+      } else {
+        if(HIWORD(wParam) == BN_CLICKED) {
+          uncheckIncompatibles(hm);
+        }
       }
       break;
     }
@@ -481,6 +496,18 @@ int WINAPI WinMain(
 #if DEBUG_CONSOLE
   AllocConsole();
 #endif
+
+  int nArgs;
+  LPWSTR *szArglist = CommandLineToArgvW(GetCommandLineW(), &nArgs);
+  if(szArglist == NULL) {
+    printf("CommandLineToArgvW failed\n");
+    return false;
+  }
+  for(int i = 1; i < nArgs; i++) {
+    std::wstring warg(szArglist[i]);
+    ARGS.push_back(warg);
+  }
+  LocalFree(szArglist);
 
   gui::initLayout(hInstance);
 

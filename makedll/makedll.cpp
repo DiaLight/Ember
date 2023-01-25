@@ -662,6 +662,7 @@ int main() {
   nt->FileHeader.Characteristics &= ~IMAGE_FILE_RELOCS_STRIPPED;
 
 
+//  nt->OptionalHeader.ImageBase = dk2_image_base;
   nt->OptionalHeader.SizeOfImage = align_up(
       reloc_sec->VirtualAddress + reloc_sec->Misc.VirtualSize, nt->OptionalHeader.SectionAlignment
   );

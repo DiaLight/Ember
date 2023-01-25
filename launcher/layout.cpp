@@ -2,6 +2,8 @@
 // Created by DiaLight on 27.12.2022.
 //
 #include "layout.h"
+#include <map>
+#include <status.h>
 
 
 gui::edit_elem_t DirPath(L"", WS_VISIBLE | WS_BORDER);
@@ -106,4 +108,43 @@ struct : gui::layout_t {
 
 void launcher_layout(HWND hwnd, int width, int height, bool reset) {
   launcher_layout_(hwnd, width, height, reset);
+}
+
+std::map<gui::button_elem_t *, std::vector<gui::button_elem_t *>> incompatibilities;
+
+void uncheckIncompatibles(HMENU id) {
+  for(auto &it : incompatibilities) {
+    if(it.first->id == id) {
+      for(auto *ib : it.second) {
+        if(ib->style & BS_RADIOBUTTON) {
+          ib->setCheck(BST_INDETERMINATE);
+        } else {
+          ib->setCheck(BST_UNCHECKED);
+        }
+      }
+      return;
+    }
+  }
+
+  printStatus("not found\n");
+  updateStatus();
+}
+
+void setIncompatible_(gui::button_elem_t *e1, gui::button_elem_t *e2) {
+  auto it = incompatibilities.find(e1);
+  if(it == incompatibilities.end()) {
+    std::vector<gui::button_elem_t *> t;
+    auto it2 = incompatibilities.insert(std::make_pair(e1, t));
+    if(!it2.second) return;
+    it = it2.first;
+  }
+  it->second.push_back(e2);
+}
+void setIncompatible(gui::button_elem_t &e1, gui::button_elem_t &e2) {
+  setIncompatible_(&e1, &e2);
+  setIncompatible_(&e2, &e1);
+}
+
+void initIncompatibles() {
+  setIncompatible(GogPatchChk, FullscreenChk);
 }

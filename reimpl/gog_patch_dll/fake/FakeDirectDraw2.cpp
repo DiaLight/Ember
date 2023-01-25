@@ -35,11 +35,12 @@ HRESULT FakeDirectDraw2::CreateSurface(LPDDSURFACEDESC pDesc, LPDIRECTDRAWSURFAC
   if (!gog::g_isMsgSent) {
     if (gog::g_hWnd) {
       g_isMsgSent = true;
-      if (cfg::iRestoreMode == 1)
-        SendMessageA(gog::g_hWnd, 6u, 1u, 0);
+      if (cfg::iRestoreMode == 1) {
+        SendMessageA(gog::g_hWnd, WM_ACTIVATE, WA_ACTIVE, (LPARAM) (HWND) NULL);
+      }
     }
   }
-  if (pDesc->ddpfPixelFormat.dwFlags != 4 )
+  if (pDesc->ddpfPixelFormat.dwFlags != 4)
     gog_debug("Assertion failed: FakeDirectDraw2::CreateSurface:1161");
   if (cfg::iDisableFourCC)
     return DDERR_INVALIDPIXELFORMAT;

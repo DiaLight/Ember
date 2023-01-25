@@ -115,6 +115,7 @@ set(SOURCES
         api/game_loop.cpp
         api/Buf.cpp
         api/patch.cpp
+        api/direct_input.cpp
         patches/reduce_title_screen_time.cpp
         patches/control_windowed_mode.cpp
         patches/add_win10_support.cpp
@@ -135,6 +136,8 @@ set(SOURCES
         patches/hires_textures/upscale_texture_buffer.cpp
         patches/hires_textures/expand_size_hash_table.cpp
         patches/fix_usage_unitialized_structure.cpp
+        patches/fix_keyboard_state_on_alt_tab.cpp
+        patches/notify_another_instance_is_running.cpp
         patches/unlimited_zoom_hack.cpp
         patches/use_wheel_to_zoom.cpp
         patches/replace_dll.cpp

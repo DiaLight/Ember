@@ -14,8 +14,10 @@ extern "C" __declspec(dllexport) bool __cdecl ember_initialize() {
   if(!api::initialize()) return false;
   if(!patch::reduce_title_screen_time()) return false;
   if(!patch::use_cwd_as_dk2_home_dir()) return false;
-  if(!patch::control_windowed_mode()) return false;
   bool gog_patch = api::hasFlag("gog_patch");
+  if(!gog_patch) {
+    if(!patch::control_windowed_mode()) return false;  // cooperative level conflict with gog_patch
+  }
   if(!patch::add_win10_support()) return false;  // warning patch duplicate with gog_patch
   if(!patch::fix_mouse_pos_on_resized_window()) return false;
   if(!patch::fix_close_window()) return false;
@@ -44,6 +46,8 @@ extern "C" __declspec(dllexport) bool __cdecl ember_initialize() {
 //  if(!patch::upscale_texture_buffer()) return false;
 //  if(!patch::expand_size_hash_table()) return false;
   if(!patch::fix_usage_uninitialized_structure()) return false;
+  if(!patch::fix_keyboard_state_on_alt_tab()) return false;
+  if(!patch::notify_another_instance_is_running()) return false;
 
 //  if(!reimpl::draw3dScene()) return false;
 //  if(!reimpl::SurfHashList__probablySort()) return false;

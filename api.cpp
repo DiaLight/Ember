@@ -19,6 +19,7 @@
 #include <io.h>
 #include <fcntl.h>
 #include <stdex.h>
+#include <api/direct_input.h>
 
 std::wstring g_curExeDir;
 
@@ -339,6 +340,7 @@ namespace api {
     if(!initStacktrace()) return false;
     if(!initWindow()) return false;
     if(!initGameLoop()) return false;
+    if(!initDirectInput()) return false;
     if(!replaceXrefs(funptr<&dk2::main>(), proxy_main)) return false;
 
     // .text:005A631C  mov esi, offset CGameComponent_instance

@@ -7,6 +7,7 @@
 #include <windowsx.h>
 #include <dk2_structures.h>
 #include <api.h>
+#include <api/direct_input.h>
 
 dk2::CBridge *pCBridge_instance = nullptr;
 
@@ -31,6 +32,10 @@ void zoom(int direction) {
 //  dpif->pushAction(action);
 }
 
+namespace {
+  DWORD g_lastTimestamp = 0;
+}
+
 bool patch::use_wheel_to_zoom() {
   if(!api::hasFlag("wheel2zoom")) return true;
   // 006D3CC8 CBridge_instance
@@ -41,15 +46,30 @@ bool patch::use_wheel_to_zoom() {
     switch(Msg) {
       case WM_MOUSEWHEEL: {
         DWORD fwKeys = GET_KEYSTATE_WPARAM(wParam);
-        DWORD zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+        DWORD zDelta = GET_WHEEL_DELTA_WPARAM(wParam);  // +-120*speed
         DWORD xPos = GET_X_LPARAM(lParam);
         DWORD yPos = GET_Y_LPARAM(lParam);
-        printf("k=%08X d=%d {%d %d}\n", fwKeys, zDelta, xPos, yPos);
+//        printf("k=%08X d=%d {%d %d}\n", fwKeys, zDelta, xPos, yPos);
         zoom2(-zDelta * 50);
         break;
       }
     }
     return true;
+  });
+  api::DIRECT_INPUT_DATA.emplace_back([](DIDEVICEOBJECTDATA *data) {
+    switch (data->dwOfs) {
+      case DIMOFS_Z: {  // wheel
+        int zDelta = data->dwData;  // +-150 with timestamp
+        int tsDelta = data->dwTimeStamp - g_lastTimestamp;
+        g_lastTimestamp = data->dwTimeStamp;
+//        printf("wheel: %d, ts: %d\n", data->dwData, tsDelta);
+        int mult = 80;
+        if(tsDelta > 100) mult = 40;
+        if(tsDelta > 500) mult = 20;
+        zoom2(-zDelta * mult);
+        break;
+      }
+    }
   });
 
   return true;

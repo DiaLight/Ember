@@ -38,4 +38,7 @@ extern gui::button_elem_t GogPatchChk;
 
 void launcher_layout(HWND hwnd, int width, int height, bool reset=false);
 
+void uncheckIncompatibles(HMENU id);
+void initIncompatibles();
+
 #endif //EMBER_LAYOUT_H

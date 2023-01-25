@@ -9,6 +9,7 @@
 #include <Windows.h>
 
 std::wstring utf8ToUtf16(const std::string& utf8Str);
+std::string utf8_encode(const std::wstring &wstr);
 bool dirExists(const wchar_t *path);
 size_t fileSize(LPCWSTR pszFilename);
 bool fileExist(LPCWSTR pszFilename);

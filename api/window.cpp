@@ -11,8 +11,13 @@ namespace api {
   std::vector<std::function<bool(HWND &, UINT &, WPARAM &, LPARAM &)>> BEFORE_WINDOW_PROC;
   std::vector<std::function<void(HWND, UINT, WPARAM, LPARAM, LRESULT &)>> AFTER_WINDOW_PROC;
 
+  std::vector<std::function<bool(HWND &, UINT &, WPARAM &, LPARAM &)>> BEFORE_BULLFROG_WINDOW_PROC;
+  std::vector<std::function<void(HWND, UINT, WPARAM, LPARAM, LRESULT &)>> AFTER_BULLFROG_WINDOW_PROC;
 
-  LRESULT __stdcall proxy_proc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
+
+  // windowed mode  class_name="LibWindow"
+  LRESULT __stdcall proxy_CWindow_proc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
+//    printf("CWIndow: %08X\n", Msg);
     bool execute = true;
     for(auto &F : BEFORE_WINDOW_PROC) execute &= F(hWnd, Msg, wParam, lParam);
     switch(Msg) {
@@ -23,6 +28,16 @@ namespace api {
     }
     LRESULT lResult = execute ? dk2::CWindowTest::proc(hWnd, Msg, wParam, lParam) : DefWindowProcA(hWnd, Msg, wParam, lParam);
     for(auto &F : AFTER_WINDOW_PROC) F(hWnd, Msg, wParam, lParam, lResult);
+    return lResult;
+  }
+
+  // unknown use  class_name="_BullfrogLibScreen"
+  LRESULT __stdcall proxy_Bullfrog_proc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
+//    printf("Bullfrog: %08X\n", Msg);
+    bool execute = true;
+    for(auto &F : BEFORE_BULLFROG_WINDOW_PROC) execute &= F(hWnd, Msg, wParam, lParam);
+    LRESULT lResult = execute ? dk2::BullfrogWindow::proc(hWnd, Msg, wParam, lParam) : DefWindowProcA(hWnd, Msg, wParam, lParam);
+    for(auto &F : AFTER_BULLFROG_WINDOW_PROC) F(hWnd, Msg, wParam, lParam, lResult);
     return lResult;
   }
 
@@ -42,7 +57,8 @@ namespace api {
   }
 
   bool initWindow() {
-    if(!replaceXrefs(funptr<&dk2::CWindowTest::proc>(), proxy_proc)) return false;
+    if(!replaceXrefs(funptr<&dk2::BullfrogWindow::proc>(), proxy_Bullfrog_proc)) return false;
+    if(!replaceXrefs(funptr<&dk2::CWindowTest::proc>(), proxy_CWindow_proc)) return false;
     if(!replaceXrefs(funptr<&dk2::MyGame::prepareScreen>(), proxy_prepareScreen)) return false;
     return true;
   }
