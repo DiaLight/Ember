@@ -1,35 +1,35 @@
 import sys
-import re
+import pathlib
+project_root = pathlib.Path(__file__).parent
+sys.path.append(str(project_root / 'mappings'))
+import dk2map
 
 NAMES_MAP_FILE = sys.argv[1]
 EXPORTS_MAP_FILE = sys.argv[2]
 
-vtable_re = re.compile("^\?\?_7(\w+)@@6B@$")
 idata = (0x0066C000, 0x0066C420)
 
 
-def filter_sym(va, name, kind):
-  if idata[0] <= va < idata[1]:
+def filter_sym(glob: dk2map.Global):
+  if idata[0] <= glob.va < idata[1]:
     return False
-  if kind == 'str':
+  if glob.name.startswith('_'):
     return False
-  if name.startswith('_'):
+  if glob.name.startswith('jpt_'):
     return False
-  if name.startswith('jpt_'):
+  if glob.name.startswith('def_'):
     return False
-  if name.startswith('def_'):
+  if glob.name.startswith('nullsub_'):
     return False
-  if name.startswith('nullsub_'):
+  if glob.name.startswith('SEH_'):
     return False
-  if name.startswith('SEH_'):
+  if "@std@" in glob.name:
     return False
-  if "@std@" in name:
+  if "EHRegistrationNode" in glob.name:
     return False
-  if "EHRegistrationNode" in name:
+  if "type_info" in glob.name:
     return False
-  if "type_info" in name:
-    return False
-  if name in [
+  if glob.name in [
     "??2@YAPAXI@Z", "??3@YAXPAX@Z"
   ]:
     return False
@@ -37,26 +37,22 @@ def filter_sym(va, name, kind):
 
 
 def main():
-  symbols = []
-  with open(NAMES_MAP_FILE, "r") as f:
-    for line in f.readlines():
-      line = line.rstrip('\r\n')
-      if line.startswith('#'):
-        continue
-      va, name, kind = line.split(" ", 2)
-      symbols.append((int(va, 16), name, kind))
+  with open(NAMES_MAP_FILE, 'r') as f:
+    structs, globals = dk2map.deserialize(map(lambda l: l.rstrip(), f.readlines()))
+
   with open(EXPORTS_MAP_FILE, "w") as f:
     f.write("#va      name\n")
-    for va, name, kind in symbols:
-      if not filter_sym(va, name, kind):
+    for glob in globals:
+      if not filter_sym(glob):
         continue
-      m = vtable_re.match(name)
-      if m is not None:
-        name = f"?vtable@{m.group(1)}@dk2@@2PAXA"
-      name = name.replace(':', '_')
+      name = glob.name
+      if name.endswith('_vftable'):
+        name = name[:-len('_vftable')]
+        name = f"?vtable@{name}@dk2@@2PAXA"
+      name = name.replace('::', '_').replace(':', '_')
       name = name.replace('<', '_')
       name = name.replace('>', '_')
-      f.write("%08X %s\n" % (va, name))
+      f.write("%08X %s\n" % (glob.va, name))
 
 
 if __name__ == '__main__':

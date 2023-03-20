@@ -387,6 +387,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0068E36C*/ void (__cdecl *&dk2::__xt_a_1)() = ___xt_a_1;  /* auto */
 /*--------*/ relink_glob void (__cdecl *___xt_z_1)();       /* auto */
 /*0068E374*/ void (__cdecl *&dk2::__xt_z_1)() = ___xt_z_1;  /* auto */
+/*--------*/ relink_glob WindowCfg *_gameView[53];  // ---  /* auto */
+/*00693EF8*/ WindowCfg *(&dk2::gameView)[53] = _gameView;   /* auto */
 /*--------*/ relink_glob ButtonCfg _Game_EscMenu_BtnArr;    /* auto */
 /*006945C8*/ ButtonCfg &dk2::Game_EscMenu_BtnArr = _Game_EscMenu_BtnArr;  /* auto */
 /*--------*/ relink_glob ButtonCfg _Game_Load_BtnArr;       /* auto */
@@ -441,6 +443,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*006ADAE0*/ ButtonCfg &dk2::Main_SinglePlayer_BtnArr = _Main_SinglePlayer_BtnArr;  /* auto */
 /*--------*/ relink_glob ButtonCfg _Main_Scrimish_BtnArr;   /* auto */
 /*006ADD10*/ ButtonCfg &dk2::Main_Scrimish_BtnArr = _Main_Scrimish_BtnArr;  /* auto */
+/*--------*/ relink_glob WindowCfg *_mainView[33];  // ---  /* auto */
+/*006AE4E0*/ WindowCfg *(&dk2::mainView)[33] = _mainView;   /* auto */
 /*--------*/ relink_glob GameScoreRecord _bundledScoreList[194];  /* auto */
 /*006AF430*/ GameScoreRecord (&dk2::bundledScoreList)[194] = _bundledScoreList;  /* auto */
 /*--------*/ relink_glob WindowCfg _Main_Extras_WinCfg;     /* auto */

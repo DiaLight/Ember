@@ -410,6 +410,7 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x0068E368, &dk2::__xt_z_0, "__xt_z_0" },  // --------  /* auto */
   { 0x0068E36C, &dk2::__xt_a_1, "__xt_a_1" },  // --------  /* auto */
   { 0x0068E374, &dk2::__xt_z_1, "__xt_z_1" },  // --------  /* auto */
+  { 0x00693EF8, &dk2::gameView, "gameView" },  // --------  /* auto */
   { 0x006945C8, &dk2::Game_EscMenu_BtnArr, "Game_EscMenu_BtnArr" },  /* auto */
   { 0x00694898, &dk2::Game_Load_BtnArr, "Game_Load_BtnArr" },  /* auto */
   { 0x00694A28, &dk2::Game_Save_BtnArr, "Game_Save_BtnArr" },  /* auto */
@@ -437,6 +438,7 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x006AD7C0, &dk2::Main_Main_BtnArr, "Main_Main_BtnArr" },  /* auto */
   { 0x006ADAE0, &dk2::Main_SinglePlayer_BtnArr, "Main_SinglePlayer_BtnArr" },  /* auto */
   { 0x006ADD10, &dk2::Main_Scrimish_BtnArr, "Main_Scrimish_BtnArr" },  /* auto */
+  { 0x006AE4E0, &dk2::mainView, "mainView" },  // --------  /* auto */
   { 0x006AF430, &dk2::bundledScoreList, "bundledScoreList" },  /* auto */
   { 0x006B1FE8, &dk2::Main_Extras_WinCfg, "Main_Extras_WinCfg" },  /* auto */
   { 0x006B2030, &dk2::Main_TodaysTopKeepers_WinCfg, "Main_TodaysTopKeepers_WinCfg" },  /* auto */

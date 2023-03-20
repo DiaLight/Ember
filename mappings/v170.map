@@ -67827,6 +67827,10 @@ global: va=0068E374,name=__xt_z_1
   type: kind=ptr
     type: kind=function,declspec=cdecl
       ret: kind=void
+global: va=00693EF8,name=gameView
+  type: kind=array,count=53
+    type: kind=ptr
+      type: kind=struct,id=use_0052CED0
 global: va=006945C8,name=Game_EscMenu_BtnArr
   type: kind=struct,id=use_00528300
 global: va=00694898,name=Game_Load_BtnArr
@@ -67884,6 +67888,10 @@ global: va=006ADAE0,name=Main_SinglePlayer_BtnArr
   type: kind=struct,id=use_00528300
 global: va=006ADD10,name=Main_Scrimish_BtnArr
   type: kind=struct,id=use_00528300
+global: va=006AE4E0,name=mainView
+  type: kind=array,count=33
+    type: kind=ptr
+      type: kind=struct,id=use_0052CED0
 global: va=006AF430,name=bundledScoreList
   type: kind=array,count=194
     type: kind=struct,id=instance_arr_006AF430

@@ -11,7 +11,7 @@ option(REVERSE_MODE "Build bootstrap_patcher as dll for dynamic load by debugger
 
 find_package(Python REQUIRED)
 
-set(DK2_NAMES_SRC "${CMAKE_CURRENT_LIST_DIR}/mappings/names.map")
+set(DK2_V170_SRC "${CMAKE_CURRENT_LIST_DIR}/mappings/v170.map")
 set(DK2_REFERENCES_SRC "${CMAKE_CURRENT_LIST_DIR}/mappings/references.map")
 set(DK2_STACK_SRC "${CMAKE_CURRENT_LIST_DIR}/mappings/stack.map")
 
@@ -35,9 +35,9 @@ add_custom_command(
 add_custom_target(stack_map DEPENDS ${DK2_STACK})
 add_custom_command(
         OUTPUT ${DK2_EXPORTS}
-        COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_LIST_DIR}/gen_exports.py ${DK2_NAMES_SRC} ${DK2_EXPORTS}
+        COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_LIST_DIR}/gen_exports.py ${DK2_V170_SRC} ${DK2_EXPORTS}
         DEPENDS
-        ${DK2_NAMES_SRC}
+        ${DK2_V170_SRC}
         COMMENT "Generating exports.map"
 )
 add_custom_target(dll_exports DEPENDS ${DK2_EXPORTS})
@@ -46,26 +46,6 @@ install(FILES
         ${DK2_STACK}
         ${DK2_EXPORTS}
         DESTINATION "${CMAKE_INSTALL_PREFIX}"
-)
-
-set(DK2_LIB "${CMAKE_CURRENT_BINARY_DIR}/dk2.lib")
-add_custom_command(
-        OUTPUT ${DK2_LIB}
-        COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_LIST_DIR}/genlib/gen_def.py ${DK2_EXPORTS} ${CMAKE_CURRENT_BINARY_DIR}/dk2.def
-        COMMAND ${CMAKE_CURRENT_LIST_DIR}/genlib/gen_lib.bat ${CMAKE_CURRENT_BINARY_DIR}/dk2.def ${DK2_LIB}
-        DEPENDS
-        ${DK2_EXPORTS}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/genlib
-        COMMENT "Generating dk2.lib"
-)
-
-set(DK2_SYMBOLS "${CMAKE_CURRENT_BINARY_DIR}/dk2_symbols.asm")
-add_custom_command(
-        OUTPUT ${DK2_SYMBOLS}
-        COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_LIST_DIR}/gen_symbols.py ${DK2_EXPORTS} ${DK2_SYMBOLS}
-        DEPENDS
-        ${DK2_EXPORTS}
-        COMMENT "Generating dk2_symbols.asm"
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Gy")  # Enable Function-Level Linking
@@ -113,7 +93,6 @@ if(REVERSE_MODE)
     enable_language(ASM_MASM)
     add_library(bootstrap_patcher SHARED
             ${SOURCES}
-            ${DK2_SYMBOLS}
     )
     target_compile_definitions(bootstrap_patcher PRIVATE REVERSE_MODE=1)
 else()

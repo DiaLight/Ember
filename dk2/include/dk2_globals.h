@@ -298,6 +298,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0068E368*/ extern void (__cdecl *&__xt_z_0)();  // -----  /* auto */
 /*0068E36C*/ extern void (__cdecl *&__xt_a_1)();  // -----  /* auto */
 /*0068E374*/ extern void (__cdecl *&__xt_z_1)();  // -----  /* auto */
+/*00693EF8*/ extern WindowCfg *(&gameView)[53];  // ------  /* auto */
 /*006945C8*/ extern ButtonCfg &Game_EscMenu_BtnArr;  // --  /* auto */
 /*00694898*/ extern ButtonCfg &Game_Load_BtnArr;  // -----  /* auto */
 /*00694A28*/ extern ButtonCfg &Game_Save_BtnArr;  // -----  /* auto */
@@ -325,6 +326,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*006AD7C0*/ extern ButtonCfg &Main_Main_BtnArr;  // -----  /* auto */
 /*006ADAE0*/ extern ButtonCfg &Main_SinglePlayer_BtnArr;    /* auto */
 /*006ADD10*/ extern ButtonCfg &Main_Scrimish_BtnArr;  // -  /* auto */
+/*006AE4E0*/ extern WindowCfg *(&mainView)[33];  // ------  /* auto */
 /*006AF430*/ extern GameScoreRecord (&bundledScoreList)[194];  /* auto */
 /*006B1FE8*/ extern WindowCfg &Main_Extras_WinCfg;  // ---  /* auto */
 /*006B2030*/ extern WindowCfg &Main_TodaysTopKeepers_WinCfg;  /* auto */
