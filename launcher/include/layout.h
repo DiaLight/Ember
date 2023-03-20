@@ -10,7 +10,7 @@
 #include <CommCtrl.h>
 #include <cstdint>
 #include <functional>
-#include "../win32_gui_layout.h"
+#include <win32_gui_layout.h>
 
 
 #define hex32(val) std::hex << std::uppercase << std::setfill(L'0') << std::setw(8) << ((uint32_t) val) << std::dec

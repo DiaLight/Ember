@@ -68,7 +68,18 @@ add_custom_command(
         COMMENT "Generating dk2_symbols.asm"
 )
 
-add_subdirectory(makedll)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Gy")  # Enable Function-Level Linking
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Gw")  # Optimize Global Data
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /GS-")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Gz")  # use __stdcall by default
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4477")
+#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /OPT:REF")
+
+add_subdirectory(dk2)
+add_subdirectory(utils)
+add_subdirectory(reimpl)
+add_subdirectory(hooks)
+add_subdirectory(patches)
 
 option(DK2_DIR "Dungeon Keeper 2 directory")
 if(DK2_DIR)
@@ -92,59 +103,11 @@ else()
     set(DK2_DLL "")
 endif()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /GS- /Gz")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4477")
-
-add_library(win32_gui_layout STATIC win32_gui_layout.cpp)
-target_include_directories(win32_gui_layout PUBLIC ${CMAKE_CURRENT_LIST_DIR})
-
 add_subdirectory(3rdparty)
 
-if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/dev")
-    add_subdirectory(dev)
-endif()
-add_subdirectory(reimpl/gog_patch_dll)
 
 set(SOURCES
         main.cpp
-        api.cpp
-        api/window.cpp
-        api/stacktrace.cpp
-        api/stacktrace_window.cpp
-        api/parse.cpp
-        api/game_loop.cpp
-        api/Buf.cpp
-        api/patch.cpp
-        api/direct_input.cpp
-        patches/reduce_title_screen_time.cpp
-        patches/control_windowed_mode.cpp
-        patches/add_win10_support.cpp
-        patches/mouse_dinput/fix_relative_mouse_data.cpp
-        patches/mouse_dinput/replace_mouse_dinput_to_user32.cpp
-        patches/mouse_user32/fix_mouse_pos_on_resized_window.cpp
-        patches/fix_close_window.cpp
-        patches/use_cwd_as_dk2_home_dir.cpp
-        patches/screen_resolution/patch_menu_resolution.cpp
-        patches/screen_resolution/patch_game_resolution.cpp
-        patches/screen_resolution/expand_surf_idx_array.cpp
-        patches/screen_resolution/expand_surf_hash_list.cpp
-        patches/screen_resolution/patch_draw_buffer_extra_size.cpp
-        patches/screen_resolution/replace_custom_heap.cpp
-        patches/screen_resolution/dpi_aware.cpp
-        patches/screen_resolution/fix_surface_buffer_size_on_max_resolution.cpp
-        patches/hires_textures/redirect_load_cached_textures.cpp
-        patches/hires_textures/upscale_texture_buffer.cpp
-        patches/hires_textures/expand_size_hash_table.cpp
-        patches/fix_usage_unitialized_structure.cpp
-        patches/fix_keyboard_state_on_alt_tab.cpp
-        patches/notify_another_instance_is_running.cpp
-        patches/unlimited_zoom_hack.cpp
-        patches/use_wheel_to_zoom.cpp
-        patches/replace_dll.cpp
-        reimpl/SurfHashList__probablySort.cpp
-        reimpl/draw3dScene.cpp
-        tools/unpack_texture_cache.cpp
-        stdex.cpp
 )
 if(REVERSE_MODE)
     enable_language(ASM_MASM)
@@ -156,10 +119,8 @@ if(REVERSE_MODE)
 else()
     add_executable(bootstrap_patcher WIN32
             ${SOURCES}
-            ${DK2_LIB}
             ${DK2_DLL}
     )
-    target_link_libraries(bootstrap_patcher PRIVATE ${DK2_LIB})
 endif()
 add_dependencies(bootstrap_patcher dll_exports stack_map references_map)
 target_include_directories(bootstrap_patcher PRIVATE include)
@@ -167,17 +128,17 @@ target_compile_definitions(bootstrap_patcher PRIVATE DIRECTINPUT_VERSION=0x0500 
 
 target_link_libraries(bootstrap_patcher PRIVATE
         Dbghelp Shcore Comctl32
-        lodepng
         win32_gui_layout
+        dk2_mapping
+        dk2_utils
+        dk2_reimpl
+        dk2_patches
+        dk2_hooks
         gog_patch_dll
 )
-if(EXISTS dev)
-    target_link_libraries(bootstrap_patcher PRIVATE dev)
-endif()
 
 install(TARGETS bootstrap_patcher RUNTIME DESTINATION ".")
 
 if(NOT REVERSE_MODE)
     add_subdirectory(launcher)
-    add_subdirectory(unpacker)
 endif()

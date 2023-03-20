@@ -125,9 +125,6 @@ void uncheckIncompatibles(HMENU id) {
       return;
     }
   }
-
-  printStatus("not found\n");
-  updateStatus();
 }
 
 void setIncompatible_(gui::button_elem_t *e1, gui::button_elem_t *e2) {

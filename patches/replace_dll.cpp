@@ -1,24 +1,24 @@
 //
 // Created by DiaLight on 20.01.2023.
 //
-#include <dk2.h>
-#include <patches.h>
+#include <dk2_patches.h>
 #include <cstdio>
-#include <api/patch.h>
 #include <stdex.h>
+#include <Windows.h>
+#include <dk2_info.h>
 
 
 bool replaceDllImports(const char *dllName, HMODULE replaceTo) {
-  auto *dos = (IMAGE_DOS_HEADER *) dk2_base;
-  auto *nt = (IMAGE_NT_HEADERS *) (dk2_base + dos->e_lfanew);
+  auto *dos = (IMAGE_DOS_HEADER *) api::dk2_base;
+  auto *nt = (IMAGE_NT_HEADERS *) (api::dk2_base + dos->e_lfanew);
 
   IMAGE_IMPORT_DESCRIPTOR *target = nullptr;
   for(
-      auto *impdesc = (IMAGE_IMPORT_DESCRIPTOR *) (dk2_base + nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress);
+      auto *impdesc = (IMAGE_IMPORT_DESCRIPTOR *) (api::dk2_base + nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress);
       impdesc->Name != NULL;
       impdesc++
       ) {
-    auto *libname = (char *) (dk2_base + impdesc->Name);
+    auto *libname = (char *) (api::dk2_base + impdesc->Name);
     if(stricmp(libname, dllName) != 0) continue;
     target = impdesc;
 
@@ -32,8 +32,8 @@ bool replaceDllImports(const char *dllName, HMODULE replaceTo) {
   if(!target) return false;
 
   for(
-      auto nameAddressPtr = (PIMAGE_THUNK_DATA) (dk2_base + target->OriginalFirstThunk),
-          functionAddressPtr = (PIMAGE_THUNK_DATA) (dk2_base + target->FirstThunk);
+      auto nameAddressPtr = (PIMAGE_THUNK_DATA) (api::dk2_base + target->OriginalFirstThunk),
+          functionAddressPtr = (PIMAGE_THUNK_DATA) (api::dk2_base + target->FirstThunk);
       nameAddressPtr->u1.Function;
       nameAddressPtr++, functionAddressPtr++
       ) {
@@ -41,7 +41,7 @@ bool replaceDllImports(const char *dllName, HMODULE replaceTo) {
     if (nameAddressPtr->u1.Ordinal & IMAGE_ORDINAL_FLAG) {
       lpProcName = MAKEINTRESOURCEA(nameAddressPtr->u1.Ordinal);
     } else {
-      auto importByNameImage = (PIMAGE_IMPORT_BY_NAME) (dk2_base + nameAddressPtr->u1.AddressOfData);
+      auto importByNameImage = (PIMAGE_IMPORT_BY_NAME) (api::dk2_base + nameAddressPtr->u1.AddressOfData);
       lpProcName = (char *) importByNameImage->Name;
     }
 

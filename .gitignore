@@ -43,6 +43,9 @@
 # CMake
 cmake-build-*/
 
+# Python
+__pycache__/
+
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
 
