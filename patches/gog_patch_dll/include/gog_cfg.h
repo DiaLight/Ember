@@ -9,23 +9,24 @@
 
 namespace gog::cfg {
 
-  extern bool iDisableDEP;
-  extern DWORD iScaleMode;
-  extern bool iBumpmap;
-  extern bool iNotOnTop;
-  extern bool iAnisotropy;
-  extern bool iHighRes;
-  extern DWORD iAntialias;
-  extern DWORD iVwait;
-  extern DWORD iCpuIdle;
-  extern bool iExtraAntialias;
-  extern bool iRealFullscreen;
-  extern bool iDisableFourCC;
-  extern bool iSingleCore;
-  extern DWORD iRestoreMode;
+    extern bool iDisableDEP;
+    extern DWORD iScaleMode;
+    extern bool iBumpmap;
+    extern bool iNotOnTop;
+    extern bool iAnisotropy;
+    extern bool iHighRes;
+    extern DWORD iAntialias;
+    extern DWORD iVwait;
+    extern DWORD iCpuIdle;
+    extern bool iExtraAntialias;
+    extern bool iRealFullscreen;
+    extern bool iDisableFourCC;
+    extern bool iSingleCore;
+    extern DWORD iRestoreMode;
 
-  void load();
-  int patchRegistryConfig(int *status, LPCSTR lpValueName, DWORD *pValue);
+    void load();
+
+    int patchRegistryConfig(int *status, LPCSTR lpValueName, DWORD *pValue);
 
 }
 

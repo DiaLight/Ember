@@ -7,7 +7,7 @@
 
 namespace gog {
 
-  void patch_RtGuiView();
+    void patch_RtGuiView();
 
 }
 

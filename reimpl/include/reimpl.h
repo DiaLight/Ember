@@ -7,8 +7,8 @@
 
 namespace reimpl {
 
-  bool SurfHashList__probablySort();
-  bool draw3dScene();
+    bool SurfHashList__probablySort();
+    bool draw3dScene();
 
 }
 

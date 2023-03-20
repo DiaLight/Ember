@@ -14,7 +14,7 @@
 
 namespace api {
 
-  bool initialize();
+    bool initialize();
 
 }
 

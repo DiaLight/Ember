@@ -7,7 +7,7 @@
 
 namespace gog {
 
-  void patch_WndProc();
+    void patch_WndProc();
 
 }
 

@@ -7,7 +7,7 @@
 
 namespace gog {
 
-  void patch_GetVersion();
+    void patch_GetVersion();
 
 }
 

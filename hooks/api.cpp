@@ -22,16 +22,14 @@
 #include <api/direct_input.h>
 
 
-
-
 namespace api {
 
-  bool initialize() {
-    if(!initStacktrace()) return false;
-    if(!initWindow()) return false;
-    if(!initGameLoop()) return false;
-    if(!initDirectInput()) return false;
-    return true;
-  }
+    bool initialize() {
+        if (!initStacktrace()) return false;
+        if (!initWindow()) return false;
+        if (!initGameLoop()) return false;
+        if (!initDirectInput()) return false;
+        return true;
+    }
 
 }

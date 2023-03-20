@@ -9,10 +9,11 @@
 #include <vector>
 
 struct screen_mode {
-  int width;
-  int height;
-  screen_mode(int width, int height) : width(width), height(height) {}
+    int width;
+    int height;
+    screen_mode(int width, int height) : width(width), height(height) {}
 };
+
 extern std::vector<screen_mode> g_screenModeList;
 
 bool collectModes(HWND hWnd);

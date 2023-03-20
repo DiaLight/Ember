@@ -7,7 +7,7 @@
 
 namespace gog {
 
-  void patch_SurfaceHolder_setTexture();
+    void patch_SurfaceHolder_setTexture();
 
 }
 

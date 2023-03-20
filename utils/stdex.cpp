@@ -8,61 +8,61 @@
 
 
 std::string utf8_encode(const std::wstring &wstr) {
-  if(wstr.empty()) return std::string();
-  int size_needed = WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), NULL, 0, NULL, NULL);
-  std::string strTo(size_needed, 0);
-  WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), &strTo[0], size_needed, NULL, NULL);
-  return strTo;
+    if (wstr.empty()) return std::string();
+    int size_needed = WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int) wstr.size(), NULL, 0, NULL, NULL);
+    std::string strTo(size_needed, 0);
+    WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int) wstr.size(), &strTo[0], size_needed, NULL, NULL);
+    return strTo;
 }
 
 std::vector<std::string> split(const std::string &s, char separator) {
-  std::vector<std::string> output;
-  std::string::size_type prev_pos = 0, pos = 0;
-  while((pos = s.find(separator, pos)) != std::string::npos) {
-    std::string substring( s.substr(prev_pos, pos-prev_pos) );
-    output.push_back(substring);
-    prev_pos = ++pos;
-  }
-  output.push_back(s.substr(prev_pos, pos-prev_pos)); // Last word
-  return output;
+    std::vector<std::string> output;
+    std::string::size_type prev_pos = 0, pos = 0;
+    while ((pos = s.find(separator, pos)) != std::string::npos) {
+        std::string substring(s.substr(prev_pos, pos - prev_pos));
+        output.push_back(substring);
+        prev_pos = ++pos;
+    }
+    output.push_back(s.substr(prev_pos, pos - prev_pos)); // Last word
+    return output;
 }
 
 bool parse_int(const std::string &S, int &value, std::string &err) {
-  try {
-    value = std::stoi(S);
-    return true;
-  } catch (std::invalid_argument &e) {
-    err = "Invalid argument";
-  } catch (std::out_of_range &e) {
-    err = "Out of range";
-  } catch (...) {
-    err = "failed to parse";
-  }
-  return false;
+    try {
+        value = std::stoi(S);
+        return true;
+    } catch (std::invalid_argument &e) {
+        err = "Invalid argument";
+    } catch (std::out_of_range &e) {
+        err = "Out of range";
+    } catch (...) {
+        err = "failed to parse";
+    }
+    return false;
 }
 
 // trim from start (in place)
 void ltrim(std::string &s, const trim_pred_t &pred) {
-  s.erase(s.begin(), std::find_if(s.begin(), s.end(), pred));
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(), pred));
 }
 
 // trim from end (in place)
 void rtrim(std::string &s, const trim_pred_t &pred) {
-  s.erase(std::find_if(s.rbegin(), s.rend(), pred).base(), s.end());
+    s.erase(std::find_if(s.rbegin(), s.rend(), pred).base(), s.end());
 }
 
 // trim from both ends (in place)
 void trim(std::string &s, const trim_pred_t &pred) {
-  rtrim(s, pred);
-  ltrim(s, pred);
+    rtrim(s, pred);
+    ltrim(s, pred);
 }
 
-void replaceAll(std::string& str, const std::string& from, const std::string& to) {
-  if(from.empty())
-    return;
-  size_t start_pos = 0;
-  while((start_pos = str.find(from, start_pos)) != std::string::npos) {
-    str.replace(start_pos, from.length(), to);
-    start_pos += to.length(); // In case 'to' contains 'from', like replacing 'x' with 'yx'
-  }
+void replaceAll(std::string &str, const std::string &from, const std::string &to) {
+    if (from.empty())
+        return;
+    size_t start_pos = 0;
+    while ((start_pos = str.find(from, start_pos)) != std::string::npos) {
+        str.replace(start_pos, from.length(), to);
+        start_pos += to.length(); // In case 'to' contains 'from', like replacing 'x' with 'yx'
+    }
 }

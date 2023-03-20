@@ -7,7 +7,7 @@
 
 namespace gog {
 
-  void patch_parseCommandLine();
+    void patch_parseCommandLine();
 
 }
 

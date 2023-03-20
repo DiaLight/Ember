@@ -9,7 +9,7 @@
 
 namespace stacktrace {
 
-  BOOL show(HINSTANCE hInstance, bool &throwAgain, const wchar_t *trace);
+    BOOL show(HINSTANCE hInstance, bool &throwAgain, const wchar_t *trace);
 
 }
 

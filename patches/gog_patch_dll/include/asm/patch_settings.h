@@ -7,7 +7,7 @@
 
 namespace gog {
 
-  void patch_settings();
+    void patch_settings();
 
 }
 

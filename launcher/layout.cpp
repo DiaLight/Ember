@@ -9,11 +9,11 @@
 gui::edit_elem_t DirPath(L"", WS_VISIBLE | WS_BORDER);
 gui::button_elem_t SelectDir(L"select", WS_VISIBLE | WS_BORDER);
 gui::edit_elem_t TextField(
-    L"",
-    WS_VISIBLE | WS_BORDER |
-    ES_READONLY |
-    WS_HSCROLL | WS_VSCROLL | ES_LEFT |
-    ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL
+        L"",
+        WS_VISIBLE | WS_BORDER |
+        ES_READONLY |
+        WS_HSCROLL | WS_VSCROLL | ES_LEFT |
+        ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL
 );
 gui::button_elem_t StartBtn(L"start", WS_VISIBLE | WS_BORDER);
 gui::label_elem_t MenuLabel(L"Menu resolution:", WS_VISIBLE | WS_TABSTOP);
@@ -36,112 +36,113 @@ gui::button_elem_t AllocConsoleChk(L"Alloc console:", BS_CHECKBOX | BS_AUTOCHECK
 gui::button_elem_t GogPatchChk(L"Gog patch:", BS_CHECKBOX | BS_AUTOCHECKBOX | BS_PUSHBUTTON | BS_LEFTTEXT | WS_VISIBLE | WS_BORDER);
 
 struct : gui::layout_t {
-  void operator()(HWND hwnd, int width, int height, bool reset=false) {
-    layout_t::operator()(hwnd, width, height, reset);
-    hor(-1, -1, [this] {
-      gap(10);
-      ver([this] {
-        gap(10);
+    void operator()(HWND hwnd, int width, int height, bool reset = false) {
+        layout_t::operator()(hwnd, width, height, reset);
+        hor(-1, -1, [this] {
+            gap(10);
+            ver([this] {
+                gap(10);
 
-        // body start
-        hor(-1, 20, [this] {
-          visit(DirPath, -1, size.h);
-          gap(10);
-          visit(SelectDir, 65, size.h);
-        });
-        gap(10);
-        visit(TextField, -1, -1);
-        gap(10);
-        hor(-1, 20, [this] {
-          visit(MenuLabel, 100, size.h);
-          visit(MenuModesCombo, 150, 50000);
-          gap(10);
-          visit(GameLabel, 100, size.h);
-          visit(GameModesCombo, 150, 50000);
-        });
-        gap(10);
-        hor(-1, 20, [this] {
-          visit(DPIChk, 80, size.h);
-          gap(20);
-          visit(FullscreenChk, 80, size.h);
-          gap(20);
-          visit(UnlimitedZoomChk, 105, size.h);
-          gap(20);
-          visit(Wheel2ZoomChk, 105, size.h);
-          gap(20);
-          visit(BindWasdBtn, 70, size.h);
-        });
-        gap(10);
-        hor(-1, 20, [this] {
-          visit(ResLabel, 60, size.h);
-          gap(20);
-          visit(ResExtractBtn, 80, size.h);
-          gap(20);
-          visit(ResOpenBtn, 80, size.h);
-          gap(20);
-          visit(ResRedirectChk, 130, size.h);
-        });
-        gap(10);
-        hor(-1, 20, [this] {
-          visit(AllocConsoleChk, 95, size.h);
-          gap(20);
-          visit(GogPatchChk, 95, size.h);
-        });
-        // body end
+                // body start
+                hor(-1, 20, [this] {
+                    visit(DirPath, -1, size.h);
+                    gap(10);
+                    visit(SelectDir, 65, size.h);
+                });
+                gap(10);
+                visit(TextField, -1, -1);
+                gap(10);
+                hor(-1, 20, [this] {
+                    visit(MenuLabel, 100, size.h);
+                    visit(MenuModesCombo, 150, 50000);
+                    gap(10);
+                    visit(GameLabel, 100, size.h);
+                    visit(GameModesCombo, 150, 50000);
+                });
+                gap(10);
+                hor(-1, 20, [this] {
+                    visit(DPIChk, 80, size.h);
+                    gap(20);
+                    visit(FullscreenChk, 80, size.h);
+                    gap(20);
+                    visit(UnlimitedZoomChk, 105, size.h);
+                    gap(20);
+                    visit(Wheel2ZoomChk, 105, size.h);
+                    gap(20);
+                    visit(BindWasdBtn, 70, size.h);
+                });
+                gap(10);
+                hor(-1, 20, [this] {
+                    visit(ResLabel, 60, size.h);
+                    gap(20);
+                    visit(ResExtractBtn, 80, size.h);
+                    gap(20);
+                    visit(ResOpenBtn, 80, size.h);
+                    gap(20);
+                    visit(ResRedirectChk, 130, size.h);
+                });
+                gap(10);
+                hor(-1, 20, [this] {
+                    visit(AllocConsoleChk, 95, size.h);
+                    gap(20);
+                    visit(GogPatchChk, 95, size.h);
+                });
+                // body end
 
-        gap(10);
+                gap(10);
 
-        // footer
-        hor(-1, 30, [this] {
-          gap(-1);
-          visit(StartBtn, 100, size.h);
-          gap(-1);
+                // footer
+                hor(-1, 30, [this] {
+                    gap(-1);
+                    visit(StartBtn, 100, size.h);
+                    gap(-1);
+                });
+                // footer end
+
+                gap(10);
+            });
+            gap(10);
         });
-        // footer end
-
-        gap(10);
-      });
-      gap(10);
-    });
-  }
+    }
 } launcher_layout_;
 
 void launcher_layout(HWND hwnd, int width, int height, bool reset) {
-  launcher_layout_(hwnd, width, height, reset);
+    launcher_layout_(hwnd, width, height, reset);
 }
 
 std::map<gui::button_elem_t *, std::vector<gui::button_elem_t *>> incompatibilities;
 
 void uncheckIncompatibles(HMENU id) {
-  for(auto &it : incompatibilities) {
-    if(it.first->id == id) {
-      for(auto *ib : it.second) {
-        if(ib->style & BS_RADIOBUTTON) {
-          ib->setCheck(BST_INDETERMINATE);
-        } else {
-          ib->setCheck(BST_UNCHECKED);
+    for (auto &it: incompatibilities) {
+        if (it.first->id == id) {
+            for (auto *ib: it.second) {
+                if (ib->style & BS_RADIOBUTTON) {
+                    ib->setCheck(BST_INDETERMINATE);
+                } else {
+                    ib->setCheck(BST_UNCHECKED);
+                }
+            }
+            return;
         }
-      }
-      return;
     }
-  }
 }
 
 void setIncompatible_(gui::button_elem_t *e1, gui::button_elem_t *e2) {
-  auto it = incompatibilities.find(e1);
-  if(it == incompatibilities.end()) {
-    std::vector<gui::button_elem_t *> t;
-    auto it2 = incompatibilities.insert(std::make_pair(e1, t));
-    if(!it2.second) return;
-    it = it2.first;
-  }
-  it->second.push_back(e2);
+    auto it = incompatibilities.find(e1);
+    if (it == incompatibilities.end()) {
+        std::vector<gui::button_elem_t *> t;
+        auto it2 = incompatibilities.insert(std::make_pair(e1, t));
+        if (!it2.second) return;
+        it = it2.first;
+    }
+    it->second.push_back(e2);
 }
+
 void setIncompatible(gui::button_elem_t &e1, gui::button_elem_t &e2) {
-  setIncompatible_(&e1, &e2);
-  setIncompatible_(&e2, &e1);
+    setIncompatible_(&e1, &e2);
+    setIncompatible_(&e2, &e1);
 }
 
 void initIncompatibles() {
-  setIncompatible(GogPatchChk, FullscreenChk);
+    setIncompatible(GogPatchChk, FullscreenChk);
 }

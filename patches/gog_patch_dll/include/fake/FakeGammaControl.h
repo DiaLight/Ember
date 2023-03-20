@@ -10,20 +10,20 @@
 
 namespace gog {
 
-  class FakeGammaControl : public FakeUnknown<IDirectDrawGammaControl> {
+    class FakeGammaControl : public FakeUnknown<IDirectDrawGammaControl> {
 
-  public:
+    public:
 
-    /*** IUnknown methods ***/
-    STDMETHOD(QueryInterface) (THIS_ REFIID riid, LPVOID FAR * ppvObj) override;
+        /*** IUnknown methods ***/
+        STDMETHOD(QueryInterface) (THIS_ REFIID riid, LPVOID FAR * ppvObj) override;
 
-    /*** IDirectDrawGammaControl methods ***/
-    STDMETHOD(GetGammaRamp)(THIS_ DWORD, LPDDGAMMARAMP) override;
-    STDMETHOD(SetGammaRamp)(THIS_ DWORD, LPDDGAMMARAMP) override;
+        /*** IDirectDrawGammaControl methods ***/
+        STDMETHOD(GetGammaRamp)(THIS_ DWORD, LPDDGAMMARAMP) override;
+        STDMETHOD(SetGammaRamp)(THIS_ DWORD, LPDDGAMMARAMP) override;
 
-    static FakeGammaControl *instance;
+        static FakeGammaControl *instance;
 
-  };
+    };
 
 }
 

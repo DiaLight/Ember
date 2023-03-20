@@ -10,11 +10,11 @@
 
 namespace gog {
 
-  void fakeInit();
+    void fakeInit();
 
-  LPDIRECTDRAWSURFACE4 Fake_CreateZBuf(DWORD width, DWORD height);
-  void Fake_Redraw();
-  void Fake_InitRenderRect();
+    LPDIRECTDRAWSURFACE4 Fake_CreateZBuf(DWORD width, DWORD height);
+    void Fake_Redraw();
+    void Fake_InitRenderRect();
 
 }
 
