@@ -29,7 +29,7 @@ struct WndMsgDxActionList {  // --------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672450*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // WndMsgDxActionList  ---------------------------  /* auto */
-/*  0*/ virtual void *v_Obj672450_scalar_destructor(char);  // = 005BBD60  /* auto */
+/*  0*/ virtual const void *v_Obj672450_scalar_destructor(char);  // = 005BBD60  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005BBB70*/ int32_t destructor();  // -------------------  /* auto */
 // -------------------------------------------------------  /* auto */

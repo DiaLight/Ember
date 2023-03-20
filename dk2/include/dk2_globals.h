@@ -22,6 +22,7 @@
 #include <dk2/CSoundSystem.h>  // ------------------------  /* auto */
 #include <dk2/CursorDrawer.h>  // ------------------------  /* auto */
 #include <dk2/DdModeList.h>  // --------------------------  /* auto */
+#include <dk2/FPUControlWordWithState.h>  // -------------  /* auto */
 #include <dk2/FontObj.h>  // -----------------------------  /* auto */
 #include <dk2/GameActionRecord.h>  // --------------------  /* auto */
 #include <dk2/GameScoreRecord.h>  // ---------------------  /* auto */
@@ -158,10 +159,10 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0066F20C*/ extern void *(&CWindowTest_vftable)[1];  // -  /* auto */
 /*0066F214*/ extern void *(&CFileManager_vftable)[12];      /* auto */
 /*0066F24C*/ extern void *(&TbDiscFile_vftable)[10];  // -  /* auto */
-/*0066F338*/ extern char *&Drive;  // --------------------  /* auto */
-/*0066F34C*/ extern char *&lpSubKey;  // -----------------  /* auto */
+/*0066F338*/ extern const char *&Drive;  // --------------  /* auto */
+/*0066F34C*/ extern const char *&lpSubKey;  // -----------  /* auto */
 /*0066F3AC*/ extern void *(&TbDiscFileStorage_vftable)[12];  /* auto */
-/*0066F46C*/ extern char *&lpValueName;  // --------------  /* auto */
+/*0066F46C*/ extern const char *&lpValueName;  // --------  /* auto */
 /*0066F7FC*/ extern void *(&CSoundSystem_vftable)[32];      /* auto */
 /*0066F90C*/ extern void *(&TbAudioSystem_vftable)[7];      /* auto */
 /*0066F92C*/ extern void *(&TbSysCommand_SetNumberOfChannels_vftable)[1];  /* auto */
@@ -206,6 +207,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*00671E10*/ extern GUID &CLSID_IDirectDrawSurface2;  // -  /* auto */
 /*00671E20*/ extern GUID &CLSID_IDirectDraw4;  // --------  /* auto */
 /*00671E30*/ extern GUID &CLSID_IDirectDraw2;  // --------  /* auto */
+/*00671F40*/ extern void *(&FPUControlWord_vftable)[1];     /* auto */
 /*00671F80*/ extern void *(&DiscFileBase_vftable)[9];       /* auto */
 /*006722D0*/ extern void *(&MyStr_vftable)[11];  // ------  /* auto */
 /*00672300*/ extern void *(&MySubStr_vftable)[2];  // ----  /* auto */
@@ -365,9 +367,9 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*006C9300*/ extern int32_t &dwTlsIndex_ThreadCtx;  // ---  /* auto */
 /*006C9490*/ extern int16_t &__ctype;  // ----------------  /* auto */
 /*006C9694*/ extern size_t &SrcSizeInBytes;  // ----------  /* auto */
-/*006C9AB4*/ extern void *&lpMem;  // --------------------  /* auto */
-/*006CBC0C*/ extern void *(&lpBuffer)[35];  // -----------  /* auto */
-/*006CC648*/ extern char *&Dest;  // ---------------------  /* auto */
+/*006C9AB4*/ extern const void *&lpMem;  // --------------  /* auto */
+/*006CBC0C*/ extern const void *(&lpBuffer)[35];  // -----  /* auto */
+/*006CC648*/ extern const char *&Dest;  // ---------------  /* auto */
 /*006CCA20*/ extern CEntryComponent &CEntryComponent_instance;  /* auto */
 /*006CCA60*/ extern MyDdSurfaceEx (&myDdSurfaceArr_x15)[21];  /* auto */
 /*006CD0F0*/ extern int32_t &myDdSurface_end;  // --------  /* auto */
@@ -382,7 +384,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*006E5054*/ extern CWorld *&g_pCWorld;  // --------------  /* auto */
 /*006EB988*/ extern FILE *&Stream;  // -------------------  /* auto */
 /*006ECA60*/ extern int32_t &Obj6ECA60_instance;  // -----  /* auto */
-/*006ECAE0*/ extern void *&Obj6ECAE0_instance;  // -------  /* auto */
+/*006ECAE0*/ extern const void *&Obj6ECAE0_instance;  // -  /* auto */
 /*006ED540*/ extern char (&sceneObjectsPresent)[4096];      /* auto */
 /*006EE540*/ extern CTag *(&sceneObjects)[1];  // --------  /* auto */
 /*006F2548*/ extern int32_t &status;  // -----------------  /* auto */
@@ -405,8 +407,8 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0073EDE0*/ extern IDirectDrawSurface2 *&p_IDirectDrawSurface2_2;  /* auto */
 /*0073F580*/ extern StaticListeners &CFrontEndComponent_ShowMovie_static_listeners;  /* auto */
 /*0073FC24*/ extern wchar_t &SrcStr;  // -----------------  /* auto */
-/*0073FE78*/ extern void *&Block;  // --------------------  /* auto */
-/*0074033C*/ extern char *&lpMultiByteStr;  // -----------  /* auto */
+/*0073FE78*/ extern const void *&Block;  // --------------  /* auto */
+/*0074033C*/ extern const char *&lpMultiByteStr;  // -----  /* auto */
 /*00740340*/ extern size_t &BtnSize;  // -----------------  /* auto */
 /*00740B80*/ extern int32_t (&g_FontObj6_instance)[20];     /* auto */
 /*00740BD0*/ extern int32_t (&g_FontObj3_instance)[20];     /* auto */
@@ -465,8 +467,8 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*00765224*/ extern CEnginePrimitiveBase *&g_pCEngine2DPrimitive;  /* auto */
 /*007656E8*/ extern MyStringHashMap_MyScaledSurface &MyStringHashMap_MyScaledSurface_instance;  /* auto */
 /*00765AF8*/ extern MyEntryBuf_MyScaledSurface &MyEntryBuf_MyScaledSurface_instance;  /* auto */
-/*00765B18*/ extern void *(&MyHeap_increaseBlocks)[32];     /* auto */
-/*00765DA0*/ extern void *(&MyHeap_bufArr)[32];  // ------  /* auto */
+/*00765B18*/ extern const void *(&MyHeap_increaseBlocks)[32];  /* auto */
+/*00765DA0*/ extern const void *(&MyHeap_bufArr)[32];       /* auto */
 /*00766228*/ extern int32_t &CMemLoadIFFFile_instance;      /* auto */
 /*00766660*/ extern MyStringHashMap &MyStringHashMap_unkh18_instance;  /* auto */
 /*00769A78*/ extern arr_769A78_t (&arr_769A78)[256];  // -  /* auto */
@@ -506,8 +508,8 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*00793388*/ extern CPCEngineInterface &CPCEngineInterface_instance_start;  /* auto */
 /*00795700*/ extern CBridge *&g_pCBridge;  // ------------  /* auto */
 /*00796170*/ extern int32_t (&mpeg2_dc_dct_pred)[3];  // -  /* auto */
-/*00797B74*/ extern void *&mgsr_buf_25635;  // -----------  /* auto */
-/*00797B7C*/ extern void *&mgsr_buf2_12835;  // ----------  /* auto */
+/*00797B74*/ extern const void *&mgsr_buf_25635;  // -----  /* auto */
+/*00797B7C*/ extern const void *&mgsr_buf2_12835;  // ----  /* auto */
 /*0079CF90*/ extern MyInputManagerCb &MyInputManagerCb_instance;  /* auto */
 /*0079D020*/ extern HWND__ *&dd_hWnd;  // ----------------  /* auto */
 /*0079D038*/ extern AABB &g_renderSurfAabb;  // ----------  /* auto */
@@ -519,18 +521,28 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0079D250*/ extern DdModeList &DdModeList_instance;  // -  /* auto */
 /*0079D260*/ extern char (&bullfrogClassName)[260];  // --  /* auto */
 /*0079D364*/ extern MyDdSurfaceEx *&g_pDdSurface_windowed;  /* auto */
+/*0079D368*/ extern FPUControlWordWithState &FPUControlWordWithState_instance;  /* auto */
 /*0079D378*/ extern MyDdSurfaceEx &g_dd_surface2;  // ----  /* auto */
 /*0079D3C8*/ extern HWND__ *&hWnd;  // -------------------  /* auto */
 /*0079D3CC*/ extern HWND__ *&hBullfrogWindow;  // --------  /* auto */
 /*0079D3D0*/ extern IDirectDraw *&lpDD;  // --------------  /* auto */
 /*0079D3D4*/ extern IDirectDrawPalette *&lpDDPalette;       /* auto */
 /*0079D3D8*/ extern IDirectDrawClipper *&lpDDClipper;       /* auto */
+/*0079D3DC*/ extern int32_t &g_isNeedBlt;  // ------------  /* auto */
+/*0079D3E0*/ extern int32_t &g_ignore_79D3E0;  // --------  /* auto */
 /*0079D3E4*/ extern GUID *&selectedDDGuid;  // -----------  /* auto */
+/*0079D3E8*/ extern int32_t &isSurfModeX;  // ------------  /* auto */
 /*0079D3F0*/ extern IDirectDraw *&lpSurfaceDD;  // -------  /* auto */
+/*0079D418*/ extern PALETTEENTRY (&palleteEntries)[256];    /* auto */
+/*0079D818*/ extern MySurfDesc &g_confSurfDesc2;  // -----  /* auto */
 /*0079D830*/ extern MySurfDesc &g_confSurfDesc;  // ------  /* auto */
+/*0079D848*/ extern MySurfDesc &g_confSurfDesc3;  // -----  /* auto */
+/*0079D860*/ extern MySurfDesc &g_confSurfDesc4;  // -----  /* auto */
 /*0079D980*/ extern char (&pathBuf)[256];  // ------------  /* auto */
 /*0079DA88*/ extern char (&dk2HomeDir)[260];  // ---------  /* auto */
 /*0079DBD0*/ extern WinEventHandlers &WinEventHandlers_instance;  /* auto */
+/*0079DC38*/ extern MySurfDesc &g_confSurfDesc6;  // -----  /* auto */
+/*0079DC50*/ extern MySurfDesc &g_confSurfDesc5;  // -----  /* auto */
 /*0079DC68*/ extern Obj79DC68 &Obj79DC68_instance;  // ---  /* auto */
 /*0079F4F0*/ extern char (&tqi_byte_79F4F0)[264];  // ----  /* auto */
 /*0079F638*/ extern CursorDrawer &CursorDrawer_instance;    /* auto */
@@ -564,14 +576,14 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*007A5AE4*/ extern LCID &Locale;  // --------------------  /* auto */
 /*007A5B04*/ extern int32_t (__stdcall *&lpTopLevelExceptionFilter)(_EXCEPTION_POINTERS *);  /* auto */
 /*007A5B80*/ extern _TIME_ZONE_INFORMATION &TimeZoneInformation;  /* auto */
-/*007A5C34*/ extern int32_t (__stdcall *&MessageBoxA_0)(HWND__ *, char *, char *, int32_t);  /* auto */
+/*007A5C34*/ extern int32_t (__stdcall *&MessageBoxA_0)(HWND__ *, const char *, const char *, int32_t);  /* auto */
 /*007A5C38*/ extern HWND__ * (__stdcall *&GetActiveWindow)();  /* auto */
 /*007A5C3C*/ extern HWND__ * (__stdcall *&GetLastActivePopup)(HWND__ *);  /* auto */
 /*007A5C60*/ extern wchar_t &LCData;  // -----------------  /* auto */
 /*007A5C88*/ extern size_t &g_charBufferSize;  // --------  /* auto */
-/*007A5C8C*/ extern void *&g_charBuffer;  // -------------  /* auto */
+/*007A5C8C*/ extern const void *&g_charBuffer;  // -------  /* auto */
 /*007A5DA0*/ extern int32_t &uNumber;  // ----------------  /* auto */
-/*007A5DA8*/ extern void *&hHeap;  // --------------------  /* auto */
+/*007A5DA8*/ extern const void *&hHeap;  // --------------  /* auto */
 /*007A5DB0*/ extern int32_t &Addend;  // -----------------  /* auto */
 /*007A6DC0*/ extern size_t &Count;  // -------------------  /* auto */
 /*007A7020*/ extern int32_t *&grpoly_mydd_buf;  // -------  /* auto */

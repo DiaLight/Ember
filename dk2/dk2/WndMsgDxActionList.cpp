@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *WndMsgDxActionList::v_Obj672450_scalar_destructor(char) { relink_stub(WndMsgDxActionList::v_Obj672450_scalar_destructor); }  /* auto */
+/*  0*/ const void *WndMsgDxActionList::v_Obj672450_scalar_destructor(char) { relink_stub(WndMsgDxActionList::v_Obj672450_scalar_destructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672450*/ void **WndMsgDxActionList::vftable() { return dk2::WndMsgDxActionList_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

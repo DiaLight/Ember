@@ -48,7 +48,7 @@ struct Obj672510 {  // -----------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672510*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // Obj672510  ------------------------------------  /* auto */
-/*  0*/ virtual void *v_Obj672520Interface_scalar_destructor(char);  // = 005D2840  /* auto */
+/*  0*/ virtual const void *v_Obj672520Interface_scalar_destructor(char);  // = 005D2840  /* auto */
 /*  4*/ virtual Obj672510 *v_Obj672510_convertPixel(int8_t *, int32_t *, int32_t);  // = 005FBCA0  /* auto */
 /*  8*/ virtual Obj672510 *v_Obj672510_selfConvertPixel(int32_t, int32_t, int32_t);  // = 005FC460  /* auto */
 // -------------------------------------------------------  /* auto */

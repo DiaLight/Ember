@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *CEngineInterface::v_deleting_destructor(char) { relink_stub(CEngineInterface::v_deleting_destructor); }  /* auto */
+/*  0*/ const void *CEngineInterface::v_deleting_destructor(char) { relink_stub(CEngineInterface::v_deleting_destructor); }  /* auto */
 /*  4*/ int32_t CEngineInterface::v_f4(int32_t) { relink_stub(CEngineInterface::v_f4); }  /* auto */
 /*  8*/ void CEngineInterface::v_f8() { relink_stub(CEngineInterface::v_f8); }  /* auto */
 /*  C*/ void CEngineInterface::v_fC() { relink_stub(CEngineInterface::v_fC); }  /* auto */
@@ -36,7 +36,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /* 48*/ int32_t CEngineInterface::v_f48(float, float, int32_t, int32_t) { relink_stub(CEngineInterface::v_f48); }  /* auto */
 /* 4C*/ int32_t CEngineInterface::v_f4C(float, float, int32_t) { relink_stub(CEngineInterface::v_f4C); }  /* auto */
 /* 50*/ int32_t CEngineInterface::v_f50(int32_t, int32_t, int32_t) { relink_stub(CEngineInterface::v_f50); }  /* auto */
-/* 54*/ int32_t CEngineInterface::v_f54(char *, char, int32_t, int32_t *, int32_t, char) { relink_stub(CEngineInterface::v_f54); }  /* auto */
+/* 54*/ int32_t CEngineInterface::v_f54(const char *, char, int32_t, int32_t *, int32_t, char) { relink_stub(CEngineInterface::v_f54); }  /* auto */
 /* 58*/ int32_t CEngineInterface::v_createMyScaledSurface(int32_t, int32_t, int32_t, int32_t, int32_t *) { relink_stub(CEngineInterface::v_createMyScaledSurface); }  /* auto */
 /* 5C*/ void CEngineInterface::v_f5C(int32_t, int32_t, int32_t, int32_t) { relink_stub(CEngineInterface::v_f5C); }  /* auto */
 /* 60*/ void CEngineInterface::v_f60(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(CEngineInterface::v_f60); }  /* auto */
@@ -48,7 +48,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /* 78*/ void CEngineInterface::v_f78(int32_t) { relink_stub(CEngineInterface::v_f78); }  /* auto */
 /* 7C*/ int32_t CEngineInterface::v_f7C(int32_t) { relink_stub(CEngineInterface::v_f7C); }  /* auto */
 /* 80*/ int32_t CEngineInterface::v_f80(int32_t *, int32_t) { relink_stub(CEngineInterface::v_f80); }  /* auto */
-/* 84*/ int32_t CEngineInterface::v_f84(char *) { relink_stub(CEngineInterface::v_f84); }  /* auto */
+/* 84*/ int32_t CEngineInterface::v_f84(const char *) { relink_stub(CEngineInterface::v_f84); }  /* auto */
 /* 88*/ int32_t CEngineInterface::v_f88() { relink_stub(CEngineInterface::v_f88); }  /* auto */
 /* 8C*/ IDirectDraw4 *CEngineInterface::v_f8C() { relink_stub(CEngineInterface::v_f8C); }  /* auto */
 /* 90*/ int32_t CEngineInterface::v_f90(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(CEngineInterface::v_f90); }  /* auto */

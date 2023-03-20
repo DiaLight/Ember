@@ -21,10 +21,10 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00556870*/ CFileManager *CFileManager::constructor() { relink_stub(CFileManager::constructor); }  /* auto */
 /*005568C0*/ int32_t CFileManager::destructor() { relink_stub(CFileManager::destructor); }  /* auto */
 /*00556980*/ void CFileManager::clearDirsList() { relink_stub(CFileManager::clearDirsList); }  /* auto */
-/*00556A20*/ char **CFileManager::sub_556A20(char **, DiscFileBase *, char *) { relink_stub(CFileManager::sub_556A20); }  /* auto */
+/*00556A20*/ const char **CFileManager::sub_556A20(const char **, DiscFileBase *, const char *) { relink_stub(CFileManager::sub_556A20); }  /* auto */
 /*00556B70*/ CFileManager_f130 *CFileManager::fun_556B70() { relink_stub(CFileManager::fun_556B70); }  /* auto */
 /*00556C90*/ int32_t *CFileManager::addFileDir(int32_t *, FileStorageBase *) { relink_stub(CFileManager::addFileDir); }  /* auto */
-/*00556D90*/ char *CFileManager::findFile(char *) { relink_stub(CFileManager::findFile); }  /* auto */
+/*00556D90*/ const char *CFileManager::findFile(const char *) { relink_stub(CFileManager::findFile); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

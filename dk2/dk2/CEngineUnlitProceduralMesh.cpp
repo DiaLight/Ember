@@ -24,7 +24,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066FE04*/ void **CEngineUnlitProceduralMesh::vftable() { return dk2::CEngineUnlitProceduralMesh_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*00588190*/ CEngineUnlitProceduralMesh *CEngineUnlitProceduralMesh::constructor(int32_t, int32_t, int32_t, void *, void *, int16_t *, int32_t, int32_t) { relink_stub(CEngineUnlitProceduralMesh::constructor); }  /* auto */
+/*00588190*/ CEngineUnlitProceduralMesh *CEngineUnlitProceduralMesh::constructor(int32_t, int32_t, int32_t, const void *, const void *, int16_t *, int32_t, int32_t) { relink_stub(CEngineUnlitProceduralMesh::constructor); }  /* auto */
 /*005884F0*/ int32_t *CEngineUnlitProceduralMesh::fun_5884F0(int32_t, SceneObject2E *) { relink_stub(CEngineUnlitProceduralMesh::fun_5884F0); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */

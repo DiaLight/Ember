@@ -15,14 +15,14 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *MyLList_WadFileObj::v___sub_5FE430_scalar_destructor(char) { relink_stub(MyLList_WadFileObj::v___sub_5FE430_scalar_destructor); }  /* auto */
+/*  0*/ const void *MyLList_WadFileObj::v___sub_5FE430_scalar_destructor(char) { relink_stub(MyLList_WadFileObj::v___sub_5FE430_scalar_destructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672EE4*/ void **MyLList_WadFileObj::vftable() { return dk2::MyLList_WadFileObj_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*005FE430*/ void *MyLList_WadFileObj::scalar_destructor(char) { relink_stub(MyLList_WadFileObj::scalar_destructor); }  /* auto */
+/*005FE430*/ const void *MyLList_WadFileObj::scalar_destructor(char) { relink_stub(MyLList_WadFileObj::scalar_destructor); }  /* auto */
 /*005FE450*/ void MyLList_WadFileObj::destructor() { relink_stub(MyLList_WadFileObj::destructor); }  /* auto */
 /*005FF4E0*/ MyLList_WadFileObj_entry *MyLList_WadFileObj::add(WadFileObj *) { relink_stub(MyLList_WadFileObj::add); }  /* auto */
-/*005FF6C0*/ void *MyLList_WadFileObj::Base_scalar_destructor(char) { relink_stub(MyLList_WadFileObj::Base_scalar_destructor); }  /* auto */
+/*005FF6C0*/ const void *MyLList_WadFileObj::Base_scalar_destructor(char) { relink_stub(MyLList_WadFileObj::Base_scalar_destructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

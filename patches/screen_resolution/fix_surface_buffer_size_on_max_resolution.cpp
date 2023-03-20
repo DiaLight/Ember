@@ -4,6 +4,7 @@
 #include <dk2_patches.h>
 #include <Windows.h>
 #include <dk2_info.h>
+#include <utils/patch.h>
 
 typedef BOOL (WINAPI *GetClientRect_t)(HWND hWnd, LPRECT lpRect);
 
@@ -28,9 +29,9 @@ GetClientRect_t pGetClientRect = reimpl_GetClientRect;
 bool patch::fix_surface_buffer_size_on_max_resolution() {
     // .text:00556077 mov     ebp, ds:GetClientRect
     GetClientRect_t **ppGetClientRect = (GetClientRect_t **) (api::dk2_base + (0x00556077 + 2 - dk2_virtual_base));
-    DWORD oldProtect;
-    if (!VirtualProtect(ppGetClientRect, sizeof(uint32_t), PAGE_EXECUTE_READWRITE, &oldProtect)) return false;
-    *ppGetClientRect = &pGetClientRect;
-    VirtualProtect(ppGetClientRect, sizeof(uint32_t), oldProtect, NULL);
+    {
+        write_protect prot(ppGetClientRect, sizeof(uint32_t));
+        *ppGetClientRect = &pGetClientRect;
+    }
     return true;
 }

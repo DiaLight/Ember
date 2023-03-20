@@ -97,6 +97,8 @@ set(SOURCES
         dk2/Event0_unk6.cpp
         dk2/Event0_winShown7.cpp
         dk2/Event5_keyboard.cpp
+        dk2/FPUControlWord.cpp
+        dk2/FPUControlWordWithState.cpp
         dk2/FileStorageBase.cpp
         dk2/FloatObjThing.cpp
         dk2/FontObj.cpp

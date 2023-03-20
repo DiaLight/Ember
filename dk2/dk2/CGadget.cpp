@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *CGadget::v_deleting_destructor(char) { relink_stub(CGadget::v_deleting_destructor); }  /* auto */
+/*  0*/ const void *CGadget::v_deleting_destructor(char) { relink_stub(CGadget::v_deleting_destructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066ED14*/ void **CGadget::vftable() { return dk2::CGadget_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

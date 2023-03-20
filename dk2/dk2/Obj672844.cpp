@@ -15,13 +15,13 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *Obj672844::v_Obj672844_scalar_destructor(char) { relink_stub(Obj672844::v_Obj672844_scalar_destructor); }  /* auto */
+/*  0*/ const void *Obj672844::v_Obj672844_scalar_destructor(char) { relink_stub(Obj672844::v_Obj672844_scalar_destructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672844*/ void **Obj672844::vftable() { return dk2::Obj672844_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*005DB7C0*/ Obj672844 *Obj672844::constructor(Obj6723B8 *) { relink_stub(Obj672844::constructor); }  /* auto */
-/*005DB870*/ void *Obj672844::clearSurfsAndJoin() { relink_stub(Obj672844::clearSurfsAndJoin); }  /* auto */
-/*005DB890*/ void *Obj672844::joinThread() { relink_stub(Obj672844::joinThread); }  /* auto */
+/*005DB870*/ const void *Obj672844::clearSurfsAndJoin() { relink_stub(Obj672844::clearSurfsAndJoin); }  /* auto */
+/*005DB890*/ const void *Obj672844::joinThread() { relink_stub(Obj672844::joinThread); }  /* auto */
 /*005DB8E0*/ char Obj672844::drawCursor(int32_t) { relink_stub(Obj672844::drawCursor); }  /* auto */
 /*005DB940*/ char Obj672844::waitForSema(int8_t) { relink_stub(Obj672844::waitForSema); }  /* auto */
 /*005DBA40*/ int32_t *Obj672844::initAndUpdateAabb(int32_t *, Pos2i *) { relink_stub(Obj672844::initAndUpdateAabb); }  /* auto */

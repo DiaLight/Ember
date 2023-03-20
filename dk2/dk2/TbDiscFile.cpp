@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/* 24*/ int32_t *TbDiscFile::v_openStream(int32_t *, char *, int32_t) { relink_stub(TbDiscFile::v_openStream); }  /* auto */
+/* 24*/ int32_t *TbDiscFile::v_openStream(int32_t *, const char *, int32_t) { relink_stub(TbDiscFile::v_openStream); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066F24C*/ void **TbDiscFile::vftable() { return dk2::TbDiscFile_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

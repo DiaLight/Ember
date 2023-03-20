@@ -50,7 +50,7 @@ struct CEngineStaticMesh : CEnginePrimitiveBase {  // ----  /* auto */
 /* 18*/ virtual int32_t v_ret_0_1args(int32_t);  // = 00628E30  /* auto */
 /* 1C*/ virtual int32_t v_fun_586130(int32_t);  // = 00586130  /* auto */
 // -------------------------------------------------------  /* auto */
-/*00585F90*/ CEngineStaticMesh *constructor(int32_t, int32_t, int32_t, int32_t, float *, int32_t, char, int32_t *);  /* auto */
+/*00585F90*/ CEngineStaticMesh *constructor(int32_t, int32_t, int32_t, int32_t, const float *, int32_t, char, int32_t *);  /* auto */
 /*00586150*/ int32_t *fun_586150(int32_t, SceneObject2E *);  /* auto */
 /*00586190*/ int32_t appendToSceneObject2EList(int32_t);    /* auto */
 // -------------------------------------------------------  /* auto */

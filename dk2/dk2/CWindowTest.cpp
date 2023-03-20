@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *CWindowTest::v_DESTRUCTOR_CWindowTest_void(char) { relink_stub(CWindowTest::v_DESTRUCTOR_CWindowTest_void); }  /* auto */
+/*  0*/ const void *CWindowTest::v_DESTRUCTOR_CWindowTest_void(char) { relink_stub(CWindowTest::v_DESTRUCTOR_CWindowTest_void); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066F20C*/ void **CWindowTest::vftable() { return dk2::CWindowTest_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

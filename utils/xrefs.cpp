@@ -8,6 +8,7 @@
 #include <dk2_info.h>
 #include <utils/parse.h>
 #include <Windows.h>
+#include <utils/patch.h>
 
 using namespace api;
 
@@ -144,8 +145,7 @@ bool api::replaceXrefs(void *pfun, void *proxy) {
     }
     for(auto &ref : *it->second) {
         uint8_t *pos = dk2_base + ref.src;
-        DWORD oldProtect;
-        VirtualProtect(pos, sizeof(DWORD), PAGE_EXECUTE_READWRITE, &oldProtect);
+        write_protect prot(pos, sizeof(DWORD));
         switch (ref.kind) {
             case VA32:
 //                printf("- va32 %08X(%08X) -> %08X -> %08X(%08X)\n", ref.src, ref.src - (DWORD) base, (DWORD) proxy, fun, rva);
@@ -156,7 +156,6 @@ bool api::replaceXrefs(void *pfun, void *proxy) {
                 *(DWORD *) pos = (uint8_t *) proxy - (pos + 4);
                 break;
         }
-        VirtualProtect(pos, sizeof(DWORD), oldProtect, NULL);
     }
 
     return true;

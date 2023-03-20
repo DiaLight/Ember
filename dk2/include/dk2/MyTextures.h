@@ -27,15 +27,15 @@ namespace dk2 {  // --------------------------------------  /* auto */
 #pragma pack(push, 1)  // --------------------------------  /* auto */
 struct MyTextures {  // ----------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
-/*  0*/ char *textureCacheFile_dir;  // ------------------  /* auto */
-/*  4*/ char *textureCacheFile_dat;  // ------------------  /* auto */
+/*  0*/ const char *textureCacheFile_dir;  // ------------  /* auto */
+/*  4*/ const char *textureCacheFile_dat;  // ------------  /* auto */
 /*  8*/ FILE *fileHandle;  // ----------------------------  /* auto */
 /*  C*/ CDirectIFFFile rwfile;  // -----------------------  /* auto */
 /*430*/ int32_t f430;  // --------------------------------  /* auto */
 /*434*/ MyStringHashMap texNameToFileOffsetMap;  // ------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0058FAA0*/ MyTextures *constructor();  // --------------  /* auto */
-/*00591070*/ CEngineCompressedSurface *loadCompressed(char *);  /* auto */
+/*00591070*/ CEngineCompressedSurface *loadCompressed(const char *);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

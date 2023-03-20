@@ -43,7 +43,7 @@ struct MyDxMouse : MyDirectInput {  // -------------------  /* auto */
 /*---*/ // MyDxMouse  ------------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005DD760*/ MyDxMouse *constructor();  // ---------------  /* auto */
-/*005DD8F0*/ void *destructor();  // ---------------------  /* auto */
+/*005DD8F0*/ const void *destructor();  // ---------------  /* auto */
 /*005DDA90*/ void handleData(int32_t);  // ---------------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

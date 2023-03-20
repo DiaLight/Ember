@@ -61,7 +61,7 @@ struct CEngineInterface {  // ----------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066D1D4*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // CEngineInterface  -----------------------------  /* auto */
-/*  0*/ virtual void *v_deleting_destructor(char);  // = 0044DEA0  /* auto */
+/*  0*/ virtual const void *v_deleting_destructor(char);  // = 0044DEA0  /* auto */
 /*  4*/ virtual int32_t v_f4(int32_t);  // = 00634D60  ---  /* auto */
 /*  8*/ virtual void v_f8();  // = 00634D60  -------------  /* auto */
 /*  C*/ virtual void v_fC();  // = 0040D440  -------------  /* auto */
@@ -82,7 +82,7 @@ struct CEngineInterface {  // ----------------------------  /* auto */
 /* 48*/ virtual int32_t v_f48(float, float, int32_t, int32_t);  // = 00634D60  /* auto */
 /* 4C*/ virtual int32_t v_f4C(float, float, int32_t);  // = 00634D60  /* auto */
 /* 50*/ virtual int32_t v_f50(int32_t, int32_t, int32_t);  // = 00517400  /* auto */
-/* 54*/ virtual int32_t v_f54(char *, char, int32_t, int32_t *, int32_t, char);  // = 00443070  /* auto */
+/* 54*/ virtual int32_t v_f54(const char *, char, int32_t, int32_t *, int32_t, char);  // = 00443070  /* auto */
 /* 58*/ virtual int32_t v_createMyScaledSurface(int32_t, int32_t, int32_t, int32_t, int32_t *);  // = 00443090  /* auto */
 /* 5C*/ virtual void v_f5C(int32_t, int32_t, int32_t, int32_t);  // = 005671D0  /* auto */
 /* 60*/ virtual void v_f60(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  // = 004430B0  /* auto */
@@ -94,7 +94,7 @@ struct CEngineInterface {  // ----------------------------  /* auto */
 /* 78*/ virtual void v_f78(int32_t);  // = 005671E0  -----  /* auto */
 /* 7C*/ virtual int32_t v_f7C(int32_t);  // = 005671E0  --  /* auto */
 /* 80*/ virtual int32_t v_f80(int32_t *, int32_t);  // = 005173B0  /* auto */
-/* 84*/ virtual int32_t v_f84(char *);  // = 005671E0  ---  /* auto */
+/* 84*/ virtual int32_t v_f84(const char *);  // = 005671E0  /* auto */
 /* 88*/ virtual int32_t v_f88();  // = 00402AD0  ---------  /* auto */
 /* 8C*/ virtual IDirectDraw4 *v_f8C();  // = 0040D440  ---  /* auto */
 /* 90*/ virtual int32_t v_f90(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  // = 004430D0  /* auto */

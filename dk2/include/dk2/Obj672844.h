@@ -28,7 +28,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 struct Obj672844 {  // -----------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*  4*/ Obj6723B8 *pobj;  // -----------------------------  /* auto */
-/*  8*/ void *hSema;  // ---------------------------------  /* auto */
+/*  8*/ const void *hSema;  // ---------------------------  /* auto */
 /*  C*/ int32_t hThread;  // -----------------------------  /* auto */
 /* 10*/ char f10;  // ------------------------------------  /* auto */
 /* 11*/ char aBool;  // ----------------------------------  /* auto */
@@ -41,11 +41,11 @@ struct Obj672844 {  // -----------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672844*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // Obj672844  ------------------------------------  /* auto */
-/*  0*/ virtual void *v_Obj672844_scalar_destructor(char);  // = 005DB800  /* auto */
+/*  0*/ virtual const void *v_Obj672844_scalar_destructor(char);  // = 005DB800  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005DB7C0*/ Obj672844 *constructor(Obj6723B8 *);  // ----  /* auto */
-/*005DB870*/ void *clearSurfsAndJoin();  // --------------  /* auto */
-/*005DB890*/ void *joinThread();  // ---------------------  /* auto */
+/*005DB870*/ const void *clearSurfsAndJoin();  // --------  /* auto */
+/*005DB890*/ const void *joinThread();  // ---------------  /* auto */
 /*005DB8E0*/ char drawCursor(int32_t);  // ---------------  /* auto */
 /*005DB940*/ char waitForSema(int8_t);  // ---------------  /* auto */
 /*005DBA40*/ int32_t *initAndUpdateAabb(int32_t *, Pos2i *);  /* auto */

@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  8*/ wchar_t *CRoom::v_fun_4E9250(wchar_t *) { relink_stub(CRoom::v_fun_4E9250); }  /* auto */
+/*  8*/ const wchar_t *CRoom::v_fun_4E9250(const wchar_t *) { relink_stub(CRoom::v_fun_4E9250); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066DB7C*/ void **CRoom::vftable() { return dk2::CRoom_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

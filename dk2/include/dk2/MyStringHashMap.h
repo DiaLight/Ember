@@ -31,8 +31,8 @@ struct MyStringHashMap {  // -----------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0058DD60*/ MyStringHashMap *constructor();  // ---------  /* auto */
 /*0058DD90*/ int32_t cleanup();  // ----------------------  /* auto */
-/*0058DE00*/ int32_t put(char *, void *);  // ------------  /* auto */
-/*0058DF40*/ int32_t getEntryIdx(char *);  // ------------  /* auto */
+/*0058DE00*/ int32_t put(const char *, const void *);       /* auto */
+/*0058DF40*/ int32_t getEntryIdx(const char *);  // ------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

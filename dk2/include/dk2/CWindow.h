@@ -52,7 +52,7 @@ struct CWindow : CGadget {  // ---------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066EE94*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CGadget  --------------------------------  /* auto */
-/*  0*/ // virtual void *v_deleting_destructor(char);  // = 0052CD00  /* auto */
+/*  0*/ // virtual const void *v_deleting_destructor(char);  // = 0052CD00  /* auto */
 /*---*/ // CWindow  --------------------------------------  /* auto */
 /*  4*/ virtual int32_t v_update();  // = 0052CD30  ------  /* auto */
 // -------------------------------------------------------  /* auto */

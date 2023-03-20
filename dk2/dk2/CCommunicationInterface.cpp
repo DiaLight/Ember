@@ -15,20 +15,20 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *CCommunicationInterface::v_deleting_destructor(char) { relink_stub(CCommunicationInterface::v_deleting_destructor); }  /* auto */
+/*  0*/ const void *CCommunicationInterface::v_deleting_destructor(char) { relink_stub(CCommunicationInterface::v_deleting_destructor); }  /* auto */
 /*  4*/ int32_t CCommunicationInterface::v_f4() { relink_stub(CCommunicationInterface::v_f4); }  /* auto */
 /*  8*/ void CCommunicationInterface::v_f8() { relink_stub(CCommunicationInterface::v_f8); }  /* auto */
 /*  C*/ int32_t CCommunicationInterface::v_fun_443150(GameAction *, int32_t) { relink_stub(CCommunicationInterface::v_fun_443150); }  /* auto */
 /* 10*/ void CCommunicationInterface::v_pushAction(GameAction *) { relink_stub(CCommunicationInterface::v_pushAction); }  /* auto */
-/* 14*/ int32_t CCommunicationInterface::v_collectActions(void *) { relink_stub(CCommunicationInterface::v_collectActions); }  /* auto */
+/* 14*/ int32_t CCommunicationInterface::v_collectActions(const void *) { relink_stub(CCommunicationInterface::v_collectActions); }  /* auto */
 /* 18*/ int32_t CCommunicationInterface::v_f18() { relink_stub(CCommunicationInterface::v_f18); }  /* auto */
 /* 1C*/ void CCommunicationInterface::v_f1C(int32_t, int32_t) { relink_stub(CCommunicationInterface::v_f1C); }  /* auto */
 /* 20*/ void CCommunicationInterface::v_f20(int32_t, int32_t) { relink_stub(CCommunicationInterface::v_f20); }  /* auto */
 /* 24*/ void CCommunicationInterface::v_f24(int32_t, int32_t) { relink_stub(CCommunicationInterface::v_f24); }  /* auto */
 /* 28*/ void CCommunicationInterface::v_f28(int32_t) { relink_stub(CCommunicationInterface::v_f28); }  /* auto */
-/* 2C*/ void *CCommunicationInterface::v_f2C() { relink_stub(CCommunicationInterface::v_f2C); }  /* auto */
+/* 2C*/ const void *CCommunicationInterface::v_f2C() { relink_stub(CCommunicationInterface::v_f2C); }  /* auto */
 /* 30*/ int32_t CCommunicationInterface::v_f30() { relink_stub(CCommunicationInterface::v_f30); }  /* auto */
-/* 34*/ void *CCommunicationInterface::v_f34() { relink_stub(CCommunicationInterface::v_f34); }  /* auto */
+/* 34*/ const void *CCommunicationInterface::v_f34() { relink_stub(CCommunicationInterface::v_f34); }  /* auto */
 /* 38*/ int32_t CCommunicationInterface::v_f38() { relink_stub(CCommunicationInterface::v_f38); }  /* auto */
 /* 3C*/ int32_t CCommunicationInterface::v_fun_521B40(int32_t) { relink_stub(CCommunicationInterface::v_fun_521B40); }  /* auto */
 /* 40*/ void CCommunicationInterface::v_f40(int32_t, int32_t) { relink_stub(CCommunicationInterface::v_f40); }  /* auto */

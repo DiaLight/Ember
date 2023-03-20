@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *CGuiManager::v__scalar_deleting_destructor_uint(char) { relink_stub(CGuiManager::v__scalar_deleting_destructor_uint); }  /* auto */
+/*  0*/ const void *CGuiManager::v__scalar_deleting_destructor_uint(char) { relink_stub(CGuiManager::v__scalar_deleting_destructor_uint); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066ED1C*/ void **CGuiManager::vftable() { return dk2::CGuiManager_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

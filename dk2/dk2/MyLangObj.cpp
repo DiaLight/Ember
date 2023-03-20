@@ -16,10 +16,10 @@ using namespace dk2;  // ---------------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*0062DBD0*/ MyLangObj *MyLangObj::constructor() { relink_stub(MyLangObj::constructor); }  /* auto */
-/*0062DC50*/ int32_t MyLangObj::createFileIteratorContentAndSet(int32_t, char *) { relink_stub(MyLangObj::createFileIteratorContentAndSet); }  /* auto */
+/*0062DC50*/ int32_t MyLangObj::createFileIteratorContentAndSet(int32_t, const char *) { relink_stub(MyLangObj::createFileIteratorContentAndSet); }  /* auto */
 /*0062DCA0*/ int32_t *MyLangObj::close(int32_t *) { relink_stub(MyLangObj::close); }  /* auto */
-/*0062DCD0*/ int32_t *MyLangObj::readResourceIndexFileByName(int32_t *, char *) { relink_stub(MyLangObj::readResourceIndexFileByName); }  /* auto */
-/*0062DD40*/ int32_t MyLangObj::readResourceIndexFile(int32_t, char *) { relink_stub(MyLangObj::readResourceIndexFile); }  /* auto */
+/*0062DCD0*/ int32_t *MyLangObj::readResourceIndexFileByName(int32_t *, const char *) { relink_stub(MyLangObj::readResourceIndexFileByName); }  /* auto */
+/*0062DD40*/ int32_t MyLangObj::readResourceIndexFile(int32_t, const char *) { relink_stub(MyLangObj::readResourceIndexFile); }  /* auto */
 /*0062DEE0*/ int32_t *MyLangObj::resolveMBToUni(int32_t *, MyTextMBToUni **, int32_t) { relink_stub(MyLangObj::resolveMBToUni); }  /* auto */
 /*0062DF30*/ int32_t *MyLangObj::resolveUniToMB(int32_t *, MyTextUniToMB **, int32_t) { relink_stub(MyLangObj::resolveUniToMB); }  /* auto */
 /*0062DF90*/ int32_t *MyLangObj::resolveText(int32_t *, MyTextText **, int32_t) { relink_stub(MyLangObj::resolveText); }  /* auto */

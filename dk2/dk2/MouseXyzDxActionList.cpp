@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *MouseXyzDxActionList::v_scalar_destructor(char) { relink_stub(MouseXyzDxActionList::v_scalar_destructor); }  /* auto */
+/*  0*/ const void *MouseXyzDxActionList::v_scalar_destructor(char) { relink_stub(MouseXyzDxActionList::v_scalar_destructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672904*/ void **MouseXyzDxActionList::vftable() { return dk2::MouseXyzDxActionList_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

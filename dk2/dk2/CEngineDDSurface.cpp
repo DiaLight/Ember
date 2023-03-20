@@ -19,7 +19,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*006703C4*/ void **CEngineDDSurface::vftable() { return dk2::CEngineDDSurface_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*00590880*/ CEngineDDSurface *CEngineDDSurface::constructor(int32_t, int32_t, MyCEngineSurfDesc *, int32_t) { relink_stub(CEngineDDSurface::constructor); }  /* auto */
-/*00590AC0*/ void *CEngineDDSurface::lockBuf() { relink_stub(CEngineDDSurface::lockBuf); }  /* auto */
+/*00590AC0*/ const void *CEngineDDSurface::lockBuf() { relink_stub(CEngineDDSurface::lockBuf); }  /* auto */
 /*00590B20*/ HRESULT CEngineDDSurface::unlockBuf(int32_t) { relink_stub(CEngineDDSurface::unlockBuf); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */

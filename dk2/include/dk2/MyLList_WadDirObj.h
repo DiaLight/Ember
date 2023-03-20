@@ -30,9 +30,9 @@ struct MyLList_WadDirObj {  // ---------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672EE8*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // MyLList_WadDirObj  ----------------------------  /* auto */
-/*  0*/ virtual void *v___sub_5FE3D0_scalar_destructor(char);  // = 005FE3D0  /* auto */
+/*  0*/ virtual const void *v___sub_5FE3D0_scalar_destructor(char);  // = 005FE3D0  /* auto */
 // -------------------------------------------------------  /* auto */
-/*005FE3D0*/ void *scalar_destructor(char);  // ----------  /* auto */
+/*005FE3D0*/ const void *scalar_destructor(char);  // ----  /* auto */
 /*005FE3F0*/ void destructor();  // ----------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

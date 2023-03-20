@@ -246,7 +246,7 @@ struct CDefaultPlayerInterface {  // ---------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066C4A4*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // CDefaultPlayerInterface  ----------------------  /* auto */
-/*  0*/ virtual void *v_fun_402C00(char);  // = 00402C00    /* auto */
+/*  0*/ virtual const void *v_fun_402C00(char);  // = 00402C00  /* auto */
 /*  4*/ virtual int32_t v_fun_402D00(__int16);  // = 00402D00  /* auto */
 /*  8*/ virtual int32_t v_fun_4033F0();  // = 004033F0  --  /* auto */
 /*  C*/ virtual int32_t v_fun_4036E0();  // = 004036E0  --  /* auto */
@@ -268,7 +268,7 @@ struct CDefaultPlayerInterface {  // ---------------------  /* auto */
 /* 4C*/ virtual int32_t v_fun_42C0D0();  // = 0042C0D0  --  /* auto */
 /* 50*/ virtual int32_t v_fun_42C1E0(int32_t, int32_t);  // = 0042C1E0  /* auto */
 /* 54*/ virtual char v_fun_402B90(char);  // = 00402B90  -  /* auto */
-/* 58*/ virtual int32_t v_fun_409EC0(__int16, void *);  // = 00409EC0  /* auto */
+/* 58*/ virtual int32_t v_fun_409EC0(__int16, const void *);  // = 00409EC0  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00402670*/ CDefaultPlayerInterface *constructor();  // -  /* auto */
 /*00402C20*/ void destructor();  // ----------------------  /* auto */
@@ -329,9 +329,9 @@ struct CDefaultPlayerInterface {  // ---------------------  /* auto */
 /*00422F60*/ void sub_422F60(int32_t, int32_t);  // ------  /* auto */
 /*00423A80*/ int32_t sub_423A80(int32_t, int32_t *, int16_t, int16_t, int32_t, int32_t);  /* auto */
 /*0042C390*/ void sub_42C390();  // ----------------------  /* auto */
-/*0042C7D0*/ int32_t sub_42C7D0(int32_t, int32_t, int32_t, char *, int32_t *);  /* auto */
-/*0042CAB0*/ int32_t whatEverFont_42CAB0(RtGuiView *, int32_t, int32_t, wchar_t *, PixelMask *, int32_t, int32_t, FontObj, int32_t);  /* auto */
-/*0042CB60*/ int32_t sub_42CB60(RtGuiView *, int32_t, int32_t, char *, PixelMask *, int32_t, int32_t, FontObj, int32_t);  /* auto */
+/*0042C7D0*/ int32_t sub_42C7D0(int32_t, int32_t, int32_t, const char *, int32_t *);  /* auto */
+/*0042CAB0*/ int32_t whatEverFont_42CAB0(RtGuiView *, int32_t, int32_t, const wchar_t *, PixelMask *, int32_t, int32_t, FontObj, int32_t);  /* auto */
+/*0042CB60*/ int32_t sub_42CB60(RtGuiView *, int32_t, int32_t, const char *, PixelMask *, int32_t, int32_t, FontObj, int32_t);  /* auto */
 /*0042CDF0*/ int32_t createSurfacesForView_42CDF0(RtGuiView *);  /* auto */
 /*004346E0*/ BOOL pushAction(GameAction *);  // ----------  /* auto */
 // -------------------------------------------------------  /* auto */

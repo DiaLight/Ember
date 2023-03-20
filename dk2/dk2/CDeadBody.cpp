@@ -15,17 +15,17 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/* 60*/ void *CDeadBody::v_duplicate_6_3() { relink_stub(CDeadBody::v_duplicate_6_3); }  /* auto */
+/* 60*/ const void *CDeadBody::v_duplicate_6_3() { relink_stub(CDeadBody::v_duplicate_6_3); }  /* auto */
 /* 64*/ int32_t CDeadBody::v_f64() { relink_stub(CDeadBody::v_f64); }  /* auto */
-/* 68*/ void *CDeadBody::v_duplicate_7_3() { relink_stub(CDeadBody::v_duplicate_7_3); }  /* auto */
+/* 68*/ const void *CDeadBody::v_duplicate_7_3() { relink_stub(CDeadBody::v_duplicate_7_3); }  /* auto */
 /* 6C*/ void CDeadBody::v_f6C() { relink_stub(CDeadBody::v_f6C); }  /* auto */
 /* 70*/ void CDeadBody::v_f70() { relink_stub(CDeadBody::v_f70); }  /* auto */
 /* 74*/ int32_t CDeadBody::v_f74() { relink_stub(CDeadBody::v_f74); }  /* auto */
 /* 78*/ void __cdecl CDeadBody::v_ret_void_0args() { relink_stub(CDeadBody::v_ret_void_0args); }  /* auto */
-/* 7C*/ void *CDeadBody::v_duplicate_30_1() { relink_stub(CDeadBody::v_duplicate_30_1); }  /* auto */
-/* 80*/ void *CDeadBody::v_duplicate_7_4() { relink_stub(CDeadBody::v_duplicate_7_4); }  /* auto */
-/* 84*/ void *CDeadBody::v_duplicate_7_5() { relink_stub(CDeadBody::v_duplicate_7_5); }  /* auto */
-/* 88*/ void *CDeadBody::v_duplicate_6_4() { relink_stub(CDeadBody::v_duplicate_6_4); }  /* auto */
+/* 7C*/ const void *CDeadBody::v_duplicate_30_1() { relink_stub(CDeadBody::v_duplicate_30_1); }  /* auto */
+/* 80*/ const void *CDeadBody::v_duplicate_7_4() { relink_stub(CDeadBody::v_duplicate_7_4); }  /* auto */
+/* 84*/ const void *CDeadBody::v_duplicate_7_5() { relink_stub(CDeadBody::v_duplicate_7_5); }  /* auto */
+/* 88*/ const void *CDeadBody::v_duplicate_6_4() { relink_stub(CDeadBody::v_duplicate_6_4); }  /* auto */
 /* 8C*/ __int16 CDeadBody::v_f8C(__int16) { relink_stub(CDeadBody::v_f8C); }  /* auto */
 /* 90*/ int32_t CDeadBody::v_f90() { relink_stub(CDeadBody::v_f90); }  /* auto */
 // -------------------------------------------------------  /* auto */

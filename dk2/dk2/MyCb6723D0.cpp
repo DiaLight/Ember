@@ -16,7 +16,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
 /*  0*/ int32_t MyCb6723D0::v_call(int32_t, int32_t *) { relink_stub(MyCb6723D0::v_call); }  /* auto */
-/*  4*/ void *MyCb6723D0::v_scalar_destructor(char) { relink_stub(MyCb6723D0::v_scalar_destructor); }  /* auto */
+/*  4*/ const void *MyCb6723D0::v_scalar_destructor(char) { relink_stub(MyCb6723D0::v_scalar_destructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*006723D0*/ void **MyCb6723D0::vftable() { return dk2::MyCb6723D0_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

@@ -16,7 +16,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
 /*110*/ void CPCEngineInterface::v_f110(int32_t) { relink_stub(CPCEngineInterface::v_f110); }  /* auto */
-/*114*/ char *CPCEngineInterface::v_f114() { relink_stub(CPCEngineInterface::v_f114); }  /* auto */
+/*114*/ const char *CPCEngineInterface::v_f114() { relink_stub(CPCEngineInterface::v_f114); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00670574*/ void **CPCEngineInterface::vftable() { return dk2::CPCEngineInterface_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
@@ -25,10 +25,10 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005986F0*/ int32_t CPCEngineInterface::fun_5986F0(int32_t *) { relink_stub(CPCEngineInterface::fun_5986F0); }  /* auto */
 /*00598880*/ int32_t CPCEngineInterface::fun_598880(int32_t *) { relink_stub(CPCEngineInterface::fun_598880); }  /* auto */
 /*0059A650*/ int32_t CPCEngineInterface::createMyScaledSurface(int32_t, int32_t, int32_t, int32_t, int32_t *) { relink_stub(CPCEngineInterface::createMyScaledSurface); }  /* auto */
-/*0059A6A0*/ int32_t CPCEngineInterface::fun_59A6A0(char *, char, int32_t, int32_t *, int32_t, char) { relink_stub(CPCEngineInterface::fun_59A6A0); }  /* auto */
+/*0059A6A0*/ int32_t CPCEngineInterface::fun_59A6A0(const char *, char, int32_t, int32_t *, int32_t, char) { relink_stub(CPCEngineInterface::fun_59A6A0); }  /* auto */
 /*0059AE10*/ bool CPCEngineInterface::sub_59AE10() { relink_stub(CPCEngineInterface::sub_59AE10); }  /* auto */
-/*0059D580*/ char *CPCEngineInterface::fun_59D580(int32_t, MySurface *, int32_t) { relink_stub(CPCEngineInterface::fun_59D580); }  /* auto */
-/*0059D5B0*/ int32_t CPCEngineInterface::setStr(char *) { relink_stub(CPCEngineInterface::setStr); }  /* auto */
+/*0059D580*/ const char *CPCEngineInterface::fun_59D580(int32_t, MySurface *, int32_t) { relink_stub(CPCEngineInterface::fun_59D580); }  /* auto */
+/*0059D5B0*/ int32_t CPCEngineInterface::setStr(const char *) { relink_stub(CPCEngineInterface::setStr); }  /* auto */
 /*0059D760*/ int32_t CPCEngineInterface::fun_59D760() { relink_stub(CPCEngineInterface::fun_59D760); }  /* auto */
 /*0059D7F0*/ int32_t CPCEngineInterface::drawScene() { relink_stub(CPCEngineInterface::drawScene); }  /* auto */
 /*0059D900*/ int32_t CPCEngineInterface::fun_59D900() { relink_stub(CPCEngineInterface::fun_59D900); }  /* auto */

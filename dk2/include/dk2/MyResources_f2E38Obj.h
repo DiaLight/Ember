@@ -42,7 +42,7 @@ struct MyResources_f2E38Obj {  // ------------------------  /* auto */
 /*134*/ int32_t f134;  // --------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0055E5A0*/ MyResources_f2E38Obj *constructor();  // ----  /* auto */
-/*0055E7D0*/ int32_t load_sav_file(char *, int32_t, int32_t);  /* auto */
+/*0055E7D0*/ int32_t load_sav_file(const char *, int32_t, int32_t);  /* auto */
 /*0055EA10*/ int32_t *sub_55EA10(int32_t);  // -----------  /* auto */
 /*0055EAB0*/ int32_t *sub_55EAB0(GameActionCtx *, int32_t);  /* auto */
 // -------------------------------------------------------  /* auto */

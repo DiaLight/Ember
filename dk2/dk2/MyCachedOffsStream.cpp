@@ -21,8 +21,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005FF960*/ size_t MyCachedOffsStream::seekCachedOffs() { relink_stub(MyCachedOffsStream::seekCachedOffs); }  /* auto */
 /*006030F0*/ int32_t MyCachedOffsStream::constructor() { relink_stub(MyCachedOffsStream::constructor); }  /* auto */
 /*00603110*/ void MyCachedOffsStream::close() { relink_stub(MyCachedOffsStream::close); }  /* auto */
-/*00603120*/ size_t MyCachedOffsStream::readBytes_redirect(void *, int32_t) { relink_stub(MyCachedOffsStream::readBytes_redirect); }  /* auto */
-/*00603150*/ size_t MyCachedOffsStream::writeBytes_redirect(void *, int32_t) { relink_stub(MyCachedOffsStream::writeBytes_redirect); }  /* auto */
+/*00603120*/ size_t MyCachedOffsStream::readBytes_redirect(const void *, int32_t) { relink_stub(MyCachedOffsStream::readBytes_redirect); }  /* auto */
+/*00603150*/ size_t MyCachedOffsStream::writeBytes_redirect(const void *, int32_t) { relink_stub(MyCachedOffsStream::writeBytes_redirect); }  /* auto */
 /*00603180*/ int32_t MyCachedOffsStream::seek_redirect(int32_t, int32_t) { relink_stub(MyCachedOffsStream::seek_redirect); }  /* auto */
 /*0062C4C0*/ int32_t MyCachedOffsStream::getOffs() { relink_stub(MyCachedOffsStream::getOffs); }  /* auto */
 // -------------------------------------------------------  /* auto */

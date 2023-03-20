@@ -45,24 +45,24 @@ struct MyWadDirectory : MyDirectory {  // ----------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672740*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super MyDirectory  ----------------------------  /* auto */
-/*  0*/ // virtual void *v_scalar_destructor(char);  // = 005D8420  /* auto */
-/*  4*/ // virtual void v_createStream(int32_t *, TbDiscFile *, char *, int32_t, int32_t);  // = 005D8A60  /* auto */
-/*  8*/ // virtual int32_t *v_firstFile(int32_t *, char *, MyFileInfo *);  // = 005D8850  /* auto */
-/*  C*/ // virtual void *v_duplicate_1_2();  // = 005D8A00  /* auto */
+/*  0*/ // virtual const void *v_scalar_destructor(char);  // = 005D8420  /* auto */
+/*  4*/ // virtual void v_createStream(int32_t *, TbDiscFile *, const char *, int32_t, int32_t);  // = 005D8A60  /* auto */
+/*  8*/ // virtual int32_t *v_firstFile(int32_t *, const char *, MyFileInfo *);  // = 005D8850  /* auto */
+/*  C*/ // virtual const void *v_duplicate_1_2();  // = 005D8A00  /* auto */
 /* 10*/ // virtual int32_t *v_sub_5D82A0(int32_t *, int32_t, int32_t);  // = 005D82A0  /* auto */
-/* 14*/ // virtual int32_t *v_formatFilePath(int32_t *, char *, char *, int32_t);  // = 005D82D0  /* auto */
+/* 14*/ // virtual int32_t *v_formatFilePath(int32_t *, const char *, const char *, int32_t);  // = 005D82D0  /* auto */
 /* 18*/ // virtual int32_t v_sub_5D8360();  // = 005D8360   /* auto */
 /* 1C*/ // virtual int32_t v_f1C(int32_t, int32_t, int32_t);  // = 0061B080  /* auto */
-/* 20*/ // virtual int32_t v_f20(int32_t, char *);  // = 005D8B00  /* auto */
-/* 24*/ // virtual int32_t v_f24(int32_t, char *);  // = 00628BA0  /* auto */
-/* 28*/ // virtual int32_t v_f28(int32_t, char *, char *);  // = 0061B080  /* auto */
+/* 20*/ // virtual int32_t v_f20(int32_t, const char *);  // = 005D8B00  /* auto */
+/* 24*/ // virtual int32_t v_f24(int32_t, const char *);  // = 00628BA0  /* auto */
+/* 28*/ // virtual int32_t v_f28(int32_t, const char *, const char *);  // = 0061B080  /* auto */
 /* 2C*/ // virtual int32_t v_wrapObj(int32_t);  // = 005D8280  /* auto */
-/* 30*/ // virtual void *v_clearData();  // = 005D8510  --  /* auto */
+/* 30*/ // virtual const void *v_clearData();  // = 005D8510  /* auto */
 /*---*/ // MyWadDirectory  -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005D8370*/ MyWadDirectory *constructor();  // ----------  /* auto */
-/*005D8510*/ char **clearData();  // ---------------------  /* auto */
-/*005D8560*/ int32_t *readAndParse(int32_t *, char *, __int16);  /* auto */
+/*005D8510*/ const char **clearData();  // ---------------  /* auto */
+/*005D8560*/ int32_t *readAndParse(int32_t *, const char *, __int16);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

@@ -17,8 +17,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*0058DD60*/ MyStringHashMap *MyStringHashMap::constructor() { relink_stub(MyStringHashMap::constructor); }  /* auto */
 /*0058DD90*/ int32_t MyStringHashMap::cleanup() { relink_stub(MyStringHashMap::cleanup); }  /* auto */
-/*0058DE00*/ int32_t MyStringHashMap::put(char *, void *) { relink_stub(MyStringHashMap::put); }  /* auto */
-/*0058DF40*/ int32_t MyStringHashMap::getEntryIdx(char *) { relink_stub(MyStringHashMap::getEntryIdx); }  /* auto */
+/*0058DE00*/ int32_t MyStringHashMap::put(const char *, const void *) { relink_stub(MyStringHashMap::put); }  /* auto */
+/*0058DF40*/ int32_t MyStringHashMap::getEntryIdx(const char *) { relink_stub(MyStringHashMap::getEntryIdx); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

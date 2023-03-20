@@ -31,11 +31,11 @@ struct MyLList_WinEventCb {  // --------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672340*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // MyLList_WinEventCb  ---------------------------  /* auto */
-/*  0*/ virtual void *v_scalar_destructor(char);  // = 005B98A0  /* auto */
+/*  0*/ virtual const void *v_scalar_destructor(char);  // = 005B98A0  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005B9840*/ void constructor();  // ---------------------  /* auto */
 /*005B9860*/ void destructor();  // ----------------------  /* auto */
-/*005B98A0*/ void *scalar_destructor(char);  // ----------  /* auto */
+/*005B98A0*/ const void *scalar_destructor(char);  // ----  /* auto */
 /*005B9C80*/ MyLList_WinEventCb *MyLList_scalar_destructor(char);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

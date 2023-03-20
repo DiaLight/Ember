@@ -29,9 +29,9 @@ struct MyCachedOffsStream : MyInputStream {  // ----------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*006730C0*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super MyInputStream  --------------------------  /* auto */
-/*  0*/ // virtual void *v_scalar_destructor(char);  // = 005FFAF0  /* auto */
-/*  4*/ // virtual size_t v_readBytes(void *, size_t);  // = 00603120  /* auto */
-/*  8*/ // virtual size_t v_writeBytes(void *, size_t);  // = 00603150  /* auto */
+/*  0*/ // virtual const void *v_scalar_destructor(char);  // = 005FFAF0  /* auto */
+/*  4*/ // virtual size_t v_readBytes(const void *, size_t);  // = 00603120  /* auto */
+/*  8*/ // virtual size_t v_writeBytes(const void *, size_t);  // = 00603150  /* auto */
 /*  C*/ // virtual size_t v_seek(size_t, int32_t);  // = 00603180  /* auto */
 /* 10*/ // virtual size_t v_getSize();  // = 006031A0  ---  /* auto */
 /* 14*/ // virtual size_t v_getOffs();  // = 0062C4C0  ---  /* auto */
@@ -46,8 +46,8 @@ struct MyCachedOffsStream : MyInputStream {  // ----------  /* auto */
 /*005FF960*/ size_t seekCachedOffs();  // ----------------  /* auto */
 /*006030F0*/ int32_t constructor();  // ------------------  /* auto */
 /*00603110*/ void close();  // ---------------------------  /* auto */
-/*00603120*/ size_t readBytes_redirect(void *, int32_t);    /* auto */
-/*00603150*/ size_t writeBytes_redirect(void *, int32_t);   /* auto */
+/*00603120*/ size_t readBytes_redirect(const void *, int32_t);  /* auto */
+/*00603150*/ size_t writeBytes_redirect(const void *, int32_t);  /* auto */
 /*00603180*/ int32_t seek_redirect(int32_t, int32_t);       /* auto */
 /*0062C4C0*/ int32_t getOffs();  // ----------------------  /* auto */
 // -------------------------------------------------------  /* auto */

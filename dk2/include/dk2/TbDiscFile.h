@@ -29,9 +29,9 @@ struct TbDiscFile : DiscFileBase {  // -------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066F24C*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super DiscFileBase  ---------------------------  /* auto */
-/*  0*/ // virtual void *v_scalar_destructor(char);  // = 005B6D80  /* auto */
+/*  0*/ // virtual const void *v_scalar_destructor(char);  // = 005B6D80  /* auto */
 /*  4*/ // virtual int32_t v_super_destructor();  // = 005B6E80  /* auto */
-/*  8*/ // virtual int32_t v_readBytes(void *, int32_t);  // = 005B6EA0  /* auto */
+/*  8*/ // virtual int32_t v_readBytes(const void *, int32_t);  // = 005B6EA0  /* auto */
 /*  C*/ // virtual int32_t v_writeBytes(int32_t, int32_t);  // = 005B6EC0  /* auto */
 /* 10*/ // virtual int32_t v_seek(int32_t, int32_t);  // = 005B6EE0  /* auto */
 /* 14*/ // virtual int32_t v_getSize();  // = 005FDE70  --  /* auto */
@@ -39,7 +39,7 @@ struct TbDiscFile : DiscFileBase {  // -------------------  /* auto */
 /* 1C*/ // virtual int32_t v_mapToBuf();  // = 005B6F50  -  /* auto */
 /* 20*/ // virtual int32_t *v_flush(int32_t *);  // = 005B6F70  /* auto */
 /*---*/ // TbDiscFile  -----------------------------------  /* auto */
-/* 24*/ virtual int32_t *v_openStream(int32_t *, char *, int32_t);  // = 005B9F70  /* auto */
+/* 24*/ virtual int32_t *v_openStream(int32_t *, const char *, int32_t);  // = 005B9F70  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005B6F20*/ MyInputStream *DiskFileBase_pushStream(MyInputStream *);  /* auto */
 // -------------------------------------------------------  /* auto */

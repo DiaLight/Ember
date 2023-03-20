@@ -98,18 +98,18 @@ struct CWorld {  // --------------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066E3EC*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // CWorld  ---------------------------------------  /* auto */
-/*  0*/ virtual void *v_sub_5098E0(char);  // = 005098E0    /* auto */
+/*  0*/ virtual const void *v_sub_5098E0(char);  // = 005098E0  /* auto */
 /*  4*/ virtual int32_t v_create_objects();  // = 005099A0  /* auto */
 /*  8*/ virtual char v_fun_50A2F0();  // = 0050A2F0  -----  /* auto */
 /*  C*/ virtual int16_t v_fun_510E90(GameAction *, int32_t);  // = 00510E90  /* auto */
-/* 10*/ virtual void *v_loc_508C00();  // = 00508C00  ----  /* auto */
+/* 10*/ virtual const void *v_loc_508C00();  // = 00508C00  /* auto */
 /* 14*/ virtual BOOL v_loc_508C10(int32_t);  // = 00508C10  /* auto */
 /* 18*/ virtual int32_t v_tick(GameActionCtx *);  // = 0050A450  /* auto */
-/* 1C*/ virtual int32_t v_loadLevel(char *);  // = 0050E620  /* auto */
+/* 1C*/ virtual int32_t v_loadLevel(const char *);  // = 0050E620  /* auto */
 /* 20*/ virtual int32_t v_fun_50FBA0();  // = 0050FBA0  --  /* auto */
 /* 24*/ virtual int32_t v_fun_50FC60();  // = 0050FC60  --  /* auto */
 /* 28*/ virtual int32_t v_fun_50FD10(int32_t);  // = 0050FD10  /* auto */
-/* 2C*/ virtual int32_t v_fun_50FD70(char *);  // = 0050FD70  /* auto */
+/* 2C*/ virtual int32_t v_fun_50FD70(const char *);  // = 0050FD70  /* auto */
 /* 30*/ virtual int32_t v_sub_509520();  // = 00509520  --  /* auto */
 /* 34*/ virtual int32_t v_fun_50F3D0();  // = 0050F3D0  --  /* auto */
 /* 38*/ virtual void v_fun_50EA70();  // = 0050EA70  -----  /* auto */
@@ -126,10 +126,10 @@ struct CWorld {  // --------------------------------------  /* auto */
 /* 64*/ virtual BOOL v_fun_50CF80(int8_t);  // = 0050CF80   /* auto */
 /* 68*/ virtual int32_t v_sub_509480(int32_t);  // = 00509480  /* auto */
 /* 6C*/ virtual int32_t v_sub_509450(int32_t, int32_t);  // = 00509450  /* auto */
-/* 70*/ virtual void *v_loc_508DD0();  // = 00508DD0  ----  /* auto */
-/* 74*/ virtual void *v_loc_508DF0();  // = 00508DF0  ----  /* auto */
-/* 78*/ virtual void *v_loc_508E00();  // = 00508E00  ----  /* auto */
-/* 7C*/ virtual void *v_loc_508E10();  // = 00508E10  ----  /* auto */
+/* 70*/ virtual const void *v_loc_508DD0();  // = 00508DD0  /* auto */
+/* 74*/ virtual const void *v_loc_508DF0();  // = 00508DF0  /* auto */
+/* 78*/ virtual const void *v_loc_508E00();  // = 00508E00  /* auto */
+/* 7C*/ virtual const void *v_loc_508E10();  // = 00508E10  /* auto */
 /* 80*/ virtual char v_fun_50CF20(int32_t);  // = 0050CF20  /* auto */
 /* 84*/ virtual char v_fun_50CFB0();  // = 0050CFB0  -----  /* auto */
 /* 88*/ virtual char v_fun_50CFD0(char);  // = 0050CFD0  -  /* auto */
@@ -137,9 +137,9 @@ struct CWorld {  // --------------------------------------  /* auto */
 /* 90*/ virtual char v_fun_50D120(int32_t);  // = 0050D120  /* auto */
 /* 94*/ virtual int32_t v_fun_50D1B0(int8_t);  // = 0050D1B0  /* auto */
 /* 98*/ virtual int32_t v_fun_50D0B0(int8_t);  // = 0050D0B0  /* auto */
-/* 9C*/ virtual void *v_loc_508E20();  // = 00508E20  ----  /* auto */
-/* A0*/ virtual void *v_loc_508E30();  // = 00508E30  ----  /* auto */
-/* A4*/ virtual void *v_loc_508E40();  // = 00508E40  ----  /* auto */
+/* 9C*/ virtual const void *v_loc_508E20();  // = 00508E20  /* auto */
+/* A0*/ virtual const void *v_loc_508E30();  // = 00508E30  /* auto */
+/* A4*/ virtual const void *v_loc_508E40();  // = 00508E40  /* auto */
 /* A8*/ virtual char v_fun_50D150(int32_t);  // = 0050D150  /* auto */
 /* AC*/ virtual char v_fun_50D220();  // = 0050D220  -----  /* auto */
 /* B0*/ virtual char v_fun_50D240(char);  // = 0050D240  -  /* auto */
@@ -148,8 +148,8 @@ struct CWorld {  // --------------------------------------  /* auto */
 /* BC*/ virtual int32_t v_fun_50D4D0(int8_t);  // = 0050D4D0  /* auto */
 /* C0*/ virtual int32_t v_fun_50D390(int8_t);  // = 0050D390  /* auto */
 /* C4*/ virtual int32_t v_loc_508E50();  // = 00508E50  --  /* auto */
-/* C8*/ virtual void *v_loc_508E60();  // = 00508E60  ----  /* auto */
-/* CC*/ virtual void *v_loc_508E70();  // = 00508E70  ----  /* auto */
+/* C8*/ virtual const void *v_loc_508E60();  // = 00508E60  /* auto */
+/* CC*/ virtual const void *v_loc_508E70();  // = 00508E70  /* auto */
 /* D0*/ virtual char v_fun_50D460(int32_t);  // = 0050D460  /* auto */
 /* D4*/ virtual char v_fun_50DEB0();  // = 0050DEB0  -----  /* auto */
 /* D8*/ virtual char v_fun_50DED0(char);  // = 0050DED0  -  /* auto */
@@ -157,9 +157,9 @@ struct CWorld {  // --------------------------------------  /* auto */
 /* E0*/ virtual char v_fun_50E010(int32_t);  // = 0050E010  /* auto */
 /* E4*/ virtual int32_t v_fun_50E080(int8_t);  // = 0050E080  /* auto */
 /* E8*/ virtual int32_t v_fun_50DFA0(int8_t);  // = 0050DFA0  /* auto */
-/* EC*/ virtual void *v_loc_508F40();  // = 00508F40  ----  /* auto */
-/* F0*/ virtual void *v_loc_508F50();  // = 00508F50  ----  /* auto */
-/* F4*/ virtual void *v_loc_508F60();  // = 00508F60  ----  /* auto */
+/* EC*/ virtual const void *v_loc_508F40();  // = 00508F40  /* auto */
+/* F0*/ virtual const void *v_loc_508F50();  // = 00508F50  /* auto */
+/* F4*/ virtual const void *v_loc_508F60();  // = 00508F60  /* auto */
 /* F8*/ virtual char v_fun_50E040(int32_t);  // = 0050E040  /* auto */
 /* FC*/ virtual char v_fun_50DC80();  // = 0050DC80  -----  /* auto */
 /*100*/ virtual char v_fun_50DCA0(char);  // = 0050DCA0  -  /* auto */
@@ -167,9 +167,9 @@ struct CWorld {  // --------------------------------------  /* auto */
 /*108*/ virtual char v_fun_50DDD0(int32_t);  // = 0050DDD0  /* auto */
 /*10C*/ virtual int32_t v_fun_50DE50(int8_t);  // = 0050DE50  /* auto */
 /*110*/ virtual int32_t v_fun_50DD60(int8_t);  // = 0050DD60  /* auto */
-/*114*/ virtual void *v_loc_508F10();  // = 00508F10  ----  /* auto */
-/*118*/ virtual void *v_loc_508F20();  // = 00508F20  ----  /* auto */
-/*11C*/ virtual void *v_loc_508F30();  // = 00508F30  ----  /* auto */
+/*114*/ virtual const void *v_loc_508F10();  // = 00508F10  /* auto */
+/*118*/ virtual const void *v_loc_508F20();  // = 00508F20  /* auto */
+/*11C*/ virtual const void *v_loc_508F30();  // = 00508F30  /* auto */
 /*120*/ virtual char v_fun_50DE00(int32_t);  // = 0050DE00  /* auto */
 /*124*/ virtual char v_fun_50D550();  // = 0050D550  -----  /* auto */
 /*128*/ virtual char v_fun_50D570(char);  // = 0050D570  -  /* auto */
@@ -177,9 +177,9 @@ struct CWorld {  // --------------------------------------  /* auto */
 /*130*/ virtual char v_fun_50D6C0(int32_t);  // = 0050D6C0  /* auto */
 /*134*/ virtual int32_t v_fun_50D750(int8_t);  // = 0050D750  /* auto */
 /*138*/ virtual int32_t v_fun_50D650(int8_t);  // = 0050D650  /* auto */
-/*13C*/ virtual void *v_loc_508E80();  // = 00508E80  ----  /* auto */
-/*140*/ virtual void *v_loc_508E90();  // = 00508E90  ----  /* auto */
-/*144*/ virtual void *v_loc_508EA0();  // = 00508EA0  ----  /* auto */
+/*13C*/ virtual const void *v_loc_508E80();  // = 00508E80  /* auto */
+/*140*/ virtual const void *v_loc_508E90();  // = 00508E90  /* auto */
+/*144*/ virtual const void *v_loc_508EA0();  // = 00508EA0  /* auto */
 /*148*/ virtual char v_fun_50D6F0(int32_t);  // = 0050D6F0  /* auto */
 /*14C*/ virtual char v_fun_50D7C0();  // = 0050D7C0  -----  /* auto */
 /*150*/ virtual char v_fun_50D7E0(char);  // = 0050D7E0  -  /* auto */
@@ -187,9 +187,9 @@ struct CWorld {  // --------------------------------------  /* auto */
 /*158*/ virtual char v_fun_50D930(int32_t);  // = 0050D930  /* auto */
 /*15C*/ virtual int32_t v_fun_50D9C0(int8_t);  // = 0050D9C0  /* auto */
 /*160*/ virtual int32_t v_fun_50D8C0(int8_t);  // = 0050D8C0  /* auto */
-/*164*/ virtual void *v_loc_508EB0();  // = 00508EB0  ----  /* auto */
-/*168*/ virtual void *v_loc_508EC0();  // = 00508EC0  ----  /* auto */
-/*16C*/ virtual void *v_loc_508ED0();  // = 00508ED0  ----  /* auto */
+/*164*/ virtual const void *v_loc_508EB0();  // = 00508EB0  /* auto */
+/*168*/ virtual const void *v_loc_508EC0();  // = 00508EC0  /* auto */
+/*16C*/ virtual const void *v_loc_508ED0();  // = 00508ED0  /* auto */
 /*170*/ virtual char v_fun_50D960(int32_t);  // = 0050D960  /* auto */
 /*174*/ virtual char v_fun_50DA20();  // = 0050DA20  -----  /* auto */
 /*178*/ virtual char v_fun_50DA40(char);  // = 0050DA40  -  /* auto */
@@ -197,9 +197,9 @@ struct CWorld {  // --------------------------------------  /* auto */
 /*180*/ virtual char v_fun_50DB90(int32_t);  // = 0050DB90  /* auto */
 /*184*/ virtual int32_t v_fun_50DC10(int8_t);  // = 0050DC10  /* auto */
 /*188*/ virtual int32_t v_fun_50DB20(int8_t);  // = 0050DB20  /* auto */
-/*18C*/ virtual void *v_loc_508EE0();  // = 00508EE0  ----  /* auto */
-/*190*/ virtual void *v_loc_508EF0();  // = 00508EF0  ----  /* auto */
-/*194*/ virtual void *v_loc_508F00();  // = 00508F00  ----  /* auto */
+/*18C*/ virtual const void *v_loc_508EE0();  // = 00508EE0  /* auto */
+/*190*/ virtual const void *v_loc_508EF0();  // = 00508EF0  /* auto */
+/*194*/ virtual const void *v_loc_508F00();  // = 00508F00  /* auto */
 /*198*/ virtual char v_fun_50DBC0(int32_t);  // = 0050DBC0  /* auto */
 /*19C*/ virtual char v_fun_50E0E0();  // = 0050E0E0  -----  /* auto */
 /*1A0*/ virtual char v_fun_50E100(char);  // = 0050E100  -  /* auto */
@@ -207,33 +207,33 @@ struct CWorld {  // --------------------------------------  /* auto */
 /*1A8*/ virtual char v_fun_50E250(int32_t);  // = 0050E250  /* auto */
 /*1AC*/ virtual int32_t v_fun_50E2D0(int8_t);  // = 0050E2D0  /* auto */
 /*1B0*/ virtual int32_t v_fun_50E1E0(int8_t);  // = 0050E1E0  /* auto */
-/*1B4*/ virtual void *v_loc_508F70();  // = 00508F70  ----  /* auto */
-/*1B8*/ virtual void *v_loc_508F80();  // = 00508F80  ----  /* auto */
-/*1BC*/ virtual void *v_loc_508F90();  // = 00508F90  ----  /* auto */
+/*1B4*/ virtual const void *v_loc_508F70();  // = 00508F70  /* auto */
+/*1B8*/ virtual const void *v_loc_508F80();  // = 00508F80  /* auto */
+/*1BC*/ virtual const void *v_loc_508F90();  // = 00508F90  /* auto */
 /*1C0*/ virtual char v_fun_50E280(int32_t);  // = 0050E280  /* auto */
 /*1C4*/ virtual char v_fun_50E330(int32_t);  // = 0050E330  /* auto */
 /*1C8*/ virtual int32_t v_fun_50E3A0(int8_t);  // = 0050E3A0  /* auto */
 /*1CC*/ virtual int32_t v_loc_508FA0(int32_t);  // = 00508FA0  /* auto */
 /*1D0*/ virtual int32_t v_loc_508FB0();  // = 00508FB0  --  /* auto */
-/*1D4*/ virtual void *v_loc_508FE0();  // = 00508FE0  ----  /* auto */
-/*1D8*/ virtual void *v_loc_508FC0();  // = 00508FC0  ----  /* auto */
-/*1DC*/ virtual void *v_loc_508C70();  // = 00508C70  ----  /* auto */
-/*1E0*/ virtual void *v_loc_508C80();  // = 00508C80  ----  /* auto */
-/*1E4*/ virtual void *v_loc_508CA0();  // = 00508CA0  ----  /* auto */
+/*1D4*/ virtual const void *v_loc_508FE0();  // = 00508FE0  /* auto */
+/*1D8*/ virtual const void *v_loc_508FC0();  // = 00508FC0  /* auto */
+/*1DC*/ virtual const void *v_loc_508C70();  // = 00508C70  /* auto */
+/*1E0*/ virtual const void *v_loc_508C80();  // = 00508C80  /* auto */
+/*1E4*/ virtual const void *v_loc_508CA0();  // = 00508CA0  /* auto */
 /*1E8*/ virtual void v_loc_508CC0(int32_t, int32_t, int32_t);  // = 00508CC0  /* auto */
 /*1EC*/ virtual void v_loc_508CF0(int32_t);  // = 00508CF0  /* auto */
 /*1F0*/ virtual void v_loc_508D00(int32_t);  // = 00508D00  /* auto */
-/*1F4*/ virtual void *v_loc_508D10();  // = 00508D10  ----  /* auto */
-/*1F8*/ virtual void *v_loc_508D40();  // = 00508D40  ----  /* auto */
-/*1FC*/ virtual void *v_loc_509090();  // = 00509090  ----  /* auto */
-/*200*/ virtual void *v_loc_509050();  // = 00509050  ----  /* auto */
-/*204*/ virtual void *v_loc_509010();  // = 00509010  ----  /* auto */
+/*1F4*/ virtual const void *v_loc_508D10();  // = 00508D10  /* auto */
+/*1F8*/ virtual const void *v_loc_508D40();  // = 00508D40  /* auto */
+/*1FC*/ virtual const void *v_loc_509090();  // = 00509090  /* auto */
+/*200*/ virtual const void *v_loc_509050();  // = 00509050  /* auto */
+/*204*/ virtual const void *v_loc_509010();  // = 00509010  /* auto */
 /*208*/ virtual int32_t v_sub_509200(int32_t, int32_t);  // = 00509200  /* auto */
-/*20C*/ virtual void *v_loc_5090C0();  // = 005090C0  ----  /* auto */
+/*20C*/ virtual const void *v_loc_5090C0();  // = 005090C0  /* auto */
 /*210*/ virtual BOOL v_sub_5091C0(int32_t);  // = 005091C0  /* auto */
 /*214*/ virtual int32_t v_fun_443150(int32_t, int32_t);  // = 00443150  /* auto */
-/*218*/ virtual void *v_loc_509100();  // = 00509100  ----  /* auto */
-/*21C*/ virtual void **v_sub_5092F0(int32_t, int32_t, int32_t *);  // = 005092F0  /* auto */
+/*218*/ virtual const void *v_loc_509100();  // = 00509100  /* auto */
+/*21C*/ virtual const void **v_sub_5092F0(int32_t, int32_t, int32_t *);  // = 005092F0  /* auto */
 /*220*/ virtual int32_t v_sub_5092D0(int32_t, int32_t);  // = 005092D0  /* auto */
 /*224*/ virtual BOOL v_sub_509230(int32_t, int32_t);  // = 00509230  /* auto */
 /*228*/ virtual int32_t v_sub_509260(int32_t, int32_t, __int16);  // = 00509260  /* auto */
@@ -262,10 +262,10 @@ struct CWorld {  // --------------------------------------  /* auto */
 /*284*/ virtual int32_t v_sub_5095D0(int32_t);  // = 005095D0  /* auto */
 /*288*/ virtual int32_t v_sub_5095F0(int8_t);  // = 005095F0  /* auto */
 /*28C*/ virtual int32_t v_sub_509610(int32_t);  // = 00509610  /* auto */
-/*290*/ virtual char *v_fun_50F830(int16_t, int32_t);  // = 0050F830  /* auto */
+/*290*/ virtual const char *v_fun_50F830(int16_t, int32_t);  // = 0050F830  /* auto */
 /*294*/ virtual void v_nullsub_23(int32_t, int32_t, int32_t);  // = 00510E60  /* auto */
 /*298*/ virtual int32_t v_fun_50F880(int32_t);  // = 0050F880  /* auto */
-/*29C*/ virtual char *v_sub_509530();  // = 00509530  ----  /* auto */
+/*29C*/ virtual const char *v_sub_509530();  // = 00509530  /* auto */
 /*2A0*/ virtual int32_t v_sub_5097A0(int32_t);  // = 005097A0  /* auto */
 /*2A4*/ virtual int32_t v_sub_5097B0(int32_t, int32_t);  // = 005097B0  /* auto */
 /*2A8*/ virtual int32_t *v_sub_5097D0(int32_t *);  // = 005097D0  /* auto */
@@ -276,8 +276,8 @@ struct CWorld {  // --------------------------------------  /* auto */
 /*2BC*/ virtual char v_sub_509560();  // = 00509560  -----  /* auto */
 /*2C0*/ virtual char v_sub_509570();  // = 00509570  -----  /* auto */
 /*2C4*/ virtual int32_t v_fun_510000(int32_t, int32_t);  // = 00510000  /* auto */
-/*2C8*/ virtual void **v_fun_50FAE0(char);  // = 0050FAE0   /* auto */
-/*2CC*/ virtual void **v_fun_50FB10(char);  // = 0050FB10   /* auto */
+/*2C8*/ virtual const void **v_fun_50FAE0(char);  // = 0050FAE0  /* auto */
+/*2CC*/ virtual const void **v_fun_50FB10(char);  // = 0050FB10  /* auto */
 /*2D0*/ virtual int32_t v_fun_628E30(int32_t);  // = 00628E30  /* auto */
 /*2D4*/ virtual int32_t v_sub_509690(int32_t);  // = 00509690  /* auto */
 /*2D8*/ virtual int32_t v_fun_5101C0(int32_t, int32_t);  // = 005101C0  /* auto */
@@ -286,22 +286,22 @@ struct CWorld {  // --------------------------------------  /* auto */
 /*2E4*/ virtual int32_t v_sub_5098D0();  // = 005098D0  --  /* auto */
 /*2E8*/ virtual char v_sub_509680();  // = 00509680  -----  /* auto */
 /*2EC*/ virtual int32_t v_sub_5096A0(int32_t);  // = 005096A0  /* auto */
-/*2F0*/ virtual void *v_duplicate_187_1();  // = 005096A0   /* auto */
-/*2F4*/ virtual char *v_sub_5096C0(int32_t, __int16, char);  // = 005096C0  /* auto */
+/*2F0*/ virtual const void *v_duplicate_187_1();  // = 005096A0  /* auto */
+/*2F4*/ virtual const char *v_sub_5096C0(int32_t, __int16, char);  // = 005096C0  /* auto */
 /*2F8*/ virtual BOOL v_sub_5096F0();  // = 005096F0  -----  /* auto */
-/*2FC*/ virtual char *v_sub_509700();  // = 00509700  ----  /* auto */
+/*2FC*/ virtual const char *v_sub_509700();  // = 00509700  /* auto */
 /*300*/ virtual int32_t v_sub_509710();  // = 00509710  --  /* auto */
-/*304*/ virtual char *v_sub_509730();  // = 00509730  ----  /* auto */
+/*304*/ virtual const char *v_sub_509730();  // = 00509730  /* auto */
 /*308*/ virtual int32_t v_sub_509750(int32_t, int32_t, int32_t);  // = 00509750  /* auto */
 /*30C*/ virtual int32_t v_sub_509780(int32_t *, int32_t *, int32_t);  // = 00509780  /* auto */
-/*310*/ virtual void *v_loc_508D60();  // = 00508D60  ----  /* auto */
-/*314*/ virtual void *v_loc_508D70();  // = 00508D70  ----  /* auto */
-/*318*/ virtual void *v_loc_508D80();  // = 00508D80  ----  /* auto */
-/*31C*/ virtual void *v_loc_508D90();  // = 00508D90  ----  /* auto */
-/*320*/ virtual void *v_duplicate_154_1();  // = 00580470   /* auto */
-/*324*/ virtual char *v_sub_509830();  // = 00509830  ----  /* auto */
-/*328*/ virtual void *v_loc_508DA0();  // = 00508DA0  ----  /* auto */
-/*32C*/ virtual void *v_loc_508DB0();  // = 00508DB0  ----  /* auto */
+/*310*/ virtual const void *v_loc_508D60();  // = 00508D60  /* auto */
+/*314*/ virtual const void *v_loc_508D70();  // = 00508D70  /* auto */
+/*318*/ virtual const void *v_loc_508D80();  // = 00508D80  /* auto */
+/*31C*/ virtual const void *v_loc_508D90();  // = 00508D90  /* auto */
+/*320*/ virtual const void *v_duplicate_154_1();  // = 00580470  /* auto */
+/*324*/ virtual const char *v_sub_509830();  // = 00509830  /* auto */
+/*328*/ virtual const void *v_loc_508DA0();  // = 00508DA0  /* auto */
+/*32C*/ virtual const void *v_loc_508DB0();  // = 00508DB0  /* auto */
 /*330*/ virtual int32_t v_sub_509740();  // = 00509740  --  /* auto */
 /*334*/ virtual __int16 v_fun_515420(int32_t, int32_t *, int32_t);  // = 00515420  /* auto */
 /*338*/ virtual __int16 v_fun_515520(int32_t, int32_t *, int16_t *, int32_t);  // = 00515520  /* auto */
@@ -329,7 +329,7 @@ struct CWorld {  // --------------------------------------  /* auto */
 /*390*/ virtual int32_t v_fun_50E4D0(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  // = 0050E4D0  /* auto */
 /*394*/ virtual int32_t v_fun_50E510(int32_t);  // = 0050E510  /* auto */
 // -------------------------------------------------------  /* auto */
-/*00504F00*/ int16_t sub_504F00();  // -------------------  /* auto */
+/*00504F00*/ __int16 sub_504F00();  // -------------------  /* auto */
 /*00504FB0*/ __int16 sub_504FB0(int32_t);  // ------------  /* auto */
 /*00508A10*/ CWorld *constructor();  // ------------------  /* auto */
 /*00508C10*/ BOOL fun_508C10(int32_t);  // ---------------  /* auto */
@@ -342,7 +342,7 @@ struct CWorld {  // --------------------------------------  /* auto */
 /*0050ADE0*/ int32_t probably_start_editor(int32_t *);      /* auto */
 /*0050E920*/ int32_t fun_50E920(int32_t);  // ------------  /* auto */
 /*0050FD10*/ int32_t fun_50FD10(int32_t);  // ------------  /* auto */
-/*0050FD70*/ int32_t fun_50FD70(char *);  // -------------  /* auto */
+/*0050FD70*/ int32_t fun_50FD70(const char *);  // -------  /* auto */
 /*00510E90*/ int16_t fun_510E90(GameAction *, int32_t);     /* auto */
 /*00510F90*/ int32_t handleAction(GameAction *);  // -----  /* auto */
 /*00511280*/ int32_t sub_511280();  // -------------------  /* auto */

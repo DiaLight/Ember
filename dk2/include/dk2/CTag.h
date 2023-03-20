@@ -28,13 +28,13 @@ struct CTag {  // ----------------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066E3DC*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // CTag  -----------------------------------------  /* auto */
-/*  0*/ virtual void *v_deleting_destructor(char);  // = 00507920  /* auto */
-/*  4*/ virtual BOOL v_f4(void **);  // = 005079F0  ------  /* auto */
+/*  0*/ virtual const void *v_deleting_destructor(char);  // = 00507920  /* auto */
+/*  4*/ virtual BOOL v_f4(const void **);  // = 005079F0    /* auto */
 // -------------------------------------------------------  /* auto */
 /*004DFE90*/ BOOL sub_4DFE90(int32_t);  // ---------------  /* auto */
 /*00507850*/ CTag *constructor();  // --------------------  /* auto */
 /*00507970*/ int32_t destructor();  // -------------------  /* auto */
-/*005079F0*/ BOOL fun_5079F0(void **);  // ---------------  /* auto */
+/*005079F0*/ BOOL fun_5079F0(const void **);  // ---------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

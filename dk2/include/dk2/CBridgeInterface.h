@@ -30,7 +30,7 @@ struct CBridgeInterface : CEngineInterface {  // ---------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066CF7C*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CEngineInterface  -----------------------  /* auto */
-/*  0*/ // virtual void *v_deleting_destructor(char);  // = 00443160  /* auto */
+/*  0*/ // virtual const void *v_deleting_destructor(char);  // = 00443160  /* auto */
 /*  4*/ // virtual int32_t v_f4(int32_t);  // = 00634D60    /* auto */
 /*  8*/ // virtual void v_f8();  // = 00634D60  ----------  /* auto */
 /*  C*/ // virtual void v_fC();  // = 0040D440  ----------  /* auto */
@@ -51,7 +51,7 @@ struct CBridgeInterface : CEngineInterface {  // ---------  /* auto */
 /* 48*/ // virtual int32_t v_f48(float, float, int32_t, int32_t);  // = 00634D60  /* auto */
 /* 4C*/ // virtual int32_t v_f4C(float, float, int32_t);  // = 00634D60  /* auto */
 /* 50*/ // virtual int32_t v_f50(int32_t, int32_t, int32_t);  // = 00517400  /* auto */
-/* 54*/ // virtual int32_t v_f54(char *, char, int32_t, int32_t *, int32_t, char);  // = 00443070  /* auto */
+/* 54*/ // virtual int32_t v_f54(const char *, char, int32_t, int32_t *, int32_t, char);  // = 00443070  /* auto */
 /* 58*/ // virtual int32_t v_createMyScaledSurface(int32_t, int32_t, int32_t, int32_t, int32_t *);  // = 00443090  /* auto */
 /* 5C*/ // virtual void v_f5C(int32_t, int32_t, int32_t, int32_t);  // = 005671D0  /* auto */
 /* 60*/ // virtual void v_f60(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  // = 004430B0  /* auto */
@@ -63,7 +63,7 @@ struct CBridgeInterface : CEngineInterface {  // ---------  /* auto */
 /* 78*/ // virtual void v_f78(int32_t);  // = 005671E0  --  /* auto */
 /* 7C*/ // virtual int32_t v_f7C(int32_t);  // = 005671E0   /* auto */
 /* 80*/ // virtual int32_t v_f80(int32_t *, int32_t);  // = 005173B0  /* auto */
-/* 84*/ // virtual int32_t v_f84(char *);  // = 005671E0    /* auto */
+/* 84*/ // virtual int32_t v_f84(const char *);  // = 005671E0  /* auto */
 /* 88*/ // virtual int32_t v_f88();  // = 00402AD0  ------  /* auto */
 /* 8C*/ // virtual IDirectDraw4 *v_f8C();  // = 0040D440    /* auto */
 /* 90*/ // virtual int32_t v_f90(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  // = 004430D0  /* auto */
@@ -101,15 +101,15 @@ struct CBridgeInterface : CEngineInterface {  // ---------  /* auto */
 /*---*/ // CBridgeInterface  -----------------------------  /* auto */
 /*110*/ virtual int32_t v_f110(CPCEngineInterface *);  // = 00634D60  /* auto */
 /*114*/ virtual void v_f114();  // = 00634D60  -----------  /* auto */
-/*118*/ virtual int32_t v_f118(char *);  // = 00634D60  --  /* auto */
-/*11C*/ virtual MySurface *v_loadPng(char *);  // = 00634D60  /* auto */
+/*118*/ virtual int32_t v_f118(const char *);  // = 00634D60  /* auto */
+/*11C*/ virtual MySurface *v_loadPng(const char *);  // = 00634D60  /* auto */
 /*120*/ virtual int32_t v_f120(int32_t, int32_t, int32_t *);  // = 00634D60  /* auto */
 /*124*/ virtual int32_t v_f124(int32_t, int32_t);  // = 00634D60  /* auto */
 /*128*/ virtual int32_t v_f128(int32_t *);  // = 00634D60   /* auto */
 /*12C*/ virtual int32_t v_f12C(int32_t, int32_t);  // = 00634D60  /* auto */
 /*130*/ virtual int32_t v_f130(int32_t, int32_t, int32_t, int32_t *);  // = 00634D60  /* auto */
 /*134*/ virtual int32_t v_f134(int32_t, int32_t, int32_t);  // = 00634D60  /* auto */
-/*138*/ virtual char *v_get_field_();  // = 00634D60  ----  /* auto */
+/*138*/ virtual const char *v_get_field_();  // = 00634D60  /* auto */
 /*13C*/ virtual int32_t v_f13C(int32_t, int32_t, int32_t *);  // = 00634D60  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00443050*/ CBridgeInterface *constructor();  // --------  /* auto */

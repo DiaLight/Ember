@@ -36,8 +36,8 @@ struct CDirectIFFFile {  // ------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066FB34*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // CDirectIFFFile  -------------------------------  /* auto */
-/*  0*/ virtual FILE *v_read(void *, size_t);  // = 0057A7A0  /* auto */
-/*  4*/ virtual FILE *v_write(void *, size_t);  // = 0057A7D0  /* auto */
+/*  0*/ virtual FILE *v_read(const void *, size_t);  // = 0057A7A0  /* auto */
+/*  4*/ virtual FILE *v_write(const void *, size_t);  // = 0057A7D0  /* auto */
 /*  8*/ virtual int32_t v_seek(int32_t);  // = 0057A470  -  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0057A1E0*/ int32_t sub_57A1E0(int32_t);  // ------------  /* auto */
@@ -48,10 +48,10 @@ struct CDirectIFFFile {  // ------------------------------  /* auto */
 /*0057A430*/ int32_t seekTo(int32_t);  // ----------------  /* auto */
 /*0057A450*/ CDirectIFFFile *constructor();  // ----------  /* auto */
 /*0057A470*/ int32_t seek(int32_t);  // ------------------  /* auto */
-/*0057A560*/ int32_t open(char *, int32_t, int32_t);  // -  /* auto */
+/*0057A560*/ int32_t open(const char *, int32_t, int32_t);  /* auto */
 /*0057A6F0*/ FILE *sub_57A6F0();  // ---------------------  /* auto */
-/*0057A7A0*/ FILE *readFile_57A7A0(void *, size_t);  // --  /* auto */
-/*0057A7D0*/ FILE *writeFile_57A7D0(void *, size_t);  // -  /* auto */
+/*0057A7A0*/ FILE *readFile_57A7A0(const void *, size_t);   /* auto */
+/*0057A7D0*/ FILE *writeFile_57A7D0(const void *, size_t);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

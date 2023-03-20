@@ -31,10 +31,10 @@ struct CComponent {  // ----------------------------------  /* auto */
 /*---*/ // CComponent  -----------------------------------  /* auto */
 /*  0*/ virtual int32_t *v_deleting_destructor(char);  // = 004010D0  /* auto */
 /*  4*/ virtual int32_t v_f4_();  // = 00634D60  ---------  /* auto */
-/*  8*/ virtual void *v_f8_();  // = 00634D60  -----------  /* auto */
+/*  8*/ virtual const void *v_f8_();  // = 00634D60  -----  /* auto */
 /*  C*/ virtual int32_t v_handle();  // = 00634D60  ------  /* auto */
 /* 10*/ virtual int32_t *v_f10_();  // = 00634D60  -------  /* auto */
-/* 14*/ virtual void ***v_mainGuiLoop();  // = 00634D60  -  /* auto */
+/* 14*/ virtual const void ***v_mainGuiLoop();  // = 00634D60  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00552BC0*/ CComponent *constructor();  // --------------  /* auto */
 /*00552C60*/ void release();  // -------------------------  /* auto */

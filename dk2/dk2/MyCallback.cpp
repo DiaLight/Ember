@@ -15,8 +15,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ int32_t MyCallback::v_call(int32_t, void *) { relink_stub(MyCallback::v_call); }  /* auto */
-/*  4*/ void *MyCallback::v_Obj6723E0_scalar_destructor(char) { relink_stub(MyCallback::v_Obj6723E0_scalar_destructor); }  /* auto */
+/*  0*/ int32_t MyCallback::v_call(int32_t, const void *) { relink_stub(MyCallback::v_call); }  /* auto */
+/*  4*/ const void *MyCallback::v_Obj6723E0_scalar_destructor(char) { relink_stub(MyCallback::v_Obj6723E0_scalar_destructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*006723E0*/ void **MyCallback::vftable() { return dk2::MyCallback_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

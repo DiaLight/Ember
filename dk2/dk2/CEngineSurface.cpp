@@ -19,9 +19,9 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0067034C*/ void **CEngineSurface::vftable() { return dk2::CEngineSurface_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*00590580*/ CEngineSurface *CEngineSurface::constructor(int32_t, int32_t, MyCEngineSurfDesc *) { relink_stub(CEngineSurface::constructor); }  /* auto */
-/*00590630*/ void *CEngineSurface::getBufWithSize(int32_t *) { relink_stub(CEngineSurface::getBufWithSize); }  /* auto */
+/*00590630*/ const void *CEngineSurface::getBufWithSize(int32_t *) { relink_stub(CEngineSurface::getBufWithSize); }  /* auto */
 /*00590670*/ void CEngineSurface::destructor() { relink_stub(CEngineSurface::destructor); }  /* auto */
-/*00628BB0*/ void *CEngineSurface::getBuf() { relink_stub(CEngineSurface::getBuf); }  /* auto */
+/*00628BB0*/ const void *CEngineSurface::getBuf() { relink_stub(CEngineSurface::getBuf); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

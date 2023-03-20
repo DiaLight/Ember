@@ -82,17 +82,17 @@ struct CPlayer : CTag {  // ------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066D99C*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CTag  -----------------------------------  /* auto */
-/*  0*/ // virtual void *v_deleting_destructor(char);  // = 004C1FB0  /* auto */
-/*  4*/ // virtual BOOL v_f4(void **);  // = 004B8D40  ---  /* auto */
+/*  0*/ // virtual const void *v_deleting_destructor(char);  // = 004C1FB0  /* auto */
+/*  4*/ // virtual BOOL v_f4(const void **);  // = 004B8D40  /* auto */
 /*---*/ // CPlayer  --------------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*004B8450*/ void constructor();  // ---------------------  /* auto */
 /*004B85A0*/ void destructor();  // ----------------------  /* auto */
 /*004B8C30*/ void sub_4B8C30();  // ----------------------  /* auto */
-/*004B8D40*/ int32_t fun_4B8D40(void **);  // ------------  /* auto */
+/*004B8D40*/ int32_t fun_4B8D40(const void **);  // ------  /* auto */
 /*004B9740*/ void Player_cpp_4B9740();  // ---------------  /* auto */
 /*004B9EC0*/ int32_t tick();  // -------------------------  /* auto */
-/*004BA8D0*/ wchar_t *setName(wchar_t *);  // ------------  /* auto */
+/*004BA8D0*/ const wchar_t *setName(const wchar_t *);       /* auto */
 /*004BFB80*/ int16_t sub_4BFB80();  // -------------------  /* auto */
 /*004C0090*/ BOOL sub_4C0090();  // ----------------------  /* auto */
 /*004C1770*/ int32_t fun_4C1770();  // -------------------  /* auto */

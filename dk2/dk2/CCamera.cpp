@@ -22,9 +22,9 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00449B30*/ int32_t CCamera::sub_449B30() { relink_stub(CCamera::sub_449B30); }  /* auto */
 /*00449BD0*/ int32_t CCamera::fun_449BD0(Vec3i *) { relink_stub(CCamera::fun_449BD0); }  /* auto */
 /*00449CA0*/ void CCamera::zoomRel_449CA0(int32_t) { relink_stub(CCamera::zoomRel_449CA0); }  /* auto */
-/*00449D00*/ float *CCamera::fun_449D00(int16_t *, int16_t *, int16_t *) { relink_stub(CCamera::fun_449D00); }  /* auto */
+/*00449D00*/ const float *CCamera::fun_449D00(int16_t *, int16_t *, int16_t *) { relink_stub(CCamera::fun_449D00); }  /* auto */
 /*00449D40*/ int32_t CCamera::fun_449D40(int16_t *, int16_t *, int16_t *) { relink_stub(CCamera::fun_449D40); }  /* auto */
-/*00449F50*/ float *CCamera::fun_449F50(int16_t *) { relink_stub(CCamera::fun_449F50); }  /* auto */
+/*00449F50*/ const float *CCamera::fun_449F50(int16_t *) { relink_stub(CCamera::fun_449F50); }  /* auto */
 /*0044A370*/ char CCamera::sub_44A370(int32_t, int32_t, int32_t, int32_t) { relink_stub(CCamera::sub_44A370); }  /* auto */
 /*0044A5D0*/ int32_t CCamera::sub_44A5D0(int32_t, int32_t) { relink_stub(CCamera::sub_44A5D0); }  /* auto */
 /*0044A9E0*/ int32_t CCamera::sub_44A9E0(int32_t, int32_t) { relink_stub(CCamera::sub_44A9E0); }  /* auto */
@@ -34,9 +34,9 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0044CFB0*/ int32_t CCamera::fun_44CFB0(int32_t) { relink_stub(CCamera::fun_44CFB0); }  /* auto */
 /*0044D320*/ int32_t CCamera::fun_44D320(int32_t) { relink_stub(CCamera::fun_44D320); }  /* auto */
 /*0044D590*/ BOOL CCamera::fun_44D590() { relink_stub(CCamera::fun_44D590); }  /* auto */
-/*0044D6D0*/ float *CCamera::fun_44D6D0() { relink_stub(CCamera::fun_44D6D0); }  /* auto */
+/*0044D6D0*/ const float *CCamera::fun_44D6D0() { relink_stub(CCamera::fun_44D6D0); }  /* auto */
 /*0044D8F0*/ int32_t CCamera::sub_44D8F0() { relink_stub(CCamera::sub_44D8F0); }  /* auto */
-/*0044DC70*/ float *CCamera::fun_44DC70(int32_t) { relink_stub(CCamera::fun_44DC70); }  /* auto */
+/*0044DC70*/ const float *CCamera::fun_44DC70(int32_t) { relink_stub(CCamera::fun_44DC70); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

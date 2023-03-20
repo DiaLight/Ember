@@ -39,10 +39,10 @@ struct MyTextFont {  // ----------------------------------  /* auto */
 /*---*/ // MyTextFont  -----------------------------------  /* auto */
 /*  0*/ virtual int32_t v_release();  // = 0062FC10  -----  /* auto */
 /*  4*/ virtual int32_t v_addRef();  // = 0062FC00  ------  /* auto */
-/*  8*/ virtual void *v_scalar_destructor(char);  // = 006334A0  /* auto */
+/*  8*/ virtual const void *v_scalar_destructor(char);  // = 006334A0  /* auto */
 /*  C*/ virtual int32_t v_j_LockWrap_release();  // = 0062D9A0  /* auto */
 /* 10*/ virtual int32_t v_j_MyCom_addRef();  // = 0062FC40  /* auto */
-/* 14*/ virtual int32_t v_readMBCharToFontIdx(char **);  // = 00633560  /* auto */
+/* 14*/ virtual int32_t v_readMBCharToFontIdx(const char **);  // = 00633560  /* auto */
 /* 18*/ virtual __int16 v_sub_6335B0();  // = 006335B0  --  /* auto */
 /* 1C*/ virtual Pos2i *v_getCharSize(Pos2i *, int16_t);  // = 006335D0  /* auto */
 /* 20*/ virtual __int16 v_getMaxHeight();  // = 00633630    /* auto */
@@ -50,7 +50,7 @@ struct MyTextFont {  // ----------------------------------  /* auto */
 /* 28*/ virtual int32_t v_probably_getFontType();  // = 00633650  /* auto */
 // -------------------------------------------------------  /* auto */
 /*006334D0*/ MyTextFont *constructor(int32_t, int32_t *);   /* auto */
-/*00633560*/ int32_t readMBChar(char **);  // ------------  /* auto */
+/*00633560*/ int32_t readMBChar(const char **);  // ------  /* auto */
 /*006335D0*/ Pos2i *getCharSize(Pos2i *, int16_t);  // ---  /* auto */
 /*00633630*/ __int16 getMaxHeight();  // -----------------  /* auto */
 /*00633650*/ int32_t probably_getFontType();  // ---------  /* auto */

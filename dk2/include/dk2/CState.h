@@ -40,9 +40,9 @@ struct CState {  // --------------------------------------  /* auto */
 /*0066D404*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // CState  ---------------------------------------  /* auto */
 /*  0*/ virtual BOOL v_fun_476CF0(int32_t *);  // = 00476CF0  /* auto */
-/*  4*/ virtual BOOL v_fun_476CB0(void **);  // = 00476CB0  /* auto */
+/*  4*/ virtual BOOL v_fun_476CB0(const void **);  // = 00476CB0  /* auto */
 /*  8*/ virtual int32_t v_ret_1_0args_0();  // = 004B4C20   /* auto */
-/*  C*/ virtual void *v_duplicate_2_1();  // = 004B4C20  -  /* auto */
+/*  C*/ virtual const void *v_duplicate_2_1();  // = 004B4C20  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00476B10*/ CState *constructor();  // ------------------  /* auto */
 /*00479200*/ void dump();  // ----------------------------  /* auto */

@@ -26,11 +26,11 @@ namespace dk2 {  // --------------------------------------  /* auto */
 #pragma pack(push, 1)  // --------------------------------  /* auto */
 struct MyTbAudioSystem : TbAudioSystem {  // -------------  /* auto */
 // -------------------------------------------------------  /* auto */
-/* 1C*/ void *obj_MyUnk673EB0;  // -----------------------  /* auto */
+/* 1C*/ const void *obj_MyUnk673EB0;  // -----------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00673E48*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super TbAudioSystem  --------------------------  /* auto */
-/*  0*/ // virtual void *v_deleting_destructor(char);  // = 006086C0  /* auto */
+/*  0*/ // virtual const void *v_deleting_destructor(char);  // = 006086C0  /* auto */
 /*  4*/ // virtual int32_t *v_f4(int32_t *);  // = 006086F0  /* auto */
 /*  8*/ // virtual int32_t *v_f8(int32_t *, int32_t, int32_t, int32_t);  // = 00608B70  /* auto */
 /*  C*/ // virtual int32_t v_fC();  // = 00608DA0  -------  /* auto */

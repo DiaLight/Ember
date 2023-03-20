@@ -17,8 +17,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*005FE3A0*/ void WadDirObj::constructor() { relink_stub(WadDirObj::constructor); }  /* auto */
 /*005FEAA0*/ void WadDirObj::destructor() { relink_stub(WadDirObj::destructor); }  /* auto */
-/*005FEB10*/ MyLList_WadFileObj_entry *WadDirObj::putFile(char *, int32_t, int32_t, int32_t, MyALList_WadFileObj *, char) { relink_stub(WadDirObj::putFile); }  /* auto */
-/*005FEBA0*/ WadDirObj *WadDirObj::putDirRecursive(char *, MyALList_WadDirObj *, int32_t) { relink_stub(WadDirObj::putDirRecursive); }  /* auto */
+/*005FEB10*/ MyLList_WadFileObj_entry *WadDirObj::putFile(const char *, int32_t, int32_t, int32_t, MyALList_WadFileObj *, char) { relink_stub(WadDirObj::putFile); }  /* auto */
+/*005FEBA0*/ WadDirObj *WadDirObj::putDirRecursive(const char *, MyALList_WadDirObj *, int32_t) { relink_stub(WadDirObj::putDirRecursive); }  /* auto */
 /*005FEDD0*/ WadDirObj *WadDirObj::sub_5FEDD0(MyStr *, MyStr *) { relink_stub(WadDirObj::sub_5FEDD0); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */

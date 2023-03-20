@@ -19,7 +19,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0067B9C8*/ void **MyTextMBToUni::vftable() { return dk2::MyTextMBToUni_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*0062E3A0*/ MyTextMBToUni *MyTextMBToUni::constructor(char, __int16, int32_t) { relink_stub(MyTextMBToUni::constructor); }  /* auto */
-/*0062E440*/ int32_t *MyTextMBToUni::convert(int32_t *, wchar_t *, int8_t *, __int16) { relink_stub(MyTextMBToUni::convert); }  /* auto */
+/*0062E440*/ int32_t *MyTextMBToUni::convert(int32_t *, const wchar_t *, int8_t *, __int16) { relink_stub(MyTextMBToUni::convert); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

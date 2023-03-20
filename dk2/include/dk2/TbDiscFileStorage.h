@@ -30,22 +30,22 @@ struct TbDiscFileStorage : FileStorageBase {  // ---------  /* auto */
 /*0066F3AC*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super FileStorageBase  ------------------------  /* auto */
 /*  0*/ // virtual int32_t v_releaseContent();  // = 005B9D40  /* auto */
-/*  4*/ // virtual int32_t *v_firstFile(int32_t *, char *, MyFileInfo *);  // = 005B9DD0  /* auto */
+/*  4*/ // virtual int32_t *v_firstFile(int32_t *, const char *, MyFileInfo *);  // = 005B9DD0  /* auto */
 /*  8*/ // virtual int32_t *v_FileStorageBase_fun_5B9E00(int32_t *, int32_t);  // = 005B9E00  /* auto */
-/*  C*/ // virtual int32_t *v_openInputStream(int32_t *, TbDiscFile *, char *, int32_t, int32_t);  // = 005B9E30  /* auto */
+/*  C*/ // virtual int32_t *v_openInputStream(int32_t *, TbDiscFile *, const char *, int32_t, int32_t);  // = 005B9E30  /* auto */
 /* 10*/ // virtual int32_t *v_FileStorageBase_fun_5B9D60(int32_t *, int32_t, int32_t);  // = 005B9D60  /* auto */
-/* 14*/ // virtual int32_t *v_formatFilePath(int32_t *, char *, char *, int32_t);  // = 005B9D90  /* auto */
+/* 14*/ // virtual int32_t *v_formatFilePath(int32_t *, const char *, const char *, int32_t);  // = 005B9D90  /* auto */
 /* 18*/ // virtual int32_t v_TbWadFileStorage__fun_5B9E70();  // = 005B9E70  /* auto */
 /* 1C*/ // virtual int32_t *v_FileStorageBase_fun_5B9EB0(int32_t *, int32_t, int32_t);  // = 005B9EB0  /* auto */
 /* 20*/ // virtual int32_t *v_FileStorageBase_fun_5B9EE0(int32_t *, int32_t);  // = 005B9EE0  /* auto */
 /* 24*/ // virtual int32_t *v_FileStorageBase_fun_5B9F10(int32_t *, int32_t);  // = 005B9F10  /* auto */
 /* 28*/ // virtual int32_t *v_FileStorageBase_fun_5B9F40(int32_t *, int32_t, int32_t);  // = 005B9F40  /* auto */
-/* 2C*/ // virtual void *v_scalar_destructor(char);  // = 0055C000  /* auto */
+/* 2C*/ // virtual const void *v_scalar_destructor(char);  // = 0055C000  /* auto */
 /*---*/ // TbDiscFileStorage  ----------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
-/*005B9E30*/ int32_t *openInputStream(int32_t *, TbDiscFile *, char *, int32_t, int32_t);  /* auto */
-/*005BABA0*/ int32_t *openDirectory(int32_t *, char *);     /* auto */
-/*0060F7B0*/ int32_t sub_60F7B0(int32_t, char *);  // ----  /* auto */
+/*005B9E30*/ int32_t *openInputStream(int32_t *, TbDiscFile *, const char *, int32_t, int32_t);  /* auto */
+/*005BABA0*/ int32_t *openDirectory(int32_t *, const char *);  /* auto */
+/*0060F7B0*/ int32_t sub_60F7B0(int32_t, const char *);     /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

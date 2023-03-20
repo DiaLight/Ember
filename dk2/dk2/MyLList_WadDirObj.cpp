@@ -15,11 +15,11 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *MyLList_WadDirObj::v___sub_5FE3D0_scalar_destructor(char) { relink_stub(MyLList_WadDirObj::v___sub_5FE3D0_scalar_destructor); }  /* auto */
+/*  0*/ const void *MyLList_WadDirObj::v___sub_5FE3D0_scalar_destructor(char) { relink_stub(MyLList_WadDirObj::v___sub_5FE3D0_scalar_destructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672EE8*/ void **MyLList_WadDirObj::vftable() { return dk2::MyLList_WadDirObj_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*005FE3D0*/ void *MyLList_WadDirObj::scalar_destructor(char) { relink_stub(MyLList_WadDirObj::scalar_destructor); }  /* auto */
+/*005FE3D0*/ const void *MyLList_WadDirObj::scalar_destructor(char) { relink_stub(MyLList_WadDirObj::scalar_destructor); }  /* auto */
 /*005FE3F0*/ void MyLList_WadDirObj::destructor() { relink_stub(MyLList_WadDirObj::destructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */

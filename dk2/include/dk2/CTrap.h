@@ -43,8 +43,8 @@ struct CTrap : CPhysicalThing {  // ----------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066D754*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CTag  -----------------------------------  /* auto */
-/*  0*/ // virtual void *v_deleting_destructor(char);  // = 004B7470  /* auto */
-/*  4*/ // virtual BOOL v_f4(void **);  // = 004A7BD0  ---  /* auto */
+/*  0*/ // virtual const void *v_deleting_destructor(char);  // = 004B7470  /* auto */
+/*  4*/ // virtual BOOL v_f4(const void **);  // = 004A7BD0  /* auto */
 /*---*/ // super CThing  ---------------------------------  /* auto */
 /*  8*/ // virtual int32_t v_f8(int32_t);  // = 004A7C60    /* auto */
 /*  C*/ // virtual int32_t v_fC();  // = 004A7CC0  -------  /* auto */
@@ -55,7 +55,7 @@ struct CTrap : CPhysicalThing {  // ----------------------  /* auto */
 /* 20*/ // virtual void v_f20();  // = 004B2AD0  ---------  /* auto */
 /* 24*/ // virtual char v_f24(int32_t);  // = 004A96A0  --  /* auto */
 /* 28*/ // virtual BOOL v_f28();  // = 004B5C30  ---------  /* auto */
-/* 2C*/ // virtual char *v_f2C();  // = 004B5C10  --------  /* auto */
+/* 2C*/ // virtual const char *v_f2C();  // = 004B5C10  --  /* auto */
 /* 30*/ // virtual int32_t v_f30();  // = 004A93E0  ------  /* auto */
 /* 34*/ // virtual int32_t v_f34();  // = 00628BC0  ------  /* auto */
 /* 38*/ // virtual int32_t v_f38();  // = 00402AD0  ------  /* auto */
@@ -66,7 +66,7 @@ struct CTrap : CPhysicalThing {  // ----------------------  /* auto */
 /* 4C*/ // virtual int16_t *v_f4C(int16_t *);  // = 004A9B70  /* auto */
 /* 50*/ // virtual int16_t *v_f50(int16_t *);  // = 004A68A0  /* auto */
 /*---*/ // super CPhysicalThing  -------------------------  /* auto */
-/* 54*/ // virtual char *v_f54();  // = 004B5C40  --------  /* auto */
+/* 54*/ // virtual const char *v_f54();  // = 004B5C40  --  /* auto */
 /* 58*/ // virtual int16_t *v_f58(int16_t *);  // = 004B5C50  /* auto */
 /* 5C*/ // virtual BOOL v_f5C();  // = 004AA050  ---------  /* auto */
 /*---*/ // CTrap  ----------------------------------------  /* auto */

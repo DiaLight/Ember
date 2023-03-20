@@ -19,8 +19,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00672740*/ void **MyWadDirectory::vftable() { return dk2::MyWadDirectory_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*005D8370*/ MyWadDirectory *MyWadDirectory::constructor() { relink_stub(MyWadDirectory::constructor); }  /* auto */
-/*005D8510*/ char **MyWadDirectory::clearData() { relink_stub(MyWadDirectory::clearData); }  /* auto */
-/*005D8560*/ int32_t *MyWadDirectory::readAndParse(int32_t *, char *, __int16) { relink_stub(MyWadDirectory::readAndParse); }  /* auto */
+/*005D8510*/ const char **MyWadDirectory::clearData() { relink_stub(MyWadDirectory::clearData); }  /* auto */
+/*005D8560*/ int32_t *MyWadDirectory::readAndParse(int32_t *, const char *, __int16) { relink_stub(MyWadDirectory::readAndParse); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

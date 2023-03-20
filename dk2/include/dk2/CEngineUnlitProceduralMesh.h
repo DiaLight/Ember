@@ -28,13 +28,13 @@ struct CEngineUnlitProceduralMesh : CEnginePrimitiveBase {  /* auto */
 // -------------------------------------------------------  /* auto */
 /*  8*/ int32_t a2;  // ----------------------------------  /* auto */
 /*  C*/ int32_t field_8;  // -----------------------------  /* auto */
-/* 10*/ char *field_C;  // -------------------------------  /* auto */
-/* 14*/ char *compBuf;  // -------------------------------  /* auto */
-/* 18*/ char *field_14;  // ------------------------------  /* auto */
-/* 1C*/ char *field_18;  // ------------------------------  /* auto */
+/* 10*/ const char *field_C;  // -------------------------  /* auto */
+/* 14*/ const char *compBuf;  // -------------------------  /* auto */
+/* 18*/ const char *field_14;  // ------------------------  /* auto */
+/* 1C*/ const char *field_18;  // ------------------------  /* auto */
 /* 20*/ int32_t field_1C;  // ----------------------------  /* auto */
-/* 24*/ char *bufPos;  // --------------------------------  /* auto */
-/* 28*/ char *field_24;  // ------------------------------  /* auto */
+/* 24*/ const char *bufPos;  // --------------------------  /* auto */
+/* 28*/ const char *field_24;  // ------------------------  /* auto */
 /* 2C*/ int8_t gap_2C[36];  // ---------------------------  /* auto */
 /* 50*/ int32_t field_4C;  // ----------------------------  /* auto */
 /* 54*/ int16_t field_50;  // ----------------------------  /* auto */
@@ -53,7 +53,7 @@ struct CEngineUnlitProceduralMesh : CEnginePrimitiveBase {  /* auto */
 /* 18*/ virtual int32_t v_ret_0_1args(int32_t);  // = 00628E30  /* auto */
 /* 1C*/ virtual void v_ret_void_1args(int32_t);  // = 005671E0  /* auto */
 // -------------------------------------------------------  /* auto */
-/*00588190*/ CEngineUnlitProceduralMesh *constructor(int32_t, int32_t, int32_t, void *, void *, int16_t *, int32_t, int32_t);  /* auto */
+/*00588190*/ CEngineUnlitProceduralMesh *constructor(int32_t, int32_t, int32_t, const void *, const void *, int16_t *, int32_t, int32_t);  /* auto */
 /*005884F0*/ int32_t *fun_5884F0(int32_t, SceneObject2E *);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

@@ -107,14 +107,14 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0066F214*/ void *(&dk2::CFileManager_vftable)[12] = _CFileManager_vftable;  /* auto */
 /*--------*/ relink_glob void *_TbDiscFile_vftable[10];     /* auto */
 /*0066F24C*/ void *(&dk2::TbDiscFile_vftable)[10] = _TbDiscFile_vftable;  /* auto */
-/*--------*/ relink_glob char *_Drive;  // ---------------  /* auto */
-/*0066F338*/ char *&dk2::Drive = _Drive;  // -------------  /* auto */
-/*--------*/ relink_glob char *_lpSubKey;  // ------------  /* auto */
-/*0066F34C*/ char *&dk2::lpSubKey = _lpSubKey;  // -------  /* auto */
+/*--------*/ relink_glob const char *_Drive;  // ---------  /* auto */
+/*0066F338*/ const char *&dk2::Drive = _Drive;  // -------  /* auto */
+/*--------*/ relink_glob const char *_lpSubKey;  // ------  /* auto */
+/*0066F34C*/ const char *&dk2::lpSubKey = _lpSubKey;  // -  /* auto */
 /*--------*/ relink_glob void *_TbDiscFileStorage_vftable[12];  /* auto */
 /*0066F3AC*/ void *(&dk2::TbDiscFileStorage_vftable)[12] = _TbDiscFileStorage_vftable;  /* auto */
-/*--------*/ relink_glob char *_lpValueName;  // ---------  /* auto */
-/*0066F46C*/ char *&dk2::lpValueName = _lpValueName;  // -  /* auto */
+/*--------*/ relink_glob const char *_lpValueName;  // ---  /* auto */
+/*0066F46C*/ const char *&dk2::lpValueName = _lpValueName;  /* auto */
 /*--------*/ relink_glob void *_CSoundSystem_vftable[32];   /* auto */
 /*0066F7FC*/ void *(&dk2::CSoundSystem_vftable)[32] = _CSoundSystem_vftable;  /* auto */
 /*--------*/ relink_glob void *_TbAudioSystem_vftable[7];   /* auto */
@@ -203,6 +203,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00671E20*/ GUID &dk2::CLSID_IDirectDraw4 = _CLSID_IDirectDraw4;  /* auto */
 /*--------*/ relink_glob GUID _CLSID_IDirectDraw2;  // ---  /* auto */
 /*00671E30*/ GUID &dk2::CLSID_IDirectDraw2 = _CLSID_IDirectDraw2;  /* auto */
+/*--------*/ relink_glob void *_FPUControlWord_vftable[1];  /* auto */
+/*00671F40*/ void *(&dk2::FPUControlWord_vftable)[1] = _FPUControlWord_vftable;  /* auto */
 /*--------*/ relink_glob void *_DiscFileBase_vftable[9];    /* auto */
 /*00671F80*/ void *(&dk2::DiscFileBase_vftable)[9] = _DiscFileBase_vftable;  /* auto */
 /*--------*/ relink_glob void *_MyStr_vftable[11];  // ---  /* auto */
@@ -521,12 +523,12 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*006C9490*/ int16_t &dk2::__ctype = ___ctype;  // -------  /* auto */
 /*--------*/ relink_glob size_t _SrcSizeInBytes;  // -----  /* auto */
 /*006C9694*/ size_t &dk2::SrcSizeInBytes = _SrcSizeInBytes;  /* auto */
-/*--------*/ relink_glob void *_lpMem;  // ---------------  /* auto */
-/*006C9AB4*/ void *&dk2::lpMem = _lpMem;  // -------------  /* auto */
-/*--------*/ relink_glob void *_lpBuffer[35];  // --------  /* auto */
-/*006CBC0C*/ void *(&dk2::lpBuffer)[35] = _lpBuffer;  // -  /* auto */
-/*--------*/ relink_glob char *_Dest;  // ----------------  /* auto */
-/*006CC648*/ char *&dk2::Dest = _Dest;  // ---------------  /* auto */
+/*--------*/ relink_glob const void *_lpMem;  // ---------  /* auto */
+/*006C9AB4*/ const void *&dk2::lpMem = _lpMem;  // -------  /* auto */
+/*--------*/ relink_glob const void *_lpBuffer[35];  // --  /* auto */
+/*006CBC0C*/ const void *(&dk2::lpBuffer)[35] = _lpBuffer;  /* auto */
+/*--------*/ relink_glob const char *_Dest;  // ----------  /* auto */
+/*006CC648*/ const char *&dk2::Dest = _Dest;  // ---------  /* auto */
 /*--------*/ relink_glob CEntryComponent _CEntryComponent_instance;  /* auto */
 /*006CCA20*/ CEntryComponent &dk2::CEntryComponent_instance = _CEntryComponent_instance;  /* auto */
 /*--------*/ relink_glob MyDdSurfaceEx _myDdSurfaceArr_x15[21];  /* auto */
@@ -555,8 +557,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*006EB988*/ FILE *&dk2::Stream = _Stream;  // -----------  /* auto */
 /*--------*/ relink_glob int32_t _Obj6ECA60_instance;       /* auto */
 /*006ECA60*/ int32_t &dk2::Obj6ECA60_instance = _Obj6ECA60_instance;  /* auto */
-/*--------*/ relink_glob void *_Obj6ECAE0_instance;  // --  /* auto */
-/*006ECAE0*/ void *&dk2::Obj6ECAE0_instance = _Obj6ECAE0_instance;  /* auto */
+/*--------*/ relink_glob const void *_Obj6ECAE0_instance;   /* auto */
+/*006ECAE0*/ const void *&dk2::Obj6ECAE0_instance = _Obj6ECAE0_instance;  /* auto */
 /*--------*/ relink_glob char _sceneObjectsPresent[4096];   /* auto */
 /*006ED540*/ char (&dk2::sceneObjectsPresent)[4096] = _sceneObjectsPresent;  /* auto */
 /*--------*/ relink_glob CTag *_sceneObjects[1];  // -----  /* auto */
@@ -601,10 +603,10 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0073F580*/ StaticListeners &dk2::CFrontEndComponent_ShowMovie_static_listeners = _CFrontEndComponent_ShowMovie_static_listeners;  /* auto */
 /*--------*/ relink_glob wchar_t _SrcStr;  // ------------  /* auto */
 /*0073FC24*/ wchar_t &dk2::SrcStr = _SrcStr;  // ---------  /* auto */
-/*--------*/ relink_glob void *_Block;  // ---------------  /* auto */
-/*0073FE78*/ void *&dk2::Block = _Block;  // -------------  /* auto */
-/*--------*/ relink_glob char *_lpMultiByteStr;  // ------  /* auto */
-/*0074033C*/ char *&dk2::lpMultiByteStr = _lpMultiByteStr;  /* auto */
+/*--------*/ relink_glob const void *_Block;  // ---------  /* auto */
+/*0073FE78*/ const void *&dk2::Block = _Block;  // -------  /* auto */
+/*--------*/ relink_glob const char *_lpMultiByteStr;       /* auto */
+/*0074033C*/ const char *&dk2::lpMultiByteStr = _lpMultiByteStr;  /* auto */
 /*--------*/ relink_glob size_t _BtnSize;  // ------------  /* auto */
 /*00740340*/ size_t &dk2::BtnSize = _BtnSize;  // --------  /* auto */
 /*--------*/ relink_glob int32_t _g_FontObj6_instance[20];  /* auto */
@@ -721,10 +723,10 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*007656E8*/ MyStringHashMap_MyScaledSurface &dk2::MyStringHashMap_MyScaledSurface_instance = _MyStringHashMap_MyScaledSurface_instance;  /* auto */
 /*--------*/ relink_glob MyEntryBuf_MyScaledSurface _MyEntryBuf_MyScaledSurface_instance;  /* auto */
 /*00765AF8*/ MyEntryBuf_MyScaledSurface &dk2::MyEntryBuf_MyScaledSurface_instance = _MyEntryBuf_MyScaledSurface_instance;  /* auto */
-/*--------*/ relink_glob void *_MyHeap_increaseBlocks[32];  /* auto */
-/*00765B18*/ void *(&dk2::MyHeap_increaseBlocks)[32] = _MyHeap_increaseBlocks;  /* auto */
-/*--------*/ relink_glob void *_MyHeap_bufArr[32];  // ---  /* auto */
-/*00765DA0*/ void *(&dk2::MyHeap_bufArr)[32] = _MyHeap_bufArr;  /* auto */
+/*--------*/ relink_glob const void *_MyHeap_increaseBlocks[32];  /* auto */
+/*00765B18*/ const void *(&dk2::MyHeap_increaseBlocks)[32] = _MyHeap_increaseBlocks;  /* auto */
+/*--------*/ relink_glob const void *_MyHeap_bufArr[32];    /* auto */
+/*00765DA0*/ const void *(&dk2::MyHeap_bufArr)[32] = _MyHeap_bufArr;  /* auto */
 /*--------*/ relink_glob int32_t _CMemLoadIFFFile_instance;  /* auto */
 /*00766228*/ int32_t &dk2::CMemLoadIFFFile_instance = _CMemLoadIFFFile_instance;  /* auto */
 /*--------*/ relink_glob MyStringHashMap _MyStringHashMap_unkh18_instance;  /* auto */
@@ -803,10 +805,10 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00795700*/ CBridge *&dk2::g_pCBridge = _g_pCBridge;       /* auto */
 /*--------*/ relink_glob int32_t _mpeg2_dc_dct_pred[3];     /* auto */
 /*00796170*/ int32_t (&dk2::mpeg2_dc_dct_pred)[3] = _mpeg2_dc_dct_pred;  /* auto */
-/*--------*/ relink_glob void *_mgsr_buf_25635;  // ------  /* auto */
-/*00797B74*/ void *&dk2::mgsr_buf_25635 = _mgsr_buf_25635;  /* auto */
-/*--------*/ relink_glob void *_mgsr_buf2_12835;  // -----  /* auto */
-/*00797B7C*/ void *&dk2::mgsr_buf2_12835 = _mgsr_buf2_12835;  /* auto */
+/*--------*/ relink_glob const void *_mgsr_buf_25635;       /* auto */
+/*00797B74*/ const void *&dk2::mgsr_buf_25635 = _mgsr_buf_25635;  /* auto */
+/*--------*/ relink_glob const void *_mgsr_buf2_12835;      /* auto */
+/*00797B7C*/ const void *&dk2::mgsr_buf2_12835 = _mgsr_buf2_12835;  /* auto */
 /*--------*/ relink_glob MyInputManagerCb _MyInputManagerCb_instance;  /* auto */
 /*0079CF90*/ MyInputManagerCb &dk2::MyInputManagerCb_instance = _MyInputManagerCb_instance;  /* auto */
 /*--------*/ relink_glob HWND__ *_dd_hWnd;  // -----------  /* auto */
@@ -829,6 +831,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0079D260*/ char (&dk2::bullfrogClassName)[260] = _bullfrogClassName;  /* auto */
 /*--------*/ relink_glob MyDdSurfaceEx *_g_pDdSurface_windowed;  /* auto */
 /*0079D364*/ MyDdSurfaceEx *&dk2::g_pDdSurface_windowed = _g_pDdSurface_windowed;  /* auto */
+/*--------*/ relink_glob FPUControlWordWithState _FPUControlWordWithState_instance;  /* auto */
+/*0079D368*/ FPUControlWordWithState &dk2::FPUControlWordWithState_instance = _FPUControlWordWithState_instance;  /* auto */
 /*--------*/ relink_glob MyDdSurfaceEx _g_dd_surface2;      /* auto */
 /*0079D378*/ MyDdSurfaceEx &dk2::g_dd_surface2 = _g_dd_surface2;  /* auto */
 /*--------*/ relink_glob HWND__ *_hWnd;  // --------------  /* auto */
@@ -841,18 +845,36 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0079D3D4*/ IDirectDrawPalette *&dk2::lpDDPalette = _lpDDPalette;  /* auto */
 /*--------*/ relink_glob IDirectDrawClipper *_lpDDClipper;  /* auto */
 /*0079D3D8*/ IDirectDrawClipper *&dk2::lpDDClipper = _lpDDClipper;  /* auto */
+/*--------*/ relink_glob int32_t _g_isNeedBlt;  // -------  /* auto */
+/*0079D3DC*/ int32_t &dk2::g_isNeedBlt = _g_isNeedBlt;      /* auto */
+/*--------*/ relink_glob int32_t _g_ignore_79D3E0;  // ---  /* auto */
+/*0079D3E0*/ int32_t &dk2::g_ignore_79D3E0 = _g_ignore_79D3E0;  /* auto */
 /*--------*/ relink_glob GUID *_selectedDDGuid;  // ------  /* auto */
 /*0079D3E4*/ GUID *&dk2::selectedDDGuid = _selectedDDGuid;  /* auto */
+/*--------*/ relink_glob int32_t _isSurfModeX;  // -------  /* auto */
+/*0079D3E8*/ int32_t &dk2::isSurfModeX = _isSurfModeX;      /* auto */
 /*--------*/ relink_glob IDirectDraw *_lpSurfaceDD;  // --  /* auto */
 /*0079D3F0*/ IDirectDraw *&dk2::lpSurfaceDD = _lpSurfaceDD;  /* auto */
+/*--------*/ relink_glob PALETTEENTRY _palleteEntries[256];  /* auto */
+/*0079D418*/ PALETTEENTRY (&dk2::palleteEntries)[256] = _palleteEntries;  /* auto */
+/*--------*/ relink_glob MySurfDesc _g_confSurfDesc2;       /* auto */
+/*0079D818*/ MySurfDesc &dk2::g_confSurfDesc2 = _g_confSurfDesc2;  /* auto */
 /*--------*/ relink_glob MySurfDesc _g_confSurfDesc;  // -  /* auto */
 /*0079D830*/ MySurfDesc &dk2::g_confSurfDesc = _g_confSurfDesc;  /* auto */
+/*--------*/ relink_glob MySurfDesc _g_confSurfDesc3;       /* auto */
+/*0079D848*/ MySurfDesc &dk2::g_confSurfDesc3 = _g_confSurfDesc3;  /* auto */
+/*--------*/ relink_glob MySurfDesc _g_confSurfDesc4;       /* auto */
+/*0079D860*/ MySurfDesc &dk2::g_confSurfDesc4 = _g_confSurfDesc4;  /* auto */
 /*--------*/ relink_glob char _pathBuf[256];  // ---------  /* auto */
 /*0079D980*/ char (&dk2::pathBuf)[256] = _pathBuf;  // ---  /* auto */
 /*--------*/ relink_glob char _dk2HomeDir[260];  // ------  /* auto */
 /*0079DA88*/ char (&dk2::dk2HomeDir)[260] = _dk2HomeDir;    /* auto */
 /*--------*/ relink_glob WinEventHandlers _WinEventHandlers_instance;  /* auto */
 /*0079DBD0*/ WinEventHandlers &dk2::WinEventHandlers_instance = _WinEventHandlers_instance;  /* auto */
+/*--------*/ relink_glob MySurfDesc _g_confSurfDesc6;       /* auto */
+/*0079DC38*/ MySurfDesc &dk2::g_confSurfDesc6 = _g_confSurfDesc6;  /* auto */
+/*--------*/ relink_glob MySurfDesc _g_confSurfDesc5;       /* auto */
+/*0079DC50*/ MySurfDesc &dk2::g_confSurfDesc5 = _g_confSurfDesc5;  /* auto */
 /*--------*/ relink_glob Obj79DC68 _Obj79DC68_instance;     /* auto */
 /*0079DC68*/ Obj79DC68 &dk2::Obj79DC68_instance = _Obj79DC68_instance;  /* auto */
 /*--------*/ relink_glob char _tqi_byte_79F4F0[264];  // -  /* auto */
@@ -919,8 +941,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*007A5B04*/ int32_t (__stdcall *&dk2::lpTopLevelExceptionFilter)(_EXCEPTION_POINTERS *) = _lpTopLevelExceptionFilter;  /* auto */
 /*--------*/ relink_glob _TIME_ZONE_INFORMATION _TimeZoneInformation;  /* auto */
 /*007A5B80*/ _TIME_ZONE_INFORMATION &dk2::TimeZoneInformation = _TimeZoneInformation;  /* auto */
-/*--------*/ relink_glob int32_t (__stdcall *_MessageBoxA_0)(HWND__ *, char *, char *, int32_t);  /* auto */
-/*007A5C34*/ int32_t (__stdcall *&dk2::MessageBoxA_0)(HWND__ *, char *, char *, int32_t) = _MessageBoxA_0;  /* auto */
+/*--------*/ relink_glob int32_t (__stdcall *_MessageBoxA_0)(HWND__ *, const char *, const char *, int32_t);  /* auto */
+/*007A5C34*/ int32_t (__stdcall *&dk2::MessageBoxA_0)(HWND__ *, const char *, const char *, int32_t) = _MessageBoxA_0;  /* auto */
 /*--------*/ relink_glob HWND__ * (__stdcall *_GetActiveWindow)();  /* auto */
 /*007A5C38*/ HWND__ * (__stdcall *&dk2::GetActiveWindow)() = _GetActiveWindow;  /* auto */
 /*--------*/ relink_glob HWND__ * (__stdcall *_GetLastActivePopup)(HWND__ *);  /* auto */
@@ -929,12 +951,12 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*007A5C60*/ wchar_t &dk2::LCData = _LCData;  // ---------  /* auto */
 /*--------*/ relink_glob size_t _g_charBufferSize;  // ---  /* auto */
 /*007A5C88*/ size_t &dk2::g_charBufferSize = _g_charBufferSize;  /* auto */
-/*--------*/ relink_glob void *_g_charBuffer;  // --------  /* auto */
-/*007A5C8C*/ void *&dk2::g_charBuffer = _g_charBuffer;      /* auto */
+/*--------*/ relink_glob const void *_g_charBuffer;  // --  /* auto */
+/*007A5C8C*/ const void *&dk2::g_charBuffer = _g_charBuffer;  /* auto */
 /*--------*/ relink_glob int32_t _uNumber;  // -----------  /* auto */
 /*007A5DA0*/ int32_t &dk2::uNumber = _uNumber;  // -------  /* auto */
-/*--------*/ relink_glob void *_hHeap;  // ---------------  /* auto */
-/*007A5DA8*/ void *&dk2::hHeap = _hHeap;  // -------------  /* auto */
+/*--------*/ relink_glob const void *_hHeap;  // ---------  /* auto */
+/*007A5DA8*/ const void *&dk2::hHeap = _hHeap;  // -------  /* auto */
 /*--------*/ relink_glob int32_t _Addend;  // ------------  /* auto */
 /*007A5DB0*/ int32_t &dk2::Addend = _Addend;  // ---------  /* auto */
 /*--------*/ relink_glob size_t _Count;  // --------------  /* auto */

@@ -29,12 +29,10 @@ bool remove_mouse_dinput() {
     // don't attach dinput mouse to ControlKeysUpdater
     uint8_t *pos = api::dk2_base + (0x005BC091 - dk2_virtual_base);  // .text:005BC091    jge     short loc_5BC0A1
     {
-        DWORD oldProtect;
-        VirtualProtect(pos, sizeof(DWORD), PAGE_EXECUTE_READWRITE, &oldProtect);
+        write_protect prot(pos, sizeof(DWORD));
         for (int i = 0; i < 2; ++i) {
             pos[i] = 0x90;
         }
-        VirtualProtect(pos, sizeof(DWORD), oldProtect, NULL);
     }
     return true;
 }

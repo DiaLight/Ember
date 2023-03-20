@@ -17,10 +17,10 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
 /*  0*/ int32_t *CComponent::v_deleting_destructor(char) { relink_stub(CComponent::v_deleting_destructor); }  /* auto */
 /*  4*/ int32_t CComponent::v_f4_() { relink_stub(CComponent::v_f4_); }  /* auto */
-/*  8*/ void *CComponent::v_f8_() { relink_stub(CComponent::v_f8_); }  /* auto */
+/*  8*/ const void *CComponent::v_f8_() { relink_stub(CComponent::v_f8_); }  /* auto */
 /*  C*/ int32_t CComponent::v_handle() { relink_stub(CComponent::v_handle); }  /* auto */
 /* 10*/ int32_t *CComponent::v_f10_() { relink_stub(CComponent::v_f10_); }  /* auto */
-/* 14*/ void ***CComponent::v_mainGuiLoop() { relink_stub(CComponent::v_mainGuiLoop); }  /* auto */
+/* 14*/ const void ***CComponent::v_mainGuiLoop() { relink_stub(CComponent::v_mainGuiLoop); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066C45C*/ void **CComponent::vftable() { return dk2::CComponent_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

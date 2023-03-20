@@ -33,7 +33,7 @@ struct TbAudioSystem {  // -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066F90C*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // TbAudioSystem  --------------------------------  /* auto */
-/*  0*/ virtual void *v_deleting_destructor(char);  // = 005672E0  /* auto */
+/*  0*/ virtual const void *v_deleting_destructor(char);  // = 005672E0  /* auto */
 /*  4*/ virtual int32_t *v_f4(int32_t *);  // = 00608A50    /* auto */
 /*  8*/ virtual int32_t *v_f8(int32_t *, int32_t, int32_t, int32_t);  // = 00608B70  /* auto */
 /*  C*/ virtual int32_t v_fC();  // = 00608DA0  ----------  /* auto */

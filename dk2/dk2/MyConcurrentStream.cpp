@@ -20,7 +20,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*005FF710*/ MyConcurrentStream *MyConcurrentStream::constructor() { relink_stub(MyConcurrentStream::constructor); }  /* auto */
 /*005FF730*/ size_t MyConcurrentStream::readBytes(int32_t, int32_t) { relink_stub(MyConcurrentStream::readBytes); }  /* auto */
-/*005FF7C0*/ size_t MyConcurrentStream::writeBytes(void *, int32_t) { relink_stub(MyConcurrentStream::writeBytes); }  /* auto */
+/*005FF7C0*/ size_t MyConcurrentStream::writeBytes(const void *, int32_t) { relink_stub(MyConcurrentStream::writeBytes); }  /* auto */
 /*005FF850*/ int32_t MyConcurrentStream::seek(int32_t, int32_t) { relink_stub(MyConcurrentStream::seek); }  /* auto */
 /*005FF8E0*/ size_t MyConcurrentStream::getSize() { relink_stub(MyConcurrentStream::getSize); }  /* auto */
 /*005FF990*/ void MyConcurrentStream::wrapStream(MyInputStream *) { relink_stub(MyConcurrentStream::wrapStream); }  /* auto */

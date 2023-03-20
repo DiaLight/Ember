@@ -11,18 +11,18 @@
 namespace hook {
 
 
-    std::vector<std::function<int(int &argc, char **&argv)>> BEFORE_MAIN;
-    std::vector<std::function<void(int argc, char *argv[], int &exitCode)>> AFTER_MAIN;
+    std::vector<std::function<int(int &argc, const char **&argv)>> BEFORE_MAIN;
+    std::vector<std::function<void(int argc, const char *argv[], int &exitCode)>> AFTER_MAIN;
 
     HookHandle *allReadyToStart = nullptr;
     std::vector<std::function<void()>> ALL_READY_TO_START;
 
 }
 
-int __cdecl proxy_main(int argc, char *argv[]) {
+int __cdecl proxy_main(int argc, const char *argv[]) {
     int exitCode = -1;
     argc = api::DK2_ARGS.size();
-    std::vector<char *> args;
+    std::vector<const char *> args;
     args.reserve(api::DK2_ARGS.size());
     for(auto &arg : api::DK2_ARGS) args.push_back((char *) arg.c_str());
     args.push_back(NULL);

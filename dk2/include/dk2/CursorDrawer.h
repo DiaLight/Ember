@@ -56,7 +56,7 @@ struct CursorDrawer {  // --------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672854*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // CursorDrawer  ---------------------------------  /* auto */
-/*  0*/ virtual void *v_Obj672854_scalar_destructor(char);  // = 005DBF40  /* auto */
+/*  0*/ virtual const void *v_Obj672854_scalar_destructor(char);  // = 005DBF40  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005DBE60*/ CursorDrawer *constructor();  // ------------  /* auto */
 /*005DBF80*/ void updateCursorAndDraw(Pos2i *, MyDdSurfaceEx *);  /* auto */

@@ -56,7 +56,7 @@ struct CEngineSprite : CEngine2DPrimitive {  // ----------  /* auto */
 /* 18*/ virtual int32_t v_ret_0_1args(int32_t);  // = 00628E30  /* auto */
 /* 1C*/ virtual void v_ret_void_1args(int32_t);  // = 005671E0  /* auto */
 // -------------------------------------------------------  /* auto */
-/*0057F110*/ CEngineSprite *constructor2(float *, int32_t, int32_t, int32_t, float *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
+/*0057F110*/ CEngineSprite *constructor2(const float *, int32_t, int32_t, int32_t, const float *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*0057F1E0*/ CEngineSprite *constructor(int32_t, int32_t, float, float, int32_t, int32_t, int32_t, int32_t, float, float, float, int32_t, int32_t);  /* auto */
 /*0057F7E0*/ void appendToSceneObject2EList(int32_t);       /* auto */
 // -------------------------------------------------------  /* auto */

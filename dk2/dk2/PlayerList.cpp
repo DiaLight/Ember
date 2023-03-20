@@ -20,8 +20,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*004C2010*/ __int16 PlayerList::remove_players() { relink_stub(PlayerList::remove_players); }  /* auto */
 /*004C2310*/ int32_t PlayerList::tick() { relink_stub(PlayerList::tick); }  /* auto */
 /*004C23B0*/ int32_t PlayerList::sub_4C23B0(int16_t) { relink_stub(PlayerList::sub_4C23B0); }  /* auto */
-/*004C2980*/ int32_t PlayerList::sub_4C2980(char *) { relink_stub(PlayerList::sub_4C2980); }  /* auto */
-/*004C2A70*/ int32_t PlayerList::sub_4C2A70(char *) { relink_stub(PlayerList::sub_4C2A70); }  /* auto */
+/*004C2980*/ int32_t PlayerList::sub_4C2980(const char *) { relink_stub(PlayerList::sub_4C2980); }  /* auto */
+/*004C2A70*/ int32_t PlayerList::sub_4C2A70(const char *) { relink_stub(PlayerList::sub_4C2A70); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

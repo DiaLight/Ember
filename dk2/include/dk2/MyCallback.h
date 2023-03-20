@@ -27,8 +27,8 @@ struct MyCallback {  // ----------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*006723E0*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // MyCallback  -----------------------------------  /* auto */
-/*  0*/ virtual int32_t v_call(int32_t, void *);  // = 00634D60  /* auto */
-/*  4*/ virtual void *v_Obj6723E0_scalar_destructor(char);  // = 005BB420  /* auto */
+/*  0*/ virtual int32_t v_call(int32_t, const void *);  // = 00634D60  /* auto */
+/*  4*/ virtual const void *v_Obj6723E0_scalar_destructor(char);  // = 005BB420  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005BB420*/ MyCallback *scalar_destructor(char);  // ----  /* auto */
 // -------------------------------------------------------  /* auto */

@@ -17,8 +17,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*00554C70*/ MyStaticStruct *MyStaticStruct::constructor() { relink_stub(MyStaticStruct::constructor); }  /* auto */
 /*00554D60*/ int32_t MyStaticStruct::init_console_command(int32_t, int32_t, int32_t) { relink_stub(MyStaticStruct::init_console_command); }  /* auto */
-/*00554D80*/ int32_t MyStaticStruct::sub_554D80(char *, int32_t, int32_t, int32_t, int32_t) { relink_stub(MyStaticStruct::sub_554D80); }  /* auto */
-/*00555560*/ int32_t MyStaticStruct::sub_555560(char *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t *) { relink_stub(MyStaticStruct::sub_555560); }  /* auto */
+/*00554D80*/ int32_t MyStaticStruct::sub_554D80(const char *, int32_t, int32_t, int32_t, int32_t) { relink_stub(MyStaticStruct::sub_554D80); }  /* auto */
+/*00555560*/ int32_t MyStaticStruct::sub_555560(const char *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t *) { relink_stub(MyStaticStruct::sub_555560); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

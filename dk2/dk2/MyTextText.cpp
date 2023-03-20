@@ -17,15 +17,15 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
 /*  0*/ int32_t MyTextText::v_j_MySharedObj_release() { relink_stub(MyTextText::v_j_MySharedObj_release); }  /* auto */
 /*  4*/ int32_t MyTextText::v_j_MySharedObj_addRef() { relink_stub(MyTextText::v_j_MySharedObj_addRef); }  /* auto */
-/*  8*/ void *MyTextText::v_MyTextText_scalar_destructor(char) { relink_stub(MyTextText::v_MyTextText_scalar_destructor); }  /* auto */
-/*  C*/ void *MyTextText::v_duplicate_0_1() { relink_stub(MyTextText::v_duplicate_0_1); }  /* auto */
-/* 10*/ void *MyTextText::v_duplicate_1_1() { relink_stub(MyTextText::v_duplicate_1_1); }  /* auto */
+/*  8*/ const void *MyTextText::v_MyTextText_scalar_destructor(char) { relink_stub(MyTextText::v_MyTextText_scalar_destructor); }  /* auto */
+/*  C*/ const void *MyTextText::v_duplicate_0_1() { relink_stub(MyTextText::v_duplicate_0_1); }  /* auto */
+/* 10*/ const void *MyTextText::v_duplicate_1_1() { relink_stub(MyTextText::v_duplicate_1_1); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0067B950*/ void **MyTextText::vftable() { return dk2::MyTextText_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*0062D590*/ MyTextText *MyTextText::constructor(int32_t, int32_t *, MyFileStorage *) { relink_stub(MyTextText::constructor); }  /* auto */
 /*0062D680*/ int32_t MyTextText::destructor() { relink_stub(MyTextText::destructor); }  /* auto */
-/*0062D960*/ char *MyTextText::getString(int32_t) { relink_stub(MyTextText::getString); }  /* auto */
+/*0062D960*/ const char *MyTextText::getString(int32_t) { relink_stub(MyTextText::getString); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

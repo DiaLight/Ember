@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *MyCbHandle::v_sub_5BB440(char) { relink_stub(MyCbHandle::v_sub_5BB440); }  /* auto */
+/*  0*/ const void *MyCbHandle::v_sub_5BB440(char) { relink_stub(MyCbHandle::v_sub_5BB440); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*006723D8*/ void **MyCbHandle::vftable() { return dk2::MyCbHandle_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

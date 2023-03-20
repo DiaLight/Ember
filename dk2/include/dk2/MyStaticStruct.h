@@ -30,8 +30,8 @@ struct MyStaticStruct {  // ------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00554C70*/ MyStaticStruct *constructor();  // ----------  /* auto */
 /*00554D60*/ int32_t init_console_command(int32_t, int32_t, int32_t);  /* auto */
-/*00554D80*/ int32_t sub_554D80(char *, int32_t, int32_t, int32_t, int32_t);  /* auto */
-/*00555560*/ int32_t sub_555560(char *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t *);  /* auto */
+/*00554D80*/ int32_t sub_554D80(const char *, int32_t, int32_t, int32_t, int32_t);  /* auto */
+/*00555560*/ int32_t sub_555560(const char *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t *);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

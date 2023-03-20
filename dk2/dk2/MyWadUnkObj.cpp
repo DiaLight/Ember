@@ -18,7 +18,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005FEF70*/ void MyWadUnkObj::sub_5FEF70(WadContent *, MyStr *, int32_t *) { relink_stub(MyWadUnkObj::sub_5FEF70); }  /* auto */
 /*005FF2B0*/ char MyWadUnkObj::sub_5FF2B0() { relink_stub(MyWadUnkObj::sub_5FF2B0); }  /* auto */
 /*005FF3D0*/ bool MyWadUnkObj::sub_5FF3D0() { relink_stub(MyWadUnkObj::sub_5FF3D0); }  /* auto */
-/*005FF3F0*/ char *MyWadUnkObj::sub_5FF3F0(int32_t) { relink_stub(MyWadUnkObj::sub_5FF3F0); }  /* auto */
+/*005FF3F0*/ const char *MyWadUnkObj::sub_5FF3F0(int32_t) { relink_stub(MyWadUnkObj::sub_5FF3F0); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

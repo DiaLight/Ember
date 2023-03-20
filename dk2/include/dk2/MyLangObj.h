@@ -34,10 +34,10 @@ struct MyLangObj {  // -----------------------------------  /* auto */
 /*  C*/ int32_t diskStorHasContent;  // ------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0062DBD0*/ MyLangObj *constructor();  // ---------------  /* auto */
-/*0062DC50*/ int32_t createFileIteratorContentAndSet(int32_t, char *);  /* auto */
+/*0062DC50*/ int32_t createFileIteratorContentAndSet(int32_t, const char *);  /* auto */
 /*0062DCA0*/ int32_t *close(int32_t *);  // --------------  /* auto */
-/*0062DCD0*/ int32_t *readResourceIndexFileByName(int32_t *, char *);  /* auto */
-/*0062DD40*/ int32_t readResourceIndexFile(int32_t, char *);  /* auto */
+/*0062DCD0*/ int32_t *readResourceIndexFileByName(int32_t *, const char *);  /* auto */
+/*0062DD40*/ int32_t readResourceIndexFile(int32_t, const char *);  /* auto */
 /*0062DEE0*/ int32_t *resolveMBToUni(int32_t *, MyTextMBToUni **, int32_t);  /* auto */
 /*0062DF30*/ int32_t *resolveUniToMB(int32_t *, MyTextUniToMB **, int32_t);  /* auto */
 /*0062DF90*/ int32_t *resolveText(int32_t *, MyTextText **, int32_t);  /* auto */

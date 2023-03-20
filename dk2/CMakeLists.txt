@@ -16,3 +16,7 @@ add_library(dk2_mapping STATIC
 )
 target_include_directories(dk2_mapping PUBLIC include)
 target_compile_definitions(dk2_mapping PRIVATE DIRECTINPUT_VERSION=0x0500 DIRECT3D_VERSION=0x0600)
+
+target_link_libraries(dk2_mapping PRIVATE
+        dk2_utils
+        )

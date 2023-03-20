@@ -40,7 +40,7 @@ struct CHorizontalSlider : CButton {  // -----------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066EE0C*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CGadget  --------------------------------  /* auto */
-/*  0*/ // virtual void *v_deleting_destructor(char);  // = 0052CAA0  /* auto */
+/*  0*/ // virtual const void *v_deleting_destructor(char);  // = 0052CAA0  /* auto */
 /*---*/ // super CButton  --------------------------------  /* auto */
 /*  4*/ // virtual int32_t v_render(int32_t, int32_t);  // = 005291F0  /* auto */
 /*  8*/ // virtual int32_t v_handleClick(CDefaultPlayerInterface *);  // = 00529510  /* auto */

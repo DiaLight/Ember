@@ -23,7 +23,7 @@ struct Obj672520Interface {  // --------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672520*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // Obj672520Interface  ---------------------------  /* auto */
-/*  0*/ virtual void *v_scalar_destructor(char);  // = 005D2820  /* auto */
+/*  0*/ virtual const void *v_scalar_destructor(char);  // = 005D2820  /* auto */
 /*  4*/ virtual int32_t v_convertPixel(int8_t *, int32_t *, int32_t);  // = 00634D60  /* auto */
 /*  8*/ virtual int32_t v_selfConvertPixel(int32_t, int32_t, int32_t);  // = 00634D60  /* auto */
 // -------------------------------------------------------  /* auto */

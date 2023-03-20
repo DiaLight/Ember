@@ -33,7 +33,7 @@ struct FontObjWr {  // -----------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0067BA18*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // FontObjWr  ------------------------------------  /* auto */
-/*  0*/ virtual void *v_sub_62FB00(char);  // = 0062FB00    /* auto */
+/*  0*/ virtual const void *v_sub_62FB00(char);  // = 0062FB00  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0062FAE0*/ FontObjWr *constructor();  // ---------------  /* auto */
 /*0062FB30*/ int32_t *setRenderer(int32_t *, FontObj *);    /* auto */

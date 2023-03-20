@@ -55,8 +55,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Gz")  # use __stdcall by default
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4477")
 #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /OPT:REF")
 
-add_subdirectory(dk2)
 add_subdirectory(utils)
+add_subdirectory(dk2)
 add_subdirectory(reimpl)
 add_subdirectory(hooks)
 add_subdirectory(patches)

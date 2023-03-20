@@ -26,7 +26,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 #pragma pack(push, 1)  // --------------------------------  /* auto */
 struct MySignalBase : MySharedObj {  // ------------------  /* auto */
 // -------------------------------------------------------  /* auto */
-/*  8*/ void *hEvent;  // --------------------------------  /* auto */
+/*  8*/ const void *hEvent;  // --------------------------  /* auto */
 /*  C*/ ControlKeysUpdater *f8_pcontrolkeys;  // ---------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672800*/ static void **vftable();  // ----------------  /* auto */
@@ -39,9 +39,9 @@ struct MySignalBase : MySharedObj {  // ------------------  /* auto */
 /* 10*/ virtual int32_t *v_initDevice(int32_t *);  // = 005DAF80  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005DAE80*/ MySignalBase *constructor();  // ------------  /* auto */
-/*005DAEC0*/ void *destructor();  // ---------------------  /* auto */
+/*005DAEC0*/ const void *destructor();  // ---------------  /* auto */
 /*005DAF20*/ int32_t *recreateEvent(int32_t *);  // ------  /* auto */
-/*005DAF60*/ void *closeEvent();  // ---------------------  /* auto */
+/*005DAF60*/ const void *closeEvent();  // ---------------  /* auto */
 /*005DAF80*/ int32_t *recreateEvent_0(int32_t *);  // ----  /* auto */
 /*005DAFB0*/ int32_t setControlKeysUpdater(ControlKeysUpdater *);  /* auto */
 // -------------------------------------------------------  /* auto */

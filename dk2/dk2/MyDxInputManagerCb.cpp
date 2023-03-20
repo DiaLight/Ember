@@ -16,7 +16,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
 /*  0*/ int32_t *MyDxInputManagerCb::v_f0_call(int32_t, Event0_winShown7 *) { relink_stub(MyDxInputManagerCb::v_f0_call); }  /* auto */
-/*  4*/ void *MyDxInputManagerCb::v_f4_scalar_destructor(char) { relink_stub(MyDxInputManagerCb::v_f4_scalar_destructor); }  /* auto */
+/*  4*/ const void *MyDxInputManagerCb::v_f4_scalar_destructor(char) { relink_stub(MyDxInputManagerCb::v_f4_scalar_destructor); }  /* auto */
 /*  8*/ int32_t *MyDxInputManagerCb::v_f8_initInputs(int32_t *) { relink_stub(MyDxInputManagerCb::v_f8_initInputs); }  /* auto */
 /*  C*/ int32_t *MyDxInputManagerCb::v_fC_initMouse(int32_t *) { relink_stub(MyDxInputManagerCb::v_fC_initMouse); }  /* auto */
 /* 10*/ int32_t *MyDxInputManagerCb::v_f10_initKeyInputs(int32_t *) { relink_stub(MyDxInputManagerCb::v_f10_initKeyInputs); }  /* auto */

@@ -30,7 +30,7 @@ struct MouseXyzDxActionList {  // ------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672904*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // MouseXyzDxActionList  -------------------------  /* auto */
-/*  0*/ virtual void *v_scalar_destructor(char);  // = 005DDC90  /* auto */
+/*  0*/ virtual const void *v_scalar_destructor(char);  // = 005DDC90  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005DDBE0*/ int32_t destructor();  // -------------------  /* auto */
 /*005DDE50*/ MouseXyzDxAction *getOrCreateUnhandled();      /* auto */

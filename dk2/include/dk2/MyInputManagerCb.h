@@ -47,7 +47,7 @@ struct MyInputManagerCb : MyDxInputManagerCb {  // -------  /* auto */
 /*00672380*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super MyDxInputManagerCb  ---------------------  /* auto */
 /*  0*/ // virtual int32_t *v_f0_call(int32_t, Event0_winShown7 *);  // = 005BC280  /* auto */
-/*  4*/ // virtual void *v_f4_scalar_destructor(char);  // = 005BAF40  /* auto */
+/*  4*/ // virtual const void *v_f4_scalar_destructor(char);  // = 005BAF40  /* auto */
 /*  8*/ // virtual int32_t *v_f8_initInputs(int32_t *);  // = 005BB0A0  /* auto */
 /*  C*/ // virtual int32_t *v_fC_initMouse(int32_t *);  // = 005BB1C0  /* auto */
 /* 10*/ // virtual int32_t *v_f10_initKeyInputs(int32_t *);  // = 005BB220  /* auto */

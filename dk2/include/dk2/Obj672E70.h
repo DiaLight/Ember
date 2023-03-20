@@ -43,11 +43,11 @@ struct Obj672E70 {  // -----------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672E70*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // Obj672E70  ------------------------------------  /* auto */
-/*  0*/ virtual void *v_Obj672E70_scalar_destructor(char);  // = 005FD1B0  /* auto */
+/*  0*/ virtual const void *v_Obj672E70_scalar_destructor(char);  // = 005FD1B0  /* auto */
 /*  4*/ virtual int32_t v_Obj672E70_convertPixel(int8_t *, int32_t *, int32_t);  // = 005FD3E0  /* auto */
 /*  8*/ virtual int32_t v_Obj672E70_selfConvertPixel(int32_t, int32_t, int32_t);  // = 005FD510  /* auto */
 // -------------------------------------------------------  /* auto */
-/*005FD220*/ int32_t *init(MySurfDesc *, void *);  // ----  /* auto */
+/*005FD220*/ int32_t *init(MySurfDesc *, const void *);     /* auto */
 /*005FD3E0*/ char convertPixel(int8_t *, int32_t *, int32_t);  /* auto */
 /*005FD510*/ int32_t selfConvertPixel(int32_t, int32_t, int32_t);  /* auto */
 // -------------------------------------------------------  /* auto */

@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *MyDxDevice::v_scalar_destructor(char) { relink_stub(MyDxDevice::v_scalar_destructor); }  /* auto */
+/*  0*/ const void *MyDxDevice::v_scalar_destructor(char) { relink_stub(MyDxDevice::v_scalar_destructor); }  /* auto */
 /*  4*/ GUID *MyDxDevice::v_getGuid() { relink_stub(MyDxDevice::v_getGuid); }  /* auto */
 /*  8*/ DIDATAFORMAT *MyDxDevice::v_getDataFormat() { relink_stub(MyDxDevice::v_getDataFormat); }  /* auto */
 // -------------------------------------------------------  /* auto */

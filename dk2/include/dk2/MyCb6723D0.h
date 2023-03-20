@@ -32,7 +32,7 @@ struct MyCb6723D0 {  // ----------------------------------  /* auto */
 /*006723D0*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // MyCb6723D0  -----------------------------------  /* auto */
 /*  0*/ virtual int32_t v_call(int32_t, int32_t *);  // = 005DBCD0  /* auto */
-/*  4*/ virtual void *v_scalar_destructor(char);  // = 005BB460  /* auto */
+/*  4*/ virtual const void *v_scalar_destructor(char);  // = 005BB460  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005DBC90*/ int32_t *registerCb(int32_t *, int32_t);       /* auto */
 /*005DBCD0*/ void call(int32_t, int32_t *);  // ----------  /* auto */

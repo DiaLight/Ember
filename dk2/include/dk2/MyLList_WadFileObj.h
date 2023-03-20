@@ -32,12 +32,12 @@ struct MyLList_WadFileObj {  // --------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672EE4*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // MyLList_WadFileObj  ---------------------------  /* auto */
-/*  0*/ virtual void *v___sub_5FE430_scalar_destructor(char);  // = 005FE430  /* auto */
+/*  0*/ virtual const void *v___sub_5FE430_scalar_destructor(char);  // = 005FE430  /* auto */
 // -------------------------------------------------------  /* auto */
-/*005FE430*/ void *scalar_destructor(char);  // ----------  /* auto */
+/*005FE430*/ const void *scalar_destructor(char);  // ----  /* auto */
 /*005FE450*/ void destructor();  // ----------------------  /* auto */
 /*005FF4E0*/ MyLList_WadFileObj_entry *add(WadFileObj *);   /* auto */
-/*005FF6C0*/ void *Base_scalar_destructor(char);  // -----  /* auto */
+/*005FF6C0*/ const void *Base_scalar_destructor(char);      /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

@@ -40,11 +40,11 @@ struct Obj672500 {  // -----------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672500*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // Obj672500  ------------------------------------  /* auto */
-/*  0*/ virtual void *v_Obj672520Interface_scalar_destructor(char);  // = 005D2840  /* auto */
+/*  0*/ virtual const void *v_Obj672520Interface_scalar_destructor(char);  // = 005D2840  /* auto */
 /*  4*/ virtual int8_t *v_Obj672500_convertPixel(int8_t *, int8_t *, int8_t *);  // = 005FCD60  /* auto */
 /*  8*/ virtual int32_t v_Obj672500_selfConvertPixel(int32_t, int32_t, int32_t);  // = 005FCF70  /* auto */
 // -------------------------------------------------------  /* auto */
-/*005FCCD0*/ int32_t init(void *, MySurfDesc *);  // -----  /* auto */
+/*005FCCD0*/ int32_t init(const void *, MySurfDesc *);      /* auto */
 /*005FCD60*/ int8_t *convertPixel(int8_t *, int8_t *, int8_t *);  /* auto */
 /*005FCF70*/ int32_t selfConvertPixel(int32_t, int32_t, int32_t);  /* auto */
 // -------------------------------------------------------  /* auto */

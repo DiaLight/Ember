@@ -30,8 +30,8 @@ struct WinEventHandlers {  // ----------------------------  /* auto */
 /* 64*/ int32_t f64;  // ---------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005B9930*/ void callList(int32_t, int32_t);  // --------  /* auto */
-/*005B99E0*/ void addHandler(int32_t, void (__stdcall *)(int32_t, int32_t, void *), void *);  /* auto */
-/*005B9AB0*/ void removeHandler(int32_t, void (__stdcall *)(int32_t, int32_t, void *), void *);  /* auto */
+/*005B99E0*/ void addHandler(int32_t, void (__stdcall *)(int32_t, int32_t, const void *), const void *);  /* auto */
+/*005B9AB0*/ void removeHandler(int32_t, void (__stdcall *)(int32_t, int32_t, const void *), const void *);  /* auto */
 /*005B9BD0*/ void clear();  // ---------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

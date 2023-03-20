@@ -16,9 +16,9 @@ using namespace dk2;  // ---------------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
 /*  0*/ BOOL CState::v_fun_476CF0(int32_t *) { relink_stub(CState::v_fun_476CF0); }  /* auto */
-/*  4*/ BOOL CState::v_fun_476CB0(void **) { relink_stub(CState::v_fun_476CB0); }  /* auto */
+/*  4*/ BOOL CState::v_fun_476CB0(const void **) { relink_stub(CState::v_fun_476CB0); }  /* auto */
 /*  8*/ int32_t CState::v_ret_1_0args_0() { relink_stub(CState::v_ret_1_0args_0); }  /* auto */
-/*  C*/ void *CState::v_duplicate_2_1() { relink_stub(CState::v_duplicate_2_1); }  /* auto */
+/*  C*/ const void *CState::v_duplicate_2_1() { relink_stub(CState::v_duplicate_2_1); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066D404*/ void **CState::vftable() { return dk2::CState_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

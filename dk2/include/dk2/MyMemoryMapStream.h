@@ -27,13 +27,13 @@ struct MyMemoryMapStream : MyInputStream {  // -----------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*  C*/ int32_t fC;  // ----------------------------------  /* auto */
 /* 10*/ int32_t f10;  // ---------------------------------  /* auto */
-/* 14*/ void *_end_f14_semaphore;  // --------------------  /* auto */
+/* 14*/ const void *_end_f14_semaphore;  // --------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00673018*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super MyInputStream  --------------------------  /* auto */
-/*  0*/ // virtual void *v_scalar_destructor(char);  // = 006001D0  /* auto */
-/*  4*/ // virtual size_t v_readBytes(void *, size_t);  // = 00600300  /* auto */
-/*  8*/ // virtual size_t v_writeBytes(void *, size_t);  // = 00600330  /* auto */
+/*  0*/ // virtual const void *v_scalar_destructor(char);  // = 006001D0  /* auto */
+/*  4*/ // virtual size_t v_readBytes(const void *, size_t);  // = 00600300  /* auto */
+/*  8*/ // virtual size_t v_writeBytes(const void *, size_t);  // = 00600330  /* auto */
 /*  C*/ // virtual size_t v_seek(size_t, int32_t);  // = 00600360  /* auto */
 /* 10*/ // virtual size_t v_getSize();  // = 00600390  ---  /* auto */
 /* 14*/ // virtual size_t v_getOffs();  // = 005FFDB0  ---  /* auto */

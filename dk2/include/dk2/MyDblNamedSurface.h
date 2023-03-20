@@ -27,10 +27,10 @@ struct MyDblNamedSurface {  // ---------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*  0*/ int32_t blWidth;  // -----------------------------  /* auto */
 /*  4*/ int32_t blHeight;  // ----------------------------  /* auto */
-/*  8*/ char *curName;  // -------------------------------  /* auto */
+/*  8*/ const char *curName;  // -------------------------  /* auto */
 /*  C*/ int32_t prevName;  // ----------------------------  /* auto */
-/* 10*/ char *name;  // ----------------------------------  /* auto */
-/* 14*/ char **pNames;  // -------------------------------  /* auto */
+/* 10*/ const char *name;  // ----------------------------  /* auto */
+/* 14*/ const char **pNames;  // -------------------------  /* auto */
 /* 18*/ int32_t init1__height;  // -----------------------  /* auto */
 /* 1C*/ MySurface surf;  // ------------------------------  /* auto */
 /* 44*/ int32_t flags;  // -------------------------------  /* auto */
@@ -40,7 +40,7 @@ struct MyDblNamedSurface {  // ---------------------------  /* auto */
 /* 54*/ int32_t inity;  // -------------------------------  /* auto */
 /* 58*/ int32_t initz;  // -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
-/*0057C2D0*/ MyDblNamedSurface *constructor(char *, char *, int32_t, int32_t, int32_t);  /* auto */
+/*0057C2D0*/ MyDblNamedSurface *constructor(const char *, const char *, int32_t, int32_t, int32_t);  /* auto */
 /*0057C3B0*/ MyDblNamedSurface *fun_57C3B0(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

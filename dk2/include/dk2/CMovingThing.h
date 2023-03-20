@@ -26,23 +26,23 @@ namespace dk2 {  // --------------------------------------  /* auto */
 struct CMovingThing : CPhysicalThing {  // ---------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /* F6*/ int32_t lastPositionX;  // -----------------------  /* auto */
-/* FA*/ char *lastPosotionY;  // -------------------------  /* auto */
-/* FE*/ char *lastPositionZ;  // -------------------------  /* auto */
+/* FA*/ const char *lastPosotionY;  // -------------------  /* auto */
+/* FE*/ const char *lastPositionZ;  // -------------------  /* auto */
 /*102*/ int16_t lastAngle;  // ---------------------------  /* auto */
 /*104*/ int32_t forceVelocityX;  // ----------------------  /* auto */
-/*108*/ char *forceVelocityY;  // ------------------------  /* auto */
-/*10C*/ char *forceVelocityZ;  // ------------------------  /* auto */
-/*110*/ char *transitiveVelocityX;  // -------------------  /* auto */
-/*114*/ char *transitiveVelocityY;  // -------------------  /* auto */
-/*118*/ char *transitiveVelocityZ;  // -------------------  /* auto */
+/*108*/ const char *forceVelocityY;  // ------------------  /* auto */
+/*10C*/ const char *forceVelocityZ;  // ------------------  /* auto */
+/*110*/ const char *transitiveVelocityX;  // -------------  /* auto */
+/*114*/ const char *transitiveVelocityY;  // -------------  /* auto */
+/*118*/ const char *transitiveVelocityZ;  // -------------  /* auto */
 /*11C*/ int16_t speed;  // -------------------------------  /* auto */
 /*11E*/ int16_t airFriction;  // -------------------------  /* auto */
-/*120*/ char *moving;  // --------------------------------  /* auto */
+/*120*/ const char *moving;  // --------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066D5BC*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CTag  -----------------------------------  /* auto */
-/*  0*/ // virtual void *v_deleting_destructor(char);  // = 004B5F50  /* auto */
-/*  4*/ // virtual BOOL v_f4(void **);  // = 004B1E70  ---  /* auto */
+/*  0*/ // virtual const void *v_deleting_destructor(char);  // = 004B5F50  /* auto */
+/*  4*/ // virtual BOOL v_f4(const void **);  // = 004B1E70  /* auto */
 /*---*/ // super CThing  ---------------------------------  /* auto */
 /*  8*/ // virtual int32_t v_f8(int32_t);  // = 004B1EC0    /* auto */
 /*  C*/ // virtual int32_t v_fC();  // = 004B1F10  -------  /* auto */
@@ -53,7 +53,7 @@ struct CMovingThing : CPhysicalThing {  // ---------------  /* auto */
 /* 20*/ // virtual void v_f20();  // = 004B2AD0  ---------  /* auto */
 /* 24*/ // virtual char v_f24(int32_t);  // = 00634D60  --  /* auto */
 /* 28*/ // virtual BOOL v_f28();  // = 004B5C30  ---------  /* auto */
-/* 2C*/ // virtual char *v_f2C();  // = 004B5D40  --------  /* auto */
+/* 2C*/ // virtual const char *v_f2C();  // = 004B5D40  --  /* auto */
 /* 30*/ // virtual int32_t v_f30();  // = 00634D60  ------  /* auto */
 /* 34*/ // virtual int32_t v_f34();  // = 00628BC0  ------  /* auto */
 /* 38*/ // virtual int32_t v_f38();  // = 00628BC0  ------  /* auto */
@@ -64,7 +64,7 @@ struct CMovingThing : CPhysicalThing {  // ---------------  /* auto */
 /* 4C*/ // virtual int16_t *v_f4C(int16_t *);  // = 004B5C20  /* auto */
 /* 50*/ // virtual int16_t *v_f50(int16_t *);  // = 004B5C20  /* auto */
 /*---*/ // super CPhysicalThing  -------------------------  /* auto */
-/* 54*/ // virtual char *v_f54();  // = 004B5D50  --------  /* auto */
+/* 54*/ // virtual const char *v_f54();  // = 004B5D50  --  /* auto */
 /* 58*/ // virtual int16_t *v_f58(int16_t *);  // = 004B5C50  /* auto */
 /* 5C*/ // virtual BOOL v_f5C();  // = 004B34F0  ---------  /* auto */
 /*---*/ // CMovingThing  ---------------------------------  /* auto */

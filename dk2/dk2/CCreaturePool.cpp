@@ -16,7 +16,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
 /*  0*/ int32_t CCreaturePool::v_fun_5062D0(int32_t *) { relink_stub(CCreaturePool::v_fun_5062D0); }  /* auto */
-/*  4*/ int32_t CCreaturePool::v_fun_506220(void **) { relink_stub(CCreaturePool::v_fun_506220); }  /* auto */
+/*  4*/ int32_t CCreaturePool::v_fun_506220(const void **) { relink_stub(CCreaturePool::v_fun_506220); }  /* auto */
 /*  8*/ int32_t CCreaturePool::v_fun_5063D0() { relink_stub(CCreaturePool::v_fun_5063D0); }  /* auto */
 /*  C*/ int32_t CCreaturePool::v_ret_1_0args_0() { relink_stub(CCreaturePool::v_ret_1_0args_0); }  /* auto */
 // -------------------------------------------------------  /* auto */
@@ -25,7 +25,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00506120*/ CCreaturePool *CCreaturePool::constructor() { relink_stub(CCreaturePool::constructor); }  /* auto */
 /*00506140*/ void CCreaturePool::destructor() { relink_stub(CCreaturePool::destructor); }  /* auto */
 /*005061F0*/ void CCreaturePool::sub_5061F0() { relink_stub(CCreaturePool::sub_5061F0); }  /* auto */
-/*00506220*/ int32_t CCreaturePool::fun_506220(void **) { relink_stub(CCreaturePool::fun_506220); }  /* auto */
+/*00506220*/ int32_t CCreaturePool::fun_506220(const void **) { relink_stub(CCreaturePool::fun_506220); }  /* auto */
 /*005062D0*/ int32_t CCreaturePool::fun_5062D0(int32_t *) { relink_stub(CCreaturePool::fun_5062D0); }  /* auto */
 /*005063D0*/ int32_t CCreaturePool::fun_5063D0() { relink_stub(CCreaturePool::fun_5063D0); }  /* auto */
 // -------------------------------------------------------  /* auto */

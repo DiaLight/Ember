@@ -29,8 +29,8 @@ struct AsyncThing {  // ----------------------------------  /* auto */
 /*  8*/ int32_t *f4_value;  // ---------------------------  /* auto */
 /*  C*/ int32_t f8_lastError;  // ------------------------  /* auto */
 /* 10*/ int32_t exit_thread_flag;  // --------------------  /* auto */
-/* 14*/ void *f10_hThread;  // ---------------------------  /* auto */
-/* 18*/ void *f14_hEvent1;  // ---------------------------  /* auto */
+/* 14*/ const void *f10_hThread;  // ---------------------  /* auto */
+/* 18*/ const void *f14_hEvent1;  // ---------------------  /* auto */
 /* 1C*/ int32_t f18_hEvent2;  // -------------------------  /* auto */
 /* 20*/ int32_t field_1C;  // ----------------------------  /* auto */
 /* 24*/ PtrArrList f20_dwordList;  // --------------------  /* auto */
@@ -38,7 +38,7 @@ struct AsyncThing {  // ----------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*006727FC*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // AsyncThing  -----------------------------------  /* auto */
-/*  0*/ virtual void *v_deleting_destructor(char);  // = 005DA340  /* auto */
+/*  0*/ virtual const void *v_deleting_destructor(char);  // = 005DA340  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005DA360*/ void destructor();  // ----------------------  /* auto */
 /*005DA3F0*/ BOOL sub_5DA3F0();  // ----------------------  /* auto */
@@ -54,7 +54,7 @@ struct AsyncThing {  // ----------------------------------  /* auto */
 /*005DA850*/ int32_t *setChildAndSignal(int32_t *, int32_t);  /* auto */
 /*005DA870*/ int32_t *sub_5DA870(int32_t *);  // ---------  /* auto */
 /*005DA8E0*/ int32_t *sub_5DA8E0(int32_t *);  // ---------  /* auto */
-/*005DE170*/ void *__MyDirectSysKeyboard_destructor();      /* auto */
+/*005DE170*/ const void *__MyDirectSysKeyboard_destructor();  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

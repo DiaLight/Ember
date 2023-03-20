@@ -45,13 +45,13 @@ struct MyObj67B948 {  // ---------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0067B948*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // MyObj67B948  ----------------------------------  /* auto */
-/*  0*/ virtual void *v_sub_62C990(char);  // = 0062C990    /* auto */
+/*  0*/ virtual const void *v_sub_62C990(char);  // = 0062C990  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0062C8F0*/ MyObj67B948 *constructor();  // -------------  /* auto */
 /*0062CA00*/ int32_t *selectMyTR(int32_t *, int32_t);       /* auto */
 /*0062CA70*/ int32_t *selectMyCR(int32_t *, int32_t);       /* auto */
-/*0062CAE0*/ int32_t *sub_62CAE0(int32_t *, AABB *, char *, FontObj *, int32_t *);  /* auto */
-/*0062CD80*/ int32_t *sub_62CD80(int32_t *, AABB *, char *, int32_t *, AABB *);  /* auto */
+/*0062CAE0*/ int32_t *sub_62CAE0(int32_t *, AABB *, const char *, FontObj *, int32_t *);  /* auto */
+/*0062CD80*/ int32_t *sub_62CD80(int32_t *, AABB *, const char *, int32_t *, AABB *);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

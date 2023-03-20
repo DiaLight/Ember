@@ -29,7 +29,7 @@ struct MyTextMB : MyTextBase {  // -----------------------  /* auto */
 /*---*/ // super MyTextBase  -----------------------------  /* auto */
 /*  0*/ // virtual int32_t v_release();  // = 0062FC10  --  /* auto */
 /*  4*/ // virtual int32_t v_addRef();  // = 0062FC00  ---  /* auto */
-/*  8*/ // virtual void *v_scalar_destructor(char);  // = 00633480  /* auto */
+/*  8*/ // virtual const void *v_scalar_destructor(char);  // = 00633480  /* auto */
 /*  C*/ // virtual int32_t v_j_release();  // = 0062D9A0    /* auto */
 /* 10*/ // virtual int32_t v_j_addRef();  // = 0062FC40  -  /* auto */
 /*---*/ // MyTextMB  -------------------------------------  /* auto */

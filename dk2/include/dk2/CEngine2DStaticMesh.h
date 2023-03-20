@@ -44,11 +44,11 @@ struct CEngine2DStaticMesh : CEngine2DPrimitive {  // ----  /* auto */
 /*  4*/ // virtual int32_t v___addRenderObj(int32_t, SceneObject2E *);  // = 00577A00  /* auto */
 /*---*/ // super CEngine2DPrimitive  ---------------------  /* auto */
 /*---*/ // CEngine2DStaticMesh  --------------------------  /* auto */
-/*  8*/ virtual float *v_fun_577DC0(float *, int32_t);  // = 00577DC0  /* auto */
+/*  8*/ virtual const float *v_fun_577DC0(const float *, int32_t);  // = 00577DC0  /* auto */
 /*  C*/ virtual int32_t v_fun_577D70();  // = 00577D70  --  /* auto */
 /* 10*/ virtual int32_t v_fun_577D90(int32_t);  // = 00577D90  /* auto */
 // -------------------------------------------------------  /* auto */
-/*00577960*/ CEngine2DStaticMesh *constructor(int32_t, int32_t, int32_t, void *, int32_t, int32_t, int32_t, int32_t, int32_t *);  /* auto */
+/*00577960*/ CEngine2DStaticMesh *constructor(int32_t, int32_t, int32_t, const void *, int32_t, int32_t, int32_t, int32_t, int32_t *);  /* auto */
 /*00577A00*/ void fun_577A00(int32_t, SceneObject2E *);     /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

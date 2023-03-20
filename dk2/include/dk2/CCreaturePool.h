@@ -32,14 +32,14 @@ struct CCreaturePool {  // -------------------------------  /* auto */
 /*0066E3AC*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // CCreaturePool  --------------------------------  /* auto */
 /*  0*/ virtual int32_t v_fun_5062D0(int32_t *);  // = 005062D0  /* auto */
-/*  4*/ virtual int32_t v_fun_506220(void **);  // = 00506220  /* auto */
+/*  4*/ virtual int32_t v_fun_506220(const void **);  // = 00506220  /* auto */
 /*  8*/ virtual int32_t v_fun_5063D0();  // = 005063D0  --  /* auto */
 /*  C*/ virtual int32_t v_ret_1_0args_0();  // = 004B4C20   /* auto */
 // -------------------------------------------------------  /* auto */
 /*00506120*/ CCreaturePool *constructor();  // -----------  /* auto */
 /*00506140*/ void destructor();  // ----------------------  /* auto */
 /*005061F0*/ void sub_5061F0();  // ----------------------  /* auto */
-/*00506220*/ int32_t fun_506220(void **);  // ------------  /* auto */
+/*00506220*/ int32_t fun_506220(const void **);  // ------  /* auto */
 /*005062D0*/ int32_t fun_5062D0(int32_t *);  // ----------  /* auto */
 /*005063D0*/ int32_t fun_5063D0();  // -------------------  /* auto */
 // -------------------------------------------------------  /* auto */

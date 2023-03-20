@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *CursorDrawer::v_Obj672854_scalar_destructor(char) { relink_stub(CursorDrawer::v_Obj672854_scalar_destructor); }  /* auto */
+/*  0*/ const void *CursorDrawer::v_Obj672854_scalar_destructor(char) { relink_stub(CursorDrawer::v_Obj672854_scalar_destructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672854*/ void **CursorDrawer::vftable() { return dk2::CursorDrawer_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

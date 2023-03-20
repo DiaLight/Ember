@@ -50,7 +50,7 @@ struct CEngineVirtualPerspective2DAnimMesh : CEngine2DPrimitive {  /* auto */
 /*  C*/ virtual int32_t v_ret_0_0args();  // = 00402AD0  -  /* auto */
 /* 10*/ virtual int32_t v_ret_0_1args(int32_t);  // = 00628E30  /* auto */
 // -------------------------------------------------------  /* auto */
-/*00578530*/ CEngineVirtualPerspective2DAnimMesh *constructor(int32_t, int32_t, int32_t, int32_t, void *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t *);  /* auto */
+/*00578530*/ CEngineVirtualPerspective2DAnimMesh *constructor(int32_t, int32_t, int32_t, int32_t, const void *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t *);  /* auto */
 /*00578600*/ void fun_578600(int32_t, SceneObject2E *);     /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

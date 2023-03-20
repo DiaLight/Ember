@@ -23,7 +23,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0062FEB0*/ int32_t *MyFileStorage::resolveResource(int32_t *, ResourceIndexEntry *, MyTextBase **) { relink_stub(MyFileStorage::resolveResource); }  /* auto */
 /*0062FF50*/ int32_t *MyFileStorage::loadResource(int32_t *, ResourceIndexEntry *, MyTextBase **) { relink_stub(MyFileStorage::loadResource); }  /* auto */
 /*00630050*/ int32_t *MyFileStorage::openResourceStream(int32_t *, DiscFileBase *, ResourceIndexEntry *) { relink_stub(MyFileStorage::openResourceStream); }  /* auto */
-/*006300A0*/ int32_t *MyFileStorage::parseResourceIndex(int32_t *, char *, ResourceIndexEntry *, int32_t) { relink_stub(MyFileStorage::parseResourceIndex); }  /* auto */
+/*006300A0*/ int32_t *MyFileStorage::parseResourceIndex(int32_t *, const char *, ResourceIndexEntry *, int32_t) { relink_stub(MyFileStorage::parseResourceIndex); }  /* auto */
 /*00630160*/ ResourceIndexEntry *MyFileStorage::getResourceIndex(int32_t) { relink_stub(MyFileStorage::getResourceIndex); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */

@@ -46,7 +46,7 @@ struct CEngineStaticHeightField : CEnginePrimitiveBase {    /* auto */
 /* 18*/ virtual int32_t v_ret_0_1args(int32_t);  // = 00628E30  /* auto */
 /* 1C*/ virtual int32_t v_fun_586FF0(int32_t);  // = 00586FF0  /* auto */
 // -------------------------------------------------------  /* auto */
-/*00586BC0*/ CEngineStaticHeightField *constructor(float *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
+/*00586BC0*/ CEngineStaticHeightField *constructor(const float *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*00587010*/ int32_t *fun_587010(int32_t, SceneObject2E *);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *MyUnk674058::v_sub_60F450(char) { relink_stub(MyUnk674058::v_sub_60F450); }  /* auto */
+/*  0*/ const void *MyUnk674058::v_sub_60F450(char) { relink_stub(MyUnk674058::v_sub_60F450); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00674058*/ void **MyUnk674058::vftable() { return dk2::MyUnk674058_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

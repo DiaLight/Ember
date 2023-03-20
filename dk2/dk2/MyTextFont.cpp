@@ -17,10 +17,10 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
 /*  0*/ int32_t MyTextFont::v_release() { relink_stub(MyTextFont::v_release); }  /* auto */
 /*  4*/ int32_t MyTextFont::v_addRef() { relink_stub(MyTextFont::v_addRef); }  /* auto */
-/*  8*/ void *MyTextFont::v_scalar_destructor(char) { relink_stub(MyTextFont::v_scalar_destructor); }  /* auto */
+/*  8*/ const void *MyTextFont::v_scalar_destructor(char) { relink_stub(MyTextFont::v_scalar_destructor); }  /* auto */
 /*  C*/ int32_t MyTextFont::v_j_LockWrap_release() { relink_stub(MyTextFont::v_j_LockWrap_release); }  /* auto */
 /* 10*/ int32_t MyTextFont::v_j_MyCom_addRef() { relink_stub(MyTextFont::v_j_MyCom_addRef); }  /* auto */
-/* 14*/ int32_t MyTextFont::v_readMBCharToFontIdx(char **) { relink_stub(MyTextFont::v_readMBCharToFontIdx); }  /* auto */
+/* 14*/ int32_t MyTextFont::v_readMBCharToFontIdx(const char **) { relink_stub(MyTextFont::v_readMBCharToFontIdx); }  /* auto */
 /* 18*/ __int16 MyTextFont::v_sub_6335B0() { relink_stub(MyTextFont::v_sub_6335B0); }  /* auto */
 /* 1C*/ Pos2i *MyTextFont::v_getCharSize(Pos2i *, int16_t) { relink_stub(MyTextFont::v_getCharSize); }  /* auto */
 /* 20*/ __int16 MyTextFont::v_getMaxHeight() { relink_stub(MyTextFont::v_getMaxHeight); }  /* auto */
@@ -30,7 +30,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0067BAF8*/ void **MyTextFont::vftable() { return dk2::MyTextFont_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*006334D0*/ MyTextFont *MyTextFont::constructor(int32_t, int32_t *) { relink_stub(MyTextFont::constructor); }  /* auto */
-/*00633560*/ int32_t MyTextFont::readMBChar(char **) { relink_stub(MyTextFont::readMBChar); }  /* auto */
+/*00633560*/ int32_t MyTextFont::readMBChar(const char **) { relink_stub(MyTextFont::readMBChar); }  /* auto */
 /*006335D0*/ Pos2i *MyTextFont::getCharSize(Pos2i *, int16_t) { relink_stub(MyTextFont::getCharSize); }  /* auto */
 /*00633630*/ __int16 MyTextFont::getMaxHeight() { relink_stub(MyTextFont::getMaxHeight); }  /* auto */
 /*00633650*/ int32_t MyTextFont::probably_getFontType() { relink_stub(MyTextFont::probably_getFontType); }  /* auto */

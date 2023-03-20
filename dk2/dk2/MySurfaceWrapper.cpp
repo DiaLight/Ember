@@ -15,9 +15,9 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*00590B40*/ MySurfaceWrapper *MySurfaceWrapper::constructor(int32_t, char *, int32_t) { relink_stub(MySurfaceWrapper::constructor); }  /* auto */
+/*00590B40*/ MySurfaceWrapper *MySurfaceWrapper::constructor(int32_t, const char *, int32_t) { relink_stub(MySurfaceWrapper::constructor); }  /* auto */
 /*00590B70*/ MySurfaceWrapper *MySurfaceWrapper::sub_590B70(int32_t, int32_t, MySurface *) { relink_stub(MySurfaceWrapper::sub_590B70); }  /* auto */
-/*00590BC0*/ MySurfaceWrapper *MySurfaceWrapper::withData(int32_t, char *, int32_t, int32_t) { relink_stub(MySurfaceWrapper::withData); }  /* auto */
+/*00590BC0*/ MySurfaceWrapper *MySurfaceWrapper::withData(int32_t, const char *, int32_t, int32_t) { relink_stub(MySurfaceWrapper::withData); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

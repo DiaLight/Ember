@@ -34,13 +34,13 @@ struct MyTextMBToUni : MyTextBase {  // ------------------  /* auto */
 /*---*/ // super MyTextBase  -----------------------------  /* auto */
 /*  0*/ // virtual int32_t v_release();  // = 0062FC10  --  /* auto */
 /*  4*/ // virtual int32_t v_addRef();  // = 0062FC00  ---  /* auto */
-/*  8*/ // virtual void *v_scalar_destructor(char);  // = 0062E3F0  /* auto */
+/*  8*/ // virtual const void *v_scalar_destructor(char);  // = 0062E3F0  /* auto */
 /*  C*/ // virtual int32_t v_j_release();  // = 0062D9A0    /* auto */
 /* 10*/ // virtual int32_t v_j_addRef();  // = 0062FC40  -  /* auto */
 /*---*/ // MyTextMBToUni  --------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0062E3A0*/ MyTextMBToUni *constructor(char, __int16, int32_t);  /* auto */
-/*0062E440*/ int32_t *convert(int32_t *, wchar_t *, int8_t *, __int16);  /* auto */
+/*0062E440*/ int32_t *convert(int32_t *, const wchar_t *, int8_t *, __int16);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

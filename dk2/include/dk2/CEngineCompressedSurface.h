@@ -31,15 +31,15 @@ struct CEngineCompressedSurface : CEngineSurfaceBase {      /* auto */
 // -------------------------------------------------------  /* auto */
 /*0067039C*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CEngineSurfaceBase  ---------------------  /* auto */
-/*  0*/ // virtual void *v_scalar_destructor(int32_t);  // = 005906D0  /* auto */
+/*  0*/ // virtual const void *v_scalar_destructor(int32_t);  // = 005906D0  /* auto */
 /*  4*/ // virtual int32_t v_fill(__int16);  // = 00590520  /* auto */
 /*  8*/ // virtual int32_t v_copySurf(CEngineSurfaceBase *, int32_t, int32_t);  // = 00590740  /* auto */
 /*  C*/ // virtual int32_t v_paintSurf(CEngineSurfaceBase *, int32_t, int32_t);  // = 005907D0  /* auto */
 /* 10*/ // virtual void v_f10_unk();  // = 0057EB60  -----  /* auto */
 /* 14*/ // virtual int32_t v_hasBuf();  // = 00402AD0  ---  /* auto */
-/* 18*/ // virtual void *v_lockBuf();  // = 00402AD0  ----  /* auto */
+/* 18*/ // virtual const void *v_lockBuf();  // = 00402AD0  /* auto */
 /* 1C*/ // virtual int32_t v_unlockBuf(int32_t);  // = 005671E0  /* auto */
-/* 20*/ // virtual void *v_getBufWithSize(int32_t *);  // = 005906C0  /* auto */
+/* 20*/ // virtual const void *v_getBufWithSize(int32_t *);  // = 005906C0  /* auto */
 /*---*/ // CEngineCompressedSurface  ---------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005906C0*/ int32_t getBufWithSize(int32_t *);  // ------  /* auto */

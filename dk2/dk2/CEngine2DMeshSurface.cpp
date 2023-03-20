@@ -18,7 +18,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066FB04*/ void **CEngine2DMeshSurface::vftable() { return dk2::CEngine2DMeshSurface_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*00578A80*/ CEngine2DMeshSurface *CEngine2DMeshSurface::constructor(int32_t, int32_t, void *, void *, int32_t, float *, int32_t) { relink_stub(CEngine2DMeshSurface::constructor); }  /* auto */
+/*00578A80*/ CEngine2DMeshSurface *CEngine2DMeshSurface::constructor(int32_t, int32_t, const void *, const void *, int32_t, const float *, int32_t) { relink_stub(CEngine2DMeshSurface::constructor); }  /* auto */
 /*00578C00*/ int32_t *CEngine2DMeshSurface::fun_578C00(int32_t, SceneObject2E *) { relink_stub(CEngine2DMeshSurface::fun_578C00); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */

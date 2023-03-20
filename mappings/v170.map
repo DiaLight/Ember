@@ -10587,6 +10587,31 @@ struct: id=construct_005BC42D,name=Event5_keyboard,size=8
   field: name=f4_dev
     type: kind=ptr
       type: kind=struct,id=vtbl_00672868
+struct: id=vtbl_00671F40,name=FPUControlWord,size=10,vtable=instance_00671F40
+  field: name=f4_saved
+    type: kind=int,size=2
+  field: name=f6_afl
+    type: kind=int,size=2
+  field: name=f8_rfl
+    type: kind=int,size=2
+  vtable_value: va=005B51D0
+struct: id=instance_0079D368,name=FPUControlWordWithState,size=14
+  field: name=f0_initialized
+    type: kind=char,size=1
+  field: name=f1_gap
+    type: kind=array,count=3
+      type: kind=int,size=1
+  field: name=f4_ctl
+    type: kind=struct,id=vtbl_00671F40
+struct: id=instance_00671F40,name=FPUControlWord_vtbl,size=4
+  field: name=deleting_destructor
+    type: kind=ptr
+      type: kind=function,declspec=thiscall
+        ret: kind=ptr
+          type: kind=void
+        arg: kind=ptr
+          type: kind=void
+        arg: kind=char,size=1
 struct: id=vtbl_00672348,name=FileStorageBase,size=8,vtable=instance_00672348
   field: name=f4_dierctory
     type: kind=ptr
@@ -16120,8 +16145,10 @@ global: va=00402BB0,name=CDefaultPlayerInterface::CTextIconDraw::fun_402BB0
       type: kind=void
     arg: kind=char,size=1
 global: va=00402BD0,name=TbFontRenderCallback_destructor
-  type: kind=function,declspec=stdcall
-    ret: kind=int,size=4,signed=True
+  type: kind=function,declspec=thiscall
+    ret: kind=void
+    arg: kind=ptr
+      type: kind=int,size=4
 global: va=00402BE0,name=TbFontRenderCallback_deleting_destructor
   type: kind=function,declspec=thiscall
     ret: kind=ptr
@@ -19729,7 +19756,7 @@ global: va=0043B0B0,name=CBridge::fun_43B0B0
       type: kind=char,size=1
 global: va=0043B150,name=CBridge_isActionHasHandler
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4,signed=True
+    ret: kind=winapi,name=BOOL,size=4
     arg: kind=ptr
       type: kind=struct,id=vtbl_0066CC94
     arg: kind=int,size=4,signed=True
@@ -20177,7 +20204,7 @@ global: va=004412C0,name=CBridge::fun_4412C0
     arg: kind=int,size=4,signed=True
 global: va=004412E0,name=CBridge::fun_4412E0
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
@@ -20734,7 +20761,7 @@ global: va=00443460,name=sub_443460
       type: kind=int,size=4
 global: va=004434B0,name=sub_4434B0
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=ptr
       type: kind=int,size=4
     arg: kind=int,size=4
@@ -21145,7 +21172,7 @@ global: va=00448D30,name=sub_448D30
       type: kind=int,size=4
 global: va=00448D80,name=emulateWater2
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=ptr
       type: kind=int,size=4
 global: va=004490B0,name=sub_4490B0
@@ -21600,7 +21627,7 @@ global: va=0044E7F0,name=sub_44E7F0
     arg: kind=int,size=4,signed=True
 global: va=0044E920,name=sub_44E920
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=int,size=4,signed=True
     arg: kind=winapi,name=__int16,size=2
     arg: kind=winapi,name=__int16,size=2
@@ -27569,7 +27596,7 @@ global: va=004B4630,name=sub_4B4630
     arg: kind=int,size=4,signed=True
 global: va=004B4710,name=CRenderInfo::fun_4B4710
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4
+    ret: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
 global: va=004B47C0,name=CRenderInfo_dump
   type: kind=function,declspec=thiscall
@@ -31030,7 +31057,7 @@ global: va=004DF6E0,name=HeroGateFrontEnd_cpp_4DF6E0
     arg: kind=int,size=4,signed=True
 global: va=004DFAA0,name=sub_4DFAA0
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4
+    ret: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=int,size=4
 global: va=004DFD10,name=sub_4DFD10
@@ -32557,7 +32584,7 @@ global: va=004FA7C0,name=sub_4FA7C0
     arg: kind=int,size=4,signed=True
 global: va=004FA8D0,name=sub_4FA8D0
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4
+    ret: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
 global: va=004FAB10,name=sub_4FAB10
   type: kind=function,declspec=thiscall
@@ -32817,7 +32844,7 @@ global: va=00504EC0,name=sub_504EC0
       type: kind=char,size=1
 global: va=00504F00,name=sub_504F00
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=2
+    ret: kind=winapi,name=__int16,size=2
     arg: kind=ptr
       type: kind=struct,id=vtbl_0066E3EC
 global: va=00504FB0,name=sub_504FB0
@@ -33854,7 +33881,7 @@ global: va=00509090,name=CWorld_509090
     arg: kind=int,size=4
 global: va=005090C0,name=CWorld_5090C0
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=int,size=4,signed=True
@@ -33876,7 +33903,7 @@ global: va=005091C0,name=CWorld_5091C0
     arg: kind=int,size=4,signed=True
 global: va=00509200,name=CWorld_509200
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4
+    ret: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
@@ -34898,7 +34925,7 @@ global: va=0050FD70,name=CWorld::fun_50FD70
       type: kind=char,size=1
 global: va=00510000,name=CWorld::fun_510000
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4
+    ret: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=void
     arg: kind=int,size=4,signed=True
@@ -38867,13 +38894,13 @@ global: va=00540A80,name=sub_540A80
     arg: kind=int,size=4,signed=True
 global: va=00540AD0,name=sub_540AD0
   type: kind=function,declspec=stdcall
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
 global: va=00540B20,name=sub_540B20
   type: kind=function,declspec=stdcall
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
 global: va=00540B70,name=sub_540B70
   type: kind=function,declspec=stdcall
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
 global: va=00540BC0,name=sub_540BC0
   type: kind=function,declspec=cdecl
     ret: kind=winapi,name=BOOL,size=4
@@ -45884,7 +45911,7 @@ global: va=005884F0,name=CEngineUnlitProceduralMesh::fun_5884F0
       type: kind=struct,id=construct_00586B96
 global: va=005888A0,name=CEngineUnlitProceduralMesh_appendToSceneObject2EList
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4
+    ret: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=int,size=4
     arg: kind=int,size=4,signed=True
@@ -46605,7 +46632,7 @@ global: va=005914E0,name=Obj792D48_convertCopyFrom
       type: kind=struct,id=constructor_005B5270
 global: va=005915A0,name=sub_5915A0
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
@@ -47584,7 +47611,8 @@ global: va=0059D890,name=CPCEngineInterface::fun_59D890
     arg: kind=int,size=4,signed=True
 global: va=0059D8D0,name=CPCEngineInterface_WM_ACTIVATE_cb
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4,signed=True
+    ret: kind=ptr
+      type: kind=winapi,name=IDirectDraw4,size=4
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
@@ -48273,7 +48301,7 @@ global: va=005A9620,name=sub_5A9620
       type: kind=void
 global: va=005A9660,name=sub_5A9660
   type: kind=function,declspec=fastcall
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
@@ -48283,7 +48311,7 @@ global: va=005A9660,name=sub_5A9660
     arg: kind=int,size=4,signed=True
 global: va=005A97C0,name=sub_5A97C0
   type: kind=function,declspec=fastcall
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
@@ -48615,7 +48643,7 @@ global: va=005AC880,name=sub_5AC880
       type: kind=void
 global: va=005AC8B0,name=sub_5AC8B0
   type: kind=function,declspec=stdcall
-    ret: kind=int,size=4
+    ret: kind=int,size=4,signed=True
 global: va=005ACA50,name=sub_5ACA50
   type: kind=function,declspec=assembly
     ret: kind=ptr
@@ -49061,8 +49089,10 @@ global: va=005B2DB0,name=getHWindow
       type: kind=winapi,name=HWND__,size=4
 global: va=005B2DC0,name=setHWindow
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4,signed=True
-    arg: kind=int,size=4,signed=True
+    ret: kind=ptr
+      type: kind=winapi,name=HWND__,size=4
+    arg: kind=ptr
+      type: kind=winapi,name=HWND__,size=4
 global: va=005B2DD0,name=process_win_inputs
   type: kind=function,declspec=stdcall
     ret: kind=winapi,name=BOOL,size=4
@@ -49347,7 +49377,7 @@ global: va=005B3BF0,name=fileExists
       type: kind=char,size=1
 global: va=005B3C30,name=sub_5B3C30
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=ptr,is_const=True
       type: kind=char,size=1
 global: va=005B3C80,name=sub_5B3C80
@@ -49437,11 +49467,11 @@ global: va=005B3FA0,name=sub_5B3FA0
 global: va=005B3FD0,name=sub_5B3FD0
   type: kind=function,declspec=stdcall
     ret: kind=int,size=4,signed=True
-global: va=005B3FE0,name=sub_5B3FE0
+global: va=005B3FE0,name=FPUControlWord_static_init
   type: kind=function,declspec=stdcall
     ret: kind=ptr
-      type: kind=char,size=1
-global: va=005B4020,name=sub_5B4020
+      type: kind=struct,id=instance_0079D368
+global: va=005B4020,name=FPUControlWordWithState_static_init
   type: kind=function,declspec=cdecl
     ret: kind=void
 global: va=005B4040,name=setSelectedDDGuid
@@ -49468,11 +49498,11 @@ global: va=005B4070,name=showMessageBox
 global: va=005B40E0,name=BullfrogWindow_destroy
   type: kind=function,declspec=stdcall
     ret: kind=void
-global: va=005B4160,name=__sub_5B4160_ev0_5
+global: va=005B4160,name=dk2wndCleanup_sendEv0_5
   type: kind=function,declspec=stdcall
     ret: kind=ptr
       type: kind=void
-global: va=005B4230,name=dk2_destroy
+global: va=005B4230,name=dk2dd_destroy
   type: kind=function,declspec=stdcall
     ret: kind=void
 global: va=005B4260,name=BullfrogWindow_create
@@ -49491,9 +49521,9 @@ global: va=005B4330,name=static_isNeedBlt
 global: va=005B4340,name=showTodoMessageBox
   type: kind=function,declspec=cdecl_varargs
     ret: kind=int,size=4,signed=True
-    arg: kind=ptr
+    arg: kind=ptr,is_const=True
       type: kind=char,size=1
-global: va=005B4390,name=dk2_init
+global: va=005B4390,name=dk2dd_init
   type: kind=function,declspec=cdecl
     ret: kind=ptr
       type: kind=int,size=4,signed=True
@@ -49505,7 +49535,7 @@ global: va=005B4390,name=dk2_init
     arg: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=winapi,name=tagPALETTEENTRY,size=4
-global: va=005B4AE0,name=sub_5B4AE0
+global: va=005B4AE0,name=dk2wnd_cleanup
   type: kind=function,declspec=cdecl
     ret: kind=ptr
       type: kind=int,size=4
@@ -49543,8 +49573,10 @@ global: va=005B4D80,name=sub_5B4D80
     arg: kind=int,size=4,signed=True
 global: va=005B4DE0,name=createDirectDrawObject
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4,signed=True
-    arg: kind=int,size=4,signed=True
+    ret: kind=ptr
+      type: kind=int,size=4
+    arg: kind=ptr
+      type: kind=int,size=4
     arg: kind=ptr
       type: kind=winapi,name=GUID,size=16
     arg: kind=ptr
@@ -49594,17 +49626,18 @@ global: va=005B51A0,name=sub_5B51A0
     arg: kind=ptr
       type: kind=void
     arg: kind=char,size=1
-global: va=005B51D0,name=sub_5B51D0
+global: va=005B51D0,name=FPUControlWord_deleting_destructor
   type: kind=function,declspec=thiscall
     ret: kind=ptr
       type: kind=void
     arg: kind=ptr
       type: kind=void
     arg: kind=char,size=1
-global: va=005B51F0,name=sub_5B51F0
+global: va=005B51F0,name=FPUControlWord_destructor
   type: kind=function,declspec=thiscall
     ret: kind=int,size=4,signed=True
-    arg: kind=int,size=4,signed=True
+    arg: kind=ptr
+      type: kind=struct,id=vtbl_00671F40
 global: va=005B5200,name=sub_5B5200
   type: kind=function,declspec=thiscall
     ret: kind=ptr
@@ -49658,8 +49691,9 @@ global: va=005B5330,name=MySurface_copyAreaTo
       type: kind=struct,id=constructor_00404DB0
 global: va=005B5410,name=setSurfaceDD
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4,signed=True
-    arg: kind=int,size=4,signed=True
+    ret: kind=void
+    arg: kind=ptr
+      type: kind=winapi,name=IDirectDraw,size=4
 global: va=005B5420,name=MyDdSurface_constructor
   type: kind=function,declspec=cdecl
     ret: kind=ptr
@@ -49923,7 +49957,7 @@ global: va=005B6E70,name=DiscFileBase_destructor
       type: kind=int,size=4
 global: va=005B6EA0,name=DiscFileBase_readBytes
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4,signed=True
+    ret: kind=winapi,name=size_t,size=4
     arg: kind=ptr
       type: kind=struct,id=vtbl_00671F80
     arg: kind=ptr
@@ -49931,21 +49965,21 @@ global: va=005B6EA0,name=DiscFileBase_readBytes
     arg: kind=int,size=4,signed=True
 global: va=005B6EC0,name=DiscFileBase_writeBytes
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4,signed=True
+    ret: kind=winapi,name=size_t,size=4
     arg: kind=ptr
       type: kind=struct,id=vtbl_00671F80
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
 global: va=005B6EE0,name=DiscFileBase_seek
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4,signed=True
+    ret: kind=winapi,name=size_t,size=4
     arg: kind=ptr
       type: kind=struct,id=vtbl_00671F80
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
 global: va=005B6F00,name=DiscFileBase_getOffs
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4,signed=True
+    ret: kind=winapi,name=size_t,size=4
     arg: kind=ptr
       type: kind=struct,id=vtbl_00671F80
 global: va=005B6F10,name=DiscFileBase_getStream
@@ -50341,8 +50375,7 @@ global: va=005B8920,name=MyStr_assign
       type: kind=char,size=1
 global: va=005B8970,name=MyStr_assignMyStr
   type: kind=function,declspec=thiscall
-    ret: kind=ptr
-      type: kind=void
+    ret: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=struct,id=vtbl_006722D0
     arg: kind=ptr
@@ -50381,7 +50414,7 @@ global: va=005B8A70,name=MyStr_appendMySubStr
       type: kind=struct,id=vtbl_00672300
 global: va=005B8AB0,name=MyStr_format
   type: kind=function,declspec=cdecl_varargs
-    ret: kind=winapi,name=size_t,size=4
+    ret: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=struct,id=vtbl_006722D0
     arg: kind=int,size=4,signed=True
@@ -50747,7 +50780,7 @@ global: va=005BA450,name=sub_5BA450
     arg: kind=int,size=4,signed=True
 global: va=005BA460,name=debugMsgBox
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4,signed=True
+    ret: kind=winapi,name=BOOL,size=4
     arg: kind=ptr
       type: kind=char,size=1
 global: va=005BA4E0,name=setDebugStringFun
@@ -51893,25 +51926,27 @@ global: va=005D10E0,name=sub_5D10E0
       type: kind=int,size=2
     arg: kind=ptr
       type: kind=struct,id=constructor_005B5270
-global: va=005D1130,name=sub_5D1130
+global: va=005D1130,name=FPUControlWord_apply
   type: kind=function,declspec=thiscall
     ret: kind=bool
     arg: kind=ptr
-      type: kind=int,size=2
-global: va=005D1180,name=sub_5D1180
-  type: kind=function,declspec=assembly
-    ret: kind=ptr
-      type: kind=void
-global: va=005D11A0,name=sub_5D11A0
+      type: kind=struct,id=vtbl_00671F40
+global: va=005D1180,name=FPUControlWord_restore
+  type: kind=function,declspec=thiscall
+    ret: kind=int,size=4
+    arg: kind=ptr
+      type: kind=struct,id=vtbl_00671F40
+    arg: kind=int,size=4,signed=True
+global: va=005D11A0,name=FPUControlWord_reset
   type: kind=function,declspec=thiscall
     ret: kind=int,size=4,signed=True
-    arg: kind=int,size=4,signed=True
-global: va=005D11E0,name=sub_5D11E0
-  type: kind=function,declspec=fastcall
+    arg: kind=ptr
+      type: kind=struct,id=vtbl_00671F40
+global: va=005D11E0,name=FPUControlWord_change
+  type: kind=function,declspec=thiscall
     ret: kind=int,size=4,signed=True
     arg: kind=ptr
-      type: kind=int,size=2
-    arg: kind=int,size=4,signed=True
+      type: kind=struct,id=vtbl_00671F40
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
 global: va=005D1230,name=DdModeList_constructor
@@ -51968,11 +52003,11 @@ global: va=005D13B0,name=libpng::png_zfree
       type: kind=void
 global: va=005D13D0,name=libpng::png_reset_crc
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=int,size=4,signed=True
 global: va=005D13F0,name=libpng::png_calculate_crc
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=int,size=1
@@ -54749,7 +54784,8 @@ global: va=005F6930,name=sub_5F6930
     arg: kind=int,size=4,signed=True
 global: va=005F6B00,name=sub_5F6B00
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4,signed=True
+    ret: kind=ptr
+      type: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=void
     arg: kind=int,size=4,signed=True
@@ -54951,7 +54987,7 @@ global: va=005F8450,name=libpng::png_memset_check
       type: kind=void
 global: va=005F8490,name=zlib::crc32
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=int,size=1
@@ -55002,7 +55038,7 @@ global: va=005F8C20,name=libpng::png_get_uint_16
       type: kind=int,size=1
 global: va=005F8C40,name=libpng::png_crc_read
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=ptr
       type: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
@@ -55041,7 +55077,7 @@ global: va=005F9170,name=libpng::png_handle_IEND
     arg: kind=int,size=4,signed=True
 global: va=005F91D0,name=libpng::png_handle_gAMA
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=ptr
       type: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
@@ -55409,7 +55445,7 @@ global: va=005FDE60,name=sub_5FDE60
       type: kind=int,size=4
 global: va=005FDE70,name=DiscFileBase_getSize
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4,signed=True
+    ret: kind=winapi,name=size_t,size=4
     arg: kind=ptr
       type: kind=struct,id=vtbl_00671F80
 global: va=005FDE80,name=sub_5FDE80
@@ -56216,7 +56252,7 @@ global: va=00601DA0,name=zlib::inflate_blocks_free
     arg: kind=int,size=4,signed=True
 global: va=00601DF0,name=zlib::adler32
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4
+    ret: kind=int,size=4,signed=True
     arg: kind=int,size=4
     arg: kind=ptr
       type: kind=int,size=1
@@ -58423,7 +58459,7 @@ global: va=0060E680,name=sub_60E680
     arg: kind=int,size=4,signed=True
 global: va=0060E720,name=sub_60E720
   type: kind=function,declspec=stdcall
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=int,size=4
 global: va=0060E7D0,name=sub_60E7D0
   type: kind=function,declspec=thiscall
@@ -60296,7 +60332,7 @@ global: va=00618FF0,name=sub_618FF0
       type: kind=int,size=4
 global: va=00619080,name=sub_619080
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=ptr
       type: kind=char,size=1
     arg: kind=int,size=4
@@ -67304,7 +67340,7 @@ global: va=00659580,name=tqia_dec_659580
     arg: kind=int,size=4,signed=True
 global: va=006595C0,name=tqia_dec_6595C0
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4
 global: va=00659608,name=tqia_reset_659608
@@ -67612,6 +67648,8 @@ global: va=00671E20,name=CLSID_IDirectDraw4
   type: kind=winapi,name=GUID,size=16
 global: va=00671E30,name=CLSID_IDirectDraw2
   type: kind=winapi,name=GUID,size=16
+global: va=00671F40,name=FPUControlWord_vftable
+  type: kind=struct,id=instance_00671F40
 global: va=00671F80,name=DiscFileBase_vftable
   type: kind=struct,id=instance_00671F80
 global: va=006722D0,name=MyStr_vftable
@@ -68390,6 +68428,8 @@ global: va=0079D260,name=bullfrogClassName
 global: va=0079D364,name=g_pDdSurface_windowed
   type: kind=ptr
     type: kind=struct,id=instance_0079D200
+global: va=0079D368,name=FPUControlWordWithState_instance
+  type: kind=struct,id=instance_0079D368
 global: va=0079D378,name=g_dd_surface2
   type: kind=struct,id=instance_0079D200
 global: va=0079D3C8,name=hWnd
@@ -68407,13 +68447,28 @@ global: va=0079D3D4,name=lpDDPalette
 global: va=0079D3D8,name=lpDDClipper
   type: kind=ptr
     type: kind=winapi,name=IDirectDrawClipper,size=4
+global: va=0079D3DC,name=g_isNeedBlt
+  type: kind=int,size=4,signed=True
+global: va=0079D3E0,name=g_ignore_79D3E0
+  type: kind=int,size=4,signed=True
 global: va=0079D3E4,name=selectedDDGuid
   type: kind=ptr
     type: kind=winapi,name=GUID,size=16
+global: va=0079D3E8,name=isSurfModeX
+  type: kind=int,size=4,signed=True
 global: va=0079D3F0,name=lpSurfaceDD
   type: kind=ptr
     type: kind=winapi,name=IDirectDraw,size=4
+global: va=0079D418,name=palleteEntries
+  type: kind=array,count=256
+    type: kind=winapi,name=PALETTEENTRY,size=4
+global: va=0079D818,name=g_confSurfDesc2
+  type: kind=struct,id=constructor_0052D3E0
 global: va=0079D830,name=g_confSurfDesc
+  type: kind=struct,id=constructor_0052D3E0
+global: va=0079D848,name=g_confSurfDesc3
+  type: kind=struct,id=constructor_0052D3E0
+global: va=0079D860,name=g_confSurfDesc4
   type: kind=struct,id=constructor_0052D3E0
 global: va=0079D980,name=pathBuf
   type: kind=array,count=256
@@ -68423,6 +68478,10 @@ global: va=0079DA88,name=dk2HomeDir
     type: kind=char,size=1
 global: va=0079DBD0,name=WinEventHandlers_instance
   type: kind=struct,id=constructor_005B97B0
+global: va=0079DC38,name=g_confSurfDesc6
+  type: kind=struct,id=constructor_0052D3E0
+global: va=0079DC50,name=g_confSurfDesc5
+  type: kind=struct,id=constructor_0052D3E0
 global: va=0079DC68,name=Obj79DC68_instance
   type: kind=struct,id=constructor_005D2520
 global: va=0079F4F0,name=tqi_byte_79F4F0

@@ -41,8 +41,8 @@ struct CThing : CTag {  // -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066D464*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CTag  -----------------------------------  /* auto */
-/*  0*/ // virtual void *v_deleting_destructor(char);  // = 004B7530  /* auto */
-/*  4*/ // virtual BOOL v_f4(void **);  // = 004B4B50  ---  /* auto */
+/*  0*/ // virtual const void *v_deleting_destructor(char);  // = 004B7530  /* auto */
+/*  4*/ // virtual BOOL v_f4(const void **);  // = 004B4B50  /* auto */
 /*---*/ // CThing  ---------------------------------------  /* auto */
 /*  8*/ virtual int32_t v_f8(int32_t);  // = 004B4BB0  ---  /* auto */
 /*  C*/ virtual int32_t v_fC();  // = 004B4C20  ----------  /* auto */
@@ -53,7 +53,7 @@ struct CThing : CTag {  // -------------------------------  /* auto */
 /* 20*/ virtual void v_f20();  // = 0040D440  ------------  /* auto */
 /* 24*/ virtual char v_f24(int32_t);  // = 00634D60  -----  /* auto */
 /* 28*/ virtual BOOL v_f28();  // = 00402AD0  ------------  /* auto */
-/* 2C*/ virtual char *v_f2C();  // = 004B5C10  -----------  /* auto */
+/* 2C*/ virtual const char *v_f2C();  // = 004B5C10  -----  /* auto */
 /* 30*/ virtual int32_t v_f30();  // = 00634D60  ---------  /* auto */
 /* 34*/ virtual int32_t v_f34();  // = 00402AD0  ---------  /* auto */
 /* 38*/ virtual int32_t v_f38();  // = 00402AD0  ---------  /* auto */
@@ -64,22 +64,22 @@ struct CThing : CTag {  // -------------------------------  /* auto */
 /* 4C*/ virtual int16_t *v_f4C(int16_t *);  // = 004B5C20   /* auto */
 /* 50*/ virtual int16_t *v_f50(int16_t *);  // = 004B5C20   /* auto */
 // -------------------------------------------------------  /* auto */
-/*004A54D0*/ BOOL CDoor_fun_4A54D0(void **);  // ---------  /* auto */
+/*004A54D0*/ BOOL CDoor_fun_4A54D0(const void **);  // ---  /* auto */
 /*004A5560*/ int32_t CDoor_fun_4A5560(int32_t);  // ------  /* auto */
-/*004A7BD0*/ BOOL CTrap_fun_4A7BD0(void **);  // ---------  /* auto */
+/*004A7BD0*/ BOOL CTrap_fun_4A7BD0(const void **);  // ---  /* auto */
 /*004A7C60*/ int32_t CTrap_fun_4A7C60(int32_t);  // ------  /* auto */
 /*004B0550*/ int32_t CActionPoint_fun_4B0550(int32_t);      /* auto */
 /*004B1AE0*/ int32_t CEffectGenerator_fun_4B1AE0(int32_t);  /* auto */
-/*004B1E70*/ BOOL CMovingThing_fun_4B1E70(void **);  // --  /* auto */
+/*004B1E70*/ BOOL CMovingThing_fun_4B1E70(const void **);   /* auto */
 /*004B1EC0*/ int32_t CMovingThing_fun_4B1EC0(int32_t);      /* auto */
-/*004B2920*/ BOOL CPhysicalThing_fun_4B2920(void **);       /* auto */
+/*004B2920*/ BOOL CPhysicalThing_fun_4B2920(const void **);  /* auto */
 /*004B29F0*/ int32_t CPhysicalThing_fun_4B29F0(int32_t);    /* auto */
-/*004B4B50*/ BOOL fun_4B4B50(void **);  // ---------------  /* auto */
+/*004B4B50*/ BOOL fun_4B4B50(const void **);  // ---------  /* auto */
 /*004B4BB0*/ int32_t fun_4B4BB0(int32_t);  // ------------  /* auto */
 /*004B5020*/ int32_t sub_4B5020(int32_t);  // ------------  /* auto */
 /*004B56A0*/ int32_t fun_4B56A0();  // -------------------  /* auto */
 /*004B5700*/ void dump();  // ----------------------------  /* auto */
-/*004B5C10*/ char *fun_4B5C10();  // ---------------------  /* auto */
+/*004B5C10*/ const char *fun_4B5C10();  // ---------------  /* auto */
 /*004B5C20*/ int32_t fun_4B5C20(int16_t *);  // ----------  /* auto */
 /*004B5EF0*/ CThing *constructor();  // ------------------  /* auto */
 /*004B7550*/ int32_t destructor();  // -------------------  /* auto */

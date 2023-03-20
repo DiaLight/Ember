@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *Obj672E80::v_Obj672E80_scalar_destructor(char) { relink_stub(Obj672E80::v_Obj672E80_scalar_destructor); }  /* auto */
+/*  0*/ const void *Obj672E80::v_Obj672E80_scalar_destructor(char) { relink_stub(Obj672E80::v_Obj672E80_scalar_destructor); }  /* auto */
 /*  4*/ int32_t Obj672E80::v_Obj672E80_convertPixel(int32_t *, int8_t *, int32_t) { relink_stub(Obj672E80::v_Obj672E80_convertPixel); }  /* auto */
 /*  8*/ void Obj672E80::v_nullsub_23(int32_t, int32_t, int32_t) { relink_stub(Obj672E80::v_nullsub_23); }  /* auto */
 // -------------------------------------------------------  /* auto */

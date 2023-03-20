@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *ControlSurf::v_sub_5F80D0(char) { relink_stub(ControlSurf::v_sub_5F80D0); }  /* auto */
+/*  0*/ const void *ControlSurf::v_sub_5F80D0(char) { relink_stub(ControlSurf::v_sub_5F80D0); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*006729F8*/ void **ControlSurf::vftable() { return dk2::ControlSurf_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

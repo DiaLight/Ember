@@ -22,7 +22,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0066ECA4*/ void **CButton::vftable() { return dk2::CButton_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*00528280*/ CButton *CButton::constructor() { relink_stub(CButton::constructor); }  /* auto */
-/*005282A0*/ void *CButton::fun_5282A0(ButtonCfg *) { relink_stub(CButton::fun_5282A0); }  /* auto */
+/*005282A0*/ const void *CButton::fun_5282A0(ButtonCfg *) { relink_stub(CButton::fun_5282A0); }  /* auto */
 /*00528300*/ int32_t CButton::configure(CWindow *, ButtonCfg *, CButton *) { relink_stub(CButton::configure); }  /* auto */
 /*00528430*/ int32_t CButton::visitCursor(Pos2i *) { relink_stub(CButton::visitCursor); }  /* auto */
 /*005284B0*/ BOOL CButton::containsPoint(Pos2i *) { relink_stub(CButton::containsPoint); }  /* auto */

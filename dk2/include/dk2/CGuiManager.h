@@ -58,7 +58,7 @@ struct CGuiManager {  // ---------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066ED1C*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // CGuiManager  ----------------------------------  /* auto */
-/*  0*/ virtual void *v__scalar_deleting_destructor_uint(char);  // = 0052B8C0  /* auto */
+/*  0*/ virtual const void *v__scalar_deleting_destructor_uint(char);  // = 0052B8C0  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0052B870*/ CGuiManager *constructor();  // -------------  /* auto */
 /*0052B8E0*/ void destructor();  // ----------------------  /* auto */

@@ -40,7 +40,7 @@ struct FontObj {  // -------------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0067B8C0*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // FontObj  --------------------------------------  /* auto */
-/*  0*/ virtual void *v_scalar_destructor(char);  // = 0062C290  /* auto */
+/*  0*/ virtual const void *v_scalar_destructor(char);  // = 0062C290  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0062C240*/ FontObj *constructor();  // -----------------  /* auto */
 /*0062C2B0*/ int32_t destructor();  // -------------------  /* auto */

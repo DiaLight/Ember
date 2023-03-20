@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *CDefaultPlayerInterface::v_fun_402C00(char) { relink_stub(CDefaultPlayerInterface::v_fun_402C00); }  /* auto */
+/*  0*/ const void *CDefaultPlayerInterface::v_fun_402C00(char) { relink_stub(CDefaultPlayerInterface::v_fun_402C00); }  /* auto */
 /*  4*/ int32_t CDefaultPlayerInterface::v_fun_402D00(__int16) { relink_stub(CDefaultPlayerInterface::v_fun_402D00); }  /* auto */
 /*  8*/ int32_t CDefaultPlayerInterface::v_fun_4033F0() { relink_stub(CDefaultPlayerInterface::v_fun_4033F0); }  /* auto */
 /*  C*/ int32_t CDefaultPlayerInterface::v_fun_4036E0() { relink_stub(CDefaultPlayerInterface::v_fun_4036E0); }  /* auto */
@@ -37,7 +37,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /* 4C*/ int32_t CDefaultPlayerInterface::v_fun_42C0D0() { relink_stub(CDefaultPlayerInterface::v_fun_42C0D0); }  /* auto */
 /* 50*/ int32_t CDefaultPlayerInterface::v_fun_42C1E0(int32_t, int32_t) { relink_stub(CDefaultPlayerInterface::v_fun_42C1E0); }  /* auto */
 /* 54*/ char CDefaultPlayerInterface::v_fun_402B90(char) { relink_stub(CDefaultPlayerInterface::v_fun_402B90); }  /* auto */
-/* 58*/ int32_t CDefaultPlayerInterface::v_fun_409EC0(__int16, void *) { relink_stub(CDefaultPlayerInterface::v_fun_409EC0); }  /* auto */
+/* 58*/ int32_t CDefaultPlayerInterface::v_fun_409EC0(__int16, const void *) { relink_stub(CDefaultPlayerInterface::v_fun_409EC0); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066C4A4*/ void **CDefaultPlayerInterface::vftable() { return dk2::CDefaultPlayerInterface_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
@@ -100,9 +100,9 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00422F60*/ void CDefaultPlayerInterface::sub_422F60(int32_t, int32_t) { relink_stub(CDefaultPlayerInterface::sub_422F60); }  /* auto */
 /*00423A80*/ int32_t CDefaultPlayerInterface::sub_423A80(int32_t, int32_t *, int16_t, int16_t, int32_t, int32_t) { relink_stub(CDefaultPlayerInterface::sub_423A80); }  /* auto */
 /*0042C390*/ void CDefaultPlayerInterface::sub_42C390() { relink_stub(CDefaultPlayerInterface::sub_42C390); }  /* auto */
-/*0042C7D0*/ int32_t CDefaultPlayerInterface::sub_42C7D0(int32_t, int32_t, int32_t, char *, int32_t *) { relink_stub(CDefaultPlayerInterface::sub_42C7D0); }  /* auto */
-/*0042CAB0*/ int32_t CDefaultPlayerInterface::whatEverFont_42CAB0(RtGuiView *, int32_t, int32_t, wchar_t *, PixelMask *, int32_t, int32_t, FontObj, int32_t) { relink_stub(CDefaultPlayerInterface::whatEverFont_42CAB0); }  /* auto */
-/*0042CB60*/ int32_t CDefaultPlayerInterface::sub_42CB60(RtGuiView *, int32_t, int32_t, char *, PixelMask *, int32_t, int32_t, FontObj, int32_t) { relink_stub(CDefaultPlayerInterface::sub_42CB60); }  /* auto */
+/*0042C7D0*/ int32_t CDefaultPlayerInterface::sub_42C7D0(int32_t, int32_t, int32_t, const char *, int32_t *) { relink_stub(CDefaultPlayerInterface::sub_42C7D0); }  /* auto */
+/*0042CAB0*/ int32_t CDefaultPlayerInterface::whatEverFont_42CAB0(RtGuiView *, int32_t, int32_t, const wchar_t *, PixelMask *, int32_t, int32_t, FontObj, int32_t) { relink_stub(CDefaultPlayerInterface::whatEverFont_42CAB0); }  /* auto */
+/*0042CB60*/ int32_t CDefaultPlayerInterface::sub_42CB60(RtGuiView *, int32_t, int32_t, const char *, PixelMask *, int32_t, int32_t, FontObj, int32_t) { relink_stub(CDefaultPlayerInterface::sub_42CB60); }  /* auto */
 /*0042CDF0*/ int32_t CDefaultPlayerInterface::createSurfacesForView_42CDF0(RtGuiView *) { relink_stub(CDefaultPlayerInterface::createSurfacesForView_42CDF0); }  /* auto */
 /*004346E0*/ BOOL CDefaultPlayerInterface::pushAction(GameAction *) { relink_stub(CDefaultPlayerInterface::pushAction); }  /* auto */
 // -------------------------------------------------------  /* auto */

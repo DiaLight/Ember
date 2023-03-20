@@ -21,7 +21,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00672300*/ void **MySubStr::vftable() { return dk2::MySubStr_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*005D7D90*/ bool MySubStr::isNotStartsFromChar(int8_t *) { relink_stub(MySubStr::isNotStartsFromChar); }  /* auto */
-/*005D8850*/ int32_t *MySubStr::MyWadDirectory_sub_5D8850(int32_t *, char *, int32_t) { relink_stub(MySubStr::MyWadDirectory_sub_5D8850); }  /* auto */
+/*005D8850*/ int32_t *MySubStr::MyWadDirectory_sub_5D8850(int32_t *, const char *, int32_t) { relink_stub(MySubStr::MyWadDirectory_sub_5D8850); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

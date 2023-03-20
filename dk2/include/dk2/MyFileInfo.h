@@ -25,7 +25,7 @@ struct MyFileInfo {  // ----------------------------------  /* auto */
 /*  8*/ FILETIME lastWriteTime;  // ----------------------  /* auto */
 /* 10*/ FILETIME lastAccessTime;  // ---------------------  /* auto */
 /* 18*/ FILETIME creationTime;  // -----------------------  /* auto */
-/* 20*/ char *pFileName;  // -----------------------------  /* auto */
+/* 20*/ const char *pFileName;  // -----------------------  /* auto */
 /* 24*/ char str[260];  // -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

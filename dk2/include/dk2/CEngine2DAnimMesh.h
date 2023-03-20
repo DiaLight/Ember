@@ -49,7 +49,7 @@ struct CEngine2DAnimMesh : CEngine2DPrimitive {  // ------  /* auto */
 /*  C*/ virtual int32_t v_fun_583680();  // = 00583680  --  /* auto */
 /* 10*/ virtual int32_t v_fun_5783A0(int32_t);  // = 005783A0  /* auto */
 // -------------------------------------------------------  /* auto */
-/*00577E60*/ CEngine2DAnimMesh *constructor(int32_t, int32_t, int32_t, void *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t *);  /* auto */
+/*00577E60*/ CEngine2DAnimMesh *constructor(int32_t, int32_t, int32_t, const void *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t *);  /* auto */
 /*00577F10*/ void fun_577F10(int32_t, SceneObject2E *);     /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

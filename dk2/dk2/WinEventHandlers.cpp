@@ -16,8 +16,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*005B9930*/ void WinEventHandlers::callList(int32_t, int32_t) { relink_stub(WinEventHandlers::callList); }  /* auto */
-/*005B99E0*/ void WinEventHandlers::addHandler(int32_t, void (__stdcall *)(int32_t, int32_t, void *), void *) { relink_stub(WinEventHandlers::addHandler); }  /* auto */
-/*005B9AB0*/ void WinEventHandlers::removeHandler(int32_t, void (__stdcall *)(int32_t, int32_t, void *), void *) { relink_stub(WinEventHandlers::removeHandler); }  /* auto */
+/*005B99E0*/ void WinEventHandlers::addHandler(int32_t, void (__stdcall *)(int32_t, int32_t, const void *), const void *) { relink_stub(WinEventHandlers::addHandler); }  /* auto */
+/*005B9AB0*/ void WinEventHandlers::removeHandler(int32_t, void (__stdcall *)(int32_t, int32_t, const void *), const void *) { relink_stub(WinEventHandlers::removeHandler); }  /* auto */
 /*005B9BD0*/ void WinEventHandlers::clear() { relink_stub(WinEventHandlers::clear); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */

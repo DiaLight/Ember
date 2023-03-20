@@ -76,6 +76,7 @@
 #include <dk2/CursorDrawer.h>  // ------------------------  /* auto */
 #include <dk2/DiscFileBase.h>  // ------------------------  /* auto */
 #include <dk2/DxActionQueue.h>  // -----------------------  /* auto */
+#include <dk2/FPUControlWord.h>  // ----------------------  /* auto */
 #include <dk2/FileStorageBase.h>  // ---------------------  /* auto */
 #include <dk2/FloatObjThing.h>  // -----------------------  /* auto */
 #include <dk2/FontObj.h>  // -----------------------------  /* auto */
@@ -318,6 +319,7 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x00671E10, &dk2::CLSID_IDirectDrawSurface2, "CLSID_IDirectDrawSurface2" },  /* auto */
   { 0x00671E20, &dk2::CLSID_IDirectDraw4, "CLSID_IDirectDraw4" },  /* auto */
   { 0x00671E30, &dk2::CLSID_IDirectDraw2, "CLSID_IDirectDraw2" },  /* auto */
+  { 0x00671F40, &dk2::FPUControlWord_vftable, "FPUControlWord_vftable" },  /* auto */
   { 0x00671F80, &dk2::DiscFileBase_vftable, "DiscFileBase_vftable" },  /* auto */
   { 0x006722D0, &dk2::MyStr_vftable, "MyStr_vftable" },     /* auto */
   { 0x00672300, &dk2::MySubStr_vftable, "MySubStr_vftable" },  /* auto */
@@ -631,18 +633,28 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x0079D250, &dk2::DdModeList_instance, "DdModeList_instance" },  /* auto */
   { 0x0079D260, &dk2::bullfrogClassName, "bullfrogClassName" },  /* auto */
   { 0x0079D364, &dk2::g_pDdSurface_windowed, "g_pDdSurface_windowed" },  /* auto */
+  { 0x0079D368, &dk2::FPUControlWordWithState_instance, "FPUControlWordWithState_instance" },  /* auto */
   { 0x0079D378, &dk2::g_dd_surface2, "g_dd_surface2" },     /* auto */
   { 0x0079D3C8, &dk2::hWnd, "hWnd" },  // ----------------  /* auto */
   { 0x0079D3CC, &dk2::hBullfrogWindow, "hBullfrogWindow" },  /* auto */
   { 0x0079D3D0, &dk2::lpDD, "lpDD" },  // ----------------  /* auto */
   { 0x0079D3D4, &dk2::lpDDPalette, "lpDDPalette" },  // --  /* auto */
   { 0x0079D3D8, &dk2::lpDDClipper, "lpDDClipper" },  // --  /* auto */
+  { 0x0079D3DC, &dk2::g_isNeedBlt, "g_isNeedBlt" },  // --  /* auto */
+  { 0x0079D3E0, &dk2::g_ignore_79D3E0, "g_ignore_79D3E0" },  /* auto */
   { 0x0079D3E4, &dk2::selectedDDGuid, "selectedDDGuid" },   /* auto */
+  { 0x0079D3E8, &dk2::isSurfModeX, "isSurfModeX" },  // --  /* auto */
   { 0x0079D3F0, &dk2::lpSurfaceDD, "lpSurfaceDD" },  // --  /* auto */
+  { 0x0079D418, &dk2::palleteEntries, "palleteEntries" },   /* auto */
+  { 0x0079D818, &dk2::g_confSurfDesc2, "g_confSurfDesc2" },  /* auto */
   { 0x0079D830, &dk2::g_confSurfDesc, "g_confSurfDesc" },   /* auto */
+  { 0x0079D848, &dk2::g_confSurfDesc3, "g_confSurfDesc3" },  /* auto */
+  { 0x0079D860, &dk2::g_confSurfDesc4, "g_confSurfDesc4" },  /* auto */
   { 0x0079D980, &dk2::pathBuf, "pathBuf" },  // ----------  /* auto */
   { 0x0079DA88, &dk2::dk2HomeDir, "dk2HomeDir" },  // ----  /* auto */
   { 0x0079DBD0, &dk2::WinEventHandlers_instance, "WinEventHandlers_instance" },  /* auto */
+  { 0x0079DC38, &dk2::g_confSurfDesc6, "g_confSurfDesc6" },  /* auto */
+  { 0x0079DC50, &dk2::g_confSurfDesc5, "g_confSurfDesc5" },  /* auto */
   { 0x0079DC68, &dk2::Obj79DC68_instance, "Obj79DC68_instance" },  /* auto */
   { 0x0079F4F0, &dk2::tqi_byte_79F4F0, "tqi_byte_79F4F0" },  /* auto */
   { 0x0079F638, &dk2::CursorDrawer_instance, "CursorDrawer_instance" },  /* auto */
@@ -738,7 +750,6 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x004025F0, (void *) &dk2::sub_4025F0, "sub_4025F0" },  /* auto */
   { 0x00402630, (void *) &dk2::sub_402630, "sub_402630" },  /* auto */
   { 0x00402AD0, (void *) &dk2::ret_0_0args, "ret_0_0args" },  /* auto */
-  { 0x00402BD0, (void *) &dk2::TbFontRenderCallback_destructor, "TbFontRenderCallback_destructor" },  /* auto */
   { 0x00403060, (void *) &dk2::sub_403060, "sub_403060" },  /* auto */
   { 0x00404E50, (void *) &dk2::sub_404E50, "sub_404E50" },  /* auto */
   { 0x00404EB0, (void *) &dk2::sub_404EB0, "sub_404EB0" },  /* auto */
@@ -2307,19 +2318,19 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x005B3F90, (void *) &dk2::sub_5B3F90, "sub_5B3F90" },  /* auto */
   { 0x005B3FA0, (void *) &dk2::sub_5B3FA0, "sub_5B3FA0" },  /* auto */
   { 0x005B3FD0, (void *) &dk2::sub_5B3FD0, "sub_5B3FD0" },  /* auto */
-  { 0x005B3FE0, (void *) &dk2::sub_5B3FE0, "sub_5B3FE0" },  /* auto */
-  { 0x005B4020, (void *) &dk2::sub_5B4020, "sub_5B4020" },  /* auto */
+  { 0x005B3FE0, (void *) &dk2::FPUControlWord_static_init, "FPUControlWord_static_init" },  /* auto */
+  { 0x005B4020, (void *) &dk2::FPUControlWordWithState_static_init, "FPUControlWordWithState_static_init" },  /* auto */
   { 0x005B4040, (void *) &dk2::setSelectedDDGuid, "setSelectedDDGuid" },  /* auto */
   { 0x005B4050, (void *) &dk2::lpDD_addRef, "lpDD_addRef" },  /* auto */
   { 0x005B4070, (void *) &dk2::showMessageBox, "showMessageBox" },  /* auto */
   { 0x005B40E0, (void *) &dk2::BullfrogWindow_destroy, "BullfrogWindow_destroy" },  /* auto */
-  { 0x005B4160, (void *) &dk2::__sub_5B4160_ev0_5, "__sub_5B4160_ev0_5" },  /* auto */
-  { 0x005B4230, (void *) &dk2::dk2_destroy, "dk2_destroy" },  /* auto */
+  { 0x005B4160, (void *) &dk2::dk2wndCleanup_sendEv0_5, "dk2wndCleanup_sendEv0_5" },  /* auto */
+  { 0x005B4230, (void *) &dk2::dk2dd_destroy, "dk2dd_destroy" },  /* auto */
   { 0x005B4260, (void *) &dk2::BullfrogWindow_create, "BullfrogWindow_create" },  /* auto */
   { 0x005B4330, (void *) &dk2::static_isNeedBlt, "static_isNeedBlt" },  /* auto */
   { 0x005B4340, (void *) &dk2::showTodoMessageBox, "showTodoMessageBox" },  /* auto */
-  { 0x005B4390, (void *) &dk2::dk2_init, "dk2_init" },      /* auto */
-  { 0x005B4AE0, (void *) &dk2::sub_5B4AE0, "sub_5B4AE0" },  /* auto */
+  { 0x005B4390, (void *) &dk2::dk2dd_init, "dk2dd_init" },  /* auto */
+  { 0x005B4AE0, (void *) &dk2::dk2wnd_cleanup, "dk2wnd_cleanup" },  /* auto */
   { 0x005B4B00, (void *) &dk2::__sub_5B4B00_ev1, "__sub_5B4B00_ev1" },  /* auto */
   { 0x005B4D40, (void *) &dk2::sub_5B4D40, "sub_5B4D40" },  /* auto */
   { 0x005B4D80, (void *) &dk2::sub_5B4D80, "sub_5B4D80" },  /* auto */
@@ -2463,8 +2474,6 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x005D0FC0, (void *) &dk2::AABB_intersect, "AABB_intersect" },  /* auto */
   { 0x005D1040, (void *) &dk2::AABB_collapseToMax, "AABB_collapseToMax" },  /* auto */
   { 0x005D1050, (void *) &dk2::AABB_normalize, "AABB_normalize" },  /* auto */
-  { 0x005D1180, (void *) &dk2::sub_5D1180, "sub_5D1180" },  /* auto */
-  { 0x005D11E0, (void *) &dk2::sub_5D11E0, "sub_5D11E0" },  /* auto */
   { 0x005D1230, (void *) &dk2::DdModeList_constructor, "DdModeList_constructor" },  /* auto */
   { 0x005D1250, (void *) &dk2::llist_insert, "llist_insert" },  /* auto */
   { 0x005D1270, (void *) &dk2::sub_5D1270, "sub_5D1270" },  /* auto */
@@ -4069,6 +4078,11 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x0059D760, (funptr_t) &dk2::CPCEngineInterface::fun_59D760, "CPCEngineInterface::fun_59D760" },  /* auto */
   { 0x0059D7F0, (funptr_t) &dk2::CPCEngineInterface::drawScene, "CPCEngineInterface::drawScene" },  /* auto */
   { 0x0059D900, (funptr_t) &dk2::CPCEngineInterface::fun_59D900, "CPCEngineInterface::fun_59D900" },  /* auto */
+  { 0x005B51F0, (funptr_t) &dk2::FPUControlWord::destructor, "FPUControlWord::destructor" },  /* auto */
+  { 0x005D1130, (funptr_t) &dk2::FPUControlWord::apply, "FPUControlWord::apply" },  /* auto */
+  { 0x005D1180, (funptr_t) &dk2::FPUControlWord::restore, "FPUControlWord::restore" },  /* auto */
+  { 0x005D11A0, (funptr_t) &dk2::FPUControlWord::reset, "FPUControlWord::reset" },  /* auto */
+  { 0x005D11E0, (funptr_t) &dk2::FPUControlWord::change, "FPUControlWord::change" },  /* auto */
   { 0x005B5250, (funptr_t) &dk2::MySurface::MySurface_empty, "MySurface::MySurface_empty" },  /* auto */
   { 0x005B5270, (funptr_t) &dk2::MySurface::constructor, "MySurface::constructor" },  /* auto */
   { 0x005B52C0, (funptr_t) &dk2::MySurface::allocSurfaceIfNot, "MySurface::allocSurfaceIfNot" },  /* auto */

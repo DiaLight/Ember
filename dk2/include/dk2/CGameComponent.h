@@ -42,15 +42,15 @@ struct CGameComponent : CComponent {  // -----------------  /* auto */
 /*---*/ // super CComponent  -----------------------------  /* auto */
 /*  0*/ // virtual int32_t *v_deleting_destructor(char);  // = 005252B0  /* auto */
 /*  4*/ // virtual int32_t v_f4_();  // = 004B4C20  ------  /* auto */
-/*  8*/ // virtual void *v_f8_();  // = 00401200  --------  /* auto */
+/*  8*/ // virtual const void *v_f8_();  // = 00401200  --  /* auto */
 /*  C*/ // virtual int32_t v_handle();  // = 00525350  ---  /* auto */
 /* 10*/ // virtual int32_t *v_f10_();  // = 00525360  ----  /* auto */
-/* 14*/ // virtual void ***v_mainGuiLoop();  // = 00525370  /* auto */
+/* 14*/ // virtual const void ***v_mainGuiLoop();  // = 00525370  /* auto */
 /*---*/ // CGameComponent  -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005251A0*/ CGameComponent *constructor();  // ----------  /* auto */
 /*00525350*/ int32_t setExit0();  // ---------------------  /* auto */
-/*00525370*/ void ***mainGuiLoop();  // ------------------  /* auto */
+/*00525370*/ const void ***mainGuiLoop();  // ------------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

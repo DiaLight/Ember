@@ -17,7 +17,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
 /*  0*/ int32_t MyTextBase::v_release() { relink_stub(MyTextBase::v_release); }  /* auto */
 /*  4*/ int32_t MyTextBase::v_addRef() { relink_stub(MyTextBase::v_addRef); }  /* auto */
-/*  8*/ void *MyTextBase::v_scalar_destructor(char) { relink_stub(MyTextBase::v_scalar_destructor); }  /* auto */
+/*  8*/ const void *MyTextBase::v_scalar_destructor(char) { relink_stub(MyTextBase::v_scalar_destructor); }  /* auto */
 /*  C*/ int32_t MyTextBase::v_j_release() { relink_stub(MyTextBase::v_j_release); }  /* auto */
 /* 10*/ int32_t MyTextBase::v_j_addRef() { relink_stub(MyTextBase::v_j_addRef); }  /* auto */
 // -------------------------------------------------------  /* auto */

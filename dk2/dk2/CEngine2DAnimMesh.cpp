@@ -21,7 +21,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066FAD4*/ void **CEngine2DAnimMesh::vftable() { return dk2::CEngine2DAnimMesh_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*00577E60*/ CEngine2DAnimMesh *CEngine2DAnimMesh::constructor(int32_t, int32_t, int32_t, void *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t *) { relink_stub(CEngine2DAnimMesh::constructor); }  /* auto */
+/*00577E60*/ CEngine2DAnimMesh *CEngine2DAnimMesh::constructor(int32_t, int32_t, int32_t, const void *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t *) { relink_stub(CEngine2DAnimMesh::constructor); }  /* auto */
 /*00577F10*/ void CEngine2DAnimMesh::fun_577F10(int32_t, SceneObject2E *) { relink_stub(CEngine2DAnimMesh::fun_577F10); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */

@@ -48,7 +48,7 @@ struct MyWadUnkObj {  // ---------------------------------  /* auto */
 /*005FEF70*/ void sub_5FEF70(WadContent *, MyStr *, int32_t *);  /* auto */
 /*005FF2B0*/ char sub_5FF2B0();  // ----------------------  /* auto */
 /*005FF3D0*/ bool sub_5FF3D0();  // ----------------------  /* auto */
-/*005FF3F0*/ char *sub_5FF3F0(int32_t);  // --------------  /* auto */
+/*005FF3F0*/ const char *sub_5FF3F0(int32_t);  // --------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

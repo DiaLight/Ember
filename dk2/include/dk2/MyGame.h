@@ -76,8 +76,8 @@ struct MyGame {  // --------------------------------------  /* auto */
 /*E7D*/ int32_t fE7D;  // --------------------------------  /* auto */
 /*E81*/ int32_t fE81;  // --------------------------------  /* auto */
 /*E85*/ int32_t totalDisplayMemory;  // ------------------  /* auto */
-/*E89*/ void (__cdecl *WM_ACTIVATE_callbacks[8])(int32_t, int32_t, int32_t, void *);  /* auto */
-/*EA9*/ void *WM_ACTIVATE_userData[8];  // ---------------  /* auto */
+/*E89*/ void (__cdecl *WM_ACTIVATE_callbacks[8])(int32_t, int32_t, int32_t, const void *);  /* auto */
+/*EA9*/ const void *WM_ACTIVATE_userData[8];  // ---------  /* auto */
 /*EC9*/ CWindowTest c_window_test;  // -------------------  /* auto */
 /*F29*/ int16_t field_obj;  // ---------------------------  /* auto */
 /*F2B*/ int8_t gap_F2B[34];  // --------------------------  /* auto */
@@ -100,9 +100,9 @@ struct MyGame {  // --------------------------------------  /* auto */
 /*00558BD0*/ int32_t sub_558BD0();  // -------------------  /* auto */
 /*00558E40*/ int32_t sub_558E40();  // -------------------  /* auto */
 /*00558F70*/ int32_t createSurface(int32_t);  // ---------  /* auto */
-/*00559140*/ int32_t sub_559140(char *, int32_t, char *, char *);  /* auto */
+/*00559140*/ int32_t sub_559140(const char *, int32_t, const char *, const char *);  /* auto */
 /*00559670*/ int32_t isNeedBlt();  // --------------------  /* auto */
-/*00559690*/ int32_t addWmActivateCallback(void (__cdecl *)(int32_t, int32_t, int32_t, void *), void *);  /* auto */
+/*00559690*/ int32_t addWmActivateCallback(void (__cdecl *)(int32_t, int32_t, int32_t, const void *), const void *);  /* auto */
 /*005596D0*/ int32_t removeWmActivateCallback(int32_t);     /* auto */
 /*005597F0*/ GUID *fun_5597F0();  // ---------------------  /* auto */
 // -------------------------------------------------------  /* auto */

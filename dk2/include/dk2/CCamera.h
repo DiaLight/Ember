@@ -121,9 +121,9 @@ struct CCamera {  // -------------------------------------  /* auto */
 /*00449B30*/ int32_t sub_449B30();  // -------------------  /* auto */
 /*00449BD0*/ int32_t fun_449BD0(Vec3i *);  // ------------  /* auto */
 /*00449CA0*/ void zoomRel_449CA0(int32_t);  // -----------  /* auto */
-/*00449D00*/ float *fun_449D00(int16_t *, int16_t *, int16_t *);  /* auto */
+/*00449D00*/ const float *fun_449D00(int16_t *, int16_t *, int16_t *);  /* auto */
 /*00449D40*/ int32_t fun_449D40(int16_t *, int16_t *, int16_t *);  /* auto */
-/*00449F50*/ float *fun_449F50(int16_t *);  // -----------  /* auto */
+/*00449F50*/ const float *fun_449F50(int16_t *);  // -----  /* auto */
 /*0044A370*/ char sub_44A370(int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*0044A5D0*/ int32_t sub_44A5D0(int32_t, int32_t);  // ---  /* auto */
 /*0044A9E0*/ int32_t sub_44A9E0(int32_t, int32_t);  // ---  /* auto */
@@ -133,9 +133,9 @@ struct CCamera {  // -------------------------------------  /* auto */
 /*0044CFB0*/ int32_t fun_44CFB0(int32_t);  // ------------  /* auto */
 /*0044D320*/ int32_t fun_44D320(int32_t);  // ------------  /* auto */
 /*0044D590*/ BOOL fun_44D590();  // ----------------------  /* auto */
-/*0044D6D0*/ float *fun_44D6D0();  // --------------------  /* auto */
+/*0044D6D0*/ const float *fun_44D6D0();  // --------------  /* auto */
 /*0044D8F0*/ int32_t sub_44D8F0();  // -------------------  /* auto */
-/*0044DC70*/ float *fun_44DC70(int32_t);  // -------------  /* auto */
+/*0044DC70*/ const float *fun_44DC70(int32_t);  // -------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

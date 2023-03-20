@@ -20,7 +20,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*005251A0*/ CGameComponent *CGameComponent::constructor() { relink_stub(CGameComponent::constructor); }  /* auto */
 /*00525350*/ int32_t CGameComponent::setExit0() { relink_stub(CGameComponent::setExit0); }  /* auto */
-/*00525370*/ void ***CGameComponent::mainGuiLoop() { relink_stub(CGameComponent::mainGuiLoop); }  /* auto */
+/*00525370*/ const void ***CGameComponent::mainGuiLoop() { relink_stub(CGameComponent::mainGuiLoop); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

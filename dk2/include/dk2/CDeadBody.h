@@ -42,8 +42,8 @@ struct CDeadBody : CPhysicalThing {  // ------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066D904*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CTag  -----------------------------------  /* auto */
-/*  0*/ // virtual void *v_deleting_destructor(char);  // = 004B8120  /* auto */
-/*  4*/ // virtual BOOL v_f4(void **);  // = 004B1180  ---  /* auto */
+/*  0*/ // virtual const void *v_deleting_destructor(char);  // = 004B8120  /* auto */
+/*  4*/ // virtual BOOL v_f4(const void **);  // = 004B1180  /* auto */
 /*---*/ // super CThing  ---------------------------------  /* auto */
 /*  8*/ // virtual int32_t v_f8(int32_t);  // = 004B1240    /* auto */
 /*  C*/ // virtual int32_t v_fC();  // = 004A7CC0  -------  /* auto */
@@ -54,7 +54,7 @@ struct CDeadBody : CPhysicalThing {  // ------------------  /* auto */
 /* 20*/ // virtual void v_f20();  // = 004B2AD0  ---------  /* auto */
 /* 24*/ // virtual char v_f24(int32_t);  // = 004B1700  --  /* auto */
 /* 28*/ // virtual BOOL v_f28();  // = 004B5C30  ---------  /* auto */
-/* 2C*/ // virtual char *v_f2C();  // = 004B5D40  --------  /* auto */
+/* 2C*/ // virtual const char *v_f2C();  // = 004B5D40  --  /* auto */
 /* 30*/ // virtual int32_t v_f30();  // = 004B16E0  ------  /* auto */
 /* 34*/ // virtual int32_t v_f34();  // = 00628BC0  ------  /* auto */
 /* 38*/ // virtual int32_t v_f38();  // = 00628BC0  ------  /* auto */
@@ -65,21 +65,21 @@ struct CDeadBody : CPhysicalThing {  // ------------------  /* auto */
 /* 4C*/ // virtual int16_t *v_f4C(int16_t *);  // = 004B1740  /* auto */
 /* 50*/ // virtual int16_t *v_f50(int16_t *);  // = 004B5C20  /* auto */
 /*---*/ // super CPhysicalThing  -------------------------  /* auto */
-/* 54*/ // virtual char *v_f54();  // = 004B5D50  --------  /* auto */
+/* 54*/ // virtual const char *v_f54();  // = 004B5D50  --  /* auto */
 /* 58*/ // virtual int16_t *v_f58(int16_t *);  // = 004B5C50  /* auto */
 /* 5C*/ // virtual BOOL v_f5C();  // = 004B34F0  ---------  /* auto */
 /*---*/ // CDeadBody  ------------------------------------  /* auto */
-/* 60*/ virtual void *v_duplicate_6_3();  // = 00628BC0  -  /* auto */
+/* 60*/ virtual const void *v_duplicate_6_3();  // = 00628BC0  /* auto */
 /* 64*/ virtual int32_t v_f64();  // = 004B2740  ---------  /* auto */
-/* 68*/ virtual void *v_duplicate_7_3();  // = 00402AD0  -  /* auto */
+/* 68*/ virtual const void *v_duplicate_7_3();  // = 00402AD0  /* auto */
 /* 6C*/ virtual void v_f6C();  // = 004B80F0  ------------  /* auto */
 /* 70*/ virtual void v_f70();  // = 004B8100  ------------  /* auto */
 /* 74*/ virtual int32_t v_f74();  // = 004B8110  ---------  /* auto */
 /* 78*/ virtual void __cdecl v_ret_void_0args();  // = 0040D440  /* auto */
-/* 7C*/ virtual void *v_duplicate_30_1();  // = 0040D440    /* auto */
-/* 80*/ virtual void *v_duplicate_7_4();  // = 00402AD0  -  /* auto */
-/* 84*/ virtual void *v_duplicate_7_5();  // = 00402AD0  -  /* auto */
-/* 88*/ virtual void *v_duplicate_6_4();  // = 00628BC0  -  /* auto */
+/* 7C*/ virtual const void *v_duplicate_30_1();  // = 0040D440  /* auto */
+/* 80*/ virtual const void *v_duplicate_7_4();  // = 00402AD0  /* auto */
+/* 84*/ virtual const void *v_duplicate_7_5();  // = 00402AD0  /* auto */
+/* 88*/ virtual const void *v_duplicate_6_4();  // = 00628BC0  /* auto */
 /* 8C*/ virtual __int16 v_f8C(__int16);  // = 004B5F30  --  /* auto */
 /* 90*/ virtual int32_t v_f90();  // = 004B5F40  ---------  /* auto */
 // -------------------------------------------------------  /* auto */

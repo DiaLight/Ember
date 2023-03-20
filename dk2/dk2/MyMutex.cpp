@@ -15,8 +15,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*005BAE70*/ MyMutex *MyMutex::constructor(char *) { relink_stub(MyMutex::constructor); }  /* auto */
-/*005BAEB0*/ void *MyMutex::destroy() { relink_stub(MyMutex::destroy); }  /* auto */
+/*005BAE70*/ MyMutex *MyMutex::constructor(const char *) { relink_stub(MyMutex::constructor); }  /* auto */
+/*005BAEB0*/ const void *MyMutex::destroy() { relink_stub(MyMutex::destroy); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

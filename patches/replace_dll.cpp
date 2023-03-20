@@ -22,11 +22,11 @@ bool replaceDllImports(const char *dllName, HMODULE replaceTo) {
         if (stricmp(libname, dllName) != 0) continue;
         target = impdesc;
 
-        DWORD prot = 0;
         int len = strlen(libname);
-        if (!VirtualProtect(libname, len, PAGE_EXECUTE_READWRITE, &prot)) return false;
-        strcpy(libname, dllName);
-        VirtualProtect(libname, len, prot, &prot);
+        {
+            write_protect prot(libname, len);
+            strcpy(libname, dllName);
+        }
         break;
     }
     if (!target) return false;
@@ -47,11 +47,10 @@ bool replaceDllImports(const char *dllName, HMODULE replaceTo) {
 
         FARPROC fun = GetProcAddress(replaceTo, lpProcName);
         if (!fun) return false;
-
-        DWORD prot = 0;
-        if (!VirtualProtect(functionAddressPtr, sizeof(IMAGE_THUNK_DATA), PAGE_EXECUTE_READWRITE, &prot)) return false;
-        functionAddressPtr->u1.Function = (DWORD_PTR) fun;
-        VirtualProtect(functionAddressPtr, sizeof(IMAGE_THUNK_DATA), prot, &prot);
+        {
+            write_protect prot(functionAddressPtr, sizeof(IMAGE_THUNK_DATA));
+            functionAddressPtr->u1.Function = (DWORD_PTR) fun;
+        }
     }
     return true;
 }

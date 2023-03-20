@@ -9,7 +9,7 @@
 
 bool patch::dpi_aware() {
     if (!api::hasFlag("dpi_aware")) return true;
-    hook::BEFORE_MAIN.push_back([](int &argc, char **&argv) {
+    hook::BEFORE_MAIN.push_back([](int &argc, const char **&argv) {
         if (gui::initDPI()) {
             printf("DPI aware initialized\n");
         } else {

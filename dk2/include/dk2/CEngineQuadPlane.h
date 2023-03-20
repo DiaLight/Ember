@@ -50,7 +50,7 @@ struct CEngineQuadPlane : CEngine2DPrimitive {  // -------  /* auto */
 /* 18*/ virtual int32_t v_ret_0_1args(int32_t);  // = 00628E30  /* auto */
 /* 1C*/ virtual void v_ret_void_1args(int32_t);  // = 005671E0  /* auto */
 // -------------------------------------------------------  /* auto */
-/*0057FAF0*/ CEngineQuadPlane *constructor(float *, int32_t, int32_t, float *, int32_t, int32_t, int32_t, int32_t);  /* auto */
+/*0057FAF0*/ CEngineQuadPlane *constructor(const float *, int32_t, int32_t, const float *, int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*0057FB80*/ int32_t *fun_57FB80(int32_t, SceneObject2E *);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

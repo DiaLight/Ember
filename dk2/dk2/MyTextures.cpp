@@ -16,7 +16,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*0058FAA0*/ MyTextures *MyTextures::constructor() { relink_stub(MyTextures::constructor); }  /* auto */
-/*00591070*/ CEngineCompressedSurface *MyTextures::loadCompressed(char *) { relink_stub(MyTextures::loadCompressed); }  /* auto */
+/*00591070*/ CEngineCompressedSurface *MyTextures::loadCompressed(const char *) { relink_stub(MyTextures::loadCompressed); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

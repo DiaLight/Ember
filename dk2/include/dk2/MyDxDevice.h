@@ -34,7 +34,7 @@ struct MyDxDevice {  // ----------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672868*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // MyDxDevice  -----------------------------------  /* auto */
-/*  0*/ virtual void *v_scalar_destructor(char);  // = 005DCB70  /* auto */
+/*  0*/ virtual const void *v_scalar_destructor(char);  // = 005DCB70  /* auto */
 /*  4*/ virtual GUID *v_getGuid();  // = 00634D60  -------  /* auto */
 /*  8*/ virtual DIDATAFORMAT *v_getDataFormat();  // = 00634D60  /* auto */
 // -------------------------------------------------------  /* auto */

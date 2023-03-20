@@ -18,7 +18,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066D654*/ void **CObject::vftable() { return dk2::CObject_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*0049C8C0*/ wchar_t *CObject::fun_49C8C0(wchar_t *) { relink_stub(CObject::fun_49C8C0); }  /* auto */
+/*0049C8C0*/ const wchar_t *CObject::fun_49C8C0(const wchar_t *) { relink_stub(CObject::fun_49C8C0); }  /* auto */
 /*0049D310*/ void CObject::fun_49D310() { relink_stub(CObject::fun_49D310); }  /* auto */
 /*004B7190*/ CObject *CObject::constructor() { relink_stub(CObject::constructor); }  /* auto */
 // -------------------------------------------------------  /* auto */

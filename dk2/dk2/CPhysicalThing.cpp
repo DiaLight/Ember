@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/* 54*/ char *CPhysicalThing::v_f54() { relink_stub(CPhysicalThing::v_f54); }  /* auto */
+/* 54*/ const char *CPhysicalThing::v_f54() { relink_stub(CPhysicalThing::v_f54); }  /* auto */
 /* 58*/ int16_t *CPhysicalThing::v_f58(int16_t *) { relink_stub(CPhysicalThing::v_f58); }  /* auto */
 /* 5C*/ BOOL CPhysicalThing::v_f5C() { relink_stub(CPhysicalThing::v_f5C); }  /* auto */
 // -------------------------------------------------------  /* auto */

@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *FontObj::v_scalar_destructor(char) { relink_stub(FontObj::v_scalar_destructor); }  /* auto */
+/*  0*/ const void *FontObj::v_scalar_destructor(char) { relink_stub(FontObj::v_scalar_destructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0067B8C0*/ void **FontObj::vftable() { return dk2::FontObj_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

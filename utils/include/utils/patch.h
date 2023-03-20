@@ -18,6 +18,7 @@ public:
         if(!VirtualProtect(ptr, size, PAGE_EXECUTE_READWRITE, &prot)) {
             DWORD lastError = GetLastError();
             printf("[error]: VirtualProtect back failed. code=%08X\n", lastError);
+            throw std::exception();
         }
     }
     ~write_protect() {

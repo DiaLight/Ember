@@ -53,8 +53,8 @@ struct CObject : CMovingThing {  // ----------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066D654*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CTag  -----------------------------------  /* auto */
-/*  0*/ // virtual void *v_deleting_destructor(char);  // = 004B7290  /* auto */
-/*  4*/ // virtual BOOL v_f4(void **);  // = 0049B9F0  ---  /* auto */
+/*  0*/ // virtual const void *v_deleting_destructor(char);  // = 004B7290  /* auto */
+/*  4*/ // virtual BOOL v_f4(const void **);  // = 0049B9F0  /* auto */
 /*---*/ // super CThing  ---------------------------------  /* auto */
 /*  8*/ // virtual int32_t v_f8(int32_t);  // = 0049BAE0    /* auto */
 /*  C*/ // virtual int32_t v_fC();  // = 0049BBE0  -------  /* auto */
@@ -65,7 +65,7 @@ struct CObject : CMovingThing {  // ----------------------  /* auto */
 /* 20*/ // virtual void v_f20();  // = 004B2AD0  ---------  /* auto */
 /* 24*/ // virtual char v_f24(int32_t);  // = 0049C850  --  /* auto */
 /* 28*/ // virtual BOOL v_f28();  // = 004B5C30  ---------  /* auto */
-/* 2C*/ // virtual char *v_f2C();  // = 004B5D40  --------  /* auto */
+/* 2C*/ // virtual const char *v_f2C();  // = 004B5D40  --  /* auto */
 /* 30*/ // virtual int32_t v_f30();  // = 0049BEC0  ------  /* auto */
 /* 34*/ // virtual int32_t v_f34();  // = 00628BC0  ------  /* auto */
 /* 38*/ // virtual int32_t v_f38();  // = 00628BC0  ------  /* auto */
@@ -76,7 +76,7 @@ struct CObject : CMovingThing {  // ----------------------  /* auto */
 /* 4C*/ // virtual int16_t *v_f4C(int16_t *);  // = 0049C8C0  /* auto */
 /* 50*/ // virtual int16_t *v_f50(int16_t *);  // = 004B5C20  /* auto */
 /*---*/ // super CPhysicalThing  -------------------------  /* auto */
-/* 54*/ // virtual char *v_f54();  // = 004B5D50  --------  /* auto */
+/* 54*/ // virtual const char *v_f54();  // = 004B5D50  --  /* auto */
 /* 58*/ // virtual int16_t *v_f58(int16_t *);  // = 004B5C50  /* auto */
 /* 5C*/ // virtual BOOL v_f5C();  // = 004B34F0  ---------  /* auto */
 /*---*/ // super CMovingThing  ---------------------------  /* auto */
@@ -95,7 +95,7 @@ struct CObject : CMovingThing {  // ----------------------  /* auto */
 /* 90*/ // virtual int32_t v_f90();  // = 004B5F40  ------  /* auto */
 /*---*/ // CObject  --------------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
-/*0049C8C0*/ wchar_t *fun_49C8C0(wchar_t *);  // ---------  /* auto */
+/*0049C8C0*/ const wchar_t *fun_49C8C0(const wchar_t *);    /* auto */
 /*0049D310*/ void fun_49D310();  // ----------------------  /* auto */
 /*004B7190*/ CObject *constructor();  // -----------------  /* auto */
 // -------------------------------------------------------  /* auto */

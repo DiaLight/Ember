@@ -26,21 +26,17 @@ void PatchBuilder::writeAsm(void (*asmFun)()) {
 }
 
 void write_jump(uint8_t *pos, void *to, size_t orig_size) {
-    DWORD oldProtect;
-    VirtualProtect(pos, 5, PAGE_EXECUTE_READWRITE, &oldProtect);
+    write_protect prot(pos, max(5, orig_size));
     pos[0] = 0xE9;
     *((uint32_t *) (pos + 1)) = (uint8_t *) to - (pos + 5);
     for (int i = 5; i < orig_size; ++i) pos[i] = 0x90;
-    VirtualProtect(pos, 5, oldProtect, NULL);
 }
 
 void write_call(uint8_t *pos, void *to, size_t orig_size) {
-    DWORD oldProtect;
-    VirtualProtect(pos, 5, PAGE_EXECUTE_READWRITE, &oldProtect);
+    write_protect prot(pos, max(5, orig_size));
     pos[0] = 0xE8;
     *((uint32_t *) (pos + 1)) = (uint8_t *) to - (pos + 5);
     for (int i = 5; i < orig_size; ++i) pos[i] = 0x90;
-    VirtualProtect(pos, 5, oldProtect, NULL);
 }
 
 _declspec(naked)

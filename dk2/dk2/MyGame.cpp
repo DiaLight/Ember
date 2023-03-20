@@ -31,9 +31,9 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00558BD0*/ int32_t MyGame::sub_558BD0() { relink_stub(MyGame::sub_558BD0); }  /* auto */
 /*00558E40*/ int32_t MyGame::sub_558E40() { relink_stub(MyGame::sub_558E40); }  /* auto */
 /*00558F70*/ int32_t MyGame::createSurface(int32_t) { relink_stub(MyGame::createSurface); }  /* auto */
-/*00559140*/ int32_t MyGame::sub_559140(char *, int32_t, char *, char *) { relink_stub(MyGame::sub_559140); }  /* auto */
+/*00559140*/ int32_t MyGame::sub_559140(const char *, int32_t, const char *, const char *) { relink_stub(MyGame::sub_559140); }  /* auto */
 /*00559670*/ int32_t MyGame::isNeedBlt() { relink_stub(MyGame::isNeedBlt); }  /* auto */
-/*00559690*/ int32_t MyGame::addWmActivateCallback(void (__cdecl *)(int32_t, int32_t, int32_t, void *), void *) { relink_stub(MyGame::addWmActivateCallback); }  /* auto */
+/*00559690*/ int32_t MyGame::addWmActivateCallback(void (__cdecl *)(int32_t, int32_t, int32_t, const void *), const void *) { relink_stub(MyGame::addWmActivateCallback); }  /* auto */
 /*005596D0*/ int32_t MyGame::removeWmActivateCallback(int32_t) { relink_stub(MyGame::removeWmActivateCallback); }  /* auto */
 /*005597F0*/ GUID *MyGame::fun_5597F0() { relink_stub(MyGame::fun_5597F0); }  /* auto */
 // -------------------------------------------------------  /* auto */

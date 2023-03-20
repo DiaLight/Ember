@@ -21,7 +21,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0062E050*/ MyTextUniToMB *MyTextUniToMB::constructor(int32_t) { relink_stub(MyTextUniToMB::constructor); }  /* auto */
 /*0062E0E0*/ int16_t MyTextUniToMB::convertChar(int32_t) { relink_stub(MyTextUniToMB::convertChar); }  /* auto */
 /*0062E0F0*/ int16_t MyTextUniToMB::sub_62E0F0(int16_t) { relink_stub(MyTextUniToMB::sub_62E0F0); }  /* auto */
-/*0062E1F0*/ int32_t *MyTextUniToMB::convert(int32_t *, int8_t *, wchar_t *, int32_t) { relink_stub(MyTextUniToMB::convert); }  /* auto */
+/*0062E1F0*/ int32_t *MyTextUniToMB::convert(int32_t *, int8_t *, const wchar_t *, int32_t) { relink_stub(MyTextUniToMB::convert); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

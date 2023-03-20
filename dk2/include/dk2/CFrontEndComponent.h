@@ -310,10 +310,10 @@ struct CFrontEndComponent : CComponent {  // -------------  /* auto */
 /*---*/ // super CComponent  -----------------------------  /* auto */
 /*  0*/ // virtual int32_t *v_deleting_destructor(char);  // = 0052EF50  /* auto */
 /*  4*/ // virtual int32_t v_f4_();  // = 0052EFE0  ------  /* auto */
-/*  8*/ // virtual void *v_f8_();  // = 00401200  --------  /* auto */
+/*  8*/ // virtual const void *v_f8_();  // = 00401200  --  /* auto */
 /*  C*/ // virtual int32_t v_handle();  // = 0052F140  ---  /* auto */
 /* 10*/ // virtual int32_t *v_f10_();  // = 0052F550  ----  /* auto */
-/* 14*/ // virtual void ***v_mainGuiLoop();  // = 0052F9E0  /* auto */
+/* 14*/ // virtual const void ***v_mainGuiLoop();  // = 0052F9E0  /* auto */
 /*---*/ // CFrontEndComponent  ---------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0052E500*/ CFrontEndComponent *constructor();  // ------  /* auto */

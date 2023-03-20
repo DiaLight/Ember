@@ -38,7 +38,7 @@ struct Obj672E80 {  // -----------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672E80*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // Obj672E80  ------------------------------------  /* auto */
-/*  0*/ virtual void *v_Obj672E80_scalar_destructor(char);  // = 005FD800  /* auto */
+/*  0*/ virtual const void *v_Obj672E80_scalar_destructor(char);  // = 005FD800  /* auto */
 /*  4*/ virtual int32_t v_Obj672E80_convertPixel(int32_t *, int8_t *, int32_t);  // = 005FDAE0  /* auto */
 /*  8*/ virtual void v_nullsub_23(int32_t, int32_t, int32_t);  // = 00510E60  /* auto */
 // -------------------------------------------------------  /* auto */

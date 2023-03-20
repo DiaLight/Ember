@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*0057CB70*/ void *MyEntryBuf_MyScaledSurface::resize(int32_t) { relink_stub(MyEntryBuf_MyScaledSurface::resize); }  /* auto */
+/*0057CB70*/ const void *MyEntryBuf_MyScaledSurface::resize(int32_t) { relink_stub(MyEntryBuf_MyScaledSurface::resize); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

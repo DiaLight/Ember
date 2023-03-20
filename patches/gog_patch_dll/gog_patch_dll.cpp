@@ -13,6 +13,7 @@
 #include <asm/patch_RtGuiView.h>
 #include <asm/patch_SurfaceHolder_setTexture.h>
 #include <dk2_info.h>
+#include <utils/patch.h>
 
 using namespace gog;
 
@@ -89,11 +90,10 @@ bool gog_patch_dll() {
             printf("[ERROR]: ddraw.dll!%s replacement not found\n", lpProcName);
             return false;
         }
-
-        DWORD prot = 0;
-        if (!VirtualProtect(functionAddressPtr, sizeof(IMAGE_THUNK_DATA), PAGE_EXECUTE_READWRITE, &prot)) return false;
-        functionAddressPtr->u1.Function = (DWORD_PTR) it->second;
-        VirtualProtect(functionAddressPtr, sizeof(IMAGE_THUNK_DATA), prot, &prot);
+        {
+            write_protect prot(functionAddressPtr, sizeof(IMAGE_THUNK_DATA));
+            functionAddressPtr->u1.Function = (DWORD_PTR) it->second;
+        }
     }
 
     if (!DllEntryPoint(NULL, DLL_PROCESS_ATTACH, NULL)) return false;

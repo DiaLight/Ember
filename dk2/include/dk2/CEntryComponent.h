@@ -38,10 +38,10 @@ struct CEntryComponent : CComponent {  // ----------------  /* auto */
 /*---*/ // super CComponent  -----------------------------  /* auto */
 /*  0*/ // virtual int32_t *v_deleting_destructor(char);  // = 004010F0  /* auto */
 /*  4*/ // virtual int32_t v_f4_();  // = 004011D0  ------  /* auto */
-/*  8*/ // virtual void *v_f8_();  // = 00401200  --------  /* auto */
+/*  8*/ // virtual const void *v_f8_();  // = 00401200  --  /* auto */
 /*  C*/ // virtual int32_t v_handle();  // = 00401210  ---  /* auto */
 /* 10*/ // virtual int32_t *v_f10_();  // = 004013E0  ----  /* auto */
-/* 14*/ // virtual void ***v_mainGuiLoop();  // = 00401410  /* auto */
+/* 14*/ // virtual const void ***v_mainGuiLoop();  // = 00401410  /* auto */
 /*---*/ // CEntryComponent  ------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00401060*/ CEntryComponent *constructor();  // ---------  /* auto */

@@ -21,7 +21,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066FAEC*/ void **CEngineVirtualPerspective2DAnimMesh::vftable() { return dk2::CEngineVirtualPerspective2DAnimMesh_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*00578530*/ CEngineVirtualPerspective2DAnimMesh *CEngineVirtualPerspective2DAnimMesh::constructor(int32_t, int32_t, int32_t, int32_t, void *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t *) { relink_stub(CEngineVirtualPerspective2DAnimMesh::constructor); }  /* auto */
+/*00578530*/ CEngineVirtualPerspective2DAnimMesh *CEngineVirtualPerspective2DAnimMesh::constructor(int32_t, int32_t, int32_t, int32_t, const void *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t *) { relink_stub(CEngineVirtualPerspective2DAnimMesh::constructor); }  /* auto */
 /*00578600*/ void CEngineVirtualPerspective2DAnimMesh::fun_578600(int32_t, SceneObject2E *) { relink_stub(CEngineVirtualPerspective2DAnimMesh::fun_578600); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */

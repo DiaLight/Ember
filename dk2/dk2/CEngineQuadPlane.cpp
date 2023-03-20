@@ -24,7 +24,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066FCF4*/ void **CEngineQuadPlane::vftable() { return dk2::CEngineQuadPlane_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*0057FAF0*/ CEngineQuadPlane *CEngineQuadPlane::constructor(float *, int32_t, int32_t, float *, int32_t, int32_t, int32_t, int32_t) { relink_stub(CEngineQuadPlane::constructor); }  /* auto */
+/*0057FAF0*/ CEngineQuadPlane *CEngineQuadPlane::constructor(const float *, int32_t, int32_t, const float *, int32_t, int32_t, int32_t, int32_t) { relink_stub(CEngineQuadPlane::constructor); }  /* auto */
 /*0057FB80*/ int32_t *CEngineQuadPlane::fun_57FB80(int32_t, SceneObject2E *) { relink_stub(CEngineQuadPlane::fun_57FB80); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */

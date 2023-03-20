@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *AsyncThing::v_deleting_destructor(char) { relink_stub(AsyncThing::v_deleting_destructor); }  /* auto */
+/*  0*/ const void *AsyncThing::v_deleting_destructor(char) { relink_stub(AsyncThing::v_deleting_destructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*006727FC*/ void **AsyncThing::vftable() { return dk2::AsyncThing_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
@@ -33,7 +33,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005DA850*/ int32_t *AsyncThing::setChildAndSignal(int32_t *, int32_t) { relink_stub(AsyncThing::setChildAndSignal); }  /* auto */
 /*005DA870*/ int32_t *AsyncThing::sub_5DA870(int32_t *) { relink_stub(AsyncThing::sub_5DA870); }  /* auto */
 /*005DA8E0*/ int32_t *AsyncThing::sub_5DA8E0(int32_t *) { relink_stub(AsyncThing::sub_5DA8E0); }  /* auto */
-/*005DE170*/ void *AsyncThing::__MyDirectSysKeyboard_destructor() { relink_stub(AsyncThing::__MyDirectSysKeyboard_destructor); }  /* auto */
+/*005DE170*/ const void *AsyncThing::__MyDirectSysKeyboard_destructor() { relink_stub(AsyncThing::__MyDirectSysKeyboard_destructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

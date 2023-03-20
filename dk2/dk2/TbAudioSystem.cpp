@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *TbAudioSystem::v_deleting_destructor(char) { relink_stub(TbAudioSystem::v_deleting_destructor); }  /* auto */
+/*  0*/ const void *TbAudioSystem::v_deleting_destructor(char) { relink_stub(TbAudioSystem::v_deleting_destructor); }  /* auto */
 /*  4*/ int32_t *TbAudioSystem::v_f4(int32_t *) { relink_stub(TbAudioSystem::v_f4); }  /* auto */
 /*  8*/ int32_t *TbAudioSystem::v_f8(int32_t *, int32_t, int32_t, int32_t) { relink_stub(TbAudioSystem::v_f8); }  /* auto */
 /*  C*/ int32_t TbAudioSystem::v_fC() { relink_stub(TbAudioSystem::v_fC); }  /* auto */

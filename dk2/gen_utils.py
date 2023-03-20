@@ -74,7 +74,7 @@ def format_declspec(decl: dk2map.Declspec):
   raise Exception()
 
 
-def format_type(ty: dk2map.Type, name: str = None, is_ptr=False):
+def format_type(ty: dk2map.Type, name: str = None, is_ptr=False, is_const=False):
   if ty.kind is dk2map.TypeKind.Int:
     int_t = ty  # type: dk2map.IntType
     prefix = "" if int_t.signed else "u"
@@ -83,39 +83,39 @@ def format_type(ty: dk2map.Type, name: str = None, is_ptr=False):
     return f"{prefix}int{int_t.size * 8}_t"
   if ty.kind is dk2map.TypeKind.Ptr:
     ptr_t = ty  # type: dk2map.PtrType
-    if name:
-      return f"{format_type(ptr_t.type, f'*{name}', True)}"
-    return f"{format_type(ptr_t.type, '*', True)}"
+    name = f'*{name}' if name else '*'
+    prefix = 'const ' if is_const and not is_ptr else ''
+    return f"{prefix}{format_type(ptr_t.type, name, True, ptr_t.is_const)}"
   if ty.kind is dk2map.TypeKind.Float:
     flt_t = ty  # type: dk2map.FloatType
     if flt_t.size == 4:
-      if name:
-        return f"float {name}"
-      return "float"
+      prefix = 'const ' if is_const and is_ptr else ''
+      suffix = f" {name}" if name else ''
+      return f"{prefix}float{suffix}"
     if flt_t.size == 8:
-      if name:
-        return f"double {name}"
-      return "double"
+      prefix = 'const ' if is_const and is_ptr else ''
+      suffix = f" {name}" if name else ''
+      return f"{prefix}double{suffix}"
     raise Exception()
   if ty.kind is dk2map.TypeKind.Bool:
-    if name:
-      return f"bool {name}"
-    return "bool"
+    prefix = 'const ' if is_const and is_ptr else ''
+    suffix = f" {name}" if name else ''
+    return f"{prefix}bool{suffix}"
   if ty.kind is dk2map.TypeKind.Char:
     chr_t = ty  # type: dk2map.CharType
     if chr_t.size == 1:
-      if name:
-        return f"char {name}"
-      return "char"
+      prefix = 'const ' if is_const and is_ptr else ''
+      suffix = f" {name}" if name else ''
+      return f"{prefix}char{suffix}"
     if chr_t.size == 2:
-      if name:
-        return f"wchar_t {name}"
-      return "wchar_t"
+      prefix = 'const ' if is_const and is_ptr else ''
+      suffix = f" {name}" if name else ''
+      return f"{prefix}wchar_t{suffix}"
     raise Exception()
   if ty.kind is dk2map.TypeKind.Void:
-    if name:
-      return f"void {name}"
-    return "void"
+    prefix = 'const ' if is_const and is_ptr else ''
+    suffix = f" {name}" if name else ''
+    return f"{prefix}void{suffix}"
   if ty.kind is dk2map.TypeKind.Winapi:
     win_t = ty  # type: dk2map.WinapiType
     if name:
@@ -133,12 +133,13 @@ def format_type(ty: dk2map.Type, name: str = None, is_ptr=False):
       args.append('...')
     assert is_ptr
     assert name
+    # prefix = 'const ' if is_const and is_ptr else ''
     return f"{format_type(fun_t.ret)} ({format_declspec(fun_t.declspec)} {name})({', '.join(args)})"
   if ty.kind is dk2map.TypeKind.Array:
     arr_t = ty  # type: dk2map.ArrayType
-    if name:
-      return f"{format_type(arr_t.type, f'{name}[{arr_t.count}]')}"
-    return f"{format_type(arr_t.type, f'[{arr_t.count}]')}"
+    prefix = 'const ' if is_const and is_ptr else ''
+    suffix = f"{name}" if name else ''
+    return f"{prefix}{format_type(arr_t.type, f'{suffix}[{arr_t.count}]')}"
   raise Exception()
 
 

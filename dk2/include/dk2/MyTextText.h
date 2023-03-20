@@ -36,13 +36,13 @@ struct MyTextText {  // ----------------------------------  /* auto */
 /*---*/ // MyTextText  -----------------------------------  /* auto */
 /*  0*/ virtual int32_t v_j_MySharedObj_release();  // = 0062D9A0  /* auto */
 /*  4*/ virtual int32_t v_j_MySharedObj_addRef();  // = 0062FC40  /* auto */
-/*  8*/ virtual void *v_MyTextText_scalar_destructor(char);  // = 0062D660  /* auto */
-/*  C*/ virtual void *v_duplicate_0_1();  // = 0062D9A0  -  /* auto */
-/* 10*/ virtual void *v_duplicate_1_1();  // = 0062FC40  -  /* auto */
+/*  8*/ virtual const void *v_MyTextText_scalar_destructor(char);  // = 0062D660  /* auto */
+/*  C*/ virtual const void *v_duplicate_0_1();  // = 0062D9A0  /* auto */
+/* 10*/ virtual const void *v_duplicate_1_1();  // = 0062FC40  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0062D590*/ MyTextText *constructor(int32_t, int32_t *, MyFileStorage *);  /* auto */
 /*0062D680*/ int32_t destructor();  // -------------------  /* auto */
-/*0062D960*/ char *getString(int32_t);  // ---------------  /* auto */
+/*0062D960*/ const char *getString(int32_t);  // ---------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

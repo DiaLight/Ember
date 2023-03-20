@@ -25,17 +25,17 @@ namespace dk2 {  // --------------------------------------  /* auto */
 #pragma pack(push, 1)  // --------------------------------  /* auto */
 struct MyFileStream : MyInputStream {  // ----------------  /* auto */
 // -------------------------------------------------------  /* auto */
-/*  C*/ void *hFile;  // ---------------------------------  /* auto */
+/*  C*/ const void *hFile;  // ---------------------------  /* auto */
 /* 10*/ int32_t offs;  // --------------------------------  /* auto */
 /* 14*/ int32_t hFileMapping;  // ------------------------  /* auto */
 /* 18*/ int32_t fileMapBuf;  // --------------------------  /* auto */
-/* 1C*/ void *semaphore;  // -----------------------------  /* auto */
+/* 1C*/ const void *semaphore;  // -----------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672FE8*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super MyInputStream  --------------------------  /* auto */
-/*  0*/ // virtual void *v_scalar_destructor(char);  // = 005FFE50  /* auto */
-/*  4*/ // virtual size_t v_readBytes(void *, size_t);  // = 005FFFB0  /* auto */
-/*  8*/ // virtual size_t v_writeBytes(void *, size_t);  // = 005FFFF0  /* auto */
+/*  0*/ // virtual const void *v_scalar_destructor(char);  // = 005FFE50  /* auto */
+/*  4*/ // virtual size_t v_readBytes(const void *, size_t);  // = 005FFFB0  /* auto */
+/*  8*/ // virtual size_t v_writeBytes(const void *, size_t);  // = 005FFFF0  /* auto */
 /*  C*/ // virtual size_t v_seek(size_t, int32_t);  // = 00600030  /* auto */
 /* 10*/ // virtual size_t v_getSize();  // = 00600050  ---  /* auto */
 /* 14*/ // virtual size_t v_getOffs();  // = 005FFDB0  ---  /* auto */
@@ -50,15 +50,15 @@ struct MyFileStream : MyInputStream {  // ----------------  /* auto */
 /*005FFDB0*/ MyInputStream *MyAnyStream_getOffs();  // ---  /* auto */
 /*005FFDF0*/ MyFileStream *constructor();  // ------------  /* auto */
 /*005FFE70*/ void destructor();  // ----------------------  /* auto */
-/*005FFEC0*/ int32_t open(int32_t, char *, int32_t);  // -  /* auto */
-/*005FFF60*/ void *closeMapping();  // -------------------  /* auto */
-/*005FFF90*/ void *close();  // --------------------------  /* auto */
-/*005FFFB0*/ int32_t readBytes(void *, int32_t);  // -----  /* auto */
-/*005FFFF0*/ int32_t writeBytes(void *, int32_t);  // ----  /* auto */
+/*005FFEC0*/ int32_t open(int32_t, const char *, int32_t);  /* auto */
+/*005FFF60*/ const void *closeMapping();  // -------------  /* auto */
+/*005FFF90*/ const void *close();  // --------------------  /* auto */
+/*005FFFB0*/ int32_t readBytes(const void *, int32_t);      /* auto */
+/*005FFFF0*/ int32_t writeBytes(const void *, int32_t);     /* auto */
 /*00600030*/ int32_t seek(int32_t, int32_t);  // ---------  /* auto */
-/*00600060*/ char *mapFileToBuf(int32_t, int32_t);  // ---  /* auto */
-/*00600120*/ void *unmapFile(void *);  // ----------------  /* auto */
-/*00600140*/ void **getSemaphore();  // ------------------  /* auto */
+/*00600060*/ const char *mapFileToBuf(int32_t, int32_t);    /* auto */
+/*00600120*/ const void *unmapFile(const void *);  // ----  /* auto */
+/*00600140*/ const void **getSemaphore();  // ------------  /* auto */
 /*00600150*/ int32_t *flush(int32_t *);  // --------------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

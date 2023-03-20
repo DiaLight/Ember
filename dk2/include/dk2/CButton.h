@@ -58,14 +58,14 @@ struct CButton : CGadget {  // ---------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066ECA4*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CGadget  --------------------------------  /* auto */
-/*  0*/ // virtual void *v_deleting_destructor(char);  // = 005282C0  /* auto */
+/*  0*/ // virtual const void *v_deleting_destructor(char);  // = 005282C0  /* auto */
 /*---*/ // CButton  --------------------------------------  /* auto */
 /*  4*/ virtual int32_t v_render(int32_t, int32_t);  // = 005282F0  /* auto */
 /*  8*/ virtual int32_t v_handleClick(CDefaultPlayerInterface *);  // = 00634D60  /* auto */
 /*  C*/ virtual int32_t v_configure(int32_t);  // = 005282A0  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00528280*/ CButton *constructor();  // -----------------  /* auto */
-/*005282A0*/ void *fun_5282A0(ButtonCfg *);  // ----------  /* auto */
+/*005282A0*/ const void *fun_5282A0(ButtonCfg *);  // ----  /* auto */
 /*00528300*/ int32_t configure(CWindow *, ButtonCfg *, CButton *);  /* auto */
 /*00528430*/ int32_t visitCursor(Pos2i *);  // -----------  /* auto */
 /*005284B0*/ BOOL containsPoint(Pos2i *);  // ------------  /* auto */

@@ -29,9 +29,9 @@ struct MyConcurrentStream : MyCachedOffsStream {  // -----  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672EF8*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super MyInputStream  --------------------------  /* auto */
-/*  0*/ // virtual void *v_scalar_destructor(char);  // = 005FFAF0  /* auto */
-/*  4*/ // virtual size_t v_readBytes(void *, size_t);  // = 005FF730  /* auto */
-/*  8*/ // virtual size_t v_writeBytes(void *, size_t);  // = 005FF7C0  /* auto */
+/*  0*/ // virtual const void *v_scalar_destructor(char);  // = 005FFAF0  /* auto */
+/*  4*/ // virtual size_t v_readBytes(const void *, size_t);  // = 005FF730  /* auto */
+/*  8*/ // virtual size_t v_writeBytes(const void *, size_t);  // = 005FF7C0  /* auto */
 /*  C*/ // virtual size_t v_seek(size_t, int32_t);  // = 005FF850  /* auto */
 /* 10*/ // virtual size_t v_getSize();  // = 005FF8E0  ---  /* auto */
 /* 14*/ // virtual size_t v_getOffs();  // = 0062C4C0  ---  /* auto */
@@ -46,7 +46,7 @@ struct MyConcurrentStream : MyCachedOffsStream {  // -----  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005FF710*/ MyConcurrentStream *constructor();  // ------  /* auto */
 /*005FF730*/ size_t readBytes(int32_t, int32_t);  // -----  /* auto */
-/*005FF7C0*/ size_t writeBytes(void *, int32_t);  // -----  /* auto */
+/*005FF7C0*/ size_t writeBytes(const void *, int32_t);      /* auto */
 /*005FF850*/ int32_t seek(int32_t, int32_t);  // ---------  /* auto */
 /*005FF8E0*/ size_t getSize();  // -----------------------  /* auto */
 /*005FF990*/ void wrapStream(MyInputStream *);  // -------  /* auto */

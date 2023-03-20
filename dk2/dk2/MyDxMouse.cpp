@@ -19,7 +19,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*006728E0*/ void **MyDxMouse::vftable() { return dk2::MyDxMouse_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*005DD760*/ MyDxMouse *MyDxMouse::constructor() { relink_stub(MyDxMouse::constructor); }  /* auto */
-/*005DD8F0*/ void *MyDxMouse::destructor() { relink_stub(MyDxMouse::destructor); }  /* auto */
+/*005DD8F0*/ const void *MyDxMouse::destructor() { relink_stub(MyDxMouse::destructor); }  /* auto */
 /*005DDA90*/ void MyDxMouse::handleData(int32_t) { relink_stub(MyDxMouse::handleData); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */

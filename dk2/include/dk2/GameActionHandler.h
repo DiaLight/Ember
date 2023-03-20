@@ -26,7 +26,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 #pragma pack(push, 1)  // --------------------------------  /* auto */
 struct GameActionHandler {  // ---------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
-/*  0*/ int32_t (__thiscall *handler)(char *, GameAction *);  /* auto */
+/*  0*/ int32_t (__thiscall *handler)(const char *, GameAction *);  /* auto */
 /*  4*/ int32_t objOffset;  // ---------------------------  /* auto */
 /*  8*/ int32_t f8;  // ----------------------------------  /* auto */
 /*  C*/ int32_t fC;  // ----------------------------------  /* auto */

@@ -29,9 +29,9 @@ struct MyInputStream {  // -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*006725D8*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // MyInputStream  --------------------------------  /* auto */
-/*  0*/ virtual void *v_scalar_destructor(char);  // = 005D7200  /* auto */
-/*  4*/ virtual size_t v_readBytes(void *, size_t);  // = 00634D60  /* auto */
-/*  8*/ virtual size_t v_writeBytes(void *, size_t);  // = 00634D60  /* auto */
+/*  0*/ virtual const void *v_scalar_destructor(char);  // = 005D7200  /* auto */
+/*  4*/ virtual size_t v_readBytes(const void *, size_t);  // = 00634D60  /* auto */
+/*  8*/ virtual size_t v_writeBytes(const void *, size_t);  // = 00634D60  /* auto */
 /*  C*/ virtual size_t v_seek(size_t, int32_t);  // = 00634D60  /* auto */
 /* 10*/ virtual size_t v_getSize();  // = 00634D60  ------  /* auto */
 /* 14*/ virtual size_t v_getOffs();  // = 00634D60  ------  /* auto */

@@ -26,8 +26,8 @@ namespace dk2 {  // --------------------------------------  /* auto */
 #pragma pack(push, 1)  // --------------------------------  /* auto */
 struct CEngine2DMeshSurface : CEnginePrimitiveBase {  // -  /* auto */
 // -------------------------------------------------------  /* auto */
-/*  8*/ void *_16xbuf;  // -------------------------------  /* auto */
-/*  C*/ void *_6xbuf;  // --------------------------------  /* auto */
+/*  8*/ const void *_16xbuf;  // -------------------------  /* auto */
+/*  C*/ const void *_6xbuf;  // --------------------------  /* auto */
 /* 10*/ int32_t buf16_maxCount;  // ----------------------  /* auto */
 /* 14*/ int32_t buf6_maxCount;  // -----------------------  /* auto */
 /* 18*/ int32_t field_14;  // ----------------------------  /* auto */
@@ -42,7 +42,7 @@ struct CEngine2DMeshSurface : CEnginePrimitiveBase {  // -  /* auto */
 /*  4*/ // virtual int32_t v___addRenderObj(int32_t, SceneObject2E *);  // = 00578C00  /* auto */
 /*---*/ // CEngine2DMeshSurface  -------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
-/*00578A80*/ CEngine2DMeshSurface *constructor(int32_t, int32_t, void *, void *, int32_t, float *, int32_t);  /* auto */
+/*00578A80*/ CEngine2DMeshSurface *constructor(int32_t, int32_t, const void *, const void *, int32_t, const float *, int32_t);  /* auto */
 /*00578C00*/ int32_t *fun_578C00(int32_t, SceneObject2E *);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

@@ -96,7 +96,7 @@ struct CBridge : CBridgeInterface {  // ------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066CC94*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CEngineInterface  -----------------------  /* auto */
-/*  0*/ // virtual void *v_deleting_destructor(char);  // = 0043AA10  /* auto */
+/*  0*/ // virtual const void *v_deleting_destructor(char);  // = 0043AA10  /* auto */
 /*  4*/ // virtual int32_t v_f4(int32_t);  // = 0043AD70    /* auto */
 /*  8*/ // virtual void v_f8();  // = 0043B0B0  ----------  /* auto */
 /*  C*/ // virtual void v_fC();  // = 00441E30  ----------  /* auto */
@@ -117,7 +117,7 @@ struct CBridge : CBridgeInterface {  // ------------------  /* auto */
 /* 48*/ // virtual int32_t v_f48(float, float, int32_t, int32_t);  // = 0043C2C0  /* auto */
 /* 4C*/ // virtual int32_t v_f4C(float, float, int32_t);  // = 0043C2F0  /* auto */
 /* 50*/ // virtual int32_t v_f50(int32_t, int32_t, int32_t);  // = 00441040  /* auto */
-/* 54*/ // virtual int32_t v_f54(char *, char, int32_t, int32_t *, int32_t, char);  // = 0043E2F0  /* auto */
+/* 54*/ // virtual int32_t v_f54(const char *, char, int32_t, int32_t *, int32_t, char);  // = 0043E2F0  /* auto */
 /* 58*/ // virtual int32_t v_createMyScaledSurface(int32_t, int32_t, int32_t, int32_t, int32_t *);  // = 00441300  /* auto */
 /* 5C*/ // virtual void v_f5C(int32_t, int32_t, int32_t, int32_t);  // = 00440FF0  /* auto */
 /* 60*/ // virtual void v_f60(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  // = 0043A8B0  /* auto */
@@ -129,7 +129,7 @@ struct CBridge : CBridgeInterface {  // ------------------  /* auto */
 /* 78*/ // virtual void v_f78(int32_t);  // = 004413E0  --  /* auto */
 /* 7C*/ // virtual int32_t v_f7C(int32_t);  // = 00441400   /* auto */
 /* 80*/ // virtual int32_t v_f80(int32_t *, int32_t);  // = 004412C0  /* auto */
-/* 84*/ // virtual int32_t v_f84(char *);  // = 00441C70    /* auto */
+/* 84*/ // virtual int32_t v_f84(const char *);  // = 00441C70  /* auto */
 /* 88*/ // virtual int32_t v_f88();  // = 00441E20  ------  /* auto */
 /* 8C*/ // virtual IDirectDraw4 *v_f8C();  // = 0040D440    /* auto */
 /* 90*/ // virtual int32_t v_f90(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  // = 00440420  /* auto */
@@ -167,18 +167,18 @@ struct CBridge : CBridgeInterface {  // ------------------  /* auto */
 /*---*/ // super CBridgeInterface  -----------------------  /* auto */
 /*110*/ // virtual int32_t v_f110(CPCEngineInterface *);  // = 0043AAD0  /* auto */
 /*114*/ // virtual void v_f114();  // = 0043ACF0  --------  /* auto */
-/*118*/ // virtual int32_t v_f118(char *);  // = 0043E030   /* auto */
-/*11C*/ // virtual MySurface *v_loadPng(char *);  // = 0043E0F0  /* auto */
+/*118*/ // virtual int32_t v_f118(const char *);  // = 0043E030  /* auto */
+/*11C*/ // virtual MySurface *v_loadPng(const char *);  // = 0043E0F0  /* auto */
 /*120*/ // virtual int32_t v_f120(int32_t, int32_t, int32_t *);  // = 0043D790  /* auto */
 /*124*/ // virtual int32_t v_f124(int32_t, int32_t);  // = 0043D970  /* auto */
 /*128*/ // virtual int32_t v_f128(int32_t *);  // = 0043A940  /* auto */
 /*12C*/ // virtual int32_t v_f12C(int32_t, int32_t);  // = 0043A920  /* auto */
 /*130*/ // virtual int32_t v_f130(int32_t, int32_t, int32_t, int32_t *);  // = 0043C310  /* auto */
 /*134*/ // virtual int32_t v_f134(int32_t, int32_t, int32_t);  // = 0043CC30  /* auto */
-/*138*/ // virtual char *v_get_field_();  // = 0043A960  -  /* auto */
+/*138*/ // virtual const char *v_get_field_();  // = 0043A960  /* auto */
 /*13C*/ // virtual int32_t v_f13C(int32_t, int32_t, int32_t *);  // = 00441420  /* auto */
 /*---*/ // CBridge  --------------------------------------  /* auto */
-/*140*/ virtual char *v_fun_441CC0();  // = 00441CC0  ----  /* auto */
+/*140*/ virtual const char *v_fun_441CC0();  // = 00441CC0  /* auto */
 /*144*/ virtual __int16 v_fun_4408C0();  // = 004408C0  --  /* auto */
 /*148*/ virtual __int16 v_fun_4408E0(__int16);  // = 004408E0  /* auto */
 /*14C*/ virtual __int16 v_fun_440940(__int16);  // = 00440940  /* auto */
@@ -186,9 +186,9 @@ struct CBridge : CBridgeInterface {  // ------------------  /* auto */
 /*154*/ virtual __int16 v_fun_440A30(int32_t);  // = 00440A30  /* auto */
 /*158*/ virtual int32_t v_fun_440A70(int16_t);  // = 00440A70  /* auto */
 /*15C*/ virtual int32_t v_fun_4409A0(int16_t);  // = 004409A0  /* auto */
-/*160*/ virtual void *v_loc_43A9B0();  // = 0043A9B0  ----  /* auto */
-/*164*/ virtual void *v_loc_43A9C0();  // = 0043A9C0  ----  /* auto */
-/*168*/ virtual void *v_loc_43A9D0();  // = 0043A9D0  ----  /* auto */
+/*160*/ virtual const void *v_loc_43A9B0();  // = 0043A9B0  /* auto */
+/*164*/ virtual const void *v_loc_43A9C0();  // = 0043A9C0  /* auto */
+/*168*/ virtual const void *v_loc_43A9D0();  // = 0043A9D0  /* auto */
 /*16C*/ virtual __int16 v_fun_440AD0();  // = 00440AD0  --  /* auto */
 /*170*/ virtual __int16 v_fun_440AF0(__int16);  // = 00440AF0  /* auto */
 /*174*/ virtual __int16 v_fun_440B60(__int16);  // = 00440B60  /* auto */
@@ -196,28 +196,28 @@ struct CBridge : CBridgeInterface {  // ------------------  /* auto */
 /*17C*/ virtual __int16 v_fun_440C50(int32_t);  // = 00440C50  /* auto */
 /*180*/ virtual int32_t v_fun_440C90(int16_t);  // = 00440C90  /* auto */
 /*184*/ virtual int32_t v_fun_440BC0(int16_t);  // = 00440BC0  /* auto */
-/*188*/ virtual void *v_loc_43A9E0();  // = 0043A9E0  ----  /* auto */
-/*18C*/ virtual void *v_loc_43A9F0();  // = 0043A9F0  ----  /* auto */
-/*190*/ virtual void *v_loc_43AA00();  // = 0043AA00  ----  /* auto */
+/*188*/ virtual const void *v_loc_43A9E0();  // = 0043A9E0  /* auto */
+/*18C*/ virtual const void *v_loc_43A9F0();  // = 0043A9F0  /* auto */
+/*190*/ virtual const void *v_loc_43AA00();  // = 0043AA00  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0043A740*/ CBridge *constructor();  // -----------------  /* auto */
-/*0043A960*/ char *get_field_();  // ---------------------  /* auto */
+/*0043A960*/ const char *get_field_();  // ---------------  /* auto */
 /*0043A970*/ int32_t fun_43A970();  // -------------------  /* auto */
 /*0043A980*/ CCamera *getCamera();  // -------------------  /* auto */
 /*0043AAD0*/ int32_t connectEngine(CPCEngineInterface *);   /* auto */
 /*0043ACF0*/ void fun_43ACF0();  // ----------------------  /* auto */
 /*0043AD70*/ int32_t fun_43AD70(int32_t);  // ------------  /* auto */
-/*0043B150*/ int32_t isActionHasHandler(int32_t);  // ----  /* auto */
+/*0043B150*/ BOOL isActionHasHandler(int32_t);  // -------  /* auto */
 /*0043B180*/ int32_t fun_43B180(GameAction *);  // -------  /* auto */
 /*0043B1E0*/ int32_t fun_43B1E0(int32_t);  // ------------  /* auto */
 /*0043B220*/ int32_t fun_43B220(int32_t *);  // ----------  /* auto */
-/*0043E0F0*/ MySurface *loadPng(char *);  // -------------  /* auto */
+/*0043E0F0*/ MySurface *loadPng(const char *);  // -------  /* auto */
 /*00440FC0*/ int32_t fun_440FC0();  // -------------------  /* auto */
 /*00440FF0*/ int32_t fun_440FF0(int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*00441020*/ int32_t fun_441020(int32_t, MySurface *, int32_t);  /* auto */
-/*00441300*/ int32_t createAndRegister(char *, int32_t, int32_t, int32_t, int32_t);  /* auto */
+/*00441300*/ int32_t createAndRegister(const char *, int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*004413E0*/ int32_t init_float_obj(float);  // ----------  /* auto */
-/*00441C70*/ int32_t setTexturesPath_441C70(char *);  // -  /* auto */
+/*00441C70*/ int32_t setTexturesPath_441C70(const char *);  /* auto */
 /*00441FB0*/ int32_t idx_handler2_3_moveCam(GameAction *);  /* auto */
 /*004422B0*/ int32_t idx_handler2_7_zoom(GameAction *);     /* auto */
 /*004422F0*/ int32_t idx_handler2_8(int32_t *);  // ------  /* auto */

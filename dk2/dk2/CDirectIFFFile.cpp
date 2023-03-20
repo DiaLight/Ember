@@ -15,8 +15,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ FILE *CDirectIFFFile::v_read(void *, size_t) { relink_stub(CDirectIFFFile::v_read); }  /* auto */
-/*  4*/ FILE *CDirectIFFFile::v_write(void *, size_t) { relink_stub(CDirectIFFFile::v_write); }  /* auto */
+/*  0*/ FILE *CDirectIFFFile::v_read(const void *, size_t) { relink_stub(CDirectIFFFile::v_read); }  /* auto */
+/*  4*/ FILE *CDirectIFFFile::v_write(const void *, size_t) { relink_stub(CDirectIFFFile::v_write); }  /* auto */
 /*  8*/ int32_t CDirectIFFFile::v_seek(int32_t) { relink_stub(CDirectIFFFile::v_seek); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066FB34*/ void **CDirectIFFFile::vftable() { return dk2::CDirectIFFFile_vftable; }  /* auto */
@@ -29,10 +29,10 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0057A430*/ int32_t CDirectIFFFile::seekTo(int32_t) { relink_stub(CDirectIFFFile::seekTo); }  /* auto */
 /*0057A450*/ CDirectIFFFile *CDirectIFFFile::constructor() { relink_stub(CDirectIFFFile::constructor); }  /* auto */
 /*0057A470*/ int32_t CDirectIFFFile::seek(int32_t) { relink_stub(CDirectIFFFile::seek); }  /* auto */
-/*0057A560*/ int32_t CDirectIFFFile::open(char *, int32_t, int32_t) { relink_stub(CDirectIFFFile::open); }  /* auto */
+/*0057A560*/ int32_t CDirectIFFFile::open(const char *, int32_t, int32_t) { relink_stub(CDirectIFFFile::open); }  /* auto */
 /*0057A6F0*/ FILE *CDirectIFFFile::sub_57A6F0() { relink_stub(CDirectIFFFile::sub_57A6F0); }  /* auto */
-/*0057A7A0*/ FILE *CDirectIFFFile::readFile_57A7A0(void *, size_t) { relink_stub(CDirectIFFFile::readFile_57A7A0); }  /* auto */
-/*0057A7D0*/ FILE *CDirectIFFFile::writeFile_57A7D0(void *, size_t) { relink_stub(CDirectIFFFile::writeFile_57A7D0); }  /* auto */
+/*0057A7A0*/ FILE *CDirectIFFFile::readFile_57A7A0(const void *, size_t) { relink_stub(CDirectIFFFile::readFile_57A7A0); }  /* auto */
+/*0057A7D0*/ FILE *CDirectIFFFile::writeFile_57A7D0(const void *, size_t) { relink_stub(CDirectIFFFile::writeFile_57A7D0); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

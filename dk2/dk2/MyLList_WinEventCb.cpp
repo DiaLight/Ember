@@ -15,13 +15,13 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *MyLList_WinEventCb::v_scalar_destructor(char) { relink_stub(MyLList_WinEventCb::v_scalar_destructor); }  /* auto */
+/*  0*/ const void *MyLList_WinEventCb::v_scalar_destructor(char) { relink_stub(MyLList_WinEventCb::v_scalar_destructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672340*/ void **MyLList_WinEventCb::vftable() { return dk2::MyLList_WinEventCb_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*005B9840*/ void MyLList_WinEventCb::constructor() { relink_stub(MyLList_WinEventCb::constructor); }  /* auto */
 /*005B9860*/ void MyLList_WinEventCb::destructor() { relink_stub(MyLList_WinEventCb::destructor); }  /* auto */
-/*005B98A0*/ void *MyLList_WinEventCb::scalar_destructor(char) { relink_stub(MyLList_WinEventCb::scalar_destructor); }  /* auto */
+/*005B98A0*/ const void *MyLList_WinEventCb::scalar_destructor(char) { relink_stub(MyLList_WinEventCb::scalar_destructor); }  /* auto */
 /*005B9C80*/ MyLList_WinEventCb *MyLList_WinEventCb::MyLList_scalar_destructor(char) { relink_stub(MyLList_WinEventCb::MyLList_scalar_destructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */

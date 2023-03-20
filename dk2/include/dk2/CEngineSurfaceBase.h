@@ -33,15 +33,15 @@ struct CEngineSurfaceBase {  // --------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00670374*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // CEngineSurfaceBase  ---------------------------  /* auto */
-/*  0*/ virtual void *v_scalar_destructor(int32_t);  // = 00590610  /* auto */
+/*  0*/ virtual const void *v_scalar_destructor(int32_t);  // = 00590610  /* auto */
 /*  4*/ virtual int32_t v_fill(__int16);  // = 00590520  -  /* auto */
 /*  8*/ virtual int32_t v_copySurf(CEngineSurfaceBase *, int32_t, int32_t);  // = 00517400  /* auto */
 /*  C*/ virtual int32_t v_paintSurf(CEngineSurfaceBase *, int32_t, int32_t);  // = 00517400  /* auto */
 /* 10*/ virtual void v_f10_unk();  // = 00634D60  --------  /* auto */
 /* 14*/ virtual int32_t v_hasBuf();  // = 00634D60  ------  /* auto */
-/* 18*/ virtual void *v_lockBuf();  // = 00402AD0  -------  /* auto */
+/* 18*/ virtual const void *v_lockBuf();  // = 00402AD0  -  /* auto */
 /* 1C*/ virtual int32_t v_unlockBuf(int32_t);  // = 005671E0  /* auto */
-/* 20*/ virtual void *v_getBufWithSize(int32_t *);  // = 00628E30  /* auto */
+/* 20*/ virtual const void *v_getBufWithSize(int32_t *);  // = 00628E30  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00590450*/ int32_t paintSurf(CEngineSurface *, int32_t, int32_t);  /* auto */
 /*00590520*/ int32_t fill(__int16);  // ------------------  /* auto */

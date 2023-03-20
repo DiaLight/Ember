@@ -32,20 +32,20 @@ struct CCommunicationInterface {  // ---------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066EB3C*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // CCommunicationInterface  ----------------------  /* auto */
-/*  0*/ virtual void *v_deleting_destructor(char);  // = 00521B50  /* auto */
+/*  0*/ virtual const void *v_deleting_destructor(char);  // = 00521B50  /* auto */
 /*  4*/ virtual int32_t v_f4();  // = 00634D60  ----------  /* auto */
 /*  8*/ virtual void v_f8();  // = 00634D60  -------------  /* auto */
 /*  C*/ virtual int32_t v_fun_443150(GameAction *, int32_t);  // = 00443150  /* auto */
 /* 10*/ virtual void v_pushAction(GameAction *);  // = 00634D60  /* auto */
-/* 14*/ virtual int32_t v_collectActions(void *);  // = 00634D60  /* auto */
+/* 14*/ virtual int32_t v_collectActions(const void *);  // = 00634D60  /* auto */
 /* 18*/ virtual int32_t v_f18();  // = 00634D60  ---------  /* auto */
 /* 1C*/ virtual void v_f1C(int32_t, int32_t);  // = 00634D60  /* auto */
 /* 20*/ virtual void v_f20(int32_t, int32_t);  // = 00634D60  /* auto */
 /* 24*/ virtual void v_f24(int32_t, int32_t);  // = 00634D60  /* auto */
 /* 28*/ virtual void v_f28(int32_t);  // = 00634D60  -----  /* auto */
-/* 2C*/ virtual void *v_f2C();  // = 00634D60  -----------  /* auto */
+/* 2C*/ virtual const void *v_f2C();  // = 00634D60  -----  /* auto */
 /* 30*/ virtual int32_t v_f30();  // = 00634D60  ---------  /* auto */
-/* 34*/ virtual void *v_f34();  // = 00634D60  -----------  /* auto */
+/* 34*/ virtual const void *v_f34();  // = 00634D60  -----  /* auto */
 /* 38*/ virtual int32_t v_f38();  // = 00634D60  ---------  /* auto */
 /* 3C*/ virtual int32_t v_fun_521B40(int32_t);  // = 00521B40  /* auto */
 /* 40*/ virtual void v_f40(int32_t, int32_t);  // = 00580470  /* auto */

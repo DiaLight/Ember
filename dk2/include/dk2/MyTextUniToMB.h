@@ -31,7 +31,7 @@ struct MyTextUniToMB : MyTextBase {  // ------------------  /* auto */
 /*---*/ // super MyTextBase  -----------------------------  /* auto */
 /*  0*/ // virtual int32_t v_release();  // = 0062FC10  --  /* auto */
 /*  4*/ // virtual int32_t v_addRef();  // = 0062FC00  ---  /* auto */
-/*  8*/ // virtual void *v_scalar_destructor(char);  // = 0062E090  /* auto */
+/*  8*/ // virtual const void *v_scalar_destructor(char);  // = 0062E090  /* auto */
 /*  C*/ // virtual int32_t v_j_release();  // = 0062D9A0    /* auto */
 /* 10*/ // virtual int32_t v_j_addRef();  // = 0062FC40  -  /* auto */
 /*---*/ // MyTextUniToMB  --------------------------------  /* auto */
@@ -39,7 +39,7 @@ struct MyTextUniToMB : MyTextBase {  // ------------------  /* auto */
 /*0062E050*/ MyTextUniToMB *constructor(int32_t);  // ----  /* auto */
 /*0062E0E0*/ int16_t convertChar(int32_t);  // -----------  /* auto */
 /*0062E0F0*/ int16_t sub_62E0F0(int16_t);  // ------------  /* auto */
-/*0062E1F0*/ int32_t *convert(int32_t *, int8_t *, wchar_t *, int32_t);  /* auto */
+/*0062E1F0*/ int32_t *convert(int32_t *, int8_t *, const wchar_t *, int32_t);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

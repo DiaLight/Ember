@@ -15,15 +15,15 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *CEngineSurfaceBase::v_scalar_destructor(int32_t) { relink_stub(CEngineSurfaceBase::v_scalar_destructor); }  /* auto */
+/*  0*/ const void *CEngineSurfaceBase::v_scalar_destructor(int32_t) { relink_stub(CEngineSurfaceBase::v_scalar_destructor); }  /* auto */
 /*  4*/ int32_t CEngineSurfaceBase::v_fill(__int16) { relink_stub(CEngineSurfaceBase::v_fill); }  /* auto */
 /*  8*/ int32_t CEngineSurfaceBase::v_copySurf(CEngineSurfaceBase *, int32_t, int32_t) { relink_stub(CEngineSurfaceBase::v_copySurf); }  /* auto */
 /*  C*/ int32_t CEngineSurfaceBase::v_paintSurf(CEngineSurfaceBase *, int32_t, int32_t) { relink_stub(CEngineSurfaceBase::v_paintSurf); }  /* auto */
 /* 10*/ void CEngineSurfaceBase::v_f10_unk() { relink_stub(CEngineSurfaceBase::v_f10_unk); }  /* auto */
 /* 14*/ int32_t CEngineSurfaceBase::v_hasBuf() { relink_stub(CEngineSurfaceBase::v_hasBuf); }  /* auto */
-/* 18*/ void *CEngineSurfaceBase::v_lockBuf() { relink_stub(CEngineSurfaceBase::v_lockBuf); }  /* auto */
+/* 18*/ const void *CEngineSurfaceBase::v_lockBuf() { relink_stub(CEngineSurfaceBase::v_lockBuf); }  /* auto */
 /* 1C*/ int32_t CEngineSurfaceBase::v_unlockBuf(int32_t) { relink_stub(CEngineSurfaceBase::v_unlockBuf); }  /* auto */
-/* 20*/ void *CEngineSurfaceBase::v_getBufWithSize(int32_t *) { relink_stub(CEngineSurfaceBase::v_getBufWithSize); }  /* auto */
+/* 20*/ const void *CEngineSurfaceBase::v_getBufWithSize(int32_t *) { relink_stub(CEngineSurfaceBase::v_getBufWithSize); }  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00670374*/ void **CEngineSurfaceBase::vftable() { return dk2::CEngineSurfaceBase_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */

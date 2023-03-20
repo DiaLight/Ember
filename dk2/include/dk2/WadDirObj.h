@@ -30,15 +30,15 @@ namespace dk2 {  // --------------------------------------  /* auto */
 #pragma pack(push, 1)  // --------------------------------  /* auto */
 struct WadDirObj {  // -----------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
-/*  0*/ char *name;  // ----------------------------------  /* auto */
+/*  0*/ const char *name;  // ----------------------------  /* auto */
 /*  4*/ int32_t isPackedWadFile;  // ---------------------  /* auto */
 /*  8*/ MyLList_WadDirObj subdirs;  // -------------------  /* auto */
 /* 18*/ MyLList_WadFileObj files;  // --------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005FE3A0*/ void constructor();  // ---------------------  /* auto */
 /*005FEAA0*/ void destructor();  // ----------------------  /* auto */
-/*005FEB10*/ MyLList_WadFileObj_entry *putFile(char *, int32_t, int32_t, int32_t, MyALList_WadFileObj *, char);  /* auto */
-/*005FEBA0*/ WadDirObj *putDirRecursive(char *, MyALList_WadDirObj *, int32_t);  /* auto */
+/*005FEB10*/ MyLList_WadFileObj_entry *putFile(const char *, int32_t, int32_t, int32_t, MyALList_WadFileObj *, char);  /* auto */
+/*005FEBA0*/ WadDirObj *putDirRecursive(const char *, MyALList_WadDirObj *, int32_t);  /* auto */
 /*005FEDD0*/ WadDirObj *sub_5FEDD0(MyStr *, MyStr *);       /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

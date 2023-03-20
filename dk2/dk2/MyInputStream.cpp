@@ -15,9 +15,9 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
-/*  0*/ void *MyInputStream::v_scalar_destructor(char) { relink_stub(MyInputStream::v_scalar_destructor); }  /* auto */
-/*  4*/ size_t MyInputStream::v_readBytes(void *, size_t) { relink_stub(MyInputStream::v_readBytes); }  /* auto */
-/*  8*/ size_t MyInputStream::v_writeBytes(void *, size_t) { relink_stub(MyInputStream::v_writeBytes); }  /* auto */
+/*  0*/ const void *MyInputStream::v_scalar_destructor(char) { relink_stub(MyInputStream::v_scalar_destructor); }  /* auto */
+/*  4*/ size_t MyInputStream::v_readBytes(const void *, size_t) { relink_stub(MyInputStream::v_readBytes); }  /* auto */
+/*  8*/ size_t MyInputStream::v_writeBytes(const void *, size_t) { relink_stub(MyInputStream::v_writeBytes); }  /* auto */
 /*  C*/ size_t MyInputStream::v_seek(size_t, int32_t) { relink_stub(MyInputStream::v_seek); }  /* auto */
 /* 10*/ size_t MyInputStream::v_getSize() { relink_stub(MyInputStream::v_getSize); }  /* auto */
 /* 14*/ size_t MyInputStream::v_getOffs() { relink_stub(MyInputStream::v_getOffs); }  /* auto */

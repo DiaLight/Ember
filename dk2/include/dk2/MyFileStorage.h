@@ -36,7 +36,7 @@ struct MyFileStorage : MyTextBase {  // ------------------  /* auto */
 /*---*/ // super MyTextBase  -----------------------------  /* auto */
 /*  0*/ // virtual int32_t v_release();  // = 0062FC10  --  /* auto */
 /*  4*/ // virtual int32_t v_addRef();  // = 0062FC00  ---  /* auto */
-/*  8*/ // virtual void *v_scalar_destructor(char);  // = 0062FD60  /* auto */
+/*  8*/ // virtual const void *v_scalar_destructor(char);  // = 0062FD60  /* auto */
 /*  C*/ // virtual int32_t v_j_release();  // = 0062D9A0    /* auto */
 /* 10*/ // virtual int32_t v_j_addRef();  // = 0062FC40  -  /* auto */
 /*---*/ // MyFileStorage  --------------------------------  /* auto */
@@ -46,7 +46,7 @@ struct MyFileStorage : MyTextBase {  // ------------------  /* auto */
 /*0062FEB0*/ int32_t *resolveResource(int32_t *, ResourceIndexEntry *, MyTextBase **);  /* auto */
 /*0062FF50*/ int32_t *loadResource(int32_t *, ResourceIndexEntry *, MyTextBase **);  /* auto */
 /*00630050*/ int32_t *openResourceStream(int32_t *, DiscFileBase *, ResourceIndexEntry *);  /* auto */
-/*006300A0*/ int32_t *parseResourceIndex(int32_t *, char *, ResourceIndexEntry *, int32_t);  /* auto */
+/*006300A0*/ int32_t *parseResourceIndex(int32_t *, const char *, ResourceIndexEntry *, int32_t);  /* auto */
 /*00630160*/ ResourceIndexEntry *getResourceIndex(int32_t);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

@@ -34,10 +34,10 @@ struct CNetworkComponent : CComponent {  // --------------  /* auto */
 /*---*/ // super CComponent  -----------------------------  /* auto */
 /*  0*/ // virtual int32_t *v_deleting_destructor(char);  // = 005274C0  /* auto */
 /*  4*/ // virtual int32_t v_f4_();  // = 00527530  ------  /* auto */
-/*  8*/ // virtual void *v_f8_();  // = 00401200  --------  /* auto */
+/*  8*/ // virtual const void *v_f8_();  // = 00401200  --  /* auto */
 /*  C*/ // virtual int32_t v_handle();  // = 00527560  ---  /* auto */
 /* 10*/ // virtual int32_t *v_f10_();  // = 00527750  ----  /* auto */
-/* 14*/ // virtual void ***v_mainGuiLoop();  // = 00527790  /* auto */
+/* 14*/ // virtual const void ***v_mainGuiLoop();  // = 00527790  /* auto */
 /*---*/ // CNetworkComponent  ----------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00527470*/ CNetworkComponent *constructor();  // -------  /* auto */

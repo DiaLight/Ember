@@ -33,7 +33,7 @@ struct CWindowTest {  // ---------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066F20C*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // CWindowTest  ----------------------------------  /* auto */
-/*  0*/ virtual void *v_DESTRUCTOR_CWindowTest_void(char);  // = 00555BD0  /* auto */
+/*  0*/ virtual const void *v_DESTRUCTOR_CWindowTest_void(char);  // = 00555BD0  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00555B90*/ CWindowTest *constructor();  // -------------  /* auto */
 /*00555CC0*/ int32_t *create(int32_t *, AABB *);  // -----  /* auto */

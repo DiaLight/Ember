@@ -24,7 +24,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066FD8C*/ void **CEngineStaticMesh::vftable() { return dk2::CEngineStaticMesh_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*00585F90*/ CEngineStaticMesh *CEngineStaticMesh::constructor(int32_t, int32_t, int32_t, int32_t, float *, int32_t, char, int32_t *) { relink_stub(CEngineStaticMesh::constructor); }  /* auto */
+/*00585F90*/ CEngineStaticMesh *CEngineStaticMesh::constructor(int32_t, int32_t, int32_t, int32_t, const float *, int32_t, char, int32_t *) { relink_stub(CEngineStaticMesh::constructor); }  /* auto */
 /*00586150*/ int32_t *CEngineStaticMesh::fun_586150(int32_t, SceneObject2E *) { relink_stub(CEngineStaticMesh::fun_586150); }  /* auto */
 /*00586190*/ int32_t CEngineStaticMesh::appendToSceneObject2EList(int32_t) { relink_stub(CEngineStaticMesh::appendToSceneObject2EList); }  /* auto */
 // -------------------------------------------------------  /* auto */

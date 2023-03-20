@@ -30,7 +30,7 @@ struct MouseRgbDxActionList {  // ------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*006728FC*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // MouseRgbDxActionList  -------------------------  /* auto */
-/*  0*/ virtual void *v_Obj6728FC_scalar_destructor(char);  // = 005DDCB0  /* auto */
+/*  0*/ virtual const void *v_Obj6728FC_scalar_destructor(char);  // = 005DDCB0  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005DDCD0*/ int32_t destructor();  // -------------------  /* auto */
 /*005DDF30*/ MouseRgbDxAction *getOrCreateUnhandled();      /* auto */

@@ -66,7 +66,7 @@ struct MyKeyboard {  // ----------------------------------  /* auto */
 /*0055F040*/ HKEY__ *sub_55F040();  // -------------------  /* auto */
 /*0055F6D0*/ HKEY__ *sub_55F6D0(HKEY__ **);  // ----------  /* auto */
 /*005604C0*/ KeyEntry *fillKeyMaps();  // ----------------  /* auto */
-/*005609C0*/ char *getLayoutName();  // ------------------  /* auto */
+/*005609C0*/ const char *getLayoutName();  // ------------  /* auto */
 /*00560D60*/ HKEY__ *sub_560D60_playerLevelStatus(HKEY__ *, int32_t);  /* auto */
 /*00560E30*/ HKEY__ *sub_560E30_levelNumber(HKEY__ *);      /* auto */
 /*00560EC0*/ HKEY__ *sub_560EC0_mpdLevelNumber(HKEY__ *);   /* auto */

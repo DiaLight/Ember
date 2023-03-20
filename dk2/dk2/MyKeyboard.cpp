@@ -20,7 +20,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0055F040*/ HKEY__ *MyKeyboard::sub_55F040() { relink_stub(MyKeyboard::sub_55F040); }  /* auto */
 /*0055F6D0*/ HKEY__ *MyKeyboard::sub_55F6D0(HKEY__ **) { relink_stub(MyKeyboard::sub_55F6D0); }  /* auto */
 /*005604C0*/ KeyEntry *MyKeyboard::fillKeyMaps() { relink_stub(MyKeyboard::fillKeyMaps); }  /* auto */
-/*005609C0*/ char *MyKeyboard::getLayoutName() { relink_stub(MyKeyboard::getLayoutName); }  /* auto */
+/*005609C0*/ const char *MyKeyboard::getLayoutName() { relink_stub(MyKeyboard::getLayoutName); }  /* auto */
 /*00560D60*/ HKEY__ *MyKeyboard::sub_560D60_playerLevelStatus(HKEY__ *, int32_t) { relink_stub(MyKeyboard::sub_560D60_playerLevelStatus); }  /* auto */
 /*00560E30*/ HKEY__ *MyKeyboard::sub_560E30_levelNumber(HKEY__ *) { relink_stub(MyKeyboard::sub_560E30_levelNumber); }  /* auto */
 /*00560EC0*/ HKEY__ *MyKeyboard::sub_560EC0_mpdLevelNumber(HKEY__ *) { relink_stub(MyKeyboard::sub_560EC0_mpdLevelNumber); }  /* auto */

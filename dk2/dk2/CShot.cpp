@@ -19,12 +19,12 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /* 64*/ int32_t CShot::v_f64() { relink_stub(CShot::v_f64); }  /* auto */
 /* 68*/ int32_t CShot::v_f68() { relink_stub(CShot::v_f68); }  /* auto */
 /* 6C*/ void CShot::v_f6C() { relink_stub(CShot::v_f6C); }  /* auto */
-/* 70*/ void *CShot::v_duplicate_27_1() { relink_stub(CShot::v_duplicate_27_1); }  /* auto */
-/* 74*/ void *CShot::v_duplicate_7_1() { relink_stub(CShot::v_duplicate_7_1); }  /* auto */
-/* 78*/ void *CShot::v_duplicate_27_2() { relink_stub(CShot::v_duplicate_27_2); }  /* auto */
-/* 7C*/ void *CShot::v_duplicate_27_3() { relink_stub(CShot::v_duplicate_27_3); }  /* auto */
-/* 80*/ void *CShot::v_duplicate_7_2() { relink_stub(CShot::v_duplicate_7_2); }  /* auto */
-/* 84*/ void *CShot::v_duplicate_7_3() { relink_stub(CShot::v_duplicate_7_3); }  /* auto */
+/* 70*/ const void *CShot::v_duplicate_27_1() { relink_stub(CShot::v_duplicate_27_1); }  /* auto */
+/* 74*/ const void *CShot::v_duplicate_7_1() { relink_stub(CShot::v_duplicate_7_1); }  /* auto */
+/* 78*/ const void *CShot::v_duplicate_27_2() { relink_stub(CShot::v_duplicate_27_2); }  /* auto */
+/* 7C*/ const void *CShot::v_duplicate_27_3() { relink_stub(CShot::v_duplicate_27_3); }  /* auto */
+/* 80*/ const void *CShot::v_duplicate_7_2() { relink_stub(CShot::v_duplicate_7_2); }  /* auto */
+/* 84*/ const void *CShot::v_duplicate_7_3() { relink_stub(CShot::v_duplicate_7_3); }  /* auto */
 /* 88*/ BOOL CShot::v_f88() { relink_stub(CShot::v_f88); }  /* auto */
 /* 8C*/ __int16 CShot::v_f8C(__int16) { relink_stub(CShot::v_f8C); }  /* auto */
 /* 90*/ int32_t CShot::v_f90() { relink_stub(CShot::v_f90); }  /* auto */

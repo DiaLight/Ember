@@ -38,7 +38,7 @@ struct CVerticalSlider : CButton {  // -------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066ECBC*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CGadget  --------------------------------  /* auto */
-/*  0*/ // virtual void *v_deleting_destructor(char);  // = 0052A300  /* auto */
+/*  0*/ // virtual const void *v_deleting_destructor(char);  // = 0052A300  /* auto */
 /*---*/ // super CButton  --------------------------------  /* auto */
 /*  4*/ // virtual int32_t v_render(int32_t, int32_t);  // = 00528800  /* auto */
 /*  8*/ // virtual int32_t v_handleClick(CDefaultPlayerInterface *);  // = 00528B20  /* auto */

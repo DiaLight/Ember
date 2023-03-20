@@ -5,6 +5,7 @@
 #include <dk2_relink_refs.h>
 #include <Windows.h>
 #include <dk2_globals.h>
+#include <utils/patch.h>
 
 #define dk2_virtual_base 0x00400000
 
@@ -126,8 +127,7 @@ void do_relink(void *_dk2_base, std::map<uint32_t, std::shared_ptr<xrefs_t>> &xr
     for(auto &e : xrefs_map) {
         auto new_dst = (uint32_t) (e.second->dk2_rva - dk2_virtual_base + dk2_base);
         for(auto &r : e.second->refs) {
-            DWORD oldProtect;
-            VirtualProtect(r.src, sizeof(uint32_t), PAGE_EXECUTE_READWRITE, &oldProtect);
+            write_protect prot(r.src, sizeof(uint32_t));
             switch(r.kind) {
                 case VA32:
                     *r.src = new_dst;
@@ -136,8 +136,6 @@ void do_relink(void *_dk2_base, std::map<uint32_t, std::shared_ptr<xrefs_t>> &xr
                     *r.src = new_dst - (uint32_t) (r.src + 1);
                     break;
             }
-            DWORD ignore;
-            VirtualProtect(r.src, sizeof(uint32_t), oldProtect, &ignore);
         }
     }
 }

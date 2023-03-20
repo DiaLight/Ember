@@ -50,10 +50,10 @@ struct CRoom : CTag {  // --------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066DB7C*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CTag  -----------------------------------  /* auto */
-/*  0*/ // virtual void *v_deleting_destructor(char);  // = 004EC130  /* auto */
-/*  4*/ // virtual BOOL v_f4(void **);  // = 004E3B10  ---  /* auto */
+/*  0*/ // virtual const void *v_deleting_destructor(char);  // = 004EC130  /* auto */
+/*  4*/ // virtual BOOL v_f4(const void **);  // = 004E3B10  /* auto */
 /*---*/ // CRoom  ----------------------------------------  /* auto */
-/*  8*/ virtual wchar_t *v_fun_4E9250(wchar_t *);  // = 004E9250  /* auto */
+/*  8*/ virtual const wchar_t *v_fun_4E9250(const wchar_t *);  // = 004E9250  /* auto */
 // -------------------------------------------------------  /* auto */
 /*004E3790*/ void constructor();  // ---------------------  /* auto */
 /*004E37F0*/ void destructor();  // ----------------------  /* auto */

@@ -28,13 +28,13 @@ struct MySurfaceWrapper {  // ----------------------------  /* auto */
 /*  0*/ int32_t flags;  // -------------------------------  /* auto */
 /*  4*/ int32_t prescaleWigth;  // -----------------------  /* auto */
 /*  8*/ int32_t prescaleHeight;  // ----------------------  /* auto */
-/*  C*/ char *name;  // ----------------------------------  /* auto */
+/*  C*/ const char *name;  // ----------------------------  /* auto */
 /* 10*/ MySurface surf;  // ------------------------------  /* auto */
 /* 38*/ int32_t texFlags;  // ----------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
-/*00590B40*/ MySurfaceWrapper *constructor(int32_t, char *, int32_t);  /* auto */
+/*00590B40*/ MySurfaceWrapper *constructor(int32_t, const char *, int32_t);  /* auto */
 /*00590B70*/ MySurfaceWrapper *sub_590B70(int32_t, int32_t, MySurface *);  /* auto */
-/*00590BC0*/ MySurfaceWrapper *withData(int32_t, char *, int32_t, int32_t);  /* auto */
+/*00590BC0*/ MySurfaceWrapper *withData(int32_t, const char *, int32_t, int32_t);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

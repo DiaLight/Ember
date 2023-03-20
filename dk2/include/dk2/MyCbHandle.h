@@ -26,11 +26,11 @@ namespace dk2 {  // --------------------------------------  /* auto */
 struct MyCbHandle {  // ----------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*  4*/ int32_t *callbackIdxList;  // --------------------  /* auto */
-/*  8*/ void *callbackObj;  // ---------------------------  /* auto */
+/*  8*/ const void *callbackObj;  // ---------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*006723D8*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // MyCbHandle  -----------------------------------  /* auto */
-/*  0*/ virtual void *v_sub_5BB440(char);  // = 005BB440    /* auto */
+/*  0*/ virtual const void *v_sub_5BB440(char);  // = 005BB440  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005DBD60*/ int32_t *destructor();  // ------------------  /* auto */
 /*005DBD70*/ int32_t add_MyCallback(int32_t *, MyCallback *);  /* auto */

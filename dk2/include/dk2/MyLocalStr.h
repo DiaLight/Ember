@@ -26,29 +26,29 @@ namespace dk2 {  // --------------------------------------  /* auto */
 struct MyLocalStr {  // ----------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*  4*/ size_t len;  // ----------------------------------  /* auto */
-/*  8*/ char *buf;  // -----------------------------------  /* auto */
+/*  8*/ const char *buf;  // -----------------------------  /* auto */
 /*  C*/ size_t buf_size;  // -----------------------------  /* auto */
 /* 10*/ int32_t is_truncated;  // ------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00672EC0*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // MyLocalStr  -----------------------------------  /* auto */
-/*  0*/ virtual int32_t __cdecl v_format(int32_t, char *, ...);  // = 005FE240  /* auto */
+/*  0*/ virtual int32_t __cdecl v_format(int32_t, const char *, ...);  // = 005FE240  /* auto */
 /*  4*/ virtual int32_t v_resize(int32_t);  // = 005FDFC0   /* auto */
-/*  8*/ virtual void *v_scalar_destructor(char);  // = 005FDFA0  /* auto */
+/*  8*/ virtual const void *v_scalar_destructor(char);  // = 005FDFA0  /* auto */
 /*  C*/ virtual int8_t **v_assignChar(int8_t *);  // = 005FE0C0  /* auto */
-/* 10*/ virtual void *v_assign(char *);  // = 005FE100  --  /* auto */
-/* 14*/ virtual char **v_assignMyStr(MyStr *);  // = 005FE150  /* auto */
-/* 18*/ virtual int32_t v_append(char *);  // = 005FE180    /* auto */
+/* 10*/ virtual const void *v_assign(const char *);  // = 005FE100  /* auto */
+/* 14*/ virtual const char **v_assignMyStr(MyStr *);  // = 005FE150  /* auto */
+/* 18*/ virtual int32_t v_append(const char *);  // = 005FE180  /* auto */
 /* 1C*/ virtual int32_t *v_appendChar(int8_t *);  // = 005FE1C0  /* auto */
-/* 20*/ virtual void *v_appendMyLocalStr(int32_t);  // = 005FE200  /* auto */
+/* 20*/ virtual const void *v_appendMyLocalStr(int32_t);  // = 005FE200  /* auto */
 // -------------------------------------------------------  /* auto */
-/*005D7D30*/ bool equalTo(char *);  // -------------------  /* auto */
+/*005D7D30*/ bool equalTo(const char *);  // -------------  /* auto */
 /*005D7F60*/ int32_t charPos(int8_t *, int32_t);  // -----  /* auto */
-/*005FE000*/ MyLocalStr *constructor(char *, int32_t, int32_t);  /* auto */
+/*005FE000*/ MyLocalStr *constructor(const char *, int32_t, int32_t);  /* auto */
 /*005FE0C0*/ MyLocalStr *assignChar(int8_t *);  // -------  /* auto */
-/*005FE100*/ MyLocalStr *assign(char *);  // -------------  /* auto */
+/*005FE100*/ MyLocalStr *assign(const char *);  // -------  /* auto */
 /*005FE150*/ MyLocalStr *assignMyStr(MyStr *);  // -------  /* auto */
-/*005FE180*/ int32_t append(char *);  // -----------------  /* auto */
+/*005FE180*/ int32_t append(const char *);  // -----------  /* auto */
 /*005FE1C0*/ MyLocalStr *appendChar(int8_t *);  // -------  /* auto */
 /*005FE200*/ MyLocalStr *appendLocalStr(MyLocalStr *);      /* auto */
 // -------------------------------------------------------  /* auto */

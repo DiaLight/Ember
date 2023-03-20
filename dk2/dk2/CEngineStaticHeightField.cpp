@@ -24,7 +24,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066FDB4*/ void **CEngineStaticHeightField::vftable() { return dk2::CEngineStaticHeightField_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*00586BC0*/ CEngineStaticHeightField *CEngineStaticHeightField::constructor(float *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(CEngineStaticHeightField::constructor); }  /* auto */
+/*00586BC0*/ CEngineStaticHeightField *CEngineStaticHeightField::constructor(const float *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(CEngineStaticHeightField::constructor); }  /* auto */
 /*00587010*/ int32_t *CEngineStaticHeightField::fun_587010(int32_t, SceneObject2E *) { relink_stub(CEngineStaticHeightField::fun_587010); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
