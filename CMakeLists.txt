@@ -8,6 +8,9 @@ if(MSVC)
 endif()
 
 option(REVERSE_MODE "Build bootstrap_patcher as dll for dynamic load by debugger")
+option(ALLOW_REPLACE_PATCH_DLL "Replace PATCH.dll after build in REVERSE_MODE")
+option(DK2_DIR "Dungeon Keeper 2 directory")
+option(EMBED_MAPPINGS "Embed mappings into exe" ON)
 
 find_package(Python REQUIRED)
 
@@ -61,7 +64,6 @@ add_subdirectory(reimpl)
 add_subdirectory(hooks)
 add_subdirectory(patches)
 
-option(DK2_DIR "Dungeon Keeper 2 directory")
 if(DK2_DIR)
     message(STATUS "Dungeon Keeper 2 directory: ${DK2_DIR}")
     if(NOT EXISTS "${DK2_DIR}/DKII.EXE")
@@ -85,7 +87,7 @@ endif()
 
 add_subdirectory(3rdparty)
 
-
+enable_language(RC)
 set(SOURCES
         main.cpp
 )
@@ -95,6 +97,22 @@ if(REVERSE_MODE)
             ${SOURCES}
     )
     target_compile_definitions(bootstrap_patcher PRIVATE REVERSE_MODE=1)
+    if(ALLOW_REPLACE_PATCH_DLL)
+        if(DK2_DIR)
+            if(NOT EXISTS "${DK2_DIR}/PATCH_orig.dll")
+                message("save original copy of PATCH.dll")
+#                file(COPY_FILE "${DK2_DIR}/PATCH.dll" "${DK2_DIR}/PATCH_orig.dll")
+                file(RENAME "${DK2_DIR}/PATCH.dll" "${DK2_DIR}/PATCH_orig.dll")
+            endif()
+            add_custom_command(TARGET bootstrap_patcher POST_BUILD
+                    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                    $<TARGET_FILE:bootstrap_patcher>
+                    "${DK2_DIR}/PATCH.dll"
+            )
+        else()
+            message(FATAL_ERROR "DK2_DIR is not specified")
+        endif()
+    endif()
 else()
     add_executable(bootstrap_patcher WIN32
             ${SOURCES}
@@ -120,4 +138,31 @@ install(TARGETS bootstrap_patcher RUNTIME DESTINATION ".")
 
 if(NOT REVERSE_MODE)
     add_subdirectory(launcher)
+endif()
+
+if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/dev")
+    add_subdirectory(dev)
+endif()
+
+
+if(EMBED_MAPPINGS)
+    set(DK2_RES "${CMAKE_CURRENT_BINARY_DIR}/mappings.res")
+    set(DK2_RC "${CMAKE_CURRENT_BINARY_DIR}/mappings.rc")
+    file(WRITE ${DK2_RC} "
+#include \"embed_resources.h\"
+IDR_REFERENCES TEXT \"references.map\"
+IDR_STACK TEXT \"stack.map\"
+    ")
+    add_custom_command(OUTPUT mappings.res
+            COMMAND ${CMAKE_RC_COMPILER}
+            /y  # Don't warn if there are duplicate control ID's
+            /I ${CMAKE_CURRENT_LIST_DIR}/utils
+            /fo ${DK2_RES}
+            ${DK2_RC}
+            DEPENDS
+            ${DK2_RC} ${DK2_REFERENCES} ${DK2_STACK} ${CMAKE_CURRENT_LIST_DIR}/utils/embed_resources.h
+            )
+    target_sources(bootstrap_patcher PRIVATE ${DK2_RES})
+    target_link_libraries(bootstrap_patcher PRIVATE ${DK2_RES})
+    target_compile_definitions(bootstrap_patcher PRIVATE EMBED_MAPPINGS=1)
 endif()

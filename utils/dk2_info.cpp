@@ -94,7 +94,7 @@ void RedirectStandardIo() {
     std::ios::sync_with_stdio();
 }
 
-bool api::info_initialize() {
+bool api::info_initialize(void *emberBase) {
 
     int nArgs;
     LPWSTR *szArglist = CommandLineToArgvW(GetCommandLineW(), &nArgs);
@@ -112,17 +112,23 @@ bool api::info_initialize() {
     }
     LocalFree(szArglist);
 #ifdef REVERSE_MODE
-    AllocConsole();
+    if(api::hasFlag("console") || true) {
+        AllocConsole();
+        freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
+        freopen_s((FILE**)stderr, "CONOUT$", "w", stderr);
+    }
+    RedirectStandardIo();
+    ember_base = (uint8_t *) emberBase;
+    if(!ember_base) ember_base = (uint8_t *) GetModuleHandleW(L"bootstrap_patcher.dll");
 #else
     if(api::hasFlag("console")) {
         AllocConsole();
         freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
         freopen_s((FILE**)stderr, "CONOUT$", "w", stderr);
     }
-#endif
     RedirectStandardIo();
-    ember_base = (uint8_t *) GetModuleHandleW(L"bootstrap_patcher.dll");
-    if(!ember_base) ember_base = (uint8_t *) GetModuleHandleW(NULL);
+    ember_base = (uint8_t *) GetModuleHandleW(NULL);
+#endif
 
     {
         g_curExeDir.resize(MAX_PATH, L'\0');
@@ -173,5 +179,6 @@ bool api::info_initialize() {
         printf("  -ember:%s\n", arg.c_str());
     }
 
+    if(!ember_base || !dk2_base) return false;
     return true;
 }

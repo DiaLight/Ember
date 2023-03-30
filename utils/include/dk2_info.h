@@ -31,7 +31,7 @@ namespace api {
     std::vector<std::string> findArgValues(const std::string &name);
     bool hasFlag(const std::string &name);
 
-    bool info_initialize();
+    bool info_initialize(void *emberBase);
 
 }
 

@@ -12,19 +12,19 @@
 #include <hooks/game_loop.h>
 #include <utils/stacktrace.h>
 #include <gog_patch_dll.h>
-#include <tools.h>
+#include <reimpl.h>
 
 
-bool ember_initialize_impl() {
-    if(!api::info_initialize()) return false;
-    ember_runtime_relink(api::dk2_base);
+bool ember_initialize_impl(void *emberBase = nullptr) {
+    if(!api::info_initialize(emberBase)) return false;
+    if(!ember_runtime_relink()) return false;
     if(!api::initXrefsApi()) return false;
     if(!api::initPatchApi()) return false;
-    if(!hook::main()) return false;
-//    if(!initStacktrace()) return false;
+    if(!api::initStacktrace()) return false;
     if(!hook::initWindow()) return false;
     if(!hook::initGameLoop()) return false;
     if(!hook::initDirectInput()) return false;
+    if(!hook::main()) return false;
 
     if(!patch::reduce_title_screen_time()) return false;
     if(!patch::use_cwd_as_dk2_home_dir()) return false;
@@ -66,19 +66,53 @@ bool ember_initialize_impl() {
         if (!patch::show_wireframe()) return false;
     }
 
-    //  if(!reimpl::draw3dScene()) return false;
-    //  if(!reimpl::SurfHashList__probablySort()) return false;
+//    if(!reimpl::draw3dScene()) return false;
+//    if(!reimpl::SurfHashList__probablySort()) return false;
+    if(!reimpl::dk2dd_init()) return false;
+    if(!reimpl::dk2dd_misc()) return false;
     if(!gog_patch_dll()) return false;
 
     if(!tools::unpack_texture_cache()) return false;
     return true;
 }
-extern "C" __declspec(dllexport) bool __cdecl ember_initialize() {
-    if(!ember_initialize_impl()) return false;
-    return true;
-}
 
-#ifndef REVERSE_MODE
+#ifdef REVERSE_MODE
+// if you want to develop ember patches,
+//   there several ways to initialize ember environment in DKII.EXE or DKII-DX.EXE:
+// - you can place breakpoint at the beginning of start function in DKII.EXE then load this dll
+// - you can patch DKII.exe import table and rename DINPUT.dll or ole32.dll or DDRAW.dll
+//     to ember.dll then rename this dll to ember.dll and place to DKII.EXE directory
+//     don't forget to enable appropriate import mimicry in reversemode_mimicry.cpp
+// - you can replace PATCH.dll with this dll and use DKII-DX.EXE
+#include <reversemode_mimicry.h>
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
+    switch(fdwReason) {
+        case DLL_PROCESS_ATTACH:
+            if(!api::initMimicry()) {
+                MessageBoxA(NULL, "init mimicry failed", "Ember error", MB_OK);
+                return FALSE;
+            }
+            if(!ember_initialize_impl(hinstDLL)) {
+                MessageBoxA(NULL, "init environment failed", "Ember error", MB_OK);
+                return FALSE;
+            }
+            break;
+        case DLL_THREAD_ATTACH:
+            // Do thread-specific initialization.
+            break;
+        case DLL_THREAD_DETACH:
+            // Do thread-specific cleanup.
+            break;
+        case DLL_PROCESS_DETACH:
+            if (lpvReserved != nullptr) {
+                break; // do not do cleanup if process termination scenario
+            }
+            // Perform any necessary cleanup.
+            break;
+    }
+    return TRUE;
+}
+#else
 int main() {
     if(!ember_initialize_impl()) return -1;
     printf("start dk2 code\n");

@@ -30,6 +30,7 @@ add_library(dk2_patches STATIC
         sup_marco_ct/make_money_editable.cpp
         sup_marco_ct/cheatcode_spawner.cpp
         sup_marco_ct/edit_selected_unit.cpp
+        tools/unpack_texture_cache.cpp
         )
 target_include_directories(dk2_patches PUBLIC include)
 target_compile_definitions(dk2_patches PRIVATE DIRECTINPUT_VERSION=0x0500 DIRECT3D_VERSION=0x0600)

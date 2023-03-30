@@ -207,10 +207,19 @@ namespace stacktrace {
     }
 }
 
-bool loadStack() {
+#if EMBED_MAPPINGS
+bool getStack(std::string &out);
+#else
+bool getStack(std::string &out) {
     std::wstring stackPath = api::g_curExeDir + L"/stack.map";
+    if (!readFile(out, stackPath.c_str())) return false;
+    return true;
+}
+#endif
+
+bool loadStack() {
     std::string stackMap;
-    if (!readFile(stackMap, stackPath.c_str())) return false;
+    if (!getStack(stackMap)) return false;
 
     std::shared_ptr<stacktrace::Area> curArea;
 //  bool trg = false;
@@ -250,6 +259,7 @@ bool loadStack() {
 //      if(trg) printf("  %08X %d %d\n", rva, kind, value);
         }
     }
+    printf("stack loaded. items.count=%d\n", stacktrace::stack.size());
     return true;
 }
 
@@ -632,8 +642,15 @@ namespace {
 //  }
 }
 
+bool api::traceCurrentStack(std::wstringstream &ss) {
+    CONTEXT ctx;
+    ZeroMemory(&ctx, sizeof(ctx));
+    ctx.ContextFlags = CONTEXT_FULL;
+    RtlCaptureContext(&ctx);
+    return trace_the_stack(&ctx, ss);
+}
 
-bool initStacktrace() {
+bool api::initStacktrace() {
     if (!loadStack()) return false;
 //  if(!replaceXrefs(funptr<&dk2::main>(), proxy_main)) return false;
     // better. catches all threads

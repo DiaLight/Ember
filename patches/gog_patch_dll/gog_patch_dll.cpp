@@ -47,25 +47,32 @@ BOOL __stdcall DllEntryPoint(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReser
     return TRUE;
 }
 
-bool gog_patch_dll() {
-    if (!api::hasFlag("gog_patch")) return true;
+IMAGE_IMPORT_DESCRIPTOR *findImportDescriptor(void *module, const char *name) {
+    auto *base = (uint8_t *) module;
+    auto *dos = (IMAGE_DOS_HEADER *) base;
+    auto *nt = (IMAGE_NT_HEADERS *) (base + dos->e_lfanew);
 
-    auto *dos = (IMAGE_DOS_HEADER *) api::dk2_base;
-    auto *nt = (IMAGE_NT_HEADERS *) (api::dk2_base + dos->e_lfanew);
-
-    IMAGE_IMPORT_DESCRIPTOR *target = nullptr;
     for (
-            auto *impdesc = (IMAGE_IMPORT_DESCRIPTOR *) (api::dk2_base +
+            auto *impdesc = (IMAGE_IMPORT_DESCRIPTOR *) (base +
                                                          nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress);
             impdesc->Name != NULL;
             impdesc++
             ) {
-        auto *libname = (char *) (api::dk2_base + impdesc->Name);
-        if (stricmp(libname, "ddraw.dll") != 0) continue;
-        target = impdesc;
-        break;
+        auto *libname = (char *) (base + impdesc->Name);
+        if (stricmp(libname, name) != 0) continue;
+        return impdesc;
     }
-    if (!target) return false;
+    return nullptr;
+}
+bool gog_patch_dll() {
+    if (!api::hasFlag("gog_patch")) return true;
+
+    IMAGE_IMPORT_DESCRIPTOR *target = findImportDescriptor(api::dk2_base, "ddraw.dll");
+    if (!target) target = findImportDescriptor(api::dk2_base, "patch.dll");
+    if (!target) {
+        printf("[ERROR]: ddraw.dll not found\n");
+        return false;
+    }
 
     std::map<std::string, void *> toReplace{
             {"DirectDrawCreate",     fake_DirectDrawCreate},
@@ -80,7 +87,7 @@ bool gog_patch_dll() {
         LPCSTR lpProcName;
         if (nameAddressPtr->u1.Ordinal & IMAGE_ORDINAL_FLAG) {
             lpProcName = MAKEINTRESOURCEA(nameAddressPtr->u1.Ordinal);
-            return false;
+            continue;  // ignore ordinals
         } else {
             auto importByNameImage = (PIMAGE_IMPORT_BY_NAME) (api::dk2_base + nameAddressPtr->u1.AddressOfData);
             lpProcName = (char *) importByNameImage->Name;

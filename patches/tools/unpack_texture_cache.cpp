@@ -1,7 +1,7 @@
 //
 // Created by DiaLight on 27.12.2022.
 //
-#include <tools.h>
+#include <dk2_patches.h>
 #include <dk2/MyCEngineSurfDesc.h>
 #include <dk2/MyDirectDraw.h>
 #include <dk2/CEngineCompressedSurface.h>

@@ -6,8 +6,13 @@
 #define EMBER_STACKTRACE_H
 
 #include <Windows.h>
+#include <sstream>
 
-bool initStacktrace();
-bool trace_the_stack(CONTEXT *ctx);
+namespace api {
+
+    bool initStacktrace();
+    bool traceCurrentStack(std::wstringstream &ss);
+
+}
 
 #endif //EMBER_STACKTRACE_H

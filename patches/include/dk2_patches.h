@@ -34,6 +34,13 @@ namespace patch {
     bool unlimited_zoom_hack();
     bool use_wheel_to_zoom();
     bool replace_dll();
+    bool unpack_texture_cache();
+
+}
+
+namespace tools {
+
+    bool unpack_texture_cache();
 
 }
 

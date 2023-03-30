@@ -39,9 +39,9 @@ inline uint8_t *u8ptr() {
     return (uint8_t *) c.ptr;
 }
 
-void write_jump(uint8_t *pos, void *to, size_t orig_size = 0);
+void write_jump(void *pos, void *to, size_t orig_size = 0);
 
-void write_call(uint8_t *pos, void *to, size_t orig_size = 0);
+void write_call(void *pos, void *to, size_t orig_size = 0);
 
 class PatchBuilder {
     std::vector<uint8_t> proxy;

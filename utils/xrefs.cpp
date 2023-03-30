@@ -18,7 +18,7 @@ enum RelocKind {
     REL32  // IMAGE_REL_I386_REL32 -> ignore
 };
 bool parse_reloc(char *line, size_t line_len, DWORD &src, DWORD &dst, RelocKind &kind) {
-    if(line[0] == '#') return false;  // #...
+    if(line[0] == '#') return true;  // #...
     if(line_len < 23) return false;  // XXXXXXXX XXXXXXXX ??? ?...
     char *line_end = line + line_len;
     uint32_t rva = 0;
@@ -42,10 +42,12 @@ bool parse_reloc(char *line, size_t line_len, DWORD &src, DWORD &dst, RelocKind 
     char *type = line;
     while(line < line_end && *line != ' ') line++;
     size_t type_len = line - type;
-    if(*line != ' ') return false;
+    if(*line != ' ' && *line != '\r' && *line != '\n') return false;
     line++;
 
-    if(strneq(type, "VA32", type_len)) {
+    if(strneq(type, "!VA32", type_len)) {
+        return true;
+    } else if(strneq(type, "VA32", type_len)) {
         kind = VA32;
     } else if(strneq(type, "REL32", type_len)) {
         kind = REL32;
@@ -66,10 +68,23 @@ struct ref_t {
 std::map<DWORD, std::shared_ptr<std::vector<ref_t>>> xrefs;
 std::map<DWORD, bool> lockedRva;
 
-bool api::initXrefsApi() {
+#if EMBED_MAPPINGS
+bool getReferences(std::string &out);
+#else
+bool getReferences(std::string &out) {
     std::wstring refsPath = g_curExeDir + L"/references.map";
+    if(!readFile(out, refsPath.c_str())) return false;
+    return true;
+}
+#endif
+
+bool api::initXrefsApi() {
     std::string refsMap;
-    if(!readFile(refsMap, refsPath.c_str())) return false;
+    if(!getReferences(refsMap)) return false;
+    if(refsMap.empty()) {
+        printf("[error]: buf is empty\n");
+        return false;
+    }
 
     char *map_end = (char *) &refsMap[refsMap.size()];
     char *pos = (char *) &refsMap[0];
@@ -80,13 +95,16 @@ bool api::initXrefsApi() {
 
         DWORD src, dst;
         RelocKind kind = Invalid;
-        if(!parse_reloc(line, line_len, src, dst, kind)) continue;
-        if(kind == Invalid) {
-            printf("error: ");
-            printf(line, line_len);
-            printf("\n");
-            continue;
+        if(!parse_reloc(line, line_len, src, dst, kind)) {
+            char *str = (char *) malloc(line_len + 1);
+            memcpy(str, line, line_len * sizeof(char));
+            str[line_len] = '\0';
+            printf("[error]: %s\n", str);
+            free(str);
+            return false;
         }
+        if(kind == Invalid) continue;
+
         src -= dk2_virtual_base;  // va -> rva
         dst -= dk2_virtual_base;  // va -> rva
 
@@ -118,7 +136,7 @@ bool api::initXrefsApi() {
         }
 
     }
-
+    printf("xrefs loaded. items.count=%d\n", xrefs.size());
     return true;
 }
 

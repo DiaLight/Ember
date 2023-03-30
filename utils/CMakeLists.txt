@@ -16,6 +16,8 @@ add_library(dk2_utils STATIC
         stdex.cpp
         dk2_info.cpp
         xrefs.cpp
+        reversemode_mimicry.cpp
+        embed_resources.cpp
         )
 target_include_directories(dk2_utils PUBLIC include)
 target_compile_definitions(dk2_utils PRIVATE DIRECTINPUT_VERSION=0x0500 DIRECT3D_VERSION=0x0600)
@@ -23,3 +25,10 @@ target_compile_definitions(dk2_utils PRIVATE DIRECTINPUT_VERSION=0x0500 DIRECT3D
 target_link_libraries(dk2_utils PRIVATE
         win32_gui_layout
         )
+
+if(REVERSE_MODE)
+    target_compile_definitions(dk2_utils PRIVATE REVERSE_MODE=1)
+endif()
+if(EMBED_MAPPINGS)
+    target_compile_definitions(dk2_utils PRIVATE EMBED_MAPPINGS=1)
+endif()
