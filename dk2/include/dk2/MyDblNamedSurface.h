@@ -41,6 +41,7 @@ struct MyDblNamedSurface {  // ---------------------------  /* auto */
 /* 58*/ int32_t initz;  // -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0057C2D0*/ MyDblNamedSurface *constructor(const char *, const char *, int32_t, int32_t, int32_t);  /* auto */
+/*0057C340*/ MyDblNamedSurface *constructor_0(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*0057C3B0*/ MyDblNamedSurface *fun_57C3B0(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

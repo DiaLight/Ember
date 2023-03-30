@@ -137,8 +137,20 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0066FB04*/ void *(&dk2::CEngine2DMeshSurface_vftable)[2] = _CEngine2DMeshSurface_vftable;  /* auto */
 /*--------*/ relink_glob void *_CEngine2DPrimitive_vftable[2];  /* auto */
 /*0066FB14*/ void *(&dk2::CEngine2DPrimitive_vftable)[2] = _CEngine2DPrimitive_vftable;  /* auto */
+/*--------*/ relink_glob void *_CIFFFile_vftable[3];  // -  /* auto */
+/*0066FB24*/ void *(&dk2::CIFFFile_vftable)[3] = _CIFFFile_vftable;  /* auto */
 /*--------*/ relink_glob void *_CDirectIFFFile_vftable[3];  /* auto */
 /*0066FB34*/ void *(&dk2::CDirectIFFFile_vftable)[3] = _CDirectIFFFile_vftable;  /* auto */
+/*--------*/ relink_glob void *_CMemLoadIFFFile_vftable[3];  /* auto */
+/*0066FB9C*/ void *(&dk2::CMemLoadIFFFile_vftable)[3] = _CMemLoadIFFFile_vftable;  /* auto */
+/*--------*/ relink_glob void *_CAnimMeshResource_vftable[3];  /* auto */
+/*0066FBBC*/ void *(&dk2::CAnimMeshResource_vftable)[3] = _CAnimMeshResource_vftable;  /* auto */
+/*--------*/ relink_glob void *_CMeshResourceBase_vftable[3];  /* auto */
+/*0066FBCC*/ void *(&dk2::CMeshResourceBase_vftable)[3] = _CMeshResourceBase_vftable;  /* auto */
+/*--------*/ relink_glob void *_CPolyMeshResource_vftable[3];  /* auto */
+/*0066FBDC*/ void *(&dk2::CPolyMeshResource_vftable)[3] = _CPolyMeshResource_vftable;  /* auto */
+/*--------*/ relink_glob void *_CMeshGroup_vftable[3];      /* auto */
+/*0066FBEC*/ void *(&dk2::CMeshGroup_vftable)[3] = _CMeshGroup_vftable;  /* auto */
 /*--------*/ relink_glob void *_CEngineSprite_vftable[8];   /* auto */
 /*0066FCCC*/ void *(&dk2::CEngineSprite_vftable)[8] = _CEngineSprite_vftable;  /* auto */
 /*--------*/ relink_glob void *_CEngineQuadPlane_vftable[8];  /* auto */
@@ -593,8 +605,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0073E9A0*/ char &dk2::b73E9A0_x30 = _b73E9A0_x30;  // --  /* auto */
 /*--------*/ relink_glob MySurface *_g_mySurface_p2;  // -  /* auto */
 /*0073E9D8*/ MySurface *&dk2::g_mySurface_p2 = _g_mySurface_p2;  /* auto */
-/*--------*/ relink_glob IDirectDraw *_lpDD_ref1;  // ----  /* auto */
-/*0073EDD4*/ IDirectDraw *&dk2::lpDD_ref1 = _lpDD_ref1;     /* auto */
+/*--------*/ relink_glob IDirectDraw *_movieDd_ignore;      /* auto */
+/*0073EDD4*/ IDirectDraw *&dk2::movieDd_ignore = _movieDd_ignore;  /* auto */
 /*--------*/ relink_glob IDirectDrawSurface2 *_p_IDirectDrawSurface2;  /* auto */
 /*0073EDDC*/ IDirectDrawSurface2 *&dk2::p_IDirectDrawSurface2 = _p_IDirectDrawSurface2;  /* auto */
 /*--------*/ relink_glob IDirectDrawSurface2 *_p_IDirectDrawSurface2_2;  /* auto */
@@ -713,8 +725,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00760B0C*/ IDirectDrawGammaControl *&dk2::dd_gamma_control = _dd_gamma_control;  /* auto */
 /*--------*/ relink_glob int32_t _g2_sceneHeight;  // ----  /* auto */
 /*00760B44*/ int32_t &dk2::g2_sceneHeight = _g2_sceneHeight;  /* auto */
-/*--------*/ relink_glob MyDirectDraw _mydd;  // ---------  /* auto */
-/*00764B90*/ MyDirectDraw &dk2::mydd = _mydd;  // --------  /* auto */
+/*--------*/ relink_glob MyDirectDraw _mydd_main;  // ----  /* auto */
+/*00764B90*/ MyDirectDraw &dk2::mydd_main = _mydd_main;     /* auto */
 /*--------*/ relink_glob DDGAMMARAMP _gamma_ramp;  // ----  /* auto */
 /*00764BE8*/ DDGAMMARAMP &dk2::gamma_ramp = _gamma_ramp;    /* auto */
 /*--------*/ relink_glob CEnginePrimitiveBase *_g_pCEngine2DPrimitive;  /* auto */
@@ -727,14 +739,20 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00765B18*/ const void *(&dk2::MyHeap_increaseBlocks)[32] = _MyHeap_increaseBlocks;  /* auto */
 /*--------*/ relink_glob const void *_MyHeap_bufArr[32];    /* auto */
 /*00765DA0*/ const void *(&dk2::MyHeap_bufArr)[32] = _MyHeap_bufArr;  /* auto */
-/*--------*/ relink_glob int32_t _CMemLoadIFFFile_instance;  /* auto */
-/*00766228*/ int32_t &dk2::CMemLoadIFFFile_instance = _CMemLoadIFFFile_instance;  /* auto */
-/*--------*/ relink_glob MyStringHashMap _MyStringHashMap_unkh18_instance;  /* auto */
-/*00766660*/ MyStringHashMap &dk2::MyStringHashMap_unkh18_instance = _MyStringHashMap_unkh18_instance;  /* auto */
+/*--------*/ relink_glob int32_t *_SPRS_MyScaledSurface_indices[256];  /* auto */
+/*00765E28*/ int32_t *(&dk2::SPRS_MyScaledSurface_indices)[256] = _SPRS_MyScaledSurface_indices;  /* auto */
+/*--------*/ relink_glob CMemLoadIFFFile _CMemLoadIFFFile_instance;  /* auto */
+/*00766228*/ CMemLoadIFFFile &dk2::CMemLoadIFFFile_instance = _CMemLoadIFFFile_instance;  /* auto */
+/*--------*/ relink_glob MyMeshResourceHolder *_g_meshHolderList_first;  /* auto */
+/*00766658*/ MyMeshResourceHolder *&dk2::g_meshHolderList_first = _g_meshHolderList_first;  /* auto */
+/*--------*/ relink_glob MyStringHashMap_MyMeshResourceHolder _MyStringHashMap_MyMeshResourceHolder_instance;  /* auto */
+/*00766660*/ MyStringHashMap_MyMeshResourceHolder &dk2::MyStringHashMap_MyMeshResourceHolder_instance = _MyStringHashMap_MyMeshResourceHolder_instance;  /* auto */
+/*--------*/ relink_glob MyMeshResourceHolder *_g_meshHolderList_last;  /* auto */
+/*00766A70*/ MyMeshResourceHolder *&dk2::g_meshHolderList_last = _g_meshHolderList_last;  /* auto */
 /*--------*/ relink_glob arr_769A78_t _arr_769A78[256];     /* auto */
 /*00769A78*/ arr_769A78_t (&dk2::arr_769A78)[256] = _arr_769A78;  /* auto */
-/*--------*/ relink_glob int16_t _DrawTriangleList_lpwIndices[3];  /* auto */
-/*0076AA80*/ int16_t (&dk2::DrawTriangleList_lpwIndices)[3] = _DrawTriangleList_lpwIndices;  /* auto */
+/*--------*/ relink_glob Vec3s _DrawTriangleList_lpwIndices[1024];  /* auto */
+/*0076AA80*/ Vec3s (&dk2::DrawTriangleList_lpwIndices)[1024] = _DrawTriangleList_lpwIndices;  /* auto */
 /*--------*/ relink_glob MyEntryBuf_Triangle24 _MyEntryBuf_Triangle24_instance;  /* auto */
 /*0076C280*/ MyEntryBuf_Triangle24 &dk2::MyEntryBuf_Triangle24_instance = _MyEntryBuf_Triangle24_instance;  /* auto */
 /*--------*/ relink_glob int32_t _g_flexibleVertices;       /* auto */
@@ -743,8 +761,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0076C294*/ int32_t &dk2::mgsr_currentDrawFlags = _mgsr_currentDrawFlags;  /* auto */
 /*--------*/ relink_glob VerticesData _g_vertices[2];       /* auto */
 /*0076C298*/ VerticesData (&dk2::g_vertices)[2] = _g_vertices;  /* auto */
-/*--------*/ relink_glob MyDirectDraw _mydd_cpy;  // -----  /* auto */
-/*0076C2B8*/ MyDirectDraw &dk2::mydd_cpy = _mydd_cpy;       /* auto */
+/*--------*/ relink_glob MyDirectDraw _mydd_triangles;      /* auto */
+/*0076C2B8*/ MyDirectDraw &dk2::mydd_triangles = _mydd_triangles;  /* auto */
 /*--------*/ relink_glob SceneObject30 *_lastSceneObject;   /* auto */
 /*0076C2F0*/ SceneObject30 *&dk2::lastSceneObject = _lastSceneObject;  /* auto */
 /*--------*/ relink_glob int32_t _sceneObj2E_f21_to_triangleIndices[1023];  /* auto */
@@ -761,10 +779,16 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0076F33C*/ int32_t &dk2::Triangle34_count = _Triangle34_count;  /* auto */
 /*--------*/ relink_glob int32_t (__cdecl *___renderFun)(int32_t, int32_t, int32_t);  /* auto */
 /*00779358*/ int32_t (__cdecl *&dk2::__renderFun)(int32_t, int32_t, int32_t) = ___renderFun;  /* auto */
-/*--------*/ relink_glob arr_7793A8_t _arr_7793A8[1024];    /* auto */
-/*007793A8*/ arr_7793A8_t (&dk2::arr_7793A8)[1024] = _arr_7793A8;  /* auto */
+/*--------*/ relink_glob arr_7793A8_t _g_wtfStruc[1024];    /* auto */
+/*007793A8*/ arr_7793A8_t (&dk2::g_wtfStruc)[1024] = _g_wtfStruc;  /* auto */
 /*--------*/ relink_glob int32_t _mydd_cpy2_buf;  // -----  /* auto */
 /*0077F3F0*/ int32_t &dk2::mydd_cpy2_buf = _mydd_cpy2_buf;  /* auto */
+/*--------*/ relink_glob float _g_padNorm_x8[4];  // -----  /* auto */
+/*0077F480*/ float (&dk2::g_padNorm_x8)[4] = _g_padNorm_x8;  /* auto */
+/*--------*/ relink_glob int8_t _g_idxFlags[1024];  // ---  /* auto */
+/*0077F4F8*/ int8_t (&dk2::g_idxFlags)[1024] = _g_idxFlags;  /* auto */
+/*--------*/ relink_glob MyDirectDraw _mydd_cpy2;  // ----  /* auto */
+/*0077F8F8*/ MyDirectDraw &dk2::mydd_cpy2 = _mydd_cpy2;     /* auto */
 /*--------*/ relink_glob SceneObject2EList _SceneObject2EList_instance;  /* auto */
 /*007820A8*/ SceneObject2EList &dk2::SceneObject2EList_instance = _SceneObject2EList_instance;  /* auto */
 /*--------*/ relink_glob SceneObject30List _SceneObject30List_instance;  /* auto */
@@ -839,8 +863,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0079D3C8*/ HWND__ *&dk2::hWnd = _hWnd;  // -------------  /* auto */
 /*--------*/ relink_glob HWND__ *_hBullfrogWindow;  // ---  /* auto */
 /*0079D3CC*/ HWND__ *&dk2::hBullfrogWindow = _hBullfrogWindow;  /* auto */
-/*--------*/ relink_glob IDirectDraw *_lpDD;  // ---------  /* auto */
-/*0079D3D0*/ IDirectDraw *&dk2::lpDD = _lpDD;  // --------  /* auto */
+/*--------*/ relink_glob IDirectDraw *_dk2dd;  // --------  /* auto */
+/*0079D3D0*/ IDirectDraw *&dk2::dk2dd = _dk2dd;  // ------  /* auto */
 /*--------*/ relink_glob IDirectDrawPalette *_lpDDPalette;  /* auto */
 /*0079D3D4*/ IDirectDrawPalette *&dk2::lpDDPalette = _lpDDPalette;  /* auto */
 /*--------*/ relink_glob IDirectDrawClipper *_lpDDClipper;  /* auto */

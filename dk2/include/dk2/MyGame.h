@@ -98,7 +98,8 @@ struct MyGame {  // --------------------------------------  /* auto */
 /*005588A0*/ int32_t *surf_Blt();  // --------------------  /* auto */
 /*00558A40*/ int32_t takeScreenshot();  // ---------------  /* auto */
 /*00558BD0*/ int32_t sub_558BD0();  // -------------------  /* auto */
-/*00558E40*/ int32_t sub_558E40();  // -------------------  /* auto */
+/*00558E40*/ int32_t collect3dDevices();  // -------------  /* auto */
+/*00558F40*/ int32_t sub_558F40(int32_t, MyD3DevInfo *);    /* auto */
 /*00558F70*/ int32_t createSurface(int32_t);  // ---------  /* auto */
 /*00559140*/ int32_t sub_559140(const char *, int32_t, const char *, const char *);  /* auto */
 /*00559670*/ int32_t isNeedBlt();  // --------------------  /* auto */

@@ -27,11 +27,12 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0059A650*/ int32_t CPCEngineInterface::createMyScaledSurface(int32_t, int32_t, int32_t, int32_t, int32_t *) { relink_stub(CPCEngineInterface::createMyScaledSurface); }  /* auto */
 /*0059A6A0*/ int32_t CPCEngineInterface::fun_59A6A0(const char *, char, int32_t, int32_t *, int32_t, char) { relink_stub(CPCEngineInterface::fun_59A6A0); }  /* auto */
 /*0059AE10*/ bool CPCEngineInterface::sub_59AE10() { relink_stub(CPCEngineInterface::sub_59AE10); }  /* auto */
+/*0059B0C0*/ void CPCEngineInterface::fun_59B0C0(int32_t, int32_t, int32_t, int32_t) { relink_stub(CPCEngineInterface::fun_59B0C0); }  /* auto */
 /*0059D580*/ const char *CPCEngineInterface::fun_59D580(int32_t, MySurface *, int32_t) { relink_stub(CPCEngineInterface::fun_59D580); }  /* auto */
 /*0059D5B0*/ int32_t CPCEngineInterface::setStr(const char *) { relink_stub(CPCEngineInterface::setStr); }  /* auto */
 /*0059D760*/ int32_t CPCEngineInterface::fun_59D760() { relink_stub(CPCEngineInterface::fun_59D760); }  /* auto */
 /*0059D7F0*/ int32_t CPCEngineInterface::drawScene() { relink_stub(CPCEngineInterface::drawScene); }  /* auto */
-/*0059D900*/ int32_t CPCEngineInterface::fun_59D900() { relink_stub(CPCEngineInterface::fun_59D900); }  /* auto */
+/*0059D900*/ int32_t CPCEngineInterface::init3d() { relink_stub(CPCEngineInterface::init3d); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

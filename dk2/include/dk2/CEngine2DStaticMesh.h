@@ -11,9 +11,11 @@
 #include <ddraw.h>  // -----------------------------------  /* auto */
 #include <d3d.h>  // -------------------------------------  /* auto */
 #include <dk2/CEngine2DPrimitive.h>  // ------------------  /* auto */
+#include <dk2/Vec3f.h>  // -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 namespace dk2 {  // --------------------------------------  /* auto */
   struct CEngine2DStaticMesh;  // ------------------------  /* auto */
+  struct MyMeshResourceHolder;  // -----------------------  /* auto */
   struct SceneObject2E;  // ------------------------------  /* auto */
 }  // namespace dk2  -------------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
@@ -33,10 +35,8 @@ struct CEngine2DStaticMesh : CEngine2DPrimitive {  // ----  /* auto */
 /* 38*/ int32_t field_34;  // ----------------------------  /* auto */
 /* 3C*/ int32_t field_38;  // ----------------------------  /* auto */
 /* 40*/ float field_3C;  // ------------------------------  /* auto */
-/* 44*/ float field_40;  // ------------------------------  /* auto */
-/* 48*/ float field_44;  // ------------------------------  /* auto */
-/* 4C*/ float field_48;  // ------------------------------  /* auto */
-/* 50*/ int32_t field_4C;  // ----------------------------  /* auto */
+/* 44*/ Vec3f f40_vec;  // -------------------------------  /* auto */
+/* 50*/ MyMeshResourceHolder *f4C_resHolder;  // ---------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066FABC*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CEnginePrimitiveBase  -------------------  /* auto */
@@ -48,7 +48,7 @@ struct CEngine2DStaticMesh : CEngine2DPrimitive {  // ----  /* auto */
 /*  C*/ virtual int32_t v_fun_577D70();  // = 00577D70  --  /* auto */
 /* 10*/ virtual int32_t v_fun_577D90(int32_t);  // = 00577D90  /* auto */
 // -------------------------------------------------------  /* auto */
-/*00577960*/ CEngine2DStaticMesh *constructor(int32_t, int32_t, int32_t, const void *, int32_t, int32_t, int32_t, int32_t, int32_t *);  /* auto */
+/*00577960*/ CEngine2DStaticMesh *constructor(int32_t, int32_t, int32_t, const void *, int32_t, int32_t, int32_t, MyMeshResourceHolder *, Vec3f *);  /* auto */
 /*00577A00*/ void fun_577A00(int32_t, SceneObject2E *);     /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

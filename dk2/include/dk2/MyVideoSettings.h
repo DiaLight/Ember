@@ -37,7 +37,7 @@ struct MyVideoSettings {  // -----------------------------  /* auto */
 /* 28*/ int32_t selected_3D_engine;  // ------------------  /* auto */
 /* 2C*/ int32_t dup_selected_3D_engine;  // --------------  /* auto */
 /* 30*/ int32_t cmd_flag_SOFTWARE;  // -------------------  /* auto */
-/* 34*/ int8_t gap_34[16];  // ---------------------------  /* auto */
+/* 34*/ GUID deviceGuid;  // -----------------------------  /* auto */
 /* 44*/ int32_t gamma_level;  // -------------------------  /* auto */
 /* 48*/ int32_t untouched2_eq_1;  // ---------------------  /* auto */
 /* 4C*/ int32_t ambient_light;  // -----------------------  /* auto */

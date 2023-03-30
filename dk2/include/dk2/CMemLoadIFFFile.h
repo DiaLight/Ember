@@ -1,20 +1,19 @@
-// --------------  id: construct_00586B96  ---------------  /* auto */
+// -----------------  id: vtbl_0066FB9C  -----------------  /* auto */
 // ----  warning: file is managed by gen_struct_h.py  ----  /* auto */
 // ---  you can edit code only in *_user_code blocks  ----  /* auto */
 // -------------------------------------------------------  /* auto */
-#ifndef SCENE_OBJECT2_E_H  // ----------------------------  /* auto */
-#define SCENE_OBJECT2_E_H  // ----------------------------  /* auto */
+#ifndef C_MEM_LOAD_IFF_FILE_H  // ------------------------  /* auto */
+#define C_MEM_LOAD_IFF_FILE_H  // ------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 #include <cstdint>  // -----------------------------------  /* auto */
 #include <cstdio>  // ------------------------------------  /* auto */
 #include <dinput.h>  // ----------------------------------  /* auto */
 #include <ddraw.h>  // -----------------------------------  /* auto */
 #include <d3d.h>  // -------------------------------------  /* auto */
+#include <dk2/CIFFFile.h>  // ----------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 namespace dk2 {  // --------------------------------------  /* auto */
-  struct CEnginePrimitiveBase;  // -----------------------  /* auto */
-  struct MyCESurfHandle;  // -----------------------------  /* auto */
-  struct SceneObject2E;  // ------------------------------  /* auto */
+  struct CMemLoadIFFFile;  // ----------------------------  /* auto */
 }  // namespace dk2  -------------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: head_user_code  ---------------  /* auto */
@@ -24,23 +23,21 @@ namespace dk2 {  // --------------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 namespace dk2 {  // --------------------------------------  /* auto */
 #pragma pack(push, 1)  // --------------------------------  /* auto */
-struct SceneObject2E {  // -------------------------------  /* auto */
+struct CMemLoadIFFFile : CIFFFile {  // ------------------  /* auto */
 // -------------------------------------------------------  /* auto */
-/*  0*/ MyCESurfHandle *surfh[4];  // --------------------  /* auto */
-/* 10*/ int32_t props_flags;  // -------------------------  /* auto */
-/* 14*/ int32_t props_reductionLevel_andFlags;  // -------  /* auto */
-/* 18*/ int16_t props_surfWidth8;  // --------------------  /* auto */
-/* 1A*/ int16_t props_surfHeight8;  // -------------------  /* auto */
-/* 1C*/ int8_t f1C;  // ----------------------------------  /* auto */
-/* 1D*/ int8_t surfhCount;  // ---------------------------  /* auto */
-/* 1E*/ char propsCount;  // -----------------------------  /* auto */
-/* 1F*/ char trgObj;  // ---------------------------------  /* auto */
-/* 20*/ char f20;  // ------------------------------------  /* auto */
-/* 21*/ char f21;  // ------------------------------------  /* auto */
-/* 22*/ int8_t gap_22[2];  // ----------------------------  /* auto */
-/* 24*/ CEnginePrimitiveBase *onj__meshSprite;  // -------  /* auto */
-/* 28*/ SceneObject2E *next;  // -------------------------  /* auto */
-/* 2C*/ __int16 f2C_;  // --------------------------------  /* auto */
+/*418*/ int8_t gap_418[8];  // ---------------------------  /* auto */
+/*420*/ const char *buf;  // -----------------------------  /* auto */
+// -------------------------------------------------------  /* auto */
+/*0066FB9C*/ static void **vftable();  // ----------------  /* auto */
+/*---*/ // super CIFFFile  -------------------------------  /* auto */
+/*  0*/ // virtual FILE *v_read(const void *, size_t);  // = 0057A960  /* auto */
+/*  4*/ // virtual FILE *v_write(const void *, size_t);  // = 00443150  /* auto */
+/*  8*/ // virtual int32_t v_seek(int32_t);  // = 005671E0  /* auto */
+/*---*/ // CMemLoadIFFFile  ------------------------------  /* auto */
+// -------------------------------------------------------  /* auto */
+/*0057A800*/ int32_t sub_57A800(int32_t, const char *, int32_t);  /* auto */
+/*0057A960*/ int32_t read(const void *, int32_t);  // ----  /* auto */
+/*0057D250*/ CMemLoadIFFFile *constructor();  // ---------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 
@@ -49,12 +46,12 @@ struct SceneObject2E {  // -------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 };  // ---------------------------------------------------  /* auto */
 #pragma pack(pop)  // ------------------------------------  /* auto */
-static_assert(sizeof(SceneObject2E) == 0x2E);  // --------  /* auto */
+static_assert(sizeof(CMemLoadIFFFile) == 0x424);  // -----  /* auto */
 }  // namespace dk2  -------------------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */
 
 // user code
 
 // ---------------  end_of_block  ------------------------  /* auto */
-#endif //SCENE_OBJECT2_E_H  ------------------------------  /* auto */
+#endif //C_MEM_LOAD_IFF_FILE_H  --------------------------  /* auto */
 // -------------------------------------------------------  /* auto */

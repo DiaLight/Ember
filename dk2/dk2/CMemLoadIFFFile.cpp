@@ -1,7 +1,7 @@
-// -------------  id: constructor_0057C2D0  --------------  /* auto */
+// -----------------  id: vtbl_0066FB9C  -----------------  /* auto */
 // ---  warning: file is managed by gen_struct_cpp.py  ---  /* auto */
 // ---  you can edit code only in *_user_code blocks  ----  /* auto */
-#include <dk2/MyDblNamedSurface.h>  // -------------------  /* auto */
+#include <dk2/CMemLoadIFFFile.h>  // ---------------------  /* auto */
 #include <dk2_globals.h>  // -----------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 using namespace dk2;  // ---------------------------------  /* auto */
@@ -14,11 +14,17 @@ using namespace dk2;  // ---------------------------------  /* auto */
 
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
+// virtual functions  ------------------------------------  /* auto */
+// -------------------------------------------------------  /* auto */
+/*0066FB9C*/ void **CMemLoadIFFFile::vftable() { return dk2::CMemLoadIFFFile_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*0057C2D0*/ MyDblNamedSurface *MyDblNamedSurface::constructor(const char *, const char *, int32_t, int32_t, int32_t) { relink_stub(MyDblNamedSurface::constructor); }  /* auto */
-/*0057C340*/ MyDblNamedSurface *MyDblNamedSurface::constructor_0(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(MyDblNamedSurface::constructor_0); }  /* auto */
-/*0057C3B0*/ MyDblNamedSurface *MyDblNamedSurface::fun_57C3B0(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(MyDblNamedSurface::fun_57C3B0); }  /* auto */
+/*0057A800*/ int32_t CMemLoadIFFFile::sub_57A800(int32_t, const char *, int32_t) { relink_stub(CMemLoadIFFFile::sub_57A800); }  /* auto */
+/*0057A960*/ int32_t CMemLoadIFFFile::read(const void *, int32_t) { relink_stub(CMemLoadIFFFile::read); }  /* auto */
+/*0057D250*/ CMemLoadIFFFile *CMemLoadIFFFile::constructor() { relink_stub(CMemLoadIFFFile::constructor); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */
+
+// user code
+
 // ---------------  end_of_block  ------------------------  /* auto */

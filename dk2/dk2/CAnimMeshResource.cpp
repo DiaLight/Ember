@@ -1,7 +1,7 @@
-// -------------  id: constructor_0057C2D0  --------------  /* auto */
+// -----------------  id: vtbl_0066FBBC  -----------------  /* auto */
 // ---  warning: file is managed by gen_struct_cpp.py  ---  /* auto */
 // ---  you can edit code only in *_user_code blocks  ----  /* auto */
-#include <dk2/MyDblNamedSurface.h>  // -------------------  /* auto */
+#include <dk2/CAnimMeshResource.h>  // -------------------  /* auto */
 #include <dk2_globals.h>  // -----------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 using namespace dk2;  // ---------------------------------  /* auto */
@@ -14,11 +14,16 @@ using namespace dk2;  // ---------------------------------  /* auto */
 
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
+// virtual functions  ------------------------------------  /* auto */
+// -------------------------------------------------------  /* auto */
+/*0066FBBC*/ void **CAnimMeshResource::vftable() { return dk2::CAnimMeshResource_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*0057C2D0*/ MyDblNamedSurface *MyDblNamedSurface::constructor(const char *, const char *, int32_t, int32_t, int32_t) { relink_stub(MyDblNamedSurface::constructor); }  /* auto */
-/*0057C340*/ MyDblNamedSurface *MyDblNamedSurface::constructor_0(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(MyDblNamedSurface::constructor_0); }  /* auto */
-/*0057C3B0*/ MyDblNamedSurface *MyDblNamedSurface::fun_57C3B0(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(MyDblNamedSurface::fun_57C3B0); }  /* auto */
+/*0057E2A0*/ CAnimMeshResource *CAnimMeshResource::constructor(int32_t, int32_t, int32_t, int32_t *, int32_t *, int32_t, int32_t, int32_t *, float, float, float, float, float, int32_t, int32_t) { relink_stub(CAnimMeshResource::constructor); }  /* auto */
+/*0057E7B0*/ int32_t CAnimMeshResource::resolveTextures(int32_t) { relink_stub(CAnimMeshResource::resolveTextures); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */
+
+// user code
+
 // ---------------  end_of_block  ------------------------  /* auto */

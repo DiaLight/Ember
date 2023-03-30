@@ -149,11 +149,12 @@ struct CPCEngineInterface : CEngineInterface {  // -------  /* auto */
 /*0059A650*/ int32_t createMyScaledSurface(int32_t, int32_t, int32_t, int32_t, int32_t *);  /* auto */
 /*0059A6A0*/ int32_t fun_59A6A0(const char *, char, int32_t, int32_t *, int32_t, char);  /* auto */
 /*0059AE10*/ bool sub_59AE10();  // ----------------------  /* auto */
+/*0059B0C0*/ void fun_59B0C0(int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*0059D580*/ const char *fun_59D580(int32_t, MySurface *, int32_t);  /* auto */
 /*0059D5B0*/ int32_t setStr(const char *);  // -----------  /* auto */
 /*0059D760*/ int32_t fun_59D760();  // -------------------  /* auto */
 /*0059D7F0*/ int32_t drawScene();  // --------------------  /* auto */
-/*0059D900*/ int32_t fun_59D900();  // -------------------  /* auto */
+/*0059D900*/ int32_t init3d();  // -----------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

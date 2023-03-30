@@ -18,6 +18,7 @@
 #include <dk2/CEntryComponent.h>  // ---------------------  /* auto */
 #include <dk2/CFrontEndComponent.h>  // ------------------  /* auto */
 #include <dk2/CGameComponent.h>  // ----------------------  /* auto */
+#include <dk2/CMemLoadIFFFile.h>  // ---------------------  /* auto */
 #include <dk2/CPCEngineInterface.h>  // ------------------  /* auto */
 #include <dk2/CSoundSystem.h>  // ------------------------  /* auto */
 #include <dk2/CursorDrawer.h>  // ------------------------  /* auto */
@@ -39,8 +40,8 @@
 #include <dk2/MyInputManagerCb.h>  // --------------------  /* auto */
 #include <dk2/MyLangObj.h>  // ---------------------------  /* auto */
 #include <dk2/MyResources.h>  // -------------------------  /* auto */
-#include <dk2/MyStringHashMap.h>  // ---------------------  /* auto */
 #include <dk2/MyStringHashMap_MyCESurfHandle.h>  // ------  /* auto */
+#include <dk2/MyStringHashMap_MyMeshResourceHolder.h>       /* auto */
 #include <dk2/MyStringHashMap_MyScaledSurface.h>  // -----  /* auto */
 #include <dk2/MySurfDesc.h>  // --------------------------  /* auto */
 #include <dk2/MySurface.h>  // ---------------------------  /* auto */
@@ -53,6 +54,7 @@
 #include <dk2/SceneObject30List.h>  // -------------------  /* auto */
 #include <dk2/StaticListeners.h>  // ---------------------  /* auto */
 #include <dk2/StubStruc6C3DA0.h>  // ---------------------  /* auto */
+#include <dk2/Vec3s.h>  // -------------------------------  /* auto */
 #include <dk2/VerticesData.h>  // ------------------------  /* auto */
 #include <dk2/WinEventHandlers.h>  // --------------------  /* auto */
 #include <dk2/WindowCfg.h>  // ---------------------------  /* auto */
@@ -66,6 +68,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
   struct CWorld;  // -------------------------------------  /* auto */
   struct DxDeviceInfo;  // -------------------------------  /* auto */
   struct MyCESurfHandle;  // -----------------------------  /* auto */
+  struct MyMeshResourceHolder;  // -----------------------  /* auto */
   struct MyTextFont;  // ---------------------------------  /* auto */
   struct MyTextText;  // ---------------------------------  /* auto */
   struct SceneObject30;  // ------------------------------  /* auto */
@@ -174,7 +177,13 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0066FAEC*/ extern void *(&CEngineVirtualPerspective2DAnimMesh_vftable)[5];  /* auto */
 /*0066FB04*/ extern void *(&CEngine2DMeshSurface_vftable)[2];  /* auto */
 /*0066FB14*/ extern void *(&CEngine2DPrimitive_vftable)[2];  /* auto */
+/*0066FB24*/ extern void *(&CIFFFile_vftable)[3];  // ----  /* auto */
 /*0066FB34*/ extern void *(&CDirectIFFFile_vftable)[3];     /* auto */
+/*0066FB9C*/ extern void *(&CMemLoadIFFFile_vftable)[3];    /* auto */
+/*0066FBBC*/ extern void *(&CAnimMeshResource_vftable)[3];  /* auto */
+/*0066FBCC*/ extern void *(&CMeshResourceBase_vftable)[3];  /* auto */
+/*0066FBDC*/ extern void *(&CPolyMeshResource_vftable)[3];  /* auto */
+/*0066FBEC*/ extern void *(&CMeshGroup_vftable)[3];  // --  /* auto */
 /*0066FCCC*/ extern void *(&CEngineSprite_vftable)[8];      /* auto */
 /*0066FCF4*/ extern void *(&CEngineQuadPlane_vftable)[8];   /* auto */
 /*0066FD1C*/ extern void *(&CEngineDynamicMesh_vftable)[8];  /* auto */
@@ -402,7 +411,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0070D6D8*/ extern CFrontEndComponent &CFrontEndComponent_instance;  /* auto */
 /*0073E9A0*/ extern char &b73E9A0_x30;  // ---------------  /* auto */
 /*0073E9D8*/ extern MySurface *&g_mySurface_p2;  // ------  /* auto */
-/*0073EDD4*/ extern IDirectDraw *&lpDD_ref1;  // ---------  /* auto */
+/*0073EDD4*/ extern IDirectDraw *&movieDd_ignore;  // ----  /* auto */
 /*0073EDDC*/ extern IDirectDrawSurface2 *&p_IDirectDrawSurface2;  /* auto */
 /*0073EDE0*/ extern IDirectDrawSurface2 *&p_IDirectDrawSurface2_2;  /* auto */
 /*0073F580*/ extern StaticListeners &CFrontEndComponent_ShowMovie_static_listeners;  /* auto */
@@ -462,22 +471,25 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0075CA68*/ extern int32_t &g2_sceneWidth;  // ----------  /* auto */
 /*00760B0C*/ extern IDirectDrawGammaControl *&dd_gamma_control;  /* auto */
 /*00760B44*/ extern int32_t &g2_sceneHeight;  // ---------  /* auto */
-/*00764B90*/ extern MyDirectDraw &mydd;  // --------------  /* auto */
+/*00764B90*/ extern MyDirectDraw &mydd_main;  // ---------  /* auto */
 /*00764BE8*/ extern DDGAMMARAMP &gamma_ramp;  // ---------  /* auto */
 /*00765224*/ extern CEnginePrimitiveBase *&g_pCEngine2DPrimitive;  /* auto */
 /*007656E8*/ extern MyStringHashMap_MyScaledSurface &MyStringHashMap_MyScaledSurface_instance;  /* auto */
 /*00765AF8*/ extern MyEntryBuf_MyScaledSurface &MyEntryBuf_MyScaledSurface_instance;  /* auto */
 /*00765B18*/ extern const void *(&MyHeap_increaseBlocks)[32];  /* auto */
 /*00765DA0*/ extern const void *(&MyHeap_bufArr)[32];       /* auto */
-/*00766228*/ extern int32_t &CMemLoadIFFFile_instance;      /* auto */
-/*00766660*/ extern MyStringHashMap &MyStringHashMap_unkh18_instance;  /* auto */
+/*00765E28*/ extern int32_t *(&SPRS_MyScaledSurface_indices)[256];  /* auto */
+/*00766228*/ extern CMemLoadIFFFile &CMemLoadIFFFile_instance;  /* auto */
+/*00766658*/ extern MyMeshResourceHolder *&g_meshHolderList_first;  /* auto */
+/*00766660*/ extern MyStringHashMap_MyMeshResourceHolder &MyStringHashMap_MyMeshResourceHolder_instance;  /* auto */
+/*00766A70*/ extern MyMeshResourceHolder *&g_meshHolderList_last;  /* auto */
 /*00769A78*/ extern arr_769A78_t (&arr_769A78)[256];  // -  /* auto */
-/*0076AA80*/ extern int16_t (&DrawTriangleList_lpwIndices)[3];  /* auto */
+/*0076AA80*/ extern Vec3s (&DrawTriangleList_lpwIndices)[1024];  /* auto */
 /*0076C280*/ extern MyEntryBuf_Triangle24 &MyEntryBuf_Triangle24_instance;  /* auto */
 /*0076C28C*/ extern int32_t &g_flexibleVertices;  // -----  /* auto */
 /*0076C294*/ extern int32_t &mgsr_currentDrawFlags;  // --  /* auto */
 /*0076C298*/ extern VerticesData (&g_vertices)[2];  // ---  /* auto */
-/*0076C2B8*/ extern MyDirectDraw &mydd_cpy;  // ----------  /* auto */
+/*0076C2B8*/ extern MyDirectDraw &mydd_triangles;  // ----  /* auto */
 /*0076C2F0*/ extern SceneObject30 *&lastSceneObject;  // -  /* auto */
 /*0076C2F8*/ extern int32_t (&sceneObj2E_f21_to_triangleIndices)[1023];  /* auto */
 /*0076D300*/ extern MyEntryBuf_uint16 &MyEntryBuf_uint16_indices_instance;  /* auto */
@@ -486,8 +498,11 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0076F328*/ extern MyEntryBuf_Vertex18 &MyEntryBuf_Vertex18_instance;  /* auto */
 /*0076F33C*/ extern int32_t &Triangle34_count;  // -------  /* auto */
 /*00779358*/ extern int32_t (__cdecl *&__renderFun)(int32_t, int32_t, int32_t);  /* auto */
-/*007793A8*/ extern arr_7793A8_t (&arr_7793A8)[1024];       /* auto */
+/*007793A8*/ extern arr_7793A8_t (&g_wtfStruc)[1024];       /* auto */
 /*0077F3F0*/ extern int32_t &mydd_cpy2_buf;  // ----------  /* auto */
+/*0077F480*/ extern float (&g_padNorm_x8)[4];  // --------  /* auto */
+/*0077F4F8*/ extern int8_t (&g_idxFlags)[1024];  // ------  /* auto */
+/*0077F8F8*/ extern MyDirectDraw &mydd_cpy2;  // ---------  /* auto */
 /*007820A8*/ extern SceneObject2EList &SceneObject2EList_instance;  /* auto */
 /*007820B8*/ extern SceneObject30List &SceneObject30List_instance;  /* auto */
 /*007820C4*/ extern int32_t &objectsToDraw_count;  // ----  /* auto */
@@ -525,7 +540,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0079D378*/ extern MyDdSurfaceEx &g_dd_surface2;  // ----  /* auto */
 /*0079D3C8*/ extern HWND__ *&hWnd;  // -------------------  /* auto */
 /*0079D3CC*/ extern HWND__ *&hBullfrogWindow;  // --------  /* auto */
-/*0079D3D0*/ extern IDirectDraw *&lpDD;  // --------------  /* auto */
+/*0079D3D0*/ extern IDirectDraw *&dk2dd;  // -------------  /* auto */
 /*0079D3D4*/ extern IDirectDrawPalette *&lpDDPalette;       /* auto */
 /*0079D3D8*/ extern IDirectDrawClipper *&lpDDClipper;       /* auto */
 /*0079D3DC*/ extern int32_t &g_isNeedBlt;  // ------------  /* auto */

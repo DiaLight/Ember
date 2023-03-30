@@ -6,6 +6,7 @@
 #include <dk2/AABB.h>  // --------------------------------  /* auto */
 #include <dk2/AsyncThing.h>  // --------------------------  /* auto */
 #include <dk2/Buf1000.h>  // -----------------------------  /* auto */
+#include <dk2/CAnimMeshResource.h>  // -------------------  /* auto */
 #include <dk2/CBridge.h>  // -----------------------------  /* auto */
 #include <dk2/CBridgeInterface.h>  // --------------------  /* auto */
 #include <dk2/CButton.h>  // -----------------------------  /* auto */
@@ -46,14 +47,18 @@
 #include <dk2/CGadget.h>  // -----------------------------  /* auto */
 #include <dk2/CGameComponent.h>  // ----------------------  /* auto */
 #include <dk2/CGuiManager.h>  // -------------------------  /* auto */
+#include <dk2/CIFFFile.h>  // ----------------------------  /* auto */
 #include <dk2/CLocalCommunication.h>  // -----------------  /* auto */
 #include <dk2/CMap.h>  // --------------------------------  /* auto */
+#include <dk2/CMemLoadIFFFile.h>  // ---------------------  /* auto */
+#include <dk2/CMeshGroup.h>  // --------------------------  /* auto */
 #include <dk2/CMovingThing.h>  // ------------------------  /* auto */
 #include <dk2/CNetworkComponent.h>  // -------------------  /* auto */
 #include <dk2/CObject.h>  // -----------------------------  /* auto */
 #include <dk2/CPCEngineInterface.h>  // ------------------  /* auto */
 #include <dk2/CPhysicalThing.h>  // ----------------------  /* auto */
 #include <dk2/CPlayer.h>  // -----------------------------  /* auto */
+#include <dk2/CPolyMeshResource.h>  // -------------------  /* auto */
 #include <dk2/CRenderInfo.h>  // -------------------------  /* auto */
 #include <dk2/CResearchOrder.h>  // ----------------------  /* auto */
 #include <dk2/CRoom.h>  // -------------------------------  /* auto */
@@ -191,6 +196,7 @@
 #include <dk2/TbDiscFile.h>  // --------------------------  /* auto */
 #include <dk2/TbDiscFileStorage.h>  // -------------------  /* auto */
 #include <dk2/TbSysCommand_SetNumberOfChannels.h>  // ----  /* auto */
+#include <dk2/Vec3f.h>  // -------------------------------  /* auto */
 #include <dk2/WadContent.h>  // --------------------------  /* auto */
 #include <dk2/WadDirObj.h>  // ---------------------------  /* auto */
 #include <dk2/WinEventHandlers.h>  // --------------------  /* auto */
@@ -286,7 +292,13 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x0066FAEC, &dk2::CEngineVirtualPerspective2DAnimMesh_vftable, "CEngineVirtualPerspective2DAnimMesh_vftable" },  /* auto */
   { 0x0066FB04, &dk2::CEngine2DMeshSurface_vftable, "CEngine2DMeshSurface_vftable" },  /* auto */
   { 0x0066FB14, &dk2::CEngine2DPrimitive_vftable, "CEngine2DPrimitive_vftable" },  /* auto */
+  { 0x0066FB24, &dk2::CIFFFile_vftable, "CIFFFile_vftable" },  /* auto */
   { 0x0066FB34, &dk2::CDirectIFFFile_vftable, "CDirectIFFFile_vftable" },  /* auto */
+  { 0x0066FB9C, &dk2::CMemLoadIFFFile_vftable, "CMemLoadIFFFile_vftable" },  /* auto */
+  { 0x0066FBBC, &dk2::CAnimMeshResource_vftable, "CAnimMeshResource_vftable" },  /* auto */
+  { 0x0066FBCC, &dk2::CMeshResourceBase_vftable, "CMeshResourceBase_vftable" },  /* auto */
+  { 0x0066FBDC, &dk2::CPolyMeshResource_vftable, "CPolyMeshResource_vftable" },  /* auto */
+  { 0x0066FBEC, &dk2::CMeshGroup_vftable, "CMeshGroup_vftable" },  /* auto */
   { 0x0066FCCC, &dk2::CEngineSprite_vftable, "CEngineSprite_vftable" },  /* auto */
   { 0x0066FCF4, &dk2::CEngineQuadPlane_vftable, "CEngineQuadPlane_vftable" },  /* auto */
   { 0x0066FD1C, &dk2::CEngineDynamicMesh_vftable, "CEngineDynamicMesh_vftable" },  /* auto */
@@ -514,7 +526,7 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x0070D6D8, &dk2::CFrontEndComponent_instance, "CFrontEndComponent_instance" },  /* auto */
   { 0x0073E9A0, &dk2::b73E9A0_x30, "b73E9A0_x30" },  // --  /* auto */
   { 0x0073E9D8, &dk2::g_mySurface_p2, "g_mySurface_p2" },   /* auto */
-  { 0x0073EDD4, &dk2::lpDD_ref1, "lpDD_ref1" },  // ------  /* auto */
+  { 0x0073EDD4, &dk2::movieDd_ignore, "movieDd_ignore" },   /* auto */
   { 0x0073EDDC, &dk2::p_IDirectDrawSurface2, "p_IDirectDrawSurface2" },  /* auto */
   { 0x0073EDE0, &dk2::p_IDirectDrawSurface2_2, "p_IDirectDrawSurface2_2" },  /* auto */
   { 0x0073F580, &dk2::CFrontEndComponent_ShowMovie_static_listeners, "CFrontEndComponent_ShowMovie_static_listeners" },  /* auto */
@@ -574,22 +586,25 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x0075CA68, &dk2::g2_sceneWidth, "g2_sceneWidth" },     /* auto */
   { 0x00760B0C, &dk2::dd_gamma_control, "dd_gamma_control" },  /* auto */
   { 0x00760B44, &dk2::g2_sceneHeight, "g2_sceneHeight" },   /* auto */
-  { 0x00764B90, &dk2::mydd, "mydd" },  // ----------------  /* auto */
+  { 0x00764B90, &dk2::mydd_main, "mydd_main" },  // ------  /* auto */
   { 0x00764BE8, &dk2::gamma_ramp, "gamma_ramp" },  // ----  /* auto */
   { 0x00765224, &dk2::g_pCEngine2DPrimitive, "g_pCEngine2DPrimitive" },  /* auto */
   { 0x007656E8, &dk2::MyStringHashMap_MyScaledSurface_instance, "MyStringHashMap_MyScaledSurface_instance" },  /* auto */
   { 0x00765AF8, &dk2::MyEntryBuf_MyScaledSurface_instance, "MyEntryBuf_MyScaledSurface_instance" },  /* auto */
   { 0x00765B18, &dk2::MyHeap_increaseBlocks, "MyHeap_increaseBlocks" },  /* auto */
   { 0x00765DA0, &dk2::MyHeap_bufArr, "MyHeap_bufArr" },     /* auto */
+  { 0x00765E28, &dk2::SPRS_MyScaledSurface_indices, "SPRS_MyScaledSurface_indices" },  /* auto */
   { 0x00766228, &dk2::CMemLoadIFFFile_instance, "CMemLoadIFFFile_instance" },  /* auto */
-  { 0x00766660, &dk2::MyStringHashMap_unkh18_instance, "MyStringHashMap_unkh18_instance" },  /* auto */
+  { 0x00766658, &dk2::g_meshHolderList_first, "g_meshHolderList_first" },  /* auto */
+  { 0x00766660, &dk2::MyStringHashMap_MyMeshResourceHolder_instance, "MyStringHashMap_MyMeshResourceHolder_instance" },  /* auto */
+  { 0x00766A70, &dk2::g_meshHolderList_last, "g_meshHolderList_last" },  /* auto */
   { 0x00769A78, &dk2::arr_769A78, "arr_769A78" },  // ----  /* auto */
   { 0x0076AA80, &dk2::DrawTriangleList_lpwIndices, "DrawTriangleList_lpwIndices" },  /* auto */
   { 0x0076C280, &dk2::MyEntryBuf_Triangle24_instance, "MyEntryBuf_Triangle24_instance" },  /* auto */
   { 0x0076C28C, &dk2::g_flexibleVertices, "g_flexibleVertices" },  /* auto */
   { 0x0076C294, &dk2::mgsr_currentDrawFlags, "mgsr_currentDrawFlags" },  /* auto */
   { 0x0076C298, &dk2::g_vertices, "g_vertices" },  // ----  /* auto */
-  { 0x0076C2B8, &dk2::mydd_cpy, "mydd_cpy" },  // --------  /* auto */
+  { 0x0076C2B8, &dk2::mydd_triangles, "mydd_triangles" },   /* auto */
   { 0x0076C2F0, &dk2::lastSceneObject, "lastSceneObject" },  /* auto */
   { 0x0076C2F8, &dk2::sceneObj2E_f21_to_triangleIndices, "sceneObj2E_f21_to_triangleIndices" },  /* auto */
   { 0x0076D300, &dk2::MyEntryBuf_uint16_indices_instance, "MyEntryBuf_uint16_indices_instance" },  /* auto */
@@ -598,8 +613,11 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x0076F328, &dk2::MyEntryBuf_Vertex18_instance, "MyEntryBuf_Vertex18_instance" },  /* auto */
   { 0x0076F33C, &dk2::Triangle34_count, "Triangle34_count" },  /* auto */
   { 0x00779358, &dk2::__renderFun, "__renderFun" },  // --  /* auto */
-  { 0x007793A8, &dk2::arr_7793A8, "arr_7793A8" },  // ----  /* auto */
+  { 0x007793A8, &dk2::g_wtfStruc, "g_wtfStruc" },  // ----  /* auto */
   { 0x0077F3F0, &dk2::mydd_cpy2_buf, "mydd_cpy2_buf" },     /* auto */
+  { 0x0077F480, &dk2::g_padNorm_x8, "g_padNorm_x8" },       /* auto */
+  { 0x0077F4F8, &dk2::g_idxFlags, "g_idxFlags" },  // ----  /* auto */
+  { 0x0077F8F8, &dk2::mydd_cpy2, "mydd_cpy2" },  // ------  /* auto */
   { 0x007820A8, &dk2::SceneObject2EList_instance, "SceneObject2EList_instance" },  /* auto */
   { 0x007820B8, &dk2::SceneObject30List_instance, "SceneObject30List_instance" },  /* auto */
   { 0x007820C4, &dk2::objectsToDraw_count, "objectsToDraw_count" },  /* auto */
@@ -637,7 +655,7 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x0079D378, &dk2::g_dd_surface2, "g_dd_surface2" },     /* auto */
   { 0x0079D3C8, &dk2::hWnd, "hWnd" },  // ----------------  /* auto */
   { 0x0079D3CC, &dk2::hBullfrogWindow, "hBullfrogWindow" },  /* auto */
-  { 0x0079D3D0, &dk2::lpDD, "lpDD" },  // ----------------  /* auto */
+  { 0x0079D3D0, &dk2::dk2dd, "dk2dd" },  // --------------  /* auto */
   { 0x0079D3D4, &dk2::lpDDPalette, "lpDDPalette" },  // --  /* auto */
   { 0x0079D3D8, &dk2::lpDDClipper, "lpDDClipper" },  // --  /* auto */
   { 0x0079D3DC, &dk2::g_isNeedBlt, "g_isNeedBlt" },  // --  /* auto */
@@ -975,6 +993,7 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x0042EA10, (void *) &dk2::sub_42EA10, "sub_42EA10" },  /* auto */
   { 0x0042F5E0, (void *) &dk2::sub_42F5E0, "sub_42F5E0" },  /* auto */
   { 0x0042F710, (void *) &dk2::sub_42F710, "sub_42F710" },  /* auto */
+  { 0x0042F730, (void *) &dk2::nullsub_12, "nullsub_12" },  /* auto */
   { 0x0042F800, (void *) &dk2::sub_42F800, "sub_42F800" },  /* auto */
   { 0x0042FCE0, (void *) &dk2::_wmemset, "_wmemset" },      /* auto */
   { 0x004300A0, (void *) &dk2::_wmemmove, "_wmemmove" },    /* auto */
@@ -1414,7 +1433,7 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x00524240, (void *) &dk2::sub_524240, "sub_524240" },  /* auto */
   { 0x00525170, (void *) &dk2::CGameComponent_static_init, "CGameComponent_static_init" },  /* auto */
   { 0x00525190, (void *) &dk2::CGameComponent_static_destroy, "CGameComponent_static_destroy" },  /* auto */
-  { 0x00525D30, (void *) &dk2::sub_525D30, "sub_525D30" },  /* auto */
+  { 0x00525D30, (void *) &dk2::MyGame_prepareWithSettings, "MyGame_prepareWithSettings" },  /* auto */
   { 0x00527440, (void *) &dk2::CNetworkComponent_static_init, "CNetworkComponent_static_init" },  /* auto */
   { 0x00527460, (void *) &dk2::CNetworkComponent_static_destroy, "CNetworkComponent_static_destroy" },  /* auto */
   { 0x00527890, (void *) &dk2::sub_527890, "sub_527890" },  /* auto */
@@ -1862,7 +1881,13 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x00571290, (void *) &dk2::sub_571290, "sub_571290" },  /* auto */
   { 0x005716E0, (void *) &dk2::sub_5716E0, "sub_5716E0" },  /* auto */
   { 0x00571910, (void *) &dk2::set_g2_screenArea, "set_g2_screenArea" },  /* auto */
+  { 0x00571940, (void *) &dk2::nullsub_26, "nullsub_26" },  /* auto */
+  { 0x00571950, (void *) &dk2::nullsub_27, "nullsub_27" },  /* auto */
+  { 0x00571960, (void *) &dk2::nullsub_28, "nullsub_28" },  /* auto */
+  { 0x00571970, (void *) &dk2::nullsub_29, "nullsub_29" },  /* auto */
+  { 0x00571980, (void *) &dk2::nullsub_30, "nullsub_30" },  /* auto */
   { 0x00571990, (void *) &dk2::sub_571990, "sub_571990" },  /* auto */
+  { 0x00571A60, (void *) &dk2::nullsub_31, "nullsub_31" },  /* auto */
   { 0x00571A70, (void *) &dk2::sub_571A70, "sub_571A70" },  /* auto */
   { 0x00571A90, (void *) &dk2::sub_571A90, "sub_571A90" },  /* auto */
   { 0x00571AB0, (void *) &dk2::sub_571AB0, "sub_571AB0" },  /* auto */
@@ -1886,8 +1911,9 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x00572F60, (void *) &dk2::sub_572F60, "sub_572F60" },  /* auto */
   { 0x005735A0, (void *) &dk2::sub_5735A0, "sub_5735A0" },  /* auto */
   { 0x005737E0, (void *) &dk2::sub_5737E0, "sub_5737E0" },  /* auto */
+  { 0x00573C20, (void *) &dk2::dk2_cleanup3d, "dk2_cleanup3d" },  /* auto */
   { 0x00573CF0, (void *) &dk2::configureFlagsAndTexturesCount, "configureFlagsAndTexturesCount" },  /* auto */
-  { 0x00573ED0, (void *) &dk2::settupDirectDraw, "settupDirectDraw" },  /* auto */
+  { 0x00573ED0, (void *) &dk2::dk2_init3d, "dk2_init3d" },  /* auto */
   { 0x005741D0, (void *) &dk2::sub_5741D0, "sub_5741D0" },  /* auto */
   { 0x00574200, (void *) &dk2::setGammaRamp, "setGammaRamp" },  /* auto */
   { 0x00574240, (void *) &dk2::sub_574240, "sub_574240" },  /* auto */
@@ -1929,28 +1955,31 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x0057C7E0, (void *) &dk2::sub_57C7E0, "sub_57C7E0" },  /* auto */
   { 0x0057C850, (void *) &dk2::MyEntryBuf_MyScaledSurface_create, "MyEntryBuf_MyScaledSurface_create" },  /* auto */
   { 0x0057C920, (void *) &dk2::CPCEngineInterface_57C920, "CPCEngineInterface_57C920" },  /* auto */
-  { 0x0057C950, (void *) &dk2::sub_57C950, "sub_57C950" },  /* auto */
+  { 0x0057C950, (void *) &dk2::MyScaledSurface_resolveById, "MyScaledSurface_resolveById" },  /* auto */
   { 0x0057C970, (void *) &dk2::MyDblNamedSurface_createPrescaled, "MyDblNamedSurface_createPrescaled" },  /* auto */
   { 0x0057CBE0, (void *) &dk2::MyHeap_static_init, "MyHeap_static_init" },  /* auto */
   { 0x0057CCF0, (void *) &dk2::MyHeap_static_destroy, "MyHeap_static_destroy" },  /* auto */
   { 0x0057CD30, (void *) &dk2::MyHeap_alloc_impl, "MyHeap_alloc_impl" },  /* auto */
   { 0x0057CEB0, (void *) &dk2::MyHeap_alloc, "MyHeap_alloc" },  /* auto */
   { 0x0057D0B0, (void *) &dk2::MyHeap_free, "MyHeap_free" },  /* auto */
-  { 0x0057D270, (void *) &dk2::sub_57D270, "sub_57D270" },  /* auto */
-  { 0x0057D390, (void *) &dk2::sub_57D390, "sub_57D390" },  /* auto */
-  { 0x0057D5B0, (void *) &dk2::sub_57D5B0, "sub_57D5B0" },  /* auto */
+  { 0x0057D210, (void *) &dk2::CMemLoadIFFFile_static_init, "CMemLoadIFFFile_static_init" },  /* auto */
+  { 0x0057D230, (void *) &dk2::CMemLoadIFFFile_static_destroy, "CMemLoadIFFFile_static_destroy" },  /* auto */
+  { 0x0057D270, (void *) &dk2::CMeshResourceBase_load, "CMeshResourceBase_load" },  /* auto */
+  { 0x0057D390, (void *) &dk2::load_martials, "load_martials" },  /* auto */
+  { 0x0057D5B0, (void *) &dk2::CMemLoadIFFFile_load_CPolyMeshResource, "CMemLoadIFFFile_load_CPolyMeshResource" },  /* auto */
   { 0x0057DAC0, (void *) &dk2::sub_57DAC0, "sub_57DAC0" },  /* auto */
-  { 0x0057DAD0, (void *) &dk2::sub_57DAD0, "sub_57DAD0" },  /* auto */
-  { 0x0057E110, (void *) &dk2::sub_57E110, "sub_57E110" },  /* auto */
+  { 0x0057DAD0, (void *) &dk2::CMemLoadIFFFile_load_CAnimMeshResource, "CMemLoadIFFFile_load_CAnimMeshResource" },  /* auto */
+  { 0x0057E110, (void *) &dk2::CMemLoadIFFFile_load_CMeshGroup, "CMemLoadIFFFile_load_CMeshGroup" },  /* auto */
   { 0x0057EB60, (void *) &dk2::ret_2_0args, "ret_2_0args" },  /* auto */
-  { 0x0057ECF0, (void *) &dk2::sub_57ECF0, "sub_57ECF0" },  /* auto */
-  { 0x0057ED10, (void *) &dk2::sub_57ED10, "sub_57ED10" },  /* auto */
-  { 0x0057ED30, (void *) &dk2::sub_57ED30, "sub_57ED30" },  /* auto */
+  { 0x0057ECF0, (void *) &dk2::MyStringHashMap_MyMeshResourceHolder_static_init, "MyStringHashMap_MyMeshResourceHolder_static_init" },  /* auto */
+  { 0x0057ED10, (void *) &dk2::MyStringHashMap_MyMeshResourceHolder_static_destroy, "MyStringHashMap_MyMeshResourceHolder_static_destroy" },  /* auto */
+  { 0x0057ED30, (void *) &dk2::MyMeshResourceHolder_getResource, "MyMeshResourceHolder_getResource" },  /* auto */
   { 0x0057EDE0, (void *) &dk2::cleanup_57EDE0, "cleanup_57EDE0" },  /* auto */
   { 0x0057EED0, (void *) &dk2::sub_57EED0, "sub_57EED0" },  /* auto */
-  { 0x0057EEF0, (void *) &dk2::sub_57EEF0, "sub_57EEF0" },  /* auto */
-  { 0x0057EF30, (void *) &dk2::unkh18_getOrCreate, "unkh18_getOrCreate" },  /* auto */
+  { 0x0057EEF0, (void *) &dk2::MyStringHashMap_MyMeshResourceHolder_cleanup, "MyStringHashMap_MyMeshResourceHolder_cleanup" },  /* auto */
+  { 0x0057EF30, (void *) &dk2::MyMeshResourceHolder_getOrCreate, "MyMeshResourceHolder_getOrCreate" },  /* auto */
   { 0x0057F010, (void *) &dk2::sub_57F010, "sub_57F010" },  /* auto */
+  { 0x0057F020, (void *) &dk2::nullsub_32, "nullsub_32" },  /* auto */
   { 0x0057F030, (void *) &dk2::sub_57F030, "sub_57F030" },  /* auto */
   { 0x0057F090, (void *) &dk2::transformFlags, "transformFlags" },  /* auto */
   { 0x0057F1C0, (void *) &dk2::CEngineWorldPrimitive_fun_57F1C0, "CEngineWorldPrimitive_fun_57F1C0" },  /* auto */
@@ -1968,17 +1997,24 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x00589160, (void *) &dk2::mgsr_setDrawFun, "mgsr_setDrawFun" },  /* auto */
   { 0x00589250, (void *) &dk2::DirectDraw_prepareTexture, "DirectDraw_prepareTexture" },  /* auto */
   { 0x005898F0, (void *) &dk2::draw_tex_to_buf, "draw_tex_to_buf" },  /* auto */
-  { 0x00589910, (void *) &dk2::mydd_cpy_destroy, "mydd_cpy_destroy" },  /* auto */
-  { 0x005899F0, (void *) &dk2::mydd_cpy_init, "mydd_cpy_init" },  /* auto */
+  { 0x00589910, (void *) &dk2::mydd_triangles_destroy, "mydd_triangles_destroy" },  /* auto */
+  { 0x005899F0, (void *) &dk2::mydd_triangles_init, "mydd_triangles_init" },  /* auto */
   { 0x00589C90, (void *) &dk2::sub_589C90, "sub_589C90" },  /* auto */
   { 0x00589D70, (void *) &dk2::sub_589D70, "sub_589D70" },  /* auto */
   { 0x00589D90, (void *) &dk2::addObjectToScene, "addObjectToScene" },  /* auto */
   { 0x0058A000, (void *) &dk2::DrawTriangleList, "DrawTriangleList" },  /* auto */
   { 0x0058A150, (void *) &dk2::drawTexToSurfTriangles, "drawTexToSurfTriangles" },  /* auto */
   { 0x0058A3B0, (void *) &dk2::sub_58A3B0, "sub_58A3B0" },  /* auto */
+  { 0x0058A480, (void *) &dk2::nullsub_33, "nullsub_33" },  /* auto */
+  { 0x0058A490, (void *) &dk2::nullsub_34, "nullsub_34" },  /* auto */
+  { 0x0058A4A0, (void *) &dk2::nullsub_35, "nullsub_35" },  /* auto */
+  { 0x0058A4B0, (void *) &dk2::nullsub_36, "nullsub_36" },  /* auto */
+  { 0x0058A4C0, (void *) &dk2::nullsub_37, "nullsub_37" },  /* auto */
+  { 0x0058A4D0, (void *) &dk2::nullsub_38, "nullsub_38" },  /* auto */
+  { 0x0058A4E0, (void *) &dk2::nullsub_39, "nullsub_39" },  /* auto */
   { 0x0058A4F0, (void *) &dk2::sub_58A4F0, "sub_58A4F0" },  /* auto */
   { 0x0058A520, (void *) &dk2::mydd_cpy2_init, "mydd_cpy2_init" },  /* auto */
-  { 0x0058A550, (void *) &dk2::sub_58A550, "sub_58A550" },  /* auto */
+  { 0x0058A550, (void *) &dk2::mydd_cpy2_destroy, "mydd_cpy2_destroy" },  /* auto */
   { 0x0058A570, (void *) &dk2::sub_58A570, "sub_58A570" },  /* auto */
   { 0x0058A6F0, (void *) &dk2::sub_58A6F0, "sub_58A6F0" },  /* auto */
   { 0x0058A970, (void *) &dk2::__renderFun_setSceneObject2E, "__renderFun_setSceneObject2E" },  /* auto */
@@ -1989,7 +2025,7 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x0058ADC0, (void *) &dk2::sub_58ADC0, "sub_58ADC0" },  /* auto */
   { 0x0058AF70, (void *) &dk2::sub_58AF70, "sub_58AF70" },  /* auto */
   { 0x0058B190, (void *) &dk2::sub_58B190, "sub_58B190" },  /* auto */
-  { 0x0058B2A0, (void *) &dk2::sub_58B2A0, "sub_58B2A0" },  /* auto */
+  { 0x0058B2A0, (void *) &dk2::_renderFun_58B2A0, "_renderFun_58B2A0" },  /* auto */
   { 0x0058B370, (void *) &dk2::sub_58B370, "sub_58B370" },  /* auto */
   { 0x0058B440, (void *) &dk2::sub_58B440, "sub_58B440" },  /* auto */
   { 0x0058B680, (void *) &dk2::sub_58B680, "sub_58B680" },  /* auto */
@@ -2014,6 +2050,8 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x0058E470, (void *) &dk2::sub_58E470, "sub_58E470" },  /* auto */
   { 0x0058E580, (void *) &dk2::sub_58E580, "sub_58E580" },  /* auto */
   { 0x0058E640, (void *) &dk2::sub_58E640, "sub_58E640" },  /* auto */
+  { 0x0058EE40, (void *) &dk2::nullsub_40, "nullsub_40" },  /* auto */
+  { 0x0058EE50, (void *) &dk2::nullsub_41, "nullsub_41" },  /* auto */
   { 0x0058EE60, (void *) &dk2::sub_58EE60, "sub_58EE60" },  /* auto */
   { 0x0058F480, (void *) &dk2::sub_58F480, "sub_58F480" },  /* auto */
   { 0x0058F510, (void *) &dk2::SceneObject2EList_static_destructor, "SceneObject2EList_static_destructor" },  /* auto */
@@ -2026,6 +2064,7 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x0058FA00, (void *) &dk2::MyStringHashMap_MyCESurfHandle_static_destructor, "MyStringHashMap_MyCESurfHandle_static_destructor" },  /* auto */
   { 0x0058FA20, (void *) &dk2::MyTextures_static_constructor, "MyTextures_static_constructor" },  /* auto */
   { 0x0058FA40, (void *) &dk2::MyTextures_static_destructor, "MyTextures_static_destructor" },  /* auto */
+  { 0x0058FAF0, (void *) &dk2::nullsub_42, "nullsub_42" },  /* auto */
   { 0x0058FB00, (void *) &dk2::MySurface_58FB00, "MySurface_58FB00" },  /* auto */
   { 0x0058FCB0, (void *) &dk2::MySurface_58FCB0, "MySurface_58FCB0" },  /* auto */
   { 0x0058FE80, (void *) &dk2::MySurface_58FE80, "MySurface_58FE80" },  /* auto */
@@ -2058,7 +2097,7 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x00599C00, (void *) &dk2::sub_599C00, "sub_599C00" },  /* auto */
   { 0x0059A3C0, (void *) &dk2::hasTexture, "hasTexture" },  /* auto */
   { 0x0059A4B0, (void *) &dk2::MyResources_loadPng, "MyResources_loadPng" },  /* auto */
-  { 0x0059A500, (void *) &dk2::sub_59A500, "sub_59A500" },  /* auto */
+  { 0x0059A500, (void *) &dk2::CBridge_static_getMeshBuf, "CBridge_static_getMeshBuf" },  /* auto */
   { 0x0059A570, (void *) &dk2::sub_59A570, "sub_59A570" },  /* auto */
   { 0x0059A5C0, (void *) &dk2::sub_59A5C0, "sub_59A5C0" },  /* auto */
   { 0x0059A5E0, (void *) &dk2::sub_59A5E0, "sub_59A5E0" },  /* auto */
@@ -2321,7 +2360,7 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x005B3FE0, (void *) &dk2::FPUControlWord_static_init, "FPUControlWord_static_init" },  /* auto */
   { 0x005B4020, (void *) &dk2::FPUControlWordWithState_static_init, "FPUControlWordWithState_static_init" },  /* auto */
   { 0x005B4040, (void *) &dk2::setSelectedDDGuid, "setSelectedDDGuid" },  /* auto */
-  { 0x005B4050, (void *) &dk2::lpDD_addRef, "lpDD_addRef" },  /* auto */
+  { 0x005B4050, (void *) &dk2::dk2dd_get, "dk2dd_get" },    /* auto */
   { 0x005B4070, (void *) &dk2::showMessageBox, "showMessageBox" },  /* auto */
   { 0x005B40E0, (void *) &dk2::BullfrogWindow_destroy, "BullfrogWindow_destroy" },  /* auto */
   { 0x005B4160, (void *) &dk2::dk2wndCleanup_sendEv0_5, "dk2wndCleanup_sendEv0_5" },  /* auto */
@@ -2335,7 +2374,7 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x005B4D40, (void *) &dk2::sub_5B4D40, "sub_5B4D40" },  /* auto */
   { 0x005B4D80, (void *) &dk2::sub_5B4D80, "sub_5B4D80" },  /* auto */
   { 0x005B4DE0, (void *) &dk2::createDirectDrawObject, "createDirectDrawObject" },  /* auto */
-  { 0x005B4E20, (void *) &dk2::BullfrogWindow_create2, "BullfrogWindow_create2" },  /* auto */
+  { 0x005B4E20, (void *) &dk2::DdModeList_collect, "DdModeList_collect" },  /* auto */
   { 0x005B4F70, (void *) &dk2::enumDDModesCallback, "enumDDModesCallback" },  /* auto */
   { 0x005B4FC0, (void *) &dk2::BullfrogWindow_registerClass, "BullfrogWindow_registerClass" },  /* auto */
   { 0x005B5070, (void *) &dk2::BullfrogWindow_proc, "BullfrogWindow_proc" },  /* auto */
@@ -3568,13 +3607,15 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x005588A0, (funptr_t) &dk2::MyGame::surf_Blt, "MyGame::surf_Blt" },  /* auto */
   { 0x00558A40, (funptr_t) &dk2::MyGame::takeScreenshot, "MyGame::takeScreenshot" },  /* auto */
   { 0x00558BD0, (funptr_t) &dk2::MyGame::sub_558BD0, "MyGame::sub_558BD0" },  /* auto */
-  { 0x00558E40, (funptr_t) &dk2::MyGame::sub_558E40, "MyGame::sub_558E40" },  /* auto */
+  { 0x00558E40, (funptr_t) &dk2::MyGame::collect3dDevices, "MyGame::collect3dDevices" },  /* auto */
+  { 0x00558F40, (funptr_t) &dk2::MyGame::sub_558F40, "MyGame::sub_558F40" },  /* auto */
   { 0x00558F70, (funptr_t) &dk2::MyGame::createSurface, "MyGame::createSurface" },  /* auto */
   { 0x00559140, (funptr_t) &dk2::MyGame::sub_559140, "MyGame::sub_559140" },  /* auto */
   { 0x00559670, (funptr_t) &dk2::MyGame::isNeedBlt, "MyGame::isNeedBlt" },  /* auto */
   { 0x00559690, (funptr_t) &dk2::MyGame::addWmActivateCallback, "MyGame::addWmActivateCallback" },  /* auto */
   { 0x005596D0, (funptr_t) &dk2::MyGame::removeWmActivateCallback, "MyGame::removeWmActivateCallback" },  /* auto */
   { 0x005597F0, (funptr_t) &dk2::MyGame::fun_5597F0, "MyGame::fun_5597F0" },  /* auto */
+  { 0x0041C440, (funptr_t) &dk2::Vec3f::copy, "Vec3f::copy" },  /* auto */
   { 0x0043A740, (funptr_t) &dk2::CBridge::constructor, "CBridge::constructor" },  /* auto */
   { 0x0043A960, (funptr_t) &dk2::CBridge::get_field_, "CBridge::get_field_" },  /* auto */
   { 0x0043A970, (funptr_t) &dk2::CBridge::fun_43A970, "CBridge::fun_43A970" },  /* auto */
@@ -3958,24 +3999,37 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x00578A80, (funptr_t) &dk2::CEngine2DMeshSurface::constructor, "CEngine2DMeshSurface::constructor" },  /* auto */
   { 0x00578C00, (funptr_t) &dk2::CEngine2DMeshSurface::fun_578C00, "CEngine2DMeshSurface::fun_578C00" },  /* auto */
   { 0x00579170, (funptr_t) &dk2::CEngine2DPrimitive::constructor, "CEngine2DPrimitive::constructor" },  /* auto */
-  { 0x0057A1E0, (funptr_t) &dk2::CDirectIFFFile::sub_57A1E0, "CDirectIFFFile::sub_57A1E0" },  /* auto */
-  { 0x0057A310, (funptr_t) &dk2::CDirectIFFFile::sub_57A310, "CDirectIFFFile::sub_57A310" },  /* auto */
+  { 0x0057A080, (funptr_t) &dk2::CIFFFile::constructor, "CIFFFile::constructor" },  /* auto */
+  { 0x0057A1E0, (funptr_t) &dk2::CIFFFile::push_locateMagic, "CIFFFile::push_locateMagic" },  /* auto */
+  { 0x0057A310, (funptr_t) &dk2::CIFFFile::pop, "CIFFFile::pop" },  /* auto */
   { 0x0057A3A0, (funptr_t) &dk2::CDirectIFFFile::writeIf2, "CDirectIFFFile::writeIf2" },  /* auto */
   { 0x0057A3C0, (funptr_t) &dk2::CDirectIFFFile::readInt, "CDirectIFFFile::readInt" },  /* auto */
   { 0x0057A3E0, (funptr_t) &dk2::CDirectIFFFile::readString, "CDirectIFFFile::readString" },  /* auto */
   { 0x0057A430, (funptr_t) &dk2::CDirectIFFFile::seekTo, "CDirectIFFFile::seekTo" },  /* auto */
   { 0x0057A450, (funptr_t) &dk2::CDirectIFFFile::constructor, "CDirectIFFFile::constructor" },  /* auto */
   { 0x0057A470, (funptr_t) &dk2::CDirectIFFFile::seek, "CDirectIFFFile::seek" },  /* auto */
+  { 0x0057A490, (funptr_t) &dk2::CDirectIFFFile::destructor, "CDirectIFFFile::destructor" },  /* auto */
   { 0x0057A560, (funptr_t) &dk2::CDirectIFFFile::open, "CDirectIFFFile::open" },  /* auto */
   { 0x0057A6F0, (funptr_t) &dk2::CDirectIFFFile::sub_57A6F0, "CDirectIFFFile::sub_57A6F0" },  /* auto */
   { 0x0057A7A0, (funptr_t) &dk2::CDirectIFFFile::readFile_57A7A0, "CDirectIFFFile::readFile_57A7A0" },  /* auto */
   { 0x0057A7D0, (funptr_t) &dk2::CDirectIFFFile::writeFile_57A7D0, "CDirectIFFFile::writeFile_57A7D0" },  /* auto */
+  { 0x0057A800, (funptr_t) &dk2::CMemLoadIFFFile::sub_57A800, "CMemLoadIFFFile::sub_57A800" },  /* auto */
+  { 0x0057A960, (funptr_t) &dk2::CMemLoadIFFFile::read, "CMemLoadIFFFile::read" },  /* auto */
+  { 0x0057D250, (funptr_t) &dk2::CMemLoadIFFFile::constructor, "CMemLoadIFFFile::constructor" },  /* auto */
   { 0x0057C2D0, (funptr_t) &dk2::MyDblNamedSurface::constructor, "MyDblNamedSurface::constructor" },  /* auto */
+  { 0x0057C340, (funptr_t) &dk2::MyDblNamedSurface::constructor_0, "MyDblNamedSurface::constructor_0" },  /* auto */
   { 0x0057C3B0, (funptr_t) &dk2::MyDblNamedSurface::fun_57C3B0, "MyDblNamedSurface::fun_57C3B0" },  /* auto */
   { 0x0057C420, (funptr_t) &dk2::MyScaledSurface::constructor, "MyScaledSurface::constructor" },  /* auto */
   { 0x0057C700, (funptr_t) &dk2::MyScaledSurface::resolve, "MyScaledSurface::resolve" },  /* auto */
   { 0x00581B80, (funptr_t) &dk2::MyScaledSurface::sub_581B80, "MyScaledSurface::sub_581B80" },  /* auto */
   { 0x0057CB70, (funptr_t) &dk2::MyEntryBuf_MyScaledSurface::resize, "MyEntryBuf_MyScaledSurface::resize" },  /* auto */
+  { 0x0057E2A0, (funptr_t) &dk2::CAnimMeshResource::constructor, "CAnimMeshResource::constructor" },  /* auto */
+  { 0x0057E7B0, (funptr_t) &dk2::CAnimMeshResource::resolveTextures, "CAnimMeshResource::resolveTextures" },  /* auto */
+  { 0x0057E7F0, (funptr_t) &dk2::CPolyMeshResource::destructor, "CPolyMeshResource::destructor" },  /* auto */
+  { 0x0057E860, (funptr_t) &dk2::CPolyMeshResource::constructor, "CPolyMeshResource::constructor" },  /* auto */
+  { 0x0057EAA0, (funptr_t) &dk2::CPolyMeshResource::resolveTextures, "CPolyMeshResource::resolveTextures" },  /* auto */
+  { 0x0057EAF0, (funptr_t) &dk2::CMeshGroup::constructor, "CMeshGroup::constructor" },  /* auto */
+  { 0x0057EB90, (funptr_t) &dk2::CMeshGroup::resolveChildren, "CMeshGroup::resolveChildren" },  /* auto */
   { 0x0057F110, (funptr_t) &dk2::CEngineSprite::constructor2, "CEngineSprite::constructor2" },  /* auto */
   { 0x0057F1E0, (funptr_t) &dk2::CEngineSprite::constructor, "CEngineSprite::constructor" },  /* auto */
   { 0x0057F7E0, (funptr_t) &dk2::CEngineSprite::appendToSceneObject2EList, "CEngineSprite::appendToSceneObject2EList" },  /* auto */
@@ -4073,11 +4127,12 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x0059A650, (funptr_t) &dk2::CPCEngineInterface::createMyScaledSurface, "CPCEngineInterface::createMyScaledSurface" },  /* auto */
   { 0x0059A6A0, (funptr_t) &dk2::CPCEngineInterface::fun_59A6A0, "CPCEngineInterface::fun_59A6A0" },  /* auto */
   { 0x0059AE10, (funptr_t) &dk2::CPCEngineInterface::sub_59AE10, "CPCEngineInterface::sub_59AE10" },  /* auto */
+  { 0x0059B0C0, (funptr_t) &dk2::CPCEngineInterface::fun_59B0C0, "CPCEngineInterface::fun_59B0C0" },  /* auto */
   { 0x0059D580, (funptr_t) &dk2::CPCEngineInterface::fun_59D580, "CPCEngineInterface::fun_59D580" },  /* auto */
   { 0x0059D5B0, (funptr_t) &dk2::CPCEngineInterface::setStr, "CPCEngineInterface::setStr" },  /* auto */
   { 0x0059D760, (funptr_t) &dk2::CPCEngineInterface::fun_59D760, "CPCEngineInterface::fun_59D760" },  /* auto */
   { 0x0059D7F0, (funptr_t) &dk2::CPCEngineInterface::drawScene, "CPCEngineInterface::drawScene" },  /* auto */
-  { 0x0059D900, (funptr_t) &dk2::CPCEngineInterface::fun_59D900, "CPCEngineInterface::fun_59D900" },  /* auto */
+  { 0x0059D900, (funptr_t) &dk2::CPCEngineInterface::init3d, "CPCEngineInterface::init3d" },  /* auto */
   { 0x005B51F0, (funptr_t) &dk2::FPUControlWord::destructor, "FPUControlWord::destructor" },  /* auto */
   { 0x005D1130, (funptr_t) &dk2::FPUControlWord::apply, "FPUControlWord::apply" },  /* auto */
   { 0x005D1180, (funptr_t) &dk2::FPUControlWord::restore, "FPUControlWord::restore" },  /* auto */

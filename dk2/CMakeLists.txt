@@ -3,7 +3,6 @@ include(sources.cmake)
 
 file(GLOB SRC_FILES ${CMAKE_CURRENT_LIST_DIR}/*.cpp)
 foreach(FILE ${SRC_FILES})
-    message("${FILE}")
     SET_SOURCE_FILES_PROPERTIES("${FILE}" PROPERTIES COMPILE_FLAGS /Od)
 endforeach()
 
