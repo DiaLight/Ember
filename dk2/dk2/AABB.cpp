@@ -23,6 +23,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005B6FD0*/ AABB *AABB::intersection(AABB *, AABB *) { relink_stub(AABB::intersection); }  /* auto */
 /*005B7050*/ BOOL AABB::isIntersects(AABB *) { relink_stub(AABB::isIntersects); }  /* auto */
 /*005B7090*/ AABB *AABB::getOuter(AABB *, AABB *) { relink_stub(AABB::getOuter); }  /* auto */
+/*005B7100*/ int32_t AABB::sub_5B7100() { relink_stub(AABB::sub_5B7100); }  /* auto */
 /*005DC2D0*/ int32_t AABB::move(int32_t, int32_t) { relink_stub(AABB::move); }  /* auto */
 /*0062EB80*/ AABB *AABB::charsDraw_AABB_copy(AABB *) { relink_stub(AABB::charsDraw_AABB_copy); }  /* auto */
 // -------------------------------------------------------  /* auto */

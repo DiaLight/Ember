@@ -118,14 +118,21 @@ set(SOURCES
         dk2/GameObj6A0B00.cpp
         dk2/GameObj6A0B00Item.cpp
         dk2/GameScoreRecord.cpp
+        dk2/Idx3b.cpp
+        dk2/Idx3s.cpp
         dk2/Item5B06D0.cpp
         dk2/KeyEntry.cpp
         dk2/LockBase.cpp
+        dk2/Mat3x3f.cpp
         dk2/MeshVertEx.cpp
         dk2/MouseRgbDxAction.cpp
         dk2/MouseRgbDxActionList.cpp
         dk2/MouseXyzDxAction.cpp
         dk2/MouseXyzDxActionList.cpp
+        dk2/My16BitTexture.cpp
+        dk2/My24BitTexture.cpp
+        dk2/My32BitTexture.cpp
+        dk2/My8BitTexture.cpp
         dk2/MyALList_WadDirObj.cpp
         dk2/MyALList_WadDirObj_entry.cpp
         dk2/MyALList_WadDirObj_entry_arr.cpp
@@ -148,6 +155,7 @@ set(SOURCES
         dk2/MyConcurrentStream.cpp
         dk2/MyCreatureCollection.cpp
         dk2/MyD3DevInfo.cpp
+        dk2/MyDLVec2i.cpp
         dk2/MyDRBase.cpp
         dk2/MyDblNamedSurface.cpp
         dk2/MyDdSurface.cpp
@@ -189,6 +197,7 @@ set(SOURCES
         dk2/MyLList_WadFileObj_entry.cpp
         dk2/MyLList_WinEventCb.cpp
         dk2/MyLList_WinEventCb_entry.cpp
+        dk2/MyLVec3f.cpp
         dk2/MyLangObj.cpp
         dk2/MyLocalStr.cpp
         dk2/MyLock.cpp
@@ -200,6 +209,7 @@ set(SOURCES
         dk2/MyMouseUpdater.cpp
         dk2/MyMultilineRenderCtx.cpp
         dk2/MyMutex.cpp
+        dk2/MyNBitTexture.cpp
         dk2/MyObj67B948.cpp
         dk2/MyProfiler.cpp
         dk2/MyResources.cpp
@@ -243,6 +253,10 @@ set(SOURCES
         dk2/MyWindowMsgs.cpp
         dk2/My_sub_56F850.cpp
         dk2/NameCfg.cpp
+        dk2/Obj57AD20.cpp
+        dk2/Obj57BCB0.cpp
+        dk2/Obj57BCB0_item.cpp
+        dk2/Obj58EF60.cpp
         dk2/Obj6723B8.cpp
         dk2/Obj672500.cpp
         dk2/Obj672510.cpp
@@ -252,6 +266,7 @@ set(SOURCES
         dk2/Obj672E80.cpp
         dk2/Obj792D48.cpp
         dk2/Obj79DC68.cpp
+        dk2/PathStr.cpp
         dk2/PixelMask.cpp
         dk2/PlayerList.cpp
         dk2/Pos2i.cpp
@@ -264,6 +279,8 @@ set(SOURCES
         dk2/SceneObject2EList.cpp
         dk2/SceneObject30.cpp
         dk2/SceneObject30List.cpp
+        dk2/ScreenObject.cpp
+        dk2/ScreenObjectArr.cpp
         dk2/Size2i.cpp
         dk2/SprsAnimHeader.cpp
         dk2/SprsMeshHeader.cpp
@@ -289,8 +306,11 @@ set(SOURCES
         dk2/Triangle.cpp
         dk2/Triangle24.cpp
         dk2/Triangle34.cpp
+        dk2/Uv2f.cpp
+        dk2/Uv2f_arr1024.cpp
         dk2/Vec2f.cpp
         dk2/Vec3f.cpp
+        dk2/Vec3f_arr1024.cpp
         dk2/Vec3i.cpp
         dk2/Vec3s.cpp
         dk2/Vertex18.cpp
@@ -307,6 +327,4 @@ set(SOURCES
         dk2/WndMsgDxAction.cpp
         dk2/WndMsgDxActionList.cpp
         dk2/arr_66C780_t.cpp
-        dk2/arr_769A78_t.cpp
-        dk2/arr_7793A8_t.cpp
 )

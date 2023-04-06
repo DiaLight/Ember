@@ -91,10 +91,14 @@
 #include <dk2/GameActionCtx.h>  // -----------------------  /* auto */
 #include <dk2/GameActionHandler.h>  // -------------------  /* auto */
 #include <dk2/LockBase.h>  // ----------------------------  /* auto */
+#include <dk2/Mat3x3f.h>  // -----------------------------  /* auto */
 #include <dk2/MouseRgbDxAction.h>  // --------------------  /* auto */
 #include <dk2/MouseRgbDxActionList.h>  // ----------------  /* auto */
 #include <dk2/MouseXyzDxAction.h>  // --------------------  /* auto */
 #include <dk2/MouseXyzDxActionList.h>  // ----------------  /* auto */
+#include <dk2/My24BitTexture.h>  // ----------------------  /* auto */
+#include <dk2/My32BitTexture.h>  // ----------------------  /* auto */
+#include <dk2/My8BitTexture.h>  // -----------------------  /* auto */
 #include <dk2/MyALList_WadFileObj.h>  // -----------------  /* auto */
 #include <dk2/MyCESurfHandle.h>  // ----------------------  /* auto */
 #include <dk2/MyCEngineSurfDesc.h>  // -------------------  /* auto */
@@ -140,10 +144,12 @@
 #include <dk2/MyLoopLList_DxAction.h>  // ----------------  /* auto */
 #include <dk2/MyLoopLList_DxAction_entry.h>  // ----------  /* auto */
 #include <dk2/MyMemoryMapStream.h>  // -------------------  /* auto */
+#include <dk2/MyMeshResourceHolder.h>  // ----------------  /* auto */
 #include <dk2/MyMouse.h>  // -----------------------------  /* auto */
 #include <dk2/MyMouseUpdater.h>  // ----------------------  /* auto */
 #include <dk2/MyMultilineRenderCtx.h>  // ----------------  /* auto */
 #include <dk2/MyMutex.h>  // -----------------------------  /* auto */
+#include <dk2/MyNBitTexture.h>  // -----------------------  /* auto */
 #include <dk2/MyObj67B948.h>  // -------------------------  /* auto */
 #include <dk2/MyProfiler.h>  // --------------------------  /* auto */
 #include <dk2/MyResources.h>  // -------------------------  /* auto */
@@ -176,6 +182,9 @@
 #include <dk2/MyWadUnkObj.h>  // -------------------------  /* auto */
 #include <dk2/MyWindowMsgs.h>  // ------------------------  /* auto */
 #include <dk2/My_sub_56F850.h>  // -----------------------  /* auto */
+#include <dk2/Obj57AD20.h>  // ---------------------------  /* auto */
+#include <dk2/Obj57BCB0.h>  // ---------------------------  /* auto */
+#include <dk2/Obj58EF60.h>  // ---------------------------  /* auto */
 #include <dk2/Obj6723B8.h>  // ---------------------------  /* auto */
 #include <dk2/Obj672500.h>  // ---------------------------  /* auto */
 #include <dk2/Obj672510.h>  // ---------------------------  /* auto */
@@ -188,6 +197,7 @@
 #include <dk2/PlayerList.h>  // --------------------------  /* auto */
 #include <dk2/PtrArrList.h>  // --------------------------  /* auto */
 #include <dk2/SceneObject30List.h>  // -------------------  /* auto */
+#include <dk2/ScreenObjectArr.h>  // ---------------------  /* auto */
 #include <dk2/SurfHashList.h>  // ------------------------  /* auto */
 #include <dk2/SurfHashList2.h>  // -----------------------  /* auto */
 #include <dk2/SurfHashListItem.h>  // --------------------  /* auto */
@@ -331,6 +341,10 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x00671E10, &dk2::CLSID_IDirectDrawSurface2, "CLSID_IDirectDrawSurface2" },  /* auto */
   { 0x00671E20, &dk2::CLSID_IDirectDraw4, "CLSID_IDirectDraw4" },  /* auto */
   { 0x00671E30, &dk2::CLSID_IDirectDraw2, "CLSID_IDirectDraw2" },  /* auto */
+  { 0x00671E40, &dk2::My8BitTexture_vftable, "My8BitTexture_vftable" },  /* auto */
+  { 0x00671E80, &dk2::My16BitTexture_vftable, "My16BitTexture_vftable" },  /* auto */
+  { 0x00671EC0, &dk2::My24BitTexture_vftable, "My24BitTexture_vftable" },  /* auto */
+  { 0x00671F00, &dk2::My32BitTexture_vftable, "My32BitTexture_vftable" },  /* auto */
   { 0x00671F40, &dk2::FPUControlWord_vftable, "FPUControlWord_vftable" },  /* auto */
   { 0x00671F80, &dk2::DiscFileBase_vftable, "DiscFileBase_vftable" },  /* auto */
   { 0x006722D0, &dk2::MyStr_vftable, "MyStr_vftable" },     /* auto */
@@ -582,10 +596,18 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x0075B418, &dk2::Data, "Data" },  // ----------------  /* auto */
   { 0x0075B468, &dk2::MySound_ptr, "MySound_ptr" },  // --  /* auto */
   { 0x0075B880, &dk2::CSoundSystem_instance, "CSoundSystem_instance" },  /* auto */
-  { 0x0075BA60, &dk2::String, "String" },  // ------------  /* auto */
   { 0x0075CA68, &dk2::g2_sceneWidth, "g2_sceneWidth" },     /* auto */
+  { 0x00760A98, &dk2::g_vec_760A98, "g_vec_760A98" },       /* auto */
+  { 0x00760AA8, &dk2::g_cullFrom, "g_cullFrom" },  // ----  /* auto */
+  { 0x00760AB8, &dk2::g_vec_760AB8, "g_vec_760AB8" },       /* auto */
+  { 0x00760AC4, &dk2::g_mat_760AC4, "g_mat_760AC4" },       /* auto */
   { 0x00760B0C, &dk2::dd_gamma_control, "dd_gamma_control" },  /* auto */
+  { 0x00760B18, &dk2::g_vec_760B18, "g_vec_760B18" },       /* auto */
+  { 0x00760B28, &dk2::g_vec_760B28, "g_vec_760B28" },       /* auto */
+  { 0x00760B38, &dk2::g_vec_760B38, "g_vec_760B38" },       /* auto */
   { 0x00760B44, &dk2::g2_sceneHeight, "g2_sceneHeight" },   /* auto */
+  { 0x00760B4C, &dk2::g_cullTo, "g_cullTo" },  // --------  /* auto */
+  { 0x00760B70, &dk2::g_vec_760B70, "g_vec_760B70" },       /* auto */
   { 0x00764B90, &dk2::mydd_main, "mydd_main" },  // ------  /* auto */
   { 0x00764BE8, &dk2::gamma_ramp, "gamma_ramp" },  // ----  /* auto */
   { 0x00765224, &dk2::g_pCEngine2DPrimitive, "g_pCEngine2DPrimitive" },  /* auto */
@@ -598,13 +620,14 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x00766658, &dk2::g_meshHolderList_first, "g_meshHolderList_first" },  /* auto */
   { 0x00766660, &dk2::MyStringHashMap_MyMeshResourceHolder_instance, "MyStringHashMap_MyMeshResourceHolder_instance" },  /* auto */
   { 0x00766A70, &dk2::g_meshHolderList_last, "g_meshHolderList_last" },  /* auto */
-  { 0x00769A78, &dk2::arr_769A78, "arr_769A78" },  // ----  /* auto */
+  { 0x00769A78, &dk2::ScreenObjectArr_instance, "ScreenObjectArr_instance" },  /* auto */
   { 0x0076AA80, &dk2::DrawTriangleList_lpwIndices, "DrawTriangleList_lpwIndices" },  /* auto */
   { 0x0076C280, &dk2::MyEntryBuf_Triangle24_instance, "MyEntryBuf_Triangle24_instance" },  /* auto */
   { 0x0076C28C, &dk2::g_flexibleVertices, "g_flexibleVertices" },  /* auto */
   { 0x0076C294, &dk2::mgsr_currentDrawFlags, "mgsr_currentDrawFlags" },  /* auto */
   { 0x0076C298, &dk2::g_vertices, "g_vertices" },  // ----  /* auto */
   { 0x0076C2B8, &dk2::mydd_triangles, "mydd_triangles" },   /* auto */
+  { 0x0076C2E8, &dk2::g_lpwTrianglesIndices, "g_lpwTrianglesIndices" },  /* auto */
   { 0x0076C2F0, &dk2::lastSceneObject, "lastSceneObject" },  /* auto */
   { 0x0076C2F8, &dk2::sceneObj2E_f21_to_triangleIndices, "sceneObj2E_f21_to_triangleIndices" },  /* auto */
   { 0x0076D300, &dk2::MyEntryBuf_uint16_indices_instance, "MyEntryBuf_uint16_indices_instance" },  /* auto */
@@ -612,12 +635,24 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x0076F318, &dk2::MyEntryBuf_Triangle34_instance, "MyEntryBuf_Triangle34_instance" },  /* auto */
   { 0x0076F328, &dk2::MyEntryBuf_Vertex18_instance, "MyEntryBuf_Vertex18_instance" },  /* auto */
   { 0x0076F33C, &dk2::Triangle34_count, "Triangle34_count" },  /* auto */
+  { 0x0076F358, &dk2::RenderData_instance_arr, "RenderData_instance_arr" },  /* auto */
   { 0x00779358, &dk2::__renderFun, "__renderFun" },  // --  /* auto */
-  { 0x007793A8, &dk2::g_wtfStruc, "g_wtfStruc" },  // ----  /* auto */
-  { 0x0077F3F0, &dk2::mydd_cpy2_buf, "mydd_cpy2_buf" },     /* auto */
+  { 0x00779394, &dk2::g_fun_779394, "g_fun_779394" },       /* auto */
+  { 0x00779398, &dk2::g_fun_779398, "g_fun_779398" },       /* auto */
+  { 0x007793A8, &dk2::g_vectors, "g_vectors" },  // ------  /* auto */
+  { 0x0077F3A8, &dk2::g_mat_77F3A8, "g_mat_77F3A8" },       /* auto */
+  { 0x0077F3EC, &dk2::g_pSceneObject2E, "g_pSceneObject2E" },  /* auto */
+  { 0x0077F3F0, &dk2::Uv2f_arr_instance, "Uv2f_arr_instance" },  /* auto */
+  { 0x0077F40C, &dk2::g_mat_77F40C, "g_mat_77F40C" },       /* auto */
+  { 0x0077F458, &dk2::g_mat_77F458, "g_mat_77F458" },       /* auto */
   { 0x0077F480, &dk2::g_padNorm_x8, "g_padNorm_x8" },       /* auto */
+  { 0x0077F498, &dk2::g_mat_77F498, "g_mat_77F498" },       /* auto */
+  { 0x0077F4C0, &dk2::g_vec_77F4C0, "g_vec_77F4C0" },       /* auto */
+  { 0x0077F4E4, &dk2::__addTriangleFun, "__addTriangleFun" },  /* auto */
   { 0x0077F4F8, &dk2::g_idxFlags, "g_idxFlags" },  // ----  /* auto */
-  { 0x0077F8F8, &dk2::mydd_cpy2, "mydd_cpy2" },  // ------  /* auto */
+  { 0x0077F8F8, &dk2::mydd_uvs, "mydd_uvs" },  // --------  /* auto */
+  { 0x0077F938, &dk2::g_Idx3b_arr_instance, "g_Idx3b_arr_instance" },  /* auto */
+  { 0x00780960, &dk2::g_MyEntryBuf_MyScaledSurface_idxs, "g_MyEntryBuf_MyScaledSurface_idxs" },  /* auto */
   { 0x007820A8, &dk2::SceneObject2EList_instance, "SceneObject2EList_instance" },  /* auto */
   { 0x007820B8, &dk2::SceneObject30List_instance, "SceneObject30List_instance" },  /* auto */
   { 0x007820C4, &dk2::objectsToDraw_count, "objectsToDraw_count" },  /* auto */
@@ -635,7 +670,11 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x00792E62, &dk2::MyCEngineSurfDesc_unk16_instance, "MyCEngineSurfDesc_unk16_instance" },  /* auto */
   { 0x00792EC8, &dk2::sizeHashTable_257, "sizeHashTable_257" },  /* auto */
   { 0x007932CC, &dk2::g_surfh_last, "g_surfh_last" },       /* auto */
+  { 0x007932F0, &dk2::g_ppaths_7932F0, "g_ppaths_7932F0" },  /* auto */
   { 0x00793388, &dk2::CPCEngineInterface_instance_start, "CPCEngineInterface_instance_start" },  /* auto */
+  { 0x007935C0, &dk2::g_paths_7935C0, "g_paths_7935C0" },   /* auto */
+  { 0x00795640, &dk2::g_mat_arr_795640, "g_mat_arr_795640" },  /* auto */
+  { 0x007956D0, &dk2::g_vec_arr_7956D0, "g_vec_arr_7956D0" },  /* auto */
   { 0x00795700, &dk2::g_pCBridge, "g_pCBridge" },  // ----  /* auto */
   { 0x00796170, &dk2::mpeg2_dc_dct_pred, "mpeg2_dc_dct_pred" },  /* auto */
   { 0x00797B74, &dk2::mgsr_buf_25635, "mgsr_buf_25635" },   /* auto */
@@ -643,8 +682,13 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x0079CF90, &dk2::MyInputManagerCb_instance, "MyInputManagerCb_instance" },  /* auto */
   { 0x0079D020, &dk2::dd_hWnd, "dd_hWnd" },  // ----------  /* auto */
   { 0x0079D038, &dk2::g_renderSurfAabb, "g_renderSurfAabb" },  /* auto */
+  { 0x0079D048, &dk2::pMyNBitTexture, "pMyNBitTexture" },   /* auto */
   { 0x0079D050, &dk2::g_surfAabb, "g_surfAabb" },  // ----  /* auto */
   { 0x0079D060, &dk2::g_myRenderSurface, "g_myRenderSurface" },  /* auto */
+  { 0x0079D068, &dk2::My8BitTexture_instance, "My8BitTexture_instance" },  /* auto */
+  { 0x0079D070, &dk2::My16BitTexture_instance, "My16BitTexture_instance" },  /* auto */
+  { 0x0079D074, &dk2::My24BitTexture_instance, "My24BitTexture_instance" },  /* auto */
+  { 0x0079D078, &dk2::My32BitTexture_instance, "My32BitTexture_instance" },  /* auto */
   { 0x0079D0A8, &dk2::PathName, "PathName" },  // --------  /* auto */
   { 0x0079D1D4, &dk2::lpDDAttachedSurface, "lpDDAttachedSurface" },  /* auto */
   { 0x0079D200, &dk2::g_fullscreen_ddSurf, "g_fullscreen_ddSurf" },  /* auto */
@@ -734,7 +778,7 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
 };  // global_relink_refs[]  -----------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 entry_t function_relink_refs[] = {  // -------------------  /* auto */
-  { 0x00401000, (void *) &dk2::sub_401000, "sub_401000" },  /* auto */
+  { 0x00401000, (void *) &dk2::objarr_init, "objarr_init" },  /* auto */
   { 0x00401030, (void *) &dk2::CEntryComponent_static_init, "CEntryComponent_static_init" },  /* auto */
   { 0x00401050, (void *) &dk2::CEntryComponent_static_destroy, "CEntryComponent_static_destroy" },  /* auto */
   { 0x00401510, (void *) &dk2::sub_401510, "sub_401510" },  /* auto */
@@ -1909,8 +1953,8 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x00572CF0, (void *) &dk2::sub_572CF0, "sub_572CF0" },  /* auto */
   { 0x00572E00, (void *) &dk2::sub_572E00, "sub_572E00" },  /* auto */
   { 0x00572F60, (void *) &dk2::sub_572F60, "sub_572F60" },  /* auto */
-  { 0x005735A0, (void *) &dk2::sub_5735A0, "sub_5735A0" },  /* auto */
-  { 0x005737E0, (void *) &dk2::sub_5737E0, "sub_5737E0" },  /* auto */
+  { 0x005735A0, (void *) &dk2::MyDLVec2i_static_sub_5735A0, "MyDLVec2i_static_sub_5735A0" },  /* auto */
+  { 0x005737E0, (void *) &dk2::MyDLVec2i_static_sub_5737E0, "MyDLVec2i_static_sub_5737E0" },  /* auto */
   { 0x00573C20, (void *) &dk2::dk2_cleanup3d, "dk2_cleanup3d" },  /* auto */
   { 0x00573CF0, (void *) &dk2::configureFlagsAndTexturesCount, "configureFlagsAndTexturesCount" },  /* auto */
   { 0x00573ED0, (void *) &dk2::dk2_init3d, "dk2_init3d" },  /* auto */
@@ -1923,12 +1967,12 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x005747C0, (void *) &dk2::setPmeshReductionLevel, "setPmeshReductionLevel" },  /* auto */
   { 0x005747D0, (void *) &dk2::sub_5747D0, "sub_5747D0" },  /* auto */
   { 0x005747E0, (void *) &dk2::sub_5747E0, "sub_5747E0" },  /* auto */
-  { 0x00574820, (void *) &dk2::sub_574820, "sub_574820" },  /* auto */
+  { 0x00574820, (void *) &dk2::MyDLVec2i_generate, "MyDLVec2i_generate" },  /* auto */
   { 0x00575700, (void *) &dk2::sub_575700, "sub_575700" },  /* auto */
   { 0x00575780, (void *) &dk2::drawScene, "drawScene" },    /* auto */
   { 0x00575A00, (void *) &dk2::sub_575A00, "sub_575A00" },  /* auto */
-  { 0x00575D70, (void *) &dk2::sub_575D70, "sub_575D70" },  /* auto */
-  { 0x00575F10, (void *) &dk2::sub_575F10, "sub_575F10" },  /* auto */
+  { 0x00575D70, (void *) &dk2::Vec3f_static_sub_575D70, "Vec3f_static_sub_575D70" },  /* auto */
+  { 0x00575F10, (void *) &dk2::Vec3f_static_sub_575F10, "Vec3f_static_sub_575F10" },  /* auto */
   { 0x00575FA0, (void *) &dk2::sub_575FA0, "sub_575FA0" },  /* auto */
   { 0x00575FD0, (void *) &dk2::sub_575FD0, "sub_575FD0" },  /* auto */
   { 0x00576010, (void *) &dk2::sub_576010, "sub_576010" },  /* auto */
@@ -2013,37 +2057,37 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x0058A4D0, (void *) &dk2::nullsub_38, "nullsub_38" },  /* auto */
   { 0x0058A4E0, (void *) &dk2::nullsub_39, "nullsub_39" },  /* auto */
   { 0x0058A4F0, (void *) &dk2::sub_58A4F0, "sub_58A4F0" },  /* auto */
-  { 0x0058A520, (void *) &dk2::mydd_cpy2_init, "mydd_cpy2_init" },  /* auto */
-  { 0x0058A550, (void *) &dk2::mydd_cpy2_destroy, "mydd_cpy2_destroy" },  /* auto */
+  { 0x0058A520, (void *) &dk2::mydd_uvs_init, "mydd_uvs_init" },  /* auto */
+  { 0x0058A550, (void *) &dk2::mydd_flags_destroy, "mydd_flags_destroy" },  /* auto */
   { 0x0058A570, (void *) &dk2::sub_58A570, "sub_58A570" },  /* auto */
   { 0x0058A6F0, (void *) &dk2::sub_58A6F0, "sub_58A6F0" },  /* auto */
   { 0x0058A970, (void *) &dk2::__renderFun_setSceneObject2E, "__renderFun_setSceneObject2E" },  /* auto */
-  { 0x0058AC20, (void *) &dk2::sub_58AC20, "sub_58AC20" },  /* auto */
+  { 0x0058AC20, (void *) &dk2::applyIndxs_sub_58AC20, "applyIndxs_sub_58AC20" },  /* auto */
   { 0x0058ACB0, (void *) &dk2::sub_58ACB0, "sub_58ACB0" },  /* auto */
   { 0x0058AD10, (void *) &dk2::sub_58AD10, "sub_58AD10" },  /* auto */
   { 0x0058AD70, (void *) &dk2::sub_58AD70, "sub_58AD70" },  /* auto */
-  { 0x0058ADC0, (void *) &dk2::sub_58ADC0, "sub_58ADC0" },  /* auto */
+  { 0x0058ADC0, (void *) &dk2::RenderData_addToArr, "RenderData_addToArr" },  /* auto */
   { 0x0058AF70, (void *) &dk2::sub_58AF70, "sub_58AF70" },  /* auto */
   { 0x0058B190, (void *) &dk2::sub_58B190, "sub_58B190" },  /* auto */
-  { 0x0058B2A0, (void *) &dk2::_renderFun_58B2A0, "_renderFun_58B2A0" },  /* auto */
-  { 0x0058B370, (void *) &dk2::sub_58B370, "sub_58B370" },  /* auto */
-  { 0x0058B440, (void *) &dk2::sub_58B440, "sub_58B440" },  /* auto */
-  { 0x0058B680, (void *) &dk2::sub_58B680, "sub_58B680" },  /* auto */
-  { 0x0058B940, (void *) &dk2::sub_58B940, "sub_58B940" },  /* auto */
-  { 0x0058B9D0, (void *) &dk2::sub_58B9D0, "sub_58B9D0" },  /* auto */
-  { 0x0058BB60, (void *) &dk2::sub_58BB60, "sub_58BB60" },  /* auto */
-  { 0x0058C450, (void *) &dk2::sub_58C450, "sub_58C450" },  /* auto */
-  { 0x0058C680, (void *) &dk2::sub_58C680, "sub_58C680" },  /* auto */
-  { 0x0058C890, (void *) &dk2::sub_58C890, "sub_58C890" },  /* auto */
-  { 0x0058CA80, (void *) &dk2::sub_58CA80, "sub_58CA80" },  /* auto */
-  { 0x0058CC40, (void *) &dk2::sub_58CC40, "sub_58CC40" },  /* auto */
-  { 0x0058D580, (void *) &dk2::sub_58D580, "sub_58D580" },  /* auto */
-  { 0x0058D790, (void *) &dk2::sub_58D790, "sub_58D790" },  /* auto */
-  { 0x0058D990, (void *) &dk2::sub_58D990, "sub_58D990" },  /* auto */
-  { 0x0058DB70, (void *) &dk2::sub_58DB70, "sub_58DB70" },  /* auto */
+  { 0x0058B2A0, (void *) &dk2::renderFun_sub_58B2A0, "renderFun_sub_58B2A0" },  /* auto */
+  { 0x0058B370, (void *) &dk2::renderFun_sub_58B370, "renderFun_sub_58B370" },  /* auto */
+  { 0x0058B440, (void *) &dk2::renderFun_sub_58B440, "renderFun_sub_58B440" },  /* auto */
+  { 0x0058B680, (void *) &dk2::renderFun_sub_58B680, "renderFun_sub_58B680" },  /* auto */
+  { 0x0058B940, (void *) &dk2::addTriangleToRender2, "addTriangleToRender2" },  /* auto */
+  { 0x0058B9D0, (void *) &dk2::addTriangleToRender1, "addTriangleToRender1" },  /* auto */
+  { 0x0058BB60, (void *) &dk2::adjustAndAddToRender_sub_58BB60, "adjustAndAddToRender_sub_58BB60" },  /* auto */
+  { 0x0058C450, (void *) &dk2::applyScale_sub_58C450, "applyScale_sub_58C450" },  /* auto */
+  { 0x0058C680, (void *) &dk2::applyScale_sub_58C680, "applyScale_sub_58C680" },  /* auto */
+  { 0x0058C890, (void *) &dk2::applyScale_sub_58C890, "applyScale_sub_58C890" },  /* auto */
+  { 0x0058CA80, (void *) &dk2::applyScale_sub_58CA80, "applyScale_sub_58CA80" },  /* auto */
+  { 0x0058CC40, (void *) &dk2::adjustAndAddToRender_sub_58CC40, "adjustAndAddToRender_sub_58CC40" },  /* auto */
+  { 0x0058D580, (void *) &dk2::applyScale_sub_58D580, "applyScale_sub_58D580" },  /* auto */
+  { 0x0058D790, (void *) &dk2::applyScale_sub_58D790, "applyScale_sub_58D790" },  /* auto */
+  { 0x0058D990, (void *) &dk2::applyScale_sub_58D990, "applyScale_sub_58D990" },  /* auto */
+  { 0x0058DB70, (void *) &dk2::applyScale_sub_58DB70, "applyScale_sub_58DB70" },  /* auto */
   { 0x0058DD40, (void *) &dk2::sub_58DD40, "sub_58DD40" },  /* auto */
   { 0x0058E080, (void *) &dk2::sub_58E080, "sub_58E080" },  /* auto */
-  { 0x0058E2C0, (void *) &dk2::sub_58E2C0, "sub_58E2C0" },  /* auto */
+  { 0x0058E2C0, (void *) &dk2::MyEntryBuf_MyScaledSurface_addFormatEnfineShadow, "MyEntryBuf_MyScaledSurface_addFormatEnfineShadow" },  /* auto */
   { 0x0058E330, (void *) &dk2::shadows_init, "shadows_init" },  /* auto */
   { 0x0058E3E0, (void *) &dk2::sub_58E3E0, "sub_58E3E0" },  /* auto */
   { 0x0058E440, (void *) &dk2::sub_58E440, "sub_58E440" },  /* auto */
@@ -2089,6 +2133,8 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x00594C70, (void *) &dk2::MyTextures_hasTexture, "MyTextures_hasTexture" },  /* auto */
   { 0x00595990, (void *) &dk2::sub_595990, "sub_595990" },  /* auto */
   { 0x005974A0, (void *) &dk2::FloatObjThing_init_retGammaRampRes, "FloatObjThing_init_retGammaRampRes" },  /* auto */
+  { 0x00598080, (void *) &dk2::__cfltcvt_init_6, "__cfltcvt_init_6" },  /* auto */
+  { 0x005981F0, (void *) &dk2::__cfltcvt_init_7, "__cfltcvt_init_7" },  /* auto */
   { 0x00598270, (void *) &dk2::sub_598270, "sub_598270" },  /* auto */
   { 0x00598290, (void *) &dk2::CPCEngineInterface_destructor2, "CPCEngineInterface_destructor2" },  /* auto */
   { 0x005986D0, (void *) &dk2::CPCEngineInterface_fun_5986D0, "CPCEngineInterface_fun_5986D0" },  /* auto */
@@ -2104,7 +2150,7 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x0059A600, (void *) &dk2::sub_59A600, "sub_59A600" },  /* auto */
   { 0x0059A630, (void *) &dk2::sub_59A630, "sub_59A630" },  /* auto */
   { 0x0059ACA0, (void *) &dk2::sub_59ACA0, "sub_59ACA0" },  /* auto */
-  { 0x0059AD80, (void *) &dk2::sub_59AD80, "sub_59AD80" },  /* auto */
+  { 0x0059AD80, (void *) &dk2::ScreenObjectArr_static_renderItems, "ScreenObjectArr_static_renderItems" },  /* auto */
   { 0x0059B0B0, (void *) &dk2::nullsub_19, "nullsub_19" },  /* auto */
   { 0x0059BB80, (void *) &dk2::sub_59BB80, "sub_59BB80" },  /* auto */
   { 0x0059C010, (void *) &dk2::ret_void_6args, "ret_void_6args" },  /* auto */
@@ -2304,14 +2350,14 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x005B2F80, (void *) &dk2::sub_5B2F80, "sub_5B2F80" },  /* auto */
   { 0x005B2FA0, (void *) &dk2::sub_5B2FA0, "sub_5B2FA0" },  /* auto */
   { 0x005B2FB0, (void *) &dk2::sub_5B2FB0, "sub_5B2FB0" },  /* auto */
-  { 0x005B3000, (void *) &dk2::sub_5B3000, "sub_5B3000" },  /* auto */
-  { 0x005B3010, (void *) &dk2::sub_5B3010, "sub_5B3010" },  /* auto */
-  { 0x005B3020, (void *) &dk2::sub_5B3020, "sub_5B3020" },  /* auto */
-  { 0x005B3030, (void *) &dk2::sub_5B3030, "sub_5B3030" },  /* auto */
+  { 0x005B3000, (void *) &dk2::j_My8BitTexture_static_init, "j_My8BitTexture_static_init" },  /* auto */
+  { 0x005B3010, (void *) &dk2::My8BitTexture_static_init, "My8BitTexture_static_init" },  /* auto */
+  { 0x005B3020, (void *) &dk2::j_My16BitTexture_static_init, "j_My16BitTexture_static_init" },  /* auto */
+  { 0x005B3030, (void *) &dk2::My16BitTexture_static_init, "My16BitTexture_static_init" },  /* auto */
   { 0x005B3050, (void *) &dk2::sub_5B3050, "sub_5B3050" },  /* auto */
-  { 0x005B3060, (void *) &dk2::sub_5B3060, "sub_5B3060" },  /* auto */
-  { 0x005B3070, (void *) &dk2::sub_5B3070, "sub_5B3070" },  /* auto */
-  { 0x005B3080, (void *) &dk2::sub_5B3080, "sub_5B3080" },  /* auto */
+  { 0x005B3060, (void *) &dk2::j_My32BitTexture_static_init, "j_My32BitTexture_static_init" },  /* auto */
+  { 0x005B3070, (void *) &dk2::My32BitTexture_static_init, "My32BitTexture_static_init" },  /* auto */
+  { 0x005B3080, (void *) &dk2::AABB_isIntersectsWithScreen, "AABB_isIntersectsWithScreen" },  /* auto */
   { 0x005B30C0, (void *) &dk2::sub_5B30C0, "sub_5B30C0" },  /* auto */
   { 0x005B30F0, (void *) &dk2::sub_5B30F0, "sub_5B30F0" },  /* auto */
   { 0x005B3130, (void *) &dk2::sub_5B3130, "sub_5B3130" },  /* auto */
@@ -2319,7 +2365,7 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x005B31E0, (void *) &dk2::sub_5B31E0, "sub_5B31E0" },  /* auto */
   { 0x005B3250, (void *) &dk2::sub_5B3250, "sub_5B3250" },  /* auto */
   { 0x005B32C0, (void *) &dk2::sub_5B32C0, "sub_5B32C0" },  /* auto */
-  { 0x005B3340, (void *) &dk2::sub_5B3340, "sub_5B3340" },  /* auto */
+  { 0x005B3340, (void *) &dk2::MyNBitTexture_renderIfInScreen, "MyNBitTexture_renderIfInScreen" },  /* auto */
   { 0x005B33C0, (void *) &dk2::sub_5B33C0, "sub_5B33C0" },  /* auto */
   { 0x005B3440, (void *) &dk2::sub_5B3440, "sub_5B3440" },  /* auto */
   { 0x005B3490, (void *) &dk2::sub_5B3490, "sub_5B3490" },  /* auto */
@@ -2329,7 +2375,7 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x005B36F0, (void *) &dk2::sub_5B36F0, "sub_5B36F0" },  /* auto */
   { 0x005B3700, (void *) &dk2::getCharRenderSurfAabb, "getCharRenderSurfAabb" },  /* auto */
   { 0x005B3710, (void *) &dk2::MySurface_probably_set_global_bitnes, "MySurface_probably_set_global_bitnes" },  /* auto */
-  { 0x005B37F0, (void *) &dk2::sub_5B37F0, "sub_5B37F0" },  /* auto */
+  { 0x005B37F0, (void *) &dk2::MyDdSurfaceEx_probably_set_global_bitnes, "MyDdSurfaceEx_probably_set_global_bitnes" },  /* auto */
   { 0x005B3900, (void *) &dk2::sub_5B3900, "sub_5B3900" },  /* auto */
   { 0x005B3940, (void *) &dk2::sub_5B3940, "sub_5B3940" },  /* auto */
   { 0x005B3980, (void *) &dk2::MyDiscFile_create, "MyDiscFile_create" },  /* auto */
@@ -2389,7 +2435,7 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x005B57F0, (void *) &dk2::static_MyDdSurfaceEx_BltWait, "static_MyDdSurfaceEx_BltWait" },  /* auto */
   { 0x005B5970, (void *) &dk2::sub_5B5970, "sub_5B5970" },  /* auto */
   { 0x005B5BE0, (void *) &dk2::MyDdSurfaceEx_resolveDesc, "MyDdSurfaceEx_resolveDesc" },  /* auto */
-  { 0x005B5C90, (void *) &dk2::sub_5B5C90, "sub_5B5C90" },  /* auto */
+  { 0x005B5C90, (void *) &dk2::MyDdSurfaceEx_unlock, "MyDdSurfaceEx_unlock" },  /* auto */
   { 0x005B5CB0, (void *) &dk2::MyDdSurface_addRef, "MyDdSurface_addRef" },  /* auto */
   { 0x005B5CD0, (void *) &dk2::sub_5B5CD0, "sub_5B5CD0" },  /* auto */
   { 0x005B5D20, (void *) &dk2::sub_5B5D20, "sub_5B5D20" },  /* auto */
@@ -2467,45 +2513,31 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x005BC910, (void *) &dk2::sub_5BC910, "sub_5BC910" },  /* auto */
   { 0x005BC920, (void *) &dk2::unknown_libname_51, "unknown_libname_51" },  /* auto */
   { 0x005BC940, (void *) &dk2::unknown_libname_52, "unknown_libname_52" },  /* auto */
-  { 0x005BC950, (void *) &dk2::My8BitTexture_5BC950, "My8BitTexture_5BC950" },  /* auto */
-  { 0x005BC9E0, (void *) &dk2::My8BitTexture_5BC9E0, "My8BitTexture_5BC9E0" },  /* auto */
-  { 0x005BD260, (void *) &dk2::My8BitTexture_5BD260, "My8BitTexture_5BD260" },  /* auto */
-  { 0x005BDA00, (void *) &dk2::My8BitTexture_5BDA00, "My8BitTexture_5BDA00" },  /* auto */
-  { 0x005BDBB0, (void *) &dk2::My8BitTexture_5BDBB0, "My8BitTexture_5BDBB0" },  /* auto */
-  { 0x005BDD50, (void *) &dk2::My8BitTexture_5BDD50, "My8BitTexture_5BDD50" },  /* auto */
-  { 0x005C01D0, (void *) &dk2::My8BitTexture_5C01D0, "My8BitTexture_5C01D0" },  /* auto */
-  { 0x005C0270, (void *) &dk2::My8BitTexture_5C0270, "My8BitTexture_5C0270" },  /* auto */
-  { 0x005C0440, (void *) &dk2::My8BitTexture_5C0440, "My8BitTexture_5C0440" },  /* auto */
-  { 0x005C05C0, (void *) &dk2::My8BitTexture_5C05C0, "My8BitTexture_5C05C0" },  /* auto */
   { 0x005C0740, (void *) &dk2::My24BitTexture_5C0740, "My24BitTexture_5C0740" },  /* auto */
   { 0x005C1080, (void *) &dk2::My24BitTexture_5C1080, "My24BitTexture_5C1080" },  /* auto */
   { 0x005C1230, (void *) &dk2::My24BitTexture_5C1230, "My24BitTexture_5C1230" },  /* auto */
-  { 0x005C1460, (void *) &dk2::My24BitTexture_5C1460, "My24BitTexture_5C1460" },  /* auto */
-  { 0x005C35D0, (void *) &dk2::My24BitTexture_5C35D0, "My24BitTexture_5C35D0" },  /* auto */
+  { 0x005C35D0, (void *) &dk2::My24BitTexture_f2C_5C35D0, "My24BitTexture_f2C_5C35D0" },  /* auto */
   { 0x005C3650, (void *) &dk2::My24BitTexture_5C3650, "My24BitTexture_5C3650" },  /* auto */
   { 0x005C3800, (void *) &dk2::My24BitTexture_5C3800, "My24BitTexture_5C3800" },  /* auto */
   { 0x005C3A00, (void *) &dk2::My24BitTexture_5C3A00, "My24BitTexture_5C3A00" },  /* auto */
-  { 0x005C3C00, (void *) &dk2::My24BitTexture_5C3C00, "My24BitTexture_5C3C00" },  /* auto */
+  { 0x005C3C00, (void *) &dk2::My24BitTexture_f38_5C3C00, "My24BitTexture_f38_5C3C00" },  /* auto */
   { 0x005C4490, (void *) &dk2::My24BitTexture_5C4490, "My24BitTexture_5C4490" },  /* auto */
   { 0x005C4B50, (void *) &dk2::My32BitTexture_5C4B50, "My32BitTexture_5C4B50" },  /* auto */
   { 0x005C53E0, (void *) &dk2::My32BitTexture_5C53E0, "My32BitTexture_5C53E0" },  /* auto */
   { 0x005C55E0, (void *) &dk2::My32BitTexture_5C55E0, "My32BitTexture_5C55E0" },  /* auto */
-  { 0x005C57F0, (void *) &dk2::My32BitTexture_5C57F0, "My32BitTexture_5C57F0" },  /* auto */
-  { 0x005C8770, (void *) &dk2::My32BitTexture_5C8770, "My32BitTexture_5C8770" },  /* auto */
+  { 0x005C8770, (void *) &dk2::My32BitTexture_f2C_5C8770, "My32BitTexture_f2C_5C8770" },  /* auto */
   { 0x005C8810, (void *) &dk2::My32BitTexture_5C8810, "My32BitTexture_5C8810" },  /* auto */
   { 0x005C8A40, (void *) &dk2::My32BitTexture_5C8A40, "My32BitTexture_5C8A40" },  /* auto */
   { 0x005C8D10, (void *) &dk2::My32BitTexture_5C8D10, "My32BitTexture_5C8D10" },  /* auto */
-  { 0x005C8FC0, (void *) &dk2::My32BitTexture_5C8FC0, "My32BitTexture_5C8FC0" },  /* auto */
+  { 0x005C8FC0, (void *) &dk2::My32BitTexture_f38_5C8FC0, "My32BitTexture_f38_5C8FC0" },  /* auto */
   { 0x005C9930, (void *) &dk2::My32BitTexture_5C9930, "My32BitTexture_5C9930" },  /* auto */
   { 0x005CA100, (void *) &dk2::My16BitTexture_5CA100, "My16BitTexture_5CA100" },  /* auto */
   { 0x005CAE20, (void *) &dk2::My16BitTexture_5CAE20, "My16BitTexture_5CAE20" },  /* auto */
   { 0x005CB0E0, (void *) &dk2::My16BitTexture_5CB0E0, "My16BitTexture_5CB0E0" },  /* auto */
-  { 0x005CB3C0, (void *) &dk2::My16BitTexture_5CB3C0, "My16BitTexture_5CB3C0" },  /* auto */
-  { 0x005CEBB0, (void *) &dk2::My16BitTexture_5CEBB0, "My16BitTexture_5CEBB0" },  /* auto */
-  { 0x005CECB0, (void *) &dk2::My16BitTexture_5CECB0, "My16BitTexture_5CECB0" },  /* auto */
+  { 0x005CB3C0, (void *) &dk2::My16BitTexture_f14_5CB3C0, "My16BitTexture_f14_5CB3C0" },  /* auto */
   { 0x005CEFB0, (void *) &dk2::My16BitTexture_5CEFB0, "My16BitTexture_5CEFB0" },  /* auto */
   { 0x005CF380, (void *) &dk2::My16BitTexture_5CF380, "My16BitTexture_5CF380" },  /* auto */
-  { 0x005CF760, (void *) &dk2::My16BitTexture_5CF760, "My16BitTexture_5CF760" },  /* auto */
+  { 0x005CF760, (void *) &dk2::My16BitTexture_f38_5CF760, "My16BitTexture_f38_5CF760" },  /* auto */
   { 0x005D0470, (void *) &dk2::My16BitTexture_5D0470, "My16BitTexture_5D0470" },  /* auto */
   { 0x005D0F80, (void *) &dk2::sub_5D0F80, "sub_5D0F80" },  /* auto */
   { 0x005D0FA0, (void *) &dk2::AABB_getWidth, "AABB_getWidth" },  /* auto */
@@ -2609,6 +2641,7 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x005DE020, (void *) &dk2::PVoid_assign, "PVoid_assign" },  /* auto */
   { 0x005DE240, (void *) &dk2::MySysKeyboard_getGuid, "MySysKeyboard_getGuid" },  /* auto */
   { 0x005DE250, (void *) &dk2::MySysKeyboard_getDataFormat, "MySysKeyboard_getDataFormat" },  /* auto */
+  { 0x005DE260, (void *) &dk2::MyDxKeyboard_processKeyboardData, "MyDxKeyboard_processKeyboardData" },  /* auto */
   { 0x005DE310, (void *) &dk2::sub_5DE310, "sub_5DE310" },  /* auto */
   { 0x005E0DA0, (void *) &dk2::sub_5E0DA0, "sub_5E0DA0" },  /* auto */
   { 0x005E26E0, (void *) &dk2::sub_5E26E0, "sub_5E26E0" },  /* auto */
@@ -3023,8 +3056,8 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x006291B0, (void *) &dk2::sub_6291B0, "sub_6291B0" },  /* auto */
   { 0x00629300, (void *) &dk2::sub_629300, "sub_629300" },  /* auto */
   { 0x00629BC0, (void *) &dk2::sub_629BC0, "sub_629BC0" },  /* auto */
-  { 0x00629DD0, (void *) &dk2::sub_629DD0, "sub_629DD0" },  /* auto */
-  { 0x00629E10, (void *) &dk2::unknown_libname_58, "unknown_libname_58" },  /* auto */
+  { 0x00629DD0, (void *) &dk2::getOrCreateObj_629DD0, "getOrCreateObj_629DD0" },  /* auto */
+  { 0x00629E10, (void *) &dk2::sub_629E10, "sub_629E10" },  /* auto */
   { 0x0062A1F0, (void *) &dk2::sub_62A1F0, "sub_62A1F0" },  /* auto */
   { 0x0062A200, (void *) &dk2::sub_62A200, "sub_62A200" },  /* auto */
   { 0x0062A210, (void *) &dk2::ret_void_1args_0, "ret_void_1args_0" },  /* auto */
@@ -3048,9 +3081,9 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x0062C650, (void *) &dk2::MyCR2_static_constructor, "MyCR2_static_constructor" },  /* auto */
   { 0x0062C660, (void *) &dk2::MyCR2_constructor, "MyCR2_constructor" },  /* auto */
   { 0x0062C680, (void *) &dk2::MyCR2_static_destructor, "MyCR2_static_destructor" },  /* auto */
-  { 0x0062C6D0, (void *) &dk2::sub_62C6D0, "sub_62C6D0" },  /* auto */
-  { 0x0062C6E0, (void *) &dk2::sub_62C6E0, "sub_62C6E0" },  /* auto */
-  { 0x0062C700, (void *) &dk2::sub_62C700, "sub_62C700" },  /* auto */
+  { 0x0062C6D0, (void *) &dk2::MyCR3_static_init, "MyCR3_static_init" },  /* auto */
+  { 0x0062C6E0, (void *) &dk2::MyCR3_constructor, "MyCR3_constructor" },  /* auto */
+  { 0x0062C700, (void *) &dk2::MyCR3_static_destroy, "MyCR3_static_destroy" },  /* auto */
   { 0x0062C740, (void *) &dk2::MyTR4_static_constructor, "MyTR4_static_constructor" },  /* auto */
   { 0x0062C750, (void *) &dk2::MyTR4_constructor, "MyTR4_constructor" },  /* auto */
   { 0x0062C7A0, (void *) &dk2::MyTR5_static_constructor, "MyTR5_static_constructor" },  /* auto */
@@ -3082,12 +3115,12 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x0062FA20, (void *) &dk2::MyFontRenderer_static_constructor, "MyFontRenderer_static_constructor" },  /* auto */
   { 0x0062FA30, (void *) &dk2::MyFontRenderer_constructor, "MyFontRenderer_constructor" },  /* auto */
   { 0x0062FA50, (void *) &dk2::MyFontRenderer_static_destructor, "MyFontRenderer_static_destructor" },  /* auto */
-  { 0x0062FA60, (void *) &dk2::sub_62FA60, "sub_62FA60" },  /* auto */
-  { 0x0062FA70, (void *) &dk2::unknown_libname_69, "unknown_libname_69" },  /* auto */
-  { 0x0062FA90, (void *) &dk2::unknown_libname_70, "unknown_libname_70" },  /* auto */
-  { 0x0062FAA0, (void *) &dk2::sub_62FAA0, "sub_62FAA0" },  /* auto */
-  { 0x0062FAB0, (void *) &dk2::unknown_libname_71, "unknown_libname_71" },  /* auto */
-  { 0x0062FAD0, (void *) &dk2::unknown_libname_72, "unknown_libname_72" },  /* auto */
+  { 0x0062FA60, (void *) &dk2::MyFontRenderer2_static_init, "MyFontRenderer2_static_init" },  /* auto */
+  { 0x0062FA70, (void *) &dk2::MyFontRenderer2_constructor, "MyFontRenderer2_constructor" },  /* auto */
+  { 0x0062FA90, (void *) &dk2::MyFontRenderer2_static_destroy, "MyFontRenderer2_static_destroy" },  /* auto */
+  { 0x0062FAA0, (void *) &dk2::MyFontRenderer3_static_init, "MyFontRenderer3_static_init" },  /* auto */
+  { 0x0062FAB0, (void *) &dk2::MyFontRenderer3_constructor, "MyFontRenderer3_constructor" },  /* auto */
+  { 0x0062FAD0, (void *) &dk2::MyFontRenderer3_static_destroy, "MyFontRenderer3_static_destroy" },  /* auto */
   { 0x0062FC60, (void *) &dk2::TextType_MBToUni_static_init, "TextType_MBToUni_static_init" },  /* auto */
   { 0x0062FC80, (void *) &dk2::TextType_UniToMB_static_init, "TextType_UniToMB_static_init" },  /* auto */
   { 0x0062FCA0, (void *) &dk2::TextType_MB_static_init, "TextType_MB_static_init" },  /* auto */
@@ -3104,14 +3137,14 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x00630C80, (void *) &dk2::sub_630C80, "sub_630C80" },  /* auto */
   { 0x00630F30, (void *) &dk2::sub_630F30, "sub_630F30" },  /* auto */
   { 0x006311E0, (void *) &dk2::sub_6311E0, "sub_6311E0" },  /* auto */
-  { 0x00631A50, (void *) &dk2::sub_631A50, "sub_631A50" },  /* auto */
-  { 0x00631E10, (void *) &dk2::sub_631E10, "sub_631E10" },  /* auto */
-  { 0x006321D0, (void *) &dk2::sub_6321D0, "sub_6321D0" },  /* auto */
-  { 0x00632530, (void *) &dk2::sub_632530, "sub_632530" },  /* auto */
-  { 0x006328D0, (void *) &dk2::sub_6328D0, "sub_6328D0" },  /* auto */
-  { 0x00632BC0, (void *) &dk2::sub_632BC0, "sub_632BC0" },  /* auto */
-  { 0x00632DC0, (void *) &dk2::sub_632DC0, "sub_632DC0" },  /* auto */
-  { 0x006330B0, (void *) &dk2::sub_6330B0, "sub_6330B0" },  /* auto */
+  { 0x00631A50, (void *) &dk2::MyFontRenderer2_sub_631A50, "MyFontRenderer2_sub_631A50" },  /* auto */
+  { 0x00631E10, (void *) &dk2::MyFontRenderer2_sub_631E10, "MyFontRenderer2_sub_631E10" },  /* auto */
+  { 0x006321D0, (void *) &dk2::MyFontRenderer2_sub_6321D0, "MyFontRenderer2_sub_6321D0" },  /* auto */
+  { 0x00632530, (void *) &dk2::MyFontRenderer2_sub_632530, "MyFontRenderer2_sub_632530" },  /* auto */
+  { 0x006328D0, (void *) &dk2::MyFontRenderer3_sub_6328D0, "MyFontRenderer3_sub_6328D0" },  /* auto */
+  { 0x00632BC0, (void *) &dk2::MyFontRenderer3_sub_632BC0, "MyFontRenderer3_sub_632BC0" },  /* auto */
+  { 0x00632DC0, (void *) &dk2::MyFontRenderer3_sub_632DC0, "MyFontRenderer3_sub_632DC0" },  /* auto */
+  { 0x006330B0, (void *) &dk2::MyFontRenderer3_sub_6330B0, "MyFontRenderer3_sub_6330B0" },  /* auto */
   { 0x00633390, (void *) &dk2::MyTextMB_create, "MyTextMB_create" },  /* auto */
   { 0x006336D0, (void *) &dk2::MyTextFont_create, "MyTextFont_create" },  /* auto */
   { 0x00633F30, (void *) &dk2::AABB_probably_alignToSurface, "AABB_probably_alignToSurface" },  /* auto */
@@ -3591,6 +3624,7 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x005B6FD0, (funptr_t) &dk2::AABB::intersection, "AABB::intersection" },  /* auto */
   { 0x005B7050, (funptr_t) &dk2::AABB::isIntersects, "AABB::isIntersects" },  /* auto */
   { 0x005B7090, (funptr_t) &dk2::AABB::getOuter, "AABB::getOuter" },  /* auto */
+  { 0x005B7100, (funptr_t) &dk2::AABB::sub_5B7100, "AABB::sub_5B7100" },  /* auto */
   { 0x005DC2D0, (funptr_t) &dk2::AABB::move, "AABB::move" },  /* auto */
   { 0x0062EB80, (funptr_t) &dk2::AABB::charsDraw_AABB_copy, "AABB::charsDraw_AABB_copy" },  /* auto */
   { 0x00404E00, (funptr_t) &dk2::MyGame::get_f4C, "MyGame::get_f4C" },  /* auto */
@@ -3600,8 +3634,8 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x005580E0, (funptr_t) &dk2::MyGame::release, "MyGame::release" },  /* auto */
   { 0x005581B0, (funptr_t) &dk2::MyGame::prepareScreenEx, "MyGame::prepareScreenEx" },  /* auto */
   { 0x005585C0, (funptr_t) &dk2::MyGame::fun_5585C0, "MyGame::fun_5585C0" },  /* auto */
-  { 0x005586E0, (funptr_t) &dk2::MyGame::sub_5586E0, "MyGame::sub_5586E0" },  /* auto */
-  { 0x00558770, (funptr_t) &dk2::MyGame::sub_558770, "MyGame::sub_558770" },  /* auto */
+  { 0x005586E0, (funptr_t) &dk2::MyGame::selectSurfToRender, "MyGame::selectSurfToRender" },  /* auto */
+  { 0x00558770, (funptr_t) &dk2::MyGame::getSurf_unlock, "MyGame::getSurf_unlock" },  /* auto */
   { 0x005587C0, (funptr_t) &dk2::MyGame::getScreenSurf, "MyGame::getScreenSurf" },  /* auto */
   { 0x005587F0, (funptr_t) &dk2::MyGame::prepareScreen, "MyGame::prepareScreen" },  /* auto */
   { 0x005588A0, (funptr_t) &dk2::MyGame::surf_Blt, "MyGame::surf_Blt" },  /* auto */
@@ -3616,6 +3650,14 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x005596D0, (funptr_t) &dk2::MyGame::removeWmActivateCallback, "MyGame::removeWmActivateCallback" },  /* auto */
   { 0x005597F0, (funptr_t) &dk2::MyGame::fun_5597F0, "MyGame::fun_5597F0" },  /* auto */
   { 0x0041C440, (funptr_t) &dk2::Vec3f::copy, "Vec3f::copy" },  /* auto */
+  { 0x0041C4C0, (funptr_t) &dk2::Vec3f::substractAssign, "Vec3f::substractAssign" },  /* auto */
+  { 0x0044E7B0, (funptr_t) &dk2::Vec3f::sumVec3f, "Vec3f::sumVec3f" },  /* auto */
+  { 0x0041C580, (funptr_t) &dk2::Mat3x3f::sub_41C580, "Mat3x3f::sub_41C580" },  /* auto */
+  { 0x0042F480, (funptr_t) &dk2::Mat3x3f::constructor, "Mat3x3f::constructor" },  /* auto */
+  { 0x00594CB0, (funptr_t) &dk2::Mat3x3f::sub_594CB0, "Mat3x3f::sub_594CB0" },  /* auto */
+  { 0x00594DB0, (funptr_t) &dk2::Mat3x3f::sub_594DB0, "Mat3x3f::sub_594DB0" },  /* auto */
+  { 0x00594E10, (funptr_t) &dk2::Mat3x3f::sub_594E10, "Mat3x3f::sub_594E10" },  /* auto */
+  { 0x00594ED0, (funptr_t) &dk2::Mat3x3f::multiply, "Mat3x3f::multiply" },  /* auto */
   { 0x0043A740, (funptr_t) &dk2::CBridge::constructor, "CBridge::constructor" },  /* auto */
   { 0x0043A960, (funptr_t) &dk2::CBridge::get_field_, "CBridge::get_field_" },  /* auto */
   { 0x0043A970, (funptr_t) &dk2::CBridge::fun_43A970, "CBridge::fun_43A970" },  /* auto */
@@ -3763,6 +3805,8 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x00508A10, (funptr_t) &dk2::CWorld::constructor, "CWorld::constructor" },  /* auto */
   { 0x00508C10, (funptr_t) &dk2::CWorld::fun_508C10, "CWorld::fun_508C10" },  /* auto */
   { 0x00508C60, (funptr_t) &dk2::CWorld::fun_508C60, "CWorld::fun_508C60" },  /* auto */
+  { 0x00509090, (funptr_t) &dk2::CWorld::fun_509090, "CWorld::fun_509090" },  /* auto */
+  { 0x00509200, (funptr_t) &dk2::CWorld::fun_509200, "CWorld::fun_509200" },  /* auto */
   { 0x00509740, (funptr_t) &dk2::CWorld::fun_509740, "CWorld::fun_509740" },  /* auto */
   { 0x005099A0, (funptr_t) &dk2::CWorld::create_objects, "CWorld::create_objects" },  /* auto */
   { 0x0050A2F0, (funptr_t) &dk2::CWorld::remove_objects, "CWorld::remove_objects" },  /* auto */
@@ -4016,6 +4060,20 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x0057A800, (funptr_t) &dk2::CMemLoadIFFFile::sub_57A800, "CMemLoadIFFFile::sub_57A800" },  /* auto */
   { 0x0057A960, (funptr_t) &dk2::CMemLoadIFFFile::read, "CMemLoadIFFFile::read" },  /* auto */
   { 0x0057D250, (funptr_t) &dk2::CMemLoadIFFFile::constructor, "CMemLoadIFFFile::constructor" },  /* auto */
+  { 0x0057A9A0, (funptr_t) &dk2::Obj57AD20::sub_57A9A0, "Obj57AD20::sub_57A9A0" },  /* auto */
+  { 0x0057AC40, (funptr_t) &dk2::Obj57AD20::sub_57AC40, "Obj57AD20::sub_57AC40" },  /* auto */
+  { 0x0057AD20, (funptr_t) &dk2::Obj57AD20::constructor, "Obj57AD20::constructor" },  /* auto */
+  { 0x0057AFF0, (funptr_t) &dk2::Obj57AD20::sub_57AFF0, "Obj57AD20::sub_57AFF0" },  /* auto */
+  { 0x0057B0E0, (funptr_t) &dk2::Obj57AD20::sub_57B0E0, "Obj57AD20::sub_57B0E0" },  /* auto */
+  { 0x0057B6D0, (funptr_t) &dk2::Obj57AD20::sub_57B6D0, "Obj57AD20::sub_57B6D0" },  /* auto */
+  { 0x0057AFC0, (funptr_t) &dk2::CPolyMeshResource::getGeomBase, "CPolyMeshResource::getGeomBase" },  /* auto */
+  { 0x0057AFD0, (funptr_t) &dk2::CPolyMeshResource::getMeshHeader, "CPolyMeshResource::getMeshHeader" },  /* auto */
+  { 0x0057E7F0, (funptr_t) &dk2::CPolyMeshResource::destructor, "CPolyMeshResource::destructor" },  /* auto */
+  { 0x0057E860, (funptr_t) &dk2::CPolyMeshResource::constructor, "CPolyMeshResource::constructor" },  /* auto */
+  { 0x0057EAA0, (funptr_t) &dk2::CPolyMeshResource::resolveTextures, "CPolyMeshResource::resolveTextures" },  /* auto */
+  { 0x0057BCB0, (funptr_t) &dk2::Obj57BCB0::constructor, "Obj57BCB0::constructor" },  /* auto */
+  { 0x0057BF00, (funptr_t) &dk2::Obj57BCB0::sub_57BF00, "Obj57BCB0::sub_57BF00" },  /* auto */
+  { 0x0057C080, (funptr_t) &dk2::Obj57BCB0::sub_57C080, "Obj57BCB0::sub_57C080" },  /* auto */
   { 0x0057C2D0, (funptr_t) &dk2::MyDblNamedSurface::constructor, "MyDblNamedSurface::constructor" },  /* auto */
   { 0x0057C340, (funptr_t) &dk2::MyDblNamedSurface::constructor_0, "MyDblNamedSurface::constructor_0" },  /* auto */
   { 0x0057C3B0, (funptr_t) &dk2::MyDblNamedSurface::fun_57C3B0, "MyDblNamedSurface::fun_57C3B0" },  /* auto */
@@ -4025,18 +4083,18 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x0057CB70, (funptr_t) &dk2::MyEntryBuf_MyScaledSurface::resize, "MyEntryBuf_MyScaledSurface::resize" },  /* auto */
   { 0x0057E2A0, (funptr_t) &dk2::CAnimMeshResource::constructor, "CAnimMeshResource::constructor" },  /* auto */
   { 0x0057E7B0, (funptr_t) &dk2::CAnimMeshResource::resolveTextures, "CAnimMeshResource::resolveTextures" },  /* auto */
-  { 0x0057E7F0, (funptr_t) &dk2::CPolyMeshResource::destructor, "CPolyMeshResource::destructor" },  /* auto */
-  { 0x0057E860, (funptr_t) &dk2::CPolyMeshResource::constructor, "CPolyMeshResource::constructor" },  /* auto */
-  { 0x0057EAA0, (funptr_t) &dk2::CPolyMeshResource::resolveTextures, "CPolyMeshResource::resolveTextures" },  /* auto */
   { 0x0057EAF0, (funptr_t) &dk2::CMeshGroup::constructor, "CMeshGroup::constructor" },  /* auto */
   { 0x0057EB90, (funptr_t) &dk2::CMeshGroup::resolveChildren, "CMeshGroup::resolveChildren" },  /* auto */
+  { 0x0057ECE0, (funptr_t) &dk2::MyMeshResourceHolder::markUsed, "MyMeshResourceHolder::markUsed" },  /* auto */
   { 0x0057F110, (funptr_t) &dk2::CEngineSprite::constructor2, "CEngineSprite::constructor2" },  /* auto */
   { 0x0057F1E0, (funptr_t) &dk2::CEngineSprite::constructor, "CEngineSprite::constructor" },  /* auto */
+  { 0x0057F3D0, (funptr_t) &dk2::CEngineSprite::fun_57F3D0, "CEngineSprite::fun_57F3D0" },  /* auto */
   { 0x0057F7E0, (funptr_t) &dk2::CEngineSprite::appendToSceneObject2EList, "CEngineSprite::appendToSceneObject2EList" },  /* auto */
   { 0x0057FAF0, (funptr_t) &dk2::CEngineQuadPlane::constructor, "CEngineQuadPlane::constructor" },  /* auto */
   { 0x0057FB80, (funptr_t) &dk2::CEngineQuadPlane::fun_57FB80, "CEngineQuadPlane::fun_57FB80" },  /* auto */
   { 0x005801E0, (funptr_t) &dk2::CEngineDynamicMesh::constructor2, "CEngineDynamicMesh::constructor2" },  /* auto */
   { 0x00580480, (funptr_t) &dk2::CEngineDynamicMesh::constructor, "CEngineDynamicMesh::constructor" },  /* auto */
+  { 0x00580EC0, (funptr_t) &dk2::CEngineDynamicMesh::appendToSceneObject2EList, "CEngineDynamicMesh::appendToSceneObject2EList" },  /* auto */
   { 0x00581BE0, (funptr_t) &dk2::CEngineDynamicMesh::sub_581BE0, "CEngineDynamicMesh::sub_581BE0" },  /* auto */
   { 0x00582180, (funptr_t) &dk2::CEngineDynamicMesh::fun_582180, "CEngineDynamicMesh::fun_582180" },  /* auto */
   { 0x00582290, (funptr_t) &dk2::CEngineDynamicMesh::fun_582290, "CEngineDynamicMesh::fun_582290" },  /* auto */
@@ -4047,8 +4105,11 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x00583CA0, (funptr_t) &dk2::CEngineAnimMesh::sub_583CA0, "CEngineAnimMesh::sub_583CA0" },  /* auto */
   { 0x00583DC0, (funptr_t) &dk2::CEngineAnimMesh::sub_583DC0, "CEngineAnimMesh::sub_583DC0" },  /* auto */
   { 0x005848B0, (funptr_t) &dk2::CEngineAnimMesh::fun_5848B0, "CEngineAnimMesh::fun_5848B0" },  /* auto */
+  { 0x00584900, (funptr_t) &dk2::CEngineAnimMesh::appendToSceneObject2EList, "CEngineAnimMesh::appendToSceneObject2EList" },  /* auto */
+  { 0x005855E0, (funptr_t) &dk2::CEngineAnimMesh::sub_5855E0, "CEngineAnimMesh::sub_5855E0" },  /* auto */
   { 0x00585ED0, (funptr_t) &dk2::CEngineAnimMesh::sub_585ED0, "CEngineAnimMesh::sub_585ED0" },  /* auto */
   { 0x00585F90, (funptr_t) &dk2::CEngineStaticMesh::constructor, "CEngineStaticMesh::constructor" },  /* auto */
+  { 0x00586130, (funptr_t) &dk2::CEngineStaticMesh::fun_586130, "CEngineStaticMesh::fun_586130" },  /* auto */
   { 0x00586150, (funptr_t) &dk2::CEngineStaticMesh::fun_586150, "CEngineStaticMesh::fun_586150" },  /* auto */
   { 0x00586190, (funptr_t) &dk2::CEngineStaticMesh::appendToSceneObject2EList, "CEngineStaticMesh::appendToSceneObject2EList" },  /* auto */
   { 0x00586BC0, (funptr_t) &dk2::CEngineStaticHeightField::constructor, "CEngineStaticHeightField::constructor" },  /* auto */
@@ -4057,6 +4118,7 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x005875D0, (funptr_t) &dk2::CEngineDynamicHeightField::fun_5875D0, "CEngineDynamicHeightField::fun_5875D0" },  /* auto */
   { 0x00588190, (funptr_t) &dk2::CEngineUnlitProceduralMesh::constructor, "CEngineUnlitProceduralMesh::constructor" },  /* auto */
   { 0x005884F0, (funptr_t) &dk2::CEngineUnlitProceduralMesh::fun_5884F0, "CEngineUnlitProceduralMesh::fun_5884F0" },  /* auto */
+  { 0x00588A60, (funptr_t) &dk2::ScreenObjectArr::findMesh, "ScreenObjectArr::findMesh" },  /* auto */
   { 0x0058A2B0, (funptr_t) &dk2::MyEntryBuf_Triangle24::MyEntryBuf_Triangles24_resize, "MyEntryBuf_Triangle24::MyEntryBuf_Triangles24_resize" },  /* auto */
   { 0x0058A330, (funptr_t) &dk2::MyEntryBuf_Vertex18::resize, "MyEntryBuf_Vertex18::resize" },  /* auto */
   { 0x0058DD60, (funptr_t) &dk2::MyStringHashMap::constructor, "MyStringHashMap::constructor" },  /* auto */
@@ -4064,6 +4126,8 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x0058DE00, (funptr_t) &dk2::MyStringHashMap::put, "MyStringHashMap::put" },  /* auto */
   { 0x0058DF40, (funptr_t) &dk2::MyStringHashMap::getEntryIdx, "MyStringHashMap::getEntryIdx" },  /* auto */
   { 0x0058E000, (funptr_t) &dk2::MyEntryBuf_MyStringHashMap_entry::resize, "MyEntryBuf_MyStringHashMap_entry::resize" },  /* auto */
+  { 0x0058EF60, (funptr_t) &dk2::Obj58EF60::constructor, "Obj58EF60::constructor" },  /* auto */
+  { 0x0058F030, (funptr_t) &dk2::Obj58EF60::sub_58F030, "Obj58EF60::sub_58F030" },  /* auto */
   { 0x0058F8E0, (funptr_t) &dk2::SceneObject30List::enlarge, "SceneObject30List::enlarge" },  /* auto */
   { 0x0058FAA0, (funptr_t) &dk2::MyTextures::constructor, "MyTextures::constructor" },  /* auto */
   { 0x00591070, (funptr_t) &dk2::MyTextures::loadCompressed, "MyTextures::loadCompressed" },  /* auto */
@@ -4270,6 +4334,24 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x005BC210, (funptr_t) &dk2::MyDxInputManagerCb::onWindowActivated, "MyDxInputManagerCb::onWindowActivated" },  /* auto */
   { 0x005BC280, (funptr_t) &dk2::MyDxInputManagerCb::call, "MyDxInputManagerCb::call" },  /* auto */
   { 0x005BC3A0, (funptr_t) &dk2::MyDxInputManagerCb::updateCoopLevelAndSignal, "MyDxInputManagerCb::updateCoopLevelAndSignal" },  /* auto */
+  { 0x005BC950, (funptr_t) &dk2::My8BitTexture::f38_5BC950, "My8BitTexture::f38_5BC950" },  /* auto */
+  { 0x005BC9E0, (funptr_t) &dk2::My8BitTexture::fun_5BC9E0, "My8BitTexture::fun_5BC9E0" },  /* auto */
+  { 0x005BD260, (funptr_t) &dk2::My8BitTexture::fun_5BD260, "My8BitTexture::fun_5BD260" },  /* auto */
+  { 0x005BD400, (funptr_t) &dk2::My8BitTexture::fun_5BD400, "My8BitTexture::fun_5BD400" },  /* auto */
+  { 0x005BDA00, (funptr_t) &dk2::My8BitTexture::fun_5BDA00, "My8BitTexture::fun_5BDA00" },  /* auto */
+  { 0x005BDBB0, (funptr_t) &dk2::My8BitTexture::fun_5BDBB0, "My8BitTexture::fun_5BDBB0" },  /* auto */
+  { 0x005BDD50, (funptr_t) &dk2::My8BitTexture::f14_5BDD50, "My8BitTexture::f14_5BDD50" },  /* auto */
+  { 0x005BF820, (funptr_t) &dk2::My8BitTexture::f18_5BF820, "My8BitTexture::f18_5BF820" },  /* auto */
+  { 0x005C01D0, (funptr_t) &dk2::My8BitTexture::f2C_5C01D0, "My8BitTexture::f2C_5C01D0" },  /* auto */
+  { 0x005C0270, (funptr_t) &dk2::My8BitTexture::fun_5C0270, "My8BitTexture::fun_5C0270" },  /* auto */
+  { 0x005C0440, (funptr_t) &dk2::My8BitTexture::fun_5C0440, "My8BitTexture::fun_5C0440" },  /* auto */
+  { 0x005C05C0, (funptr_t) &dk2::My8BitTexture::fun_5C05C0, "My8BitTexture::fun_5C05C0" },  /* auto */
+  { 0x005C08E0, (funptr_t) &dk2::MyNBitTexture::f8_5C08E0, "MyNBitTexture::f8_5C08E0" },  /* auto */
+  { 0x005C1400, (funptr_t) &dk2::MyNBitTexture::f10_5C1400, "MyNBitTexture::f10_5C1400" },  /* auto */
+  { 0x005C4D40, (funptr_t) &dk2::MyNBitTexture::f4_5C4D40, "MyNBitTexture::f4_5C4D40" },  /* auto */
+  { 0x005C83F0, (funptr_t) &dk2::MyNBitTexture::f28_5C83F0, "MyNBitTexture::f28_5C83F0" },  /* auto */
+  { 0x005C1460, (funptr_t) &dk2::My24BitTexture::f14_5C1460, "My24BitTexture::f14_5C1460" },  /* auto */
+  { 0x005C57F0, (funptr_t) &dk2::My32BitTexture::f14_5C57F0, "My32BitTexture::f14_5C57F0" },  /* auto */
   { 0x005D71E0, (funptr_t) &dk2::MyInputStream::constructor, "MyInputStream::constructor" },  /* auto */
   { 0x005D7220, (funptr_t) &dk2::MyInputStream::destructor, "MyInputStream::destructor" },  /* auto */
   { 0x005D7230, (funptr_t) &dk2::MyInputStream::InputStream_addRef, "MyInputStream::InputStream_addRef" },  /* auto */
@@ -4432,7 +4514,6 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x005DDCD0, (funptr_t) &dk2::MouseRgbDxActionList::destructor, "MouseRgbDxActionList::destructor" },  /* auto */
   { 0x005DDF30, (funptr_t) &dk2::MouseRgbDxActionList::getOrCreateUnhandled, "MouseRgbDxActionList::getOrCreateUnhandled" },  /* auto */
   { 0x005DE050, (funptr_t) &dk2::MyDxKeyboard::constructor, "MyDxKeyboard::constructor" },  /* auto */
-  { 0x005DE260, (funptr_t) &dk2::MyDxKeyboard::processKeyboardData, "MyDxKeyboard::processKeyboardData" },  /* auto */
   { 0x005F8090, (funptr_t) &dk2::ControlSurf::constructor, "ControlSurf::constructor" },  /* auto */
   { 0x005F80F0, (funptr_t) &dk2::ControlSurf::destructor, "ControlSurf::destructor" },  /* auto */
   { 0x005F8100, (funptr_t) &dk2::ControlSurf::create, "ControlSurf::create" },  /* auto */

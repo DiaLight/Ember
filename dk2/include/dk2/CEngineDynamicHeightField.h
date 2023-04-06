@@ -49,7 +49,7 @@ struct CEngineDynamicHeightField : CEngineWorldPrimitive {  /* auto */
 /*---*/ // super CEngine2DPrimitive  ---------------------  /* auto */
 /*---*/ // super CEngineWorldPrimitive  ------------------  /* auto */
 /*  8*/ // virtual void v_appendToSceneObject2EList(int32_t);  // = 00587DA0  /* auto */
-/*  C*/ // virtual int32_t v_fun_57F1C0(int32_t, int32_t, int32_t, int32_t *, int32_t);  // = 0057F1C0  /* auto */
+/*  C*/ // virtual int32_t v_fun_57F1C0(float, float, int32_t, int32_t *, int32_t);  // = 0057F1C0  /* auto */
 /* 10*/ // virtual int32_t *v_fun_5785E0(int32_t *, int32_t);  // = 005785E0  /* auto */
 /* 14*/ // virtual int32_t v_f14();  // = 00402AD0  ------  /* auto */
 /* 18*/ // virtual int32_t v_f18(int32_t);  // = 00628E30   /* auto */

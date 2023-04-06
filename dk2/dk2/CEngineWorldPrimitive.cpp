@@ -16,7 +16,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // virtual functions  ------------------------------------  /* auto */
 /*  8*/ void CEngineWorldPrimitive::v_appendToSceneObject2EList(int32_t) { relink_stub(CEngineWorldPrimitive::v_appendToSceneObject2EList); }  /* auto */
-/*  C*/ int32_t CEngineWorldPrimitive::v_fun_57F1C0(int32_t, int32_t, int32_t, int32_t *, int32_t) { relink_stub(CEngineWorldPrimitive::v_fun_57F1C0); }  /* auto */
+/*  C*/ int32_t CEngineWorldPrimitive::v_fun_57F1C0(float, float, int32_t, int32_t *, int32_t) { relink_stub(CEngineWorldPrimitive::v_fun_57F1C0); }  /* auto */
 /* 10*/ int32_t *CEngineWorldPrimitive::v_fun_5785E0(int32_t *, int32_t) { relink_stub(CEngineWorldPrimitive::v_fun_5785E0); }  /* auto */
 /* 14*/ int32_t CEngineWorldPrimitive::v_f14() { relink_stub(CEngineWorldPrimitive::v_f14); }  /* auto */
 /* 18*/ int32_t CEngineWorldPrimitive::v_f18(int32_t) { relink_stub(CEngineWorldPrimitive::v_f18); }  /* auto */

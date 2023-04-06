@@ -215,6 +215,14 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00671E20*/ GUID &dk2::CLSID_IDirectDraw4 = _CLSID_IDirectDraw4;  /* auto */
 /*--------*/ relink_glob GUID _CLSID_IDirectDraw2;  // ---  /* auto */
 /*00671E30*/ GUID &dk2::CLSID_IDirectDraw2 = _CLSID_IDirectDraw2;  /* auto */
+/*--------*/ relink_glob void *_My8BitTexture_vftable[16];  /* auto */
+/*00671E40*/ void *(&dk2::My8BitTexture_vftable)[16] = _My8BitTexture_vftable;  /* auto */
+/*--------*/ relink_glob void *_My16BitTexture_vftable[16];  /* auto */
+/*00671E80*/ void *(&dk2::My16BitTexture_vftable)[16] = _My16BitTexture_vftable;  /* auto */
+/*--------*/ relink_glob void *_My24BitTexture_vftable[16];  /* auto */
+/*00671EC0*/ void *(&dk2::My24BitTexture_vftable)[16] = _My24BitTexture_vftable;  /* auto */
+/*--------*/ relink_glob void *_My32BitTexture_vftable[16];  /* auto */
+/*00671F00*/ void *(&dk2::My32BitTexture_vftable)[16] = _My32BitTexture_vftable;  /* auto */
 /*--------*/ relink_glob void *_FPUControlWord_vftable[1];  /* auto */
 /*00671F40*/ void *(&dk2::FPUControlWord_vftable)[1] = _FPUControlWord_vftable;  /* auto */
 /*--------*/ relink_glob void *_DiscFileBase_vftable[9];    /* auto */
@@ -717,14 +725,30 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0075B468*/ CSoundSystem *&dk2::MySound_ptr = _MySound_ptr;  /* auto */
 /*--------*/ relink_glob CSoundSystem _CSoundSystem_instance;  /* auto */
 /*0075B880*/ CSoundSystem &dk2::CSoundSystem_instance = _CSoundSystem_instance;  /* auto */
-/*--------*/ relink_glob wchar_t _String;  // ------------  /* auto */
-/*0075BA60*/ wchar_t &dk2::String = _String;  // ---------  /* auto */
 /*--------*/ relink_glob int32_t _g2_sceneWidth;  // -----  /* auto */
 /*0075CA68*/ int32_t &dk2::g2_sceneWidth = _g2_sceneWidth;  /* auto */
+/*--------*/ relink_glob Vec3f _g_vec_760A98;  // --------  /* auto */
+/*00760A98*/ Vec3f &dk2::g_vec_760A98 = _g_vec_760A98;      /* auto */
+/*--------*/ relink_glob float _g_cullFrom;  // ----------  /* auto */
+/*00760AA8*/ float &dk2::g_cullFrom = _g_cullFrom;  // ---  /* auto */
+/*--------*/ relink_glob Vec3f _g_vec_760AB8;  // --------  /* auto */
+/*00760AB8*/ Vec3f &dk2::g_vec_760AB8 = _g_vec_760AB8;      /* auto */
+/*--------*/ relink_glob Mat3x3f _g_mat_760AC4;  // ------  /* auto */
+/*00760AC4*/ Mat3x3f &dk2::g_mat_760AC4 = _g_mat_760AC4;    /* auto */
 /*--------*/ relink_glob IDirectDrawGammaControl *_dd_gamma_control;  /* auto */
 /*00760B0C*/ IDirectDrawGammaControl *&dk2::dd_gamma_control = _dd_gamma_control;  /* auto */
+/*--------*/ relink_glob Vec3f _g_vec_760B18;  // --------  /* auto */
+/*00760B18*/ Vec3f &dk2::g_vec_760B18 = _g_vec_760B18;      /* auto */
+/*--------*/ relink_glob Vec3f _g_vec_760B28;  // --------  /* auto */
+/*00760B28*/ Vec3f &dk2::g_vec_760B28 = _g_vec_760B28;      /* auto */
+/*--------*/ relink_glob Vec3f _g_vec_760B38;  // --------  /* auto */
+/*00760B38*/ Vec3f &dk2::g_vec_760B38 = _g_vec_760B38;      /* auto */
 /*--------*/ relink_glob int32_t _g2_sceneHeight;  // ----  /* auto */
 /*00760B44*/ int32_t &dk2::g2_sceneHeight = _g2_sceneHeight;  /* auto */
+/*--------*/ relink_glob float _g_cullTo;  // ------------  /* auto */
+/*00760B4C*/ float &dk2::g_cullTo = _g_cullTo;  // -------  /* auto */
+/*--------*/ relink_glob Vec3f _g_vec_760B70;  // --------  /* auto */
+/*00760B70*/ Vec3f &dk2::g_vec_760B70 = _g_vec_760B70;      /* auto */
 /*--------*/ relink_glob MyDirectDraw _mydd_main;  // ----  /* auto */
 /*00764B90*/ MyDirectDraw &dk2::mydd_main = _mydd_main;     /* auto */
 /*--------*/ relink_glob DDGAMMARAMP _gamma_ramp;  // ----  /* auto */
@@ -749,8 +773,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00766660*/ MyStringHashMap_MyMeshResourceHolder &dk2::MyStringHashMap_MyMeshResourceHolder_instance = _MyStringHashMap_MyMeshResourceHolder_instance;  /* auto */
 /*--------*/ relink_glob MyMeshResourceHolder *_g_meshHolderList_last;  /* auto */
 /*00766A70*/ MyMeshResourceHolder *&dk2::g_meshHolderList_last = _g_meshHolderList_last;  /* auto */
-/*--------*/ relink_glob arr_769A78_t _arr_769A78[256];     /* auto */
-/*00769A78*/ arr_769A78_t (&dk2::arr_769A78)[256] = _arr_769A78;  /* auto */
+/*--------*/ relink_glob ScreenObjectArr _ScreenObjectArr_instance;  /* auto */
+/*00769A78*/ ScreenObjectArr &dk2::ScreenObjectArr_instance = _ScreenObjectArr_instance;  /* auto */
 /*--------*/ relink_glob Vec3s _DrawTriangleList_lpwIndices[1024];  /* auto */
 /*0076AA80*/ Vec3s (&dk2::DrawTriangleList_lpwIndices)[1024] = _DrawTriangleList_lpwIndices;  /* auto */
 /*--------*/ relink_glob MyEntryBuf_Triangle24 _MyEntryBuf_Triangle24_instance;  /* auto */
@@ -763,6 +787,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0076C298*/ VerticesData (&dk2::g_vertices)[2] = _g_vertices;  /* auto */
 /*--------*/ relink_glob MyDirectDraw _mydd_triangles;      /* auto */
 /*0076C2B8*/ MyDirectDraw &dk2::mydd_triangles = _mydd_triangles;  /* auto */
+/*--------*/ relink_glob Idx3s *_g_lpwTrianglesIndices;     /* auto */
+/*0076C2E8*/ Idx3s *&dk2::g_lpwTrianglesIndices = _g_lpwTrianglesIndices;  /* auto */
 /*--------*/ relink_glob SceneObject30 *_lastSceneObject;   /* auto */
 /*0076C2F0*/ SceneObject30 *&dk2::lastSceneObject = _lastSceneObject;  /* auto */
 /*--------*/ relink_glob int32_t _sceneObj2E_f21_to_triangleIndices[1023];  /* auto */
@@ -777,18 +803,42 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0076F328*/ MyEntryBuf_Vertex18 &dk2::MyEntryBuf_Vertex18_instance = _MyEntryBuf_Vertex18_instance;  /* auto */
 /*--------*/ relink_glob int32_t _Triangle34_count;  // --  /* auto */
 /*0076F33C*/ int32_t &dk2::Triangle34_count = _Triangle34_count;  /* auto */
-/*--------*/ relink_glob int32_t (__cdecl *___renderFun)(int32_t, int32_t, int32_t);  /* auto */
-/*00779358*/ int32_t (__cdecl *&dk2::__renderFun)(int32_t, int32_t, int32_t) = ___renderFun;  /* auto */
-/*--------*/ relink_glob arr_7793A8_t _g_wtfStruc[1024];    /* auto */
-/*007793A8*/ arr_7793A8_t (&dk2::g_wtfStruc)[1024] = _g_wtfStruc;  /* auto */
-/*--------*/ relink_glob int32_t _mydd_cpy2_buf;  // -----  /* auto */
-/*0077F3F0*/ int32_t &dk2::mydd_cpy2_buf = _mydd_cpy2_buf;  /* auto */
+/*--------*/ relink_glob RenderData _RenderData_instance_arr[1024];  /* auto */
+/*0076F358*/ RenderData (&dk2::RenderData_instance_arr)[1024] = _RenderData_instance_arr;  /* auto */
+/*--------*/ relink_glob int32_t (__cdecl *___renderFun)(int32_t, Vec3f *, Uv2f *);  /* auto */
+/*00779358*/ int32_t (__cdecl *&dk2::__renderFun)(int32_t, Vec3f *, Uv2f *) = ___renderFun;  /* auto */
+/*--------*/ relink_glob int32_t (__cdecl *_g_fun_779394)(int32_t, Vec3f *);  /* auto */
+/*00779394*/ int32_t (__cdecl *&dk2::g_fun_779394)(int32_t, Vec3f *) = _g_fun_779394;  /* auto */
+/*--------*/ relink_glob int32_t (__cdecl *_g_fun_779398)(int32_t, Vec3f *);  /* auto */
+/*00779398*/ int32_t (__cdecl *&dk2::g_fun_779398)(int32_t, Vec3f *) = _g_fun_779398;  /* auto */
+/*--------*/ relink_glob Vec3f_arr1024 _g_vectors[2];       /* auto */
+/*007793A8*/ Vec3f_arr1024 (&dk2::g_vectors)[2] = _g_vectors;  /* auto */
+/*--------*/ relink_glob Mat3x3f _g_mat_77F3A8;  // ------  /* auto */
+/*0077F3A8*/ Mat3x3f &dk2::g_mat_77F3A8 = _g_mat_77F3A8;    /* auto */
+/*--------*/ relink_glob SceneObject2E *_g_pSceneObject2E;  /* auto */
+/*0077F3EC*/ SceneObject2E *&dk2::g_pSceneObject2E = _g_pSceneObject2E;  /* auto */
+/*--------*/ relink_glob Uv2f_arr1024 *_Uv2f_arr_instance;  /* auto */
+/*0077F3F0*/ Uv2f_arr1024 *&dk2::Uv2f_arr_instance = _Uv2f_arr_instance;  /* auto */
+/*--------*/ relink_glob Mat3x3f _g_mat_77F40C;  // ------  /* auto */
+/*0077F40C*/ Mat3x3f &dk2::g_mat_77F40C = _g_mat_77F40C;    /* auto */
+/*--------*/ relink_glob Mat3x3f _g_mat_77F458;  // ------  /* auto */
+/*0077F458*/ Mat3x3f &dk2::g_mat_77F458 = _g_mat_77F458;    /* auto */
 /*--------*/ relink_glob float _g_padNorm_x8[4];  // -----  /* auto */
 /*0077F480*/ float (&dk2::g_padNorm_x8)[4] = _g_padNorm_x8;  /* auto */
+/*--------*/ relink_glob Mat3x3f _g_mat_77F498;  // ------  /* auto */
+/*0077F498*/ Mat3x3f &dk2::g_mat_77F498 = _g_mat_77F498;    /* auto */
+/*--------*/ relink_glob Vec3f _g_vec_77F4C0;  // --------  /* auto */
+/*0077F4C0*/ Vec3f &dk2::g_vec_77F4C0 = _g_vec_77F4C0;      /* auto */
+/*--------*/ relink_glob int32_t (__cdecl *___addTriangleFun)(int32_t, int32_t, int32_t);  /* auto */
+/*0077F4E4*/ int32_t (__cdecl *&dk2::__addTriangleFun)(int32_t, int32_t, int32_t) = ___addTriangleFun;  /* auto */
 /*--------*/ relink_glob int8_t _g_idxFlags[1024];  // ---  /* auto */
 /*0077F4F8*/ int8_t (&dk2::g_idxFlags)[1024] = _g_idxFlags;  /* auto */
-/*--------*/ relink_glob MyDirectDraw _mydd_cpy2;  // ----  /* auto */
-/*0077F8F8*/ MyDirectDraw &dk2::mydd_cpy2 = _mydd_cpy2;     /* auto */
+/*--------*/ relink_glob MyDirectDraw _mydd_uvs;  // -----  /* auto */
+/*0077F8F8*/ MyDirectDraw &dk2::mydd_uvs = _mydd_uvs;       /* auto */
+/*--------*/ relink_glob Idx3b _g_Idx3b_arr_instance[1024];  /* auto */
+/*0077F938*/ Idx3b (&dk2::g_Idx3b_arr_instance)[1024] = _g_Idx3b_arr_instance;  /* auto */
+/*--------*/ relink_glob int32_t _g_MyEntryBuf_MyScaledSurface_idxs[64];  /* auto */
+/*00780960*/ int32_t (&dk2::g_MyEntryBuf_MyScaledSurface_idxs)[64] = _g_MyEntryBuf_MyScaledSurface_idxs;  /* auto */
 /*--------*/ relink_glob SceneObject2EList _SceneObject2EList_instance;  /* auto */
 /*007820A8*/ SceneObject2EList &dk2::SceneObject2EList_instance = _SceneObject2EList_instance;  /* auto */
 /*--------*/ relink_glob SceneObject30List _SceneObject30List_instance;  /* auto */
@@ -823,8 +873,16 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00792EC8*/ int32_t (&dk2::sizeHashTable_257)[257] = _sizeHashTable_257;  /* auto */
 /*--------*/ relink_glob MyCESurfHandle *_g_surfh_last;     /* auto */
 /*007932CC*/ MyCESurfHandle *&dk2::g_surfh_last = _g_surfh_last;  /* auto */
+/*--------*/ relink_glob const char *_g_ppaths_7932F0[32];  /* auto */
+/*007932F0*/ const char *(&dk2::g_ppaths_7932F0)[32] = _g_ppaths_7932F0;  /* auto */
 /*--------*/ relink_glob CPCEngineInterface _CPCEngineInterface_instance_start;  /* auto */
 /*00793388*/ CPCEngineInterface &dk2::CPCEngineInterface_instance_start = _CPCEngineInterface_instance_start;  /* auto */
+/*--------*/ relink_glob PathStr _g_paths_7935C0;  // ----  /* auto */
+/*007935C0*/ PathStr &dk2::g_paths_7935C0 = _g_paths_7935C0;  /* auto */
+/*--------*/ relink_glob Mat3x3f _g_mat_arr_795640[4];      /* auto */
+/*00795640*/ Mat3x3f (&dk2::g_mat_arr_795640)[4] = _g_mat_arr_795640;  /* auto */
+/*--------*/ relink_glob Vec3f _g_vec_arr_7956D0[4];  // -  /* auto */
+/*007956D0*/ Vec3f (&dk2::g_vec_arr_7956D0)[4] = _g_vec_arr_7956D0;  /* auto */
 /*--------*/ relink_glob CBridge *_g_pCBridge;  // -------  /* auto */
 /*00795700*/ CBridge *&dk2::g_pCBridge = _g_pCBridge;       /* auto */
 /*--------*/ relink_glob int32_t _mpeg2_dc_dct_pred[3];     /* auto */
@@ -839,10 +897,20 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0079D020*/ HWND__ *&dk2::dd_hWnd = _dd_hWnd;  // -------  /* auto */
 /*--------*/ relink_glob AABB _g_renderSurfAabb;  // -----  /* auto */
 /*0079D038*/ AABB &dk2::g_renderSurfAabb = _g_renderSurfAabb;  /* auto */
+/*--------*/ relink_glob MyNBitTexture *_pMyNBitTexture;    /* auto */
+/*0079D048*/ MyNBitTexture *&dk2::pMyNBitTexture = _pMyNBitTexture;  /* auto */
 /*--------*/ relink_glob AABB _g_surfAabb;  // -----------  /* auto */
 /*0079D050*/ AABB &dk2::g_surfAabb = _g_surfAabb;  // ----  /* auto */
 /*--------*/ relink_glob MySurface *_g_myRenderSurface;     /* auto */
 /*0079D060*/ MySurface *&dk2::g_myRenderSurface = _g_myRenderSurface;  /* auto */
+/*--------*/ relink_glob My8BitTexture _My8BitTexture_instance;  /* auto */
+/*0079D068*/ My8BitTexture &dk2::My8BitTexture_instance = _My8BitTexture_instance;  /* auto */
+/*--------*/ relink_glob My16BitTexture _My16BitTexture_instance;  /* auto */
+/*0079D070*/ My16BitTexture &dk2::My16BitTexture_instance = _My16BitTexture_instance;  /* auto */
+/*--------*/ relink_glob My24BitTexture _My24BitTexture_instance;  /* auto */
+/*0079D074*/ My24BitTexture &dk2::My24BitTexture_instance = _My24BitTexture_instance;  /* auto */
+/*--------*/ relink_glob My32BitTexture _My32BitTexture_instance;  /* auto */
+/*0079D078*/ My32BitTexture &dk2::My32BitTexture_instance = _My32BitTexture_instance;  /* auto */
 /*--------*/ relink_glob char _PathName[300];  // --------  /* auto */
 /*0079D0A8*/ char (&dk2::PathName)[300] = _PathName;  // -  /* auto */
 /*--------*/ relink_glob IDirectDrawSurface *_lpDDAttachedSurface;  /* auto */

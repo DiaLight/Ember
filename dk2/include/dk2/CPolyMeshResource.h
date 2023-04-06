@@ -11,11 +11,11 @@
 #include <ddraw.h>  // -----------------------------------  /* auto */
 #include <d3d.h>  // -------------------------------------  /* auto */
 #include <dk2/CMeshResourceBase.h>  // -------------------  /* auto */
+#include <dk2/Vec3f.h>  // -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 namespace dk2 {  // --------------------------------------  /* auto */
   struct CPolyMeshResource;  // --------------------------  /* auto */
   struct SprsMeshHeader;  // -----------------------------  /* auto */
-  struct Vec3f;  // --------------------------------------  /* auto */
 }  // namespace dk2  -------------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: head_user_code  ---------------  /* auto */
@@ -34,9 +34,7 @@ struct CPolyMeshResource : CMeshResourceBase {  // -------  /* auto */
 /* 18*/ int32_t sprsCount;  // ---------------------------  /* auto */
 /* 1C*/ int32_t vertsCount;  // --------------------------  /* auto */
 /* 20*/ float scale;  // ---------------------------------  /* auto */
-/* 24*/ float x;  // -------------------------------------  /* auto */
-/* 28*/ float y;  // -------------------------------------  /* auto */
-/* 2C*/ float z;  // -------------------------------------  /* auto */
+/* 24*/ Vec3f pos;  // -----------------------------------  /* auto */
 /* 30*/ int32_t lodCount;  // ----------------------------  /* auto */
 /* 34*/ int32_t init_neg1;  // ---------------------------  /* auto */
 /* 38*/ __int16 totalTriangleCount;  // ------------------  /* auto */
@@ -48,6 +46,8 @@ struct CPolyMeshResource : CMeshResourceBase {  // -------  /* auto */
 /*  8*/ // virtual void v_resolve(int32_t);  // = 0057EAA0  /* auto */
 /*---*/ // CPolyMeshResource  ----------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
+/*0057AFC0*/ Vec3f *getGeomBase(int32_t);  // ------------  /* auto */
+/*0057AFD0*/ SprsMeshHeader *getMeshHeader(int32_t);  // -  /* auto */
 /*0057E7F0*/ void destructor();  // ----------------------  /* auto */
 /*0057E860*/ CPolyMeshResource *constructor(int32_t, int32_t, int32_t, int32_t *, int32_t *, int32_t *, float, float, float, float, int32_t);  /* auto */
 /*0057EAA0*/ void resolveTextures(int32_t);  // ----------  /* auto */

@@ -24,6 +24,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00583CA0*/ void CEngineAnimMesh::sub_583CA0(float, SceneObject2E *) { relink_stub(CEngineAnimMesh::sub_583CA0); }  /* auto */
 /*00583DC0*/ void CEngineAnimMesh::sub_583DC0(int32_t, SceneObject2E *) { relink_stub(CEngineAnimMesh::sub_583DC0); }  /* auto */
 /*005848B0*/ void CEngineAnimMesh::fun_5848B0(int32_t, SceneObject2E *) { relink_stub(CEngineAnimMesh::fun_5848B0); }  /* auto */
+/*00584900*/ void CEngineAnimMesh::appendToSceneObject2EList(int32_t) { relink_stub(CEngineAnimMesh::appendToSceneObject2EList); }  /* auto */
+/*005855E0*/ int32_t CEngineAnimMesh::sub_5855E0(int32_t, int32_t) { relink_stub(CEngineAnimMesh::sub_5855E0); }  /* auto */
 /*00585ED0*/ void CEngineAnimMesh::sub_585ED0() { relink_stub(CEngineAnimMesh::sub_585ED0); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */

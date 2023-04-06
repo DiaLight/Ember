@@ -15,6 +15,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
   struct CBridge;  // ------------------------------------  /* auto */
   struct CCamera;  // ------------------------------------  /* auto */
   struct CEngineInterface;  // ---------------------------  /* auto */
+  struct CGameComponent;  // -----------------------------  /* auto */
   struct CPCEngineInterface;  // -------------------------  /* auto */
   struct GameAction;  // ---------------------------------  /* auto */
   struct MySurface;  // ----------------------------------  /* auto */
@@ -29,7 +30,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 #pragma pack(push, 1)  // --------------------------------  /* auto */
 struct CEngineInterface {  // ----------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
-/*  4*/ int32_t field_0;  // -----------------------------  /* auto */
+/*  4*/ CGameComponent *f0_pGameCom;  // -----------------  /* auto */
 /*  8*/ CBridge *f4_pCBridge;  // ------------------------  /* auto */
 /*  C*/ int16_t field_8;  // -----------------------------  /* auto */
 /*  E*/ int16_t field_A;  // -----------------------------  /* auto */

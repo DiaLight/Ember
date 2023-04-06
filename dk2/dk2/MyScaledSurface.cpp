@@ -15,7 +15,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*0057C420*/ MyScaledSurface *MyScaledSurface::constructor(MyDblNamedSurface *, int32_t) { relink_stub(MyScaledSurface::constructor); }  /* auto */
+/*0057C420*/ void MyScaledSurface::constructor(MyDblNamedSurface *, int32_t) { relink_stub(MyScaledSurface::constructor); }  /* auto */
 /*0057C700*/ void MyScaledSurface::resolve() { relink_stub(MyScaledSurface::resolve); }  /* auto */
 /*00581B80*/ MyCESurfHandle *MyScaledSurface::sub_581B80(int32_t, float, int32_t) { relink_stub(MyScaledSurface::sub_581B80); }  /* auto */
 // -------------------------------------------------------  /* auto */

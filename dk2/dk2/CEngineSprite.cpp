@@ -26,6 +26,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*0057F110*/ CEngineSprite *CEngineSprite::constructor2(const float *, int32_t, int32_t, int32_t, const float *, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(CEngineSprite::constructor2); }  /* auto */
 /*0057F1E0*/ CEngineSprite *CEngineSprite::constructor(int32_t, int32_t, float, float, int32_t, int32_t, int32_t, int32_t, float, float, float, int32_t, int32_t) { relink_stub(CEngineSprite::constructor); }  /* auto */
+/*0057F3D0*/ int32_t *CEngineSprite::fun_57F3D0(int32_t, int32_t) { relink_stub(CEngineSprite::fun_57F3D0); }  /* auto */
 /*0057F7E0*/ void CEngineSprite::appendToSceneObject2EList(int32_t) { relink_stub(CEngineSprite::appendToSceneObject2EList); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */

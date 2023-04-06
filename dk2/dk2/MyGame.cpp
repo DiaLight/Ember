@@ -22,8 +22,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005580E0*/ int32_t *MyGame::release() { relink_stub(MyGame::release); }  /* auto */
 /*005581B0*/ int32_t MyGame::prepareScreenEx(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(MyGame::prepareScreenEx); }  /* auto */
 /*005585C0*/ int32_t MyGame::fun_5585C0(int32_t) { relink_stub(MyGame::fun_5585C0); }  /* auto */
-/*005586E0*/ int32_t MyGame::sub_5586E0() { relink_stub(MyGame::sub_5586E0); }  /* auto */
-/*00558770*/ int32_t MyGame::sub_558770() { relink_stub(MyGame::sub_558770); }  /* auto */
+/*005586E0*/ int32_t MyGame::selectSurfToRender() { relink_stub(MyGame::selectSurfToRender); }  /* auto */
+/*00558770*/ int32_t MyGame::getSurf_unlock() { relink_stub(MyGame::getSurf_unlock); }  /* auto */
 /*005587C0*/ MyDdSurfaceEx *MyGame::getScreenSurf() { relink_stub(MyGame::getScreenSurf); }  /* auto */
 /*005587F0*/ void MyGame::prepareScreen() { relink_stub(MyGame::prepareScreen); }  /* auto */
 /*005588A0*/ int32_t *MyGame::surf_Blt() { relink_stub(MyGame::surf_Blt); }  /* auto */
@@ -31,7 +31,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00558BD0*/ int32_t MyGame::sub_558BD0() { relink_stub(MyGame::sub_558BD0); }  /* auto */
 /*00558E40*/ int32_t MyGame::collect3dDevices() { relink_stub(MyGame::collect3dDevices); }  /* auto */
 /*00558F40*/ int32_t MyGame::sub_558F40(int32_t, MyD3DevInfo *) { relink_stub(MyGame::sub_558F40); }  /* auto */
-/*00558F70*/ int32_t MyGame::createSurface(int32_t) { relink_stub(MyGame::createSurface); }  /* auto */
+/*00558F70*/ void MyGame::createSurface(int32_t) { relink_stub(MyGame::createSurface); }  /* auto */
 /*00559140*/ int32_t MyGame::sub_559140(const char *, int32_t, const char *, const char *) { relink_stub(MyGame::sub_559140); }  /* auto */
 /*00559670*/ int32_t MyGame::isNeedBlt() { relink_stub(MyGame::isNeedBlt); }  /* auto */
 /*00559690*/ int32_t MyGame::addWmActivateCallback(void (__cdecl *)(int32_t, int32_t, int32_t, const void *), const void *) { relink_stub(MyGame::addWmActivateCallback); }  /* auto */

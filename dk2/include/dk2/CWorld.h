@@ -225,7 +225,7 @@ struct CWorld {  // --------------------------------------  /* auto */
 /*1F0*/ virtual void v_loc_508D00(int32_t);  // = 00508D00  /* auto */
 /*1F4*/ virtual const void *v_loc_508D10();  // = 00508D10  /* auto */
 /*1F8*/ virtual const void *v_loc_508D40();  // = 00508D40  /* auto */
-/*1FC*/ virtual const void *v_loc_509090();  // = 00509090  /* auto */
+/*1FC*/ virtual BOOL v_loc_509090(int32_t, int32_t);  // = 00509090  /* auto */
 /*200*/ virtual const void *v_loc_509050();  // = 00509050  /* auto */
 /*204*/ virtual const void *v_loc_509010();  // = 00509010  /* auto */
 /*208*/ virtual int32_t v_sub_509200(int32_t, int32_t);  // = 00509200  /* auto */
@@ -334,6 +334,8 @@ struct CWorld {  // --------------------------------------  /* auto */
 /*00508A10*/ CWorld *constructor();  // ------------------  /* auto */
 /*00508C10*/ BOOL fun_508C10(int32_t);  // ---------------  /* auto */
 /*00508C60*/ __int16 fun_508C60();  // -------------------  /* auto */
+/*00509090*/ BOOL fun_509090(int32_t, int32_t);  // ------  /* auto */
+/*00509200*/ int32_t fun_509200(int32_t, int32_t);  // ---  /* auto */
 /*00509740*/ int32_t fun_509740();  // -------------------  /* auto */
 /*005099A0*/ int32_t create_objects();  // ---------------  /* auto */
 /*0050A2F0*/ char remove_objects();  // ------------------  /* auto */
@@ -354,7 +356,7 @@ struct CWorld {  // --------------------------------------  /* auto */
 /*00513870*/ int32_t GameActionHandler_N66__editor_load_level(int32_t);  /* auto */
 /*00516EC0*/ int32_t GameActionHandler_N1C(int32_t);  // -  /* auto */
 /*00517480*/ int32_t sub_517480(int32_t);  // ------------  /* auto */
-/*00517490*/ int32_t getWorldFrameIdx();  // -------------  /* auto */
+/*00517490*/ CWorld *getWorldFrameIdx();  // -------------  /* auto */
 /*0051A890*/ BOOL sub_51A890(int32_t *);  // -------------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

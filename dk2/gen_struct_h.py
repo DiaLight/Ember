@@ -108,8 +108,6 @@ def format_struct_h(
         if name.startswith(f"{struct.name}_"):
           name = name[len(struct.name) + 1:]
         name = format_function_name(name)
-        if name[0].isdigit():
-          raise Exception(f"/*{glob.va:08X}*/ {format_function(fun_t, name)};")
         yield f"/*{glob.va:08X}*/ {format_function(fun_t, name)};"
       yield empty_line
   yield from map(format_autogen_line, format_h_struct_head())

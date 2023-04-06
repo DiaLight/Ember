@@ -29,16 +29,16 @@ struct SceneObject2E {  // -------------------------------  /* auto */
 /*  0*/ MyCESurfHandle *surfh[4];  // --------------------  /* auto */
 /* 10*/ int32_t props_flags;  // -------------------------  /* auto */
 /* 14*/ int32_t props_reductionLevel_andFlags;  // -------  /* auto */
-/* 18*/ int16_t props_surfWidth8;  // --------------------  /* auto */
-/* 1A*/ int16_t props_surfHeight8;  // -------------------  /* auto */
+/* 18*/ int16_t lod__triangleCount;  // ------------------  /* auto */
+/* 1A*/ int16_t numVertsEx;  // --------------------------  /* auto */
 /* 1C*/ int8_t f1C;  // ----------------------------------  /* auto */
 /* 1D*/ int8_t surfhCount;  // ---------------------------  /* auto */
-/* 1E*/ char propsCount;  // -----------------------------  /* auto */
+/* 1E*/ int8_t propsCount;  // ---------------------------  /* auto */
 /* 1F*/ char trgObj;  // ---------------------------------  /* auto */
 /* 20*/ char f20;  // ------------------------------------  /* auto */
 /* 21*/ char f21;  // ------------------------------------  /* auto */
 /* 22*/ int8_t gap_22[2];  // ----------------------------  /* auto */
-/* 24*/ CEnginePrimitiveBase *onj__meshSprite;  // -------  /* auto */
+/* 24*/ CEnginePrimitiveBase *mesh;  // ------------------  /* auto */
 /* 28*/ SceneObject2E *next;  // -------------------------  /* auto */
 /* 2C*/ __int16 f2C_;  // --------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */

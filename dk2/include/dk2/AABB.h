@@ -38,6 +38,7 @@ struct AABB {  // ----------------------------------------  /* auto */
 /*005B6FD0*/ AABB *intersection(AABB *, AABB *);  // -----  /* auto */
 /*005B7050*/ BOOL isIntersects(AABB *);  // --------------  /* auto */
 /*005B7090*/ AABB *getOuter(AABB *, AABB *);  // ---------  /* auto */
+/*005B7100*/ int32_t sub_5B7100();  // -------------------  /* auto */
 /*005DC2D0*/ int32_t move(int32_t, int32_t);  // ---------  /* auto */
 /*0062EB80*/ AABB *charsDraw_AABB_copy(AABB *);  // ------  /* auto */
 // -------------------------------------------------------  /* auto */

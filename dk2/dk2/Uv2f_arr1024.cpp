@@ -1,7 +1,7 @@
-// -------------  id: instance_arr_007793A8  -------------  /* auto */
+// -------------  id: call_new_arr_0058A539  -------------  /* auto */
 // ---  warning: file is managed by gen_struct_cpp.py  ---  /* auto */
 // ---  you can edit code only in *_user_code blocks  ----  /* auto */
-#include <dk2/arr_7793A8_t.h>  // ------------------------  /* auto */
+#include <dk2/Uv2f_arr1024.h>  // ------------------------  /* auto */
 #include <dk2_globals.h>  // -----------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 using namespace dk2;  // ---------------------------------  /* auto */
@@ -16,4 +16,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */
+
+// user code
+
 // ---------------  end_of_block  ------------------------  /* auto */

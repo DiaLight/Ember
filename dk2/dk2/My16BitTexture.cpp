@@ -1,7 +1,7 @@
-// -------------  id: instance_arr_00769A78  -------------  /* auto */
+// -----------------  id: vtbl_00671E80  -----------------  /* auto */
 // ---  warning: file is managed by gen_struct_cpp.py  ---  /* auto */
 // ---  you can edit code only in *_user_code blocks  ----  /* auto */
-#include <dk2/arr_769A78_t.h>  // ------------------------  /* auto */
+#include <dk2/My16BitTexture.h>  // ----------------------  /* auto */
 #include <dk2_globals.h>  // -----------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 using namespace dk2;  // ---------------------------------  /* auto */
@@ -14,6 +14,12 @@ using namespace dk2;  // ---------------------------------  /* auto */
 
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
+// virtual functions  ------------------------------------  /* auto */
+// -------------------------------------------------------  /* auto */
+/*00671E80*/ void **My16BitTexture::vftable() { return dk2::My16BitTexture_vftable; }  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */
+
+// user code
+
 // ---------------  end_of_block  ------------------------  /* auto */

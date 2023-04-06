@@ -72,6 +72,7 @@ def format_relink_refs_cpp(
         name = name.replace('::', '_')
         if name.startswith(f"{struct.name}_"):
           name = name[len(struct.name)+1:]
+        name = format_function_name(name)
         yield f"  {{ 0x{glob.va:08X}, (funptr_t) &dk2::{struct.name}::{name}, \"{struct.name}::{name}\" }},"
     yield f"}};  // thiscall_function_relink_refs[]"
     yield empty_line

@@ -16,6 +16,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*0041C440*/ void Vec3f::copy(Vec3f *) { relink_stub(Vec3f::copy); }  /* auto */
+/*0041C4C0*/ Vec3f *Vec3f::substractAssign(Vec3f *, Vec3f *) { relink_stub(Vec3f::substractAssign); }  /* auto */
+/*0044E7B0*/ Vec3f *Vec3f::sumVec3f(Vec3f *, Vec3f *) { relink_stub(Vec3f::sumVec3f); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

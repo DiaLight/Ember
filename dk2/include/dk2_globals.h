@@ -27,7 +27,13 @@
 #include <dk2/FontObj.h>  // -----------------------------  /* auto */
 #include <dk2/GameActionRecord.h>  // --------------------  /* auto */
 #include <dk2/GameScoreRecord.h>  // ---------------------  /* auto */
+#include <dk2/Idx3b.h>  // -------------------------------  /* auto */
 #include <dk2/KeyEntry.h>  // ----------------------------  /* auto */
+#include <dk2/Mat3x3f.h>  // -----------------------------  /* auto */
+#include <dk2/My16BitTexture.h>  // ----------------------  /* auto */
+#include <dk2/My24BitTexture.h>  // ----------------------  /* auto */
+#include <dk2/My32BitTexture.h>  // ----------------------  /* auto */
+#include <dk2/My8BitTexture.h>  // -----------------------  /* auto */
 #include <dk2/MyCEngineSurfDesc.h>  // -------------------  /* auto */
 #include <dk2/MyDdSurfaceEx.h>  // -----------------------  /* auto */
 #include <dk2/MyDirectDraw.h>  // ------------------------  /* auto */
@@ -49,33 +55,41 @@
 #include <dk2/NameCfg.h>  // -----------------------------  /* auto */
 #include <dk2/Obj792D48.h>  // ---------------------------  /* auto */
 #include <dk2/Obj79DC68.h>  // ---------------------------  /* auto */
+#include <dk2/PathStr.h>  // -----------------------------  /* auto */
 #include <dk2/Pos2p.h>  // -------------------------------  /* auto */
+#include <dk2/RenderData.h>  // --------------------------  /* auto */
 #include <dk2/SceneObject2EList.h>  // -------------------  /* auto */
 #include <dk2/SceneObject30List.h>  // -------------------  /* auto */
+#include <dk2/ScreenObjectArr.h>  // ---------------------  /* auto */
 #include <dk2/StaticListeners.h>  // ---------------------  /* auto */
 #include <dk2/StubStruc6C3DA0.h>  // ---------------------  /* auto */
+#include <dk2/Vec3f.h>  // -------------------------------  /* auto */
+#include <dk2/Vec3f_arr1024.h>  // -----------------------  /* auto */
 #include <dk2/Vec3s.h>  // -------------------------------  /* auto */
 #include <dk2/VerticesData.h>  // ------------------------  /* auto */
 #include <dk2/WinEventHandlers.h>  // --------------------  /* auto */
 #include <dk2/WindowCfg.h>  // ---------------------------  /* auto */
 #include <dk2/arr_66C780_t.h>  // ------------------------  /* auto */
-#include <dk2/arr_769A78_t.h>  // ------------------------  /* auto */
-#include <dk2/arr_7793A8_t.h>  // ------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 namespace dk2 {  // --------------------------------------  /* auto */
   struct CEnginePrimitiveBase;  // -----------------------  /* auto */
   struct CTag;  // ---------------------------------------  /* auto */
   struct CWorld;  // -------------------------------------  /* auto */
   struct DxDeviceInfo;  // -------------------------------  /* auto */
+  struct Idx3s;  // --------------------------------------  /* auto */
   struct MyCESurfHandle;  // -----------------------------  /* auto */
   struct MyMeshResourceHolder;  // -----------------------  /* auto */
+  struct MyNBitTexture;  // ------------------------------  /* auto */
   struct MyTextFont;  // ---------------------------------  /* auto */
   struct MyTextText;  // ---------------------------------  /* auto */
+  struct SceneObject2E;  // ------------------------------  /* auto */
   struct SceneObject30;  // ------------------------------  /* auto */
   struct SurfHashList;  // -------------------------------  /* auto */
   struct SurfHashList2;  // ------------------------------  /* auto */
   struct ThreadCtx;  // ----------------------------------  /* auto */
   struct Triangle24;  // ---------------------------------  /* auto */
+  struct Uv2f;  // ---------------------------------------  /* auto */
+  struct Uv2f_arr1024;  // -------------------------------  /* auto */
 }  // namespace dk2  -------------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: head_user_code  ---------------  /* auto */
@@ -216,6 +230,10 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*00671E10*/ extern GUID &CLSID_IDirectDrawSurface2;  // -  /* auto */
 /*00671E20*/ extern GUID &CLSID_IDirectDraw4;  // --------  /* auto */
 /*00671E30*/ extern GUID &CLSID_IDirectDraw2;  // --------  /* auto */
+/*00671E40*/ extern void *(&My8BitTexture_vftable)[16];     /* auto */
+/*00671E80*/ extern void *(&My16BitTexture_vftable)[16];    /* auto */
+/*00671EC0*/ extern void *(&My24BitTexture_vftable)[16];    /* auto */
+/*00671F00*/ extern void *(&My32BitTexture_vftable)[16];    /* auto */
 /*00671F40*/ extern void *(&FPUControlWord_vftable)[1];     /* auto */
 /*00671F80*/ extern void *(&DiscFileBase_vftable)[9];       /* auto */
 /*006722D0*/ extern void *(&MyStr_vftable)[11];  // ------  /* auto */
@@ -467,10 +485,18 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0075B418*/ extern int8_t &Data;  // --------------------  /* auto */
 /*0075B468*/ extern CSoundSystem *&MySound_ptr;  // ------  /* auto */
 /*0075B880*/ extern CSoundSystem &CSoundSystem_instance;    /* auto */
-/*0075BA60*/ extern wchar_t &String;  // -----------------  /* auto */
 /*0075CA68*/ extern int32_t &g2_sceneWidth;  // ----------  /* auto */
+/*00760A98*/ extern Vec3f &g_vec_760A98;  // -------------  /* auto */
+/*00760AA8*/ extern float &g_cullFrom;  // ---------------  /* auto */
+/*00760AB8*/ extern Vec3f &g_vec_760AB8;  // -------------  /* auto */
+/*00760AC4*/ extern Mat3x3f &g_mat_760AC4;  // -----------  /* auto */
 /*00760B0C*/ extern IDirectDrawGammaControl *&dd_gamma_control;  /* auto */
+/*00760B18*/ extern Vec3f &g_vec_760B18;  // -------------  /* auto */
+/*00760B28*/ extern Vec3f &g_vec_760B28;  // -------------  /* auto */
+/*00760B38*/ extern Vec3f &g_vec_760B38;  // -------------  /* auto */
 /*00760B44*/ extern int32_t &g2_sceneHeight;  // ---------  /* auto */
+/*00760B4C*/ extern float &g_cullTo;  // -----------------  /* auto */
+/*00760B70*/ extern Vec3f &g_vec_760B70;  // -------------  /* auto */
 /*00764B90*/ extern MyDirectDraw &mydd_main;  // ---------  /* auto */
 /*00764BE8*/ extern DDGAMMARAMP &gamma_ramp;  // ---------  /* auto */
 /*00765224*/ extern CEnginePrimitiveBase *&g_pCEngine2DPrimitive;  /* auto */
@@ -483,13 +509,14 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*00766658*/ extern MyMeshResourceHolder *&g_meshHolderList_first;  /* auto */
 /*00766660*/ extern MyStringHashMap_MyMeshResourceHolder &MyStringHashMap_MyMeshResourceHolder_instance;  /* auto */
 /*00766A70*/ extern MyMeshResourceHolder *&g_meshHolderList_last;  /* auto */
-/*00769A78*/ extern arr_769A78_t (&arr_769A78)[256];  // -  /* auto */
+/*00769A78*/ extern ScreenObjectArr &ScreenObjectArr_instance;  /* auto */
 /*0076AA80*/ extern Vec3s (&DrawTriangleList_lpwIndices)[1024];  /* auto */
 /*0076C280*/ extern MyEntryBuf_Triangle24 &MyEntryBuf_Triangle24_instance;  /* auto */
 /*0076C28C*/ extern int32_t &g_flexibleVertices;  // -----  /* auto */
 /*0076C294*/ extern int32_t &mgsr_currentDrawFlags;  // --  /* auto */
 /*0076C298*/ extern VerticesData (&g_vertices)[2];  // ---  /* auto */
 /*0076C2B8*/ extern MyDirectDraw &mydd_triangles;  // ----  /* auto */
+/*0076C2E8*/ extern Idx3s *&g_lpwTrianglesIndices;  // ---  /* auto */
 /*0076C2F0*/ extern SceneObject30 *&lastSceneObject;  // -  /* auto */
 /*0076C2F8*/ extern int32_t (&sceneObj2E_f21_to_triangleIndices)[1023];  /* auto */
 /*0076D300*/ extern MyEntryBuf_uint16 &MyEntryBuf_uint16_indices_instance;  /* auto */
@@ -497,12 +524,24 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0076F318*/ extern MyEntryBuf_Tiangle34 &MyEntryBuf_Triangle34_instance;  /* auto */
 /*0076F328*/ extern MyEntryBuf_Vertex18 &MyEntryBuf_Vertex18_instance;  /* auto */
 /*0076F33C*/ extern int32_t &Triangle34_count;  // -------  /* auto */
-/*00779358*/ extern int32_t (__cdecl *&__renderFun)(int32_t, int32_t, int32_t);  /* auto */
-/*007793A8*/ extern arr_7793A8_t (&g_wtfStruc)[1024];       /* auto */
-/*0077F3F0*/ extern int32_t &mydd_cpy2_buf;  // ----------  /* auto */
+/*0076F358*/ extern RenderData (&RenderData_instance_arr)[1024];  /* auto */
+/*00779358*/ extern int32_t (__cdecl *&__renderFun)(int32_t, Vec3f *, Uv2f *);  /* auto */
+/*00779394*/ extern int32_t (__cdecl *&g_fun_779394)(int32_t, Vec3f *);  /* auto */
+/*00779398*/ extern int32_t (__cdecl *&g_fun_779398)(int32_t, Vec3f *);  /* auto */
+/*007793A8*/ extern Vec3f_arr1024 (&g_vectors)[2];  // ---  /* auto */
+/*0077F3A8*/ extern Mat3x3f &g_mat_77F3A8;  // -----------  /* auto */
+/*0077F3EC*/ extern SceneObject2E *&g_pSceneObject2E;       /* auto */
+/*0077F3F0*/ extern Uv2f_arr1024 *&Uv2f_arr_instance;       /* auto */
+/*0077F40C*/ extern Mat3x3f &g_mat_77F40C;  // -----------  /* auto */
+/*0077F458*/ extern Mat3x3f &g_mat_77F458;  // -----------  /* auto */
 /*0077F480*/ extern float (&g_padNorm_x8)[4];  // --------  /* auto */
+/*0077F498*/ extern Mat3x3f &g_mat_77F498;  // -----------  /* auto */
+/*0077F4C0*/ extern Vec3f &g_vec_77F4C0;  // -------------  /* auto */
+/*0077F4E4*/ extern int32_t (__cdecl *&__addTriangleFun)(int32_t, int32_t, int32_t);  /* auto */
 /*0077F4F8*/ extern int8_t (&g_idxFlags)[1024];  // ------  /* auto */
-/*0077F8F8*/ extern MyDirectDraw &mydd_cpy2;  // ---------  /* auto */
+/*0077F8F8*/ extern MyDirectDraw &mydd_uvs;  // ----------  /* auto */
+/*0077F938*/ extern Idx3b (&g_Idx3b_arr_instance)[1024];    /* auto */
+/*00780960*/ extern int32_t (&g_MyEntryBuf_MyScaledSurface_idxs)[64];  /* auto */
 /*007820A8*/ extern SceneObject2EList &SceneObject2EList_instance;  /* auto */
 /*007820B8*/ extern SceneObject30List &SceneObject30List_instance;  /* auto */
 /*007820C4*/ extern int32_t &objectsToDraw_count;  // ----  /* auto */
@@ -520,7 +559,11 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*00792E62*/ extern MyCEngineSurfDesc &MyCEngineSurfDesc_unk16_instance;  /* auto */
 /*00792EC8*/ extern int32_t (&sizeHashTable_257)[257];      /* auto */
 /*007932CC*/ extern MyCESurfHandle *&g_surfh_last;  // ---  /* auto */
+/*007932F0*/ extern const char *(&g_ppaths_7932F0)[32];     /* auto */
 /*00793388*/ extern CPCEngineInterface &CPCEngineInterface_instance_start;  /* auto */
+/*007935C0*/ extern PathStr &g_paths_7935C0;  // ---------  /* auto */
+/*00795640*/ extern Mat3x3f (&g_mat_arr_795640)[4];  // --  /* auto */
+/*007956D0*/ extern Vec3f (&g_vec_arr_7956D0)[4];  // ----  /* auto */
 /*00795700*/ extern CBridge *&g_pCBridge;  // ------------  /* auto */
 /*00796170*/ extern int32_t (&mpeg2_dc_dct_pred)[3];  // -  /* auto */
 /*00797B74*/ extern const void *&mgsr_buf_25635;  // -----  /* auto */
@@ -528,8 +571,13 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0079CF90*/ extern MyInputManagerCb &MyInputManagerCb_instance;  /* auto */
 /*0079D020*/ extern HWND__ *&dd_hWnd;  // ----------------  /* auto */
 /*0079D038*/ extern AABB &g_renderSurfAabb;  // ----------  /* auto */
+/*0079D048*/ extern MyNBitTexture *&pMyNBitTexture;  // --  /* auto */
 /*0079D050*/ extern AABB &g_surfAabb;  // ----------------  /* auto */
 /*0079D060*/ extern MySurface *&g_myRenderSurface;  // ---  /* auto */
+/*0079D068*/ extern My8BitTexture &My8BitTexture_instance;  /* auto */
+/*0079D070*/ extern My16BitTexture &My16BitTexture_instance;  /* auto */
+/*0079D074*/ extern My24BitTexture &My24BitTexture_instance;  /* auto */
+/*0079D078*/ extern My32BitTexture &My32BitTexture_instance;  /* auto */
 /*0079D0A8*/ extern char (&PathName)[300];  // -----------  /* auto */
 /*0079D1D4*/ extern IDirectDrawSurface *&lpDDAttachedSurface;  /* auto */
 /*0079D200*/ extern MyDdSurfaceEx &g_fullscreen_ddSurf;     /* auto */

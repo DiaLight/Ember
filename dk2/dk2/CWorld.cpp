@@ -142,7 +142,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*1F0*/ void CWorld::v_loc_508D00(int32_t) { relink_stub(CWorld::v_loc_508D00); }  /* auto */
 /*1F4*/ const void *CWorld::v_loc_508D10() { relink_stub(CWorld::v_loc_508D10); }  /* auto */
 /*1F8*/ const void *CWorld::v_loc_508D40() { relink_stub(CWorld::v_loc_508D40); }  /* auto */
-/*1FC*/ const void *CWorld::v_loc_509090() { relink_stub(CWorld::v_loc_509090); }  /* auto */
+/*1FC*/ BOOL CWorld::v_loc_509090(int32_t, int32_t) { relink_stub(CWorld::v_loc_509090); }  /* auto */
 /*200*/ const void *CWorld::v_loc_509050() { relink_stub(CWorld::v_loc_509050); }  /* auto */
 /*204*/ const void *CWorld::v_loc_509010() { relink_stub(CWorld::v_loc_509010); }  /* auto */
 /*208*/ int32_t CWorld::v_sub_509200(int32_t, int32_t) { relink_stub(CWorld::v_sub_509200); }  /* auto */
@@ -253,6 +253,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00508A10*/ CWorld *CWorld::constructor() { relink_stub(CWorld::constructor); }  /* auto */
 /*00508C10*/ BOOL CWorld::fun_508C10(int32_t) { relink_stub(CWorld::fun_508C10); }  /* auto */
 /*00508C60*/ __int16 CWorld::fun_508C60() { relink_stub(CWorld::fun_508C60); }  /* auto */
+/*00509090*/ BOOL CWorld::fun_509090(int32_t, int32_t) { relink_stub(CWorld::fun_509090); }  /* auto */
+/*00509200*/ int32_t CWorld::fun_509200(int32_t, int32_t) { relink_stub(CWorld::fun_509200); }  /* auto */
 /*00509740*/ int32_t CWorld::fun_509740() { relink_stub(CWorld::fun_509740); }  /* auto */
 /*005099A0*/ int32_t CWorld::create_objects() { relink_stub(CWorld::create_objects); }  /* auto */
 /*0050A2F0*/ char CWorld::remove_objects() { relink_stub(CWorld::remove_objects); }  /* auto */
@@ -273,7 +275,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00513870*/ int32_t CWorld::GameActionHandler_N66__editor_load_level(int32_t) { relink_stub(CWorld::GameActionHandler_N66__editor_load_level); }  /* auto */
 /*00516EC0*/ int32_t CWorld::GameActionHandler_N1C(int32_t) { relink_stub(CWorld::GameActionHandler_N1C); }  /* auto */
 /*00517480*/ int32_t CWorld::sub_517480(int32_t) { relink_stub(CWorld::sub_517480); }  /* auto */
-/*00517490*/ int32_t CWorld::getWorldFrameIdx() { relink_stub(CWorld::getWorldFrameIdx); }  /* auto */
+/*00517490*/ CWorld *CWorld::getWorldFrameIdx() { relink_stub(CWorld::getWorldFrameIdx); }  /* auto */
 /*0051A890*/ BOOL CWorld::sub_51A890(int32_t *) { relink_stub(CWorld::sub_51A890); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */

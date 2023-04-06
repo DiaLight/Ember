@@ -11,6 +11,8 @@
 #include <ddraw.h>  // -----------------------------------  /* auto */
 #include <d3d.h>  // -------------------------------------  /* auto */
 #include <dk2/CEngineWorldPrimitive.h>  // ---------------  /* auto */
+#include <dk2/Mat3x3f.h>  // -----------------------------  /* auto */
+#include <dk2/Vec3f.h>  // -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 namespace dk2 {  // --------------------------------------  /* auto */
   struct CEngineDynamicMesh;  // -------------------------  /* auto */
@@ -26,24 +28,23 @@ namespace dk2 {  // --------------------------------------  /* auto */
 #pragma pack(push, 1)  // --------------------------------  /* auto */
 struct CEngineDynamicMesh : CEngineWorldPrimitive {  // --  /* auto */
 // -------------------------------------------------------  /* auto */
-/*  8*/ int32_t field_4;  // -----------------------------  /* auto */
-/*  C*/ int32_t field_8;  // -----------------------------  /* auto */
-/* 10*/ int32_t field_C;  // -----------------------------  /* auto */
-/* 14*/ int8_t field_10[36];  // -------------------------  /* auto */
+/*  8*/ Vec3f field_4;  // -------------------------------  /* auto */
+/* 14*/ Mat3x3f f10_mat;  // -----------------------------  /* auto */
 /* 38*/ int32_t field_34;  // ----------------------------  /* auto */
-/* 3C*/ double field_38;  // -----------------------------  /* auto */
-/* 44*/ double field_40;  // -----------------------------  /* auto */
+/* 3C*/ Vec3f f38_vec;  // -------------------------------  /* auto */
+/* 48*/ int32_t field_44;  // ----------------------------  /* auto */
 /* 4C*/ int32_t field_48;  // ----------------------------  /* auto */
 /* 50*/ int32_t field_4C;  // ----------------------------  /* auto */
 /* 54*/ int32_t field_50;  // ----------------------------  /* auto */
 /* 58*/ float field_54;  // ------------------------------  /* auto */
-/* 5C*/ int8_t gap_5C[8];  // ----------------------------  /* auto */
+/* 5C*/ int32_t f58_pTrgObj;  // -------------------------  /* auto */
+/* 60*/ int32_t field_5C;  // ----------------------------  /* auto */
 /* 64*/ int32_t field_60;  // ----------------------------  /* auto */
 /* 68*/ int32_t field_64;  // ----------------------------  /* auto */
 /* 6C*/ int32_t field_68;  // ----------------------------  /* auto */
-/* 70*/ int8_t gap_70[4];  // ----------------------------  /* auto */
+/* 70*/ int32_t field_6C;  // ----------------------------  /* auto */
 /* 74*/ int32_t field_70;  // ----------------------------  /* auto */
-/* 78*/ int8_t gap_78[4];  // ----------------------------  /* auto */
+/* 78*/ int32_t field_74;  // ----------------------------  /* auto */
 /* 7C*/ char field_78;  // -------------------------------  /* auto */
 /* 7D*/ char field_79;  // -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
@@ -54,15 +55,16 @@ struct CEngineDynamicMesh : CEngineWorldPrimitive {  // --  /* auto */
 /*---*/ // super CEngine2DPrimitive  ---------------------  /* auto */
 /*---*/ // super CEngineWorldPrimitive  ------------------  /* auto */
 /*  8*/ // virtual void v_appendToSceneObject2EList(int32_t);  // = 00580EC0  /* auto */
-/*  C*/ // virtual int32_t v_fun_57F1C0(int32_t, int32_t, int32_t, int32_t *, int32_t);  // = 00582D30  /* auto */
+/*  C*/ // virtual int32_t v_fun_57F1C0(float, float, int32_t, int32_t *, int32_t);  // = 00582D30  /* auto */
 /* 10*/ // virtual int32_t *v_fun_5785E0(int32_t *, int32_t);  // = 00580E40  /* auto */
 /* 14*/ // virtual int32_t v_f14();  // = 00580DF0  ------  /* auto */
 /* 18*/ // virtual int32_t v_f18(int32_t);  // = 00580E10   /* auto */
 /*---*/ // CEngineDynamicMesh  ---------------------------  /* auto */
 /* 1C*/ virtual void v_ret_void_1args(int32_t);  // = 005671E0  /* auto */
 // -------------------------------------------------------  /* auto */
-/*005801E0*/ CEngineDynamicMesh *constructor2(int32_t, int32_t, float, float, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
+/*005801E0*/ CEngineDynamicMesh *constructor2(int32_t, int32_t, float, float, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, Vec3f *, int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*00580480*/ CEngineDynamicMesh *constructor(int32_t, int32_t, float, float, float, float, float, float, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, char, int32_t, int32_t);  /* auto */
+/*00580EC0*/ void appendToSceneObject2EList(int32_t);       /* auto */
 /*00581BE0*/ void sub_581BE0(int32_t, SceneObject2E *);     /* auto */
 /*00582180*/ void fun_582180(float, SceneObject2E *);       /* auto */
 /*00582290*/ void fun_582290(int32_t, SceneObject2E *);     /* auto */

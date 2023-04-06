@@ -14,6 +14,9 @@ using namespace dk2;  // ---------------------------------  /* auto */
 
 // ---------------  end_of_block  ------------------------  /* auto */
 #pragma optimize( "", off )  // --------------------------  /* auto */
+// member functions  -------------------------------------  /* auto */
+/*0057ECE0*/ void MyMeshResourceHolder::markUsed() { relink_stub(MyMeshResourceHolder::markUsed); }  /* auto */
+// -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */
 

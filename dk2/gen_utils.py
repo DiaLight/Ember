@@ -272,6 +272,8 @@ def format_function_name(name: str) -> str:
   if name[0] == '?':
     print(name)
     name = name[1:name.index('@')]
+  if name[0].isdigit():
+    name = f"fun_{name}"
   return name
 
 

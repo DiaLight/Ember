@@ -14,7 +14,10 @@
 // -------------------------------------------------------  /* auto */
 namespace dk2 {  // --------------------------------------  /* auto */
   struct CEngineStaticMesh;  // --------------------------  /* auto */
+  struct Mat3x3f;  // ------------------------------------  /* auto */
+  struct Obj57AD20;  // ----------------------------------  /* auto */
   struct SceneObject2E;  // ------------------------------  /* auto */
+  struct Vec3f;  // --------------------------------------  /* auto */
 }  // namespace dk2  -------------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: head_user_code  ---------------  /* auto */
@@ -26,7 +29,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 #pragma pack(push, 1)  // --------------------------------  /* auto */
 struct CEngineStaticMesh : CEnginePrimitiveBase {  // ----  /* auto */
 // -------------------------------------------------------  /* auto */
-/*  8*/ int32_t *v14;  // --------------------------------  /* auto */
+/*  8*/ Obj57AD20 *v14;  // ------------------------------  /* auto */
 /*  C*/ int8_t gap_C[4];  // -----------------------------  /* auto */
 /* 10*/ int32_t a5;  // ----------------------------------  /* auto */
 /* 14*/ int8_t gap_14[8];  // ----------------------------  /* auto */
@@ -50,7 +53,8 @@ struct CEngineStaticMesh : CEnginePrimitiveBase {  // ----  /* auto */
 /* 18*/ virtual int32_t v_ret_0_1args(int32_t);  // = 00628E30  /* auto */
 /* 1C*/ virtual int32_t v_fun_586130(int32_t);  // = 00586130  /* auto */
 // -------------------------------------------------------  /* auto */
-/*00585F90*/ CEngineStaticMesh *constructor(int32_t, int32_t, int32_t, int32_t, const float *, int32_t, char, int32_t *);  /* auto */
+/*00585F90*/ CEngineStaticMesh *constructor(Vec3f *, Mat3x3f *, int32_t, int32_t, Vec3f *, int32_t, char, int32_t *);  /* auto */
+/*00586130*/ int32_t fun_586130(int32_t);  // ------------  /* auto */
 /*00586150*/ int32_t *fun_586150(int32_t, SceneObject2E *);  /* auto */
 /*00586190*/ int32_t appendToSceneObject2EList(int32_t);    /* auto */
 // -------------------------------------------------------  /* auto */

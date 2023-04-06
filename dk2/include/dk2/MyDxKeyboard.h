@@ -41,7 +41,6 @@ struct MyDxKeyboard : MyDirectInput {  // ----------------  /* auto */
 /*---*/ // MyDxKeyboard  ---------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005DE050*/ MyDxKeyboard *constructor();  // ------------  /* auto */
-/*005DE260*/ int32_t processKeyboardData(int32_t);  // ---  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

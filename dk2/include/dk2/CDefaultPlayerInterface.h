@@ -329,7 +329,7 @@ struct CDefaultPlayerInterface {  // ---------------------  /* auto */
 /*00422F60*/ void sub_422F60(int32_t, int32_t);  // ------  /* auto */
 /*00423A80*/ int32_t sub_423A80(int32_t, int32_t *, int16_t, int16_t, int32_t, int32_t);  /* auto */
 /*0042C390*/ void sub_42C390();  // ----------------------  /* auto */
-/*0042C7D0*/ int32_t sub_42C7D0(int32_t, int32_t, int32_t, const char *, int32_t *);  /* auto */
+/*0042C7D0*/ void sub_42C7D0(int32_t, int32_t, int32_t, const char *, int32_t *);  /* auto */
 /*0042CAB0*/ int32_t whatEverFont_42CAB0(RtGuiView *, int32_t, int32_t, const wchar_t *, PixelMask *, int32_t, int32_t, FontObj, int32_t);  /* auto */
 /*0042CB60*/ int32_t sub_42CB60(RtGuiView *, int32_t, int32_t, const char *, PixelMask *, int32_t, int32_t, FontObj, int32_t);  /* auto */
 /*0042CDF0*/ int32_t createSurfacesForView_42CDF0(RtGuiView *);  /* auto */

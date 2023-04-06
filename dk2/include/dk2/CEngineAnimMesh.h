@@ -11,6 +11,8 @@
 #include <ddraw.h>  // -----------------------------------  /* auto */
 #include <d3d.h>  // -------------------------------------  /* auto */
 #include <dk2/CEngineWorldPrimitive.h>  // ---------------  /* auto */
+#include <dk2/Mat3x3f.h>  // -----------------------------  /* auto */
+#include <dk2/Vec3f.h>  // -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 namespace dk2 {  // --------------------------------------  /* auto */
   struct CEngineAnimMesh;  // ----------------------------  /* auto */
@@ -26,28 +28,26 @@ namespace dk2 {  // --------------------------------------  /* auto */
 #pragma pack(push, 1)  // --------------------------------  /* auto */
 struct CEngineAnimMesh : CEngineWorldPrimitive {  // -----  /* auto */
 // -------------------------------------------------------  /* auto */
-/*  8*/ float field_4;  // -------------------------------  /* auto */
-/*  C*/ float field_8;  // -------------------------------  /* auto */
-/* 10*/ float field_C;  // -------------------------------  /* auto */
-/* 14*/ int8_t field_10[36];  // -------------------------  /* auto */
+/*  8*/ Vec3f field_4;  // -------------------------------  /* auto */
+/* 14*/ Mat3x3f f10_matrix;  // --------------------------  /* auto */
 /* 38*/ double field_34;  // -----------------------------  /* auto */
-/* 40*/ double field_3C;  // -----------------------------  /* auto */
-/* 48*/ double field_44;  // -----------------------------  /* auto */
+/* 40*/ Vec3f field_3C;  // ------------------------------  /* auto */
+/* 4C*/ int32_t f48_flags;  // ---------------------------  /* auto */
 /* 50*/ int32_t field_4C;  // ----------------------------  /* auto */
 /* 54*/ int32_t field_50;  // ----------------------------  /* auto */
-/* 58*/ int32_t field_54;  // ----------------------------  /* auto */
-/* 5C*/ int8_t gap_5C[4];  // ----------------------------  /* auto */
+/* 58*/ float field_54;  // ------------------------------  /* auto */
+/* 5C*/ int32_t field_58;  // ----------------------------  /* auto */
 /* 60*/ float field_5C;  // ------------------------------  /* auto */
 /* 64*/ double field_60;  // -----------------------------  /* auto */
-/* 6C*/ int8_t gap_6C[4];  // ----------------------------  /* auto */
+/* 6C*/ int32_t field_68;  // ----------------------------  /* auto */
 /* 70*/ int32_t field_6C;  // ----------------------------  /* auto */
-/* 74*/ int32_t field_70;  // ----------------------------  /* auto */
-/* 78*/ int32_t field_74;  // ----------------------------  /* auto */
-/* 7C*/ int8_t gap_7C[4];  // ----------------------------  /* auto */
+/* 74*/ int32_t f70_surfIdx;  // -------------------------  /* auto */
+/* 78*/ float field_74;  // ------------------------------  /* auto */
+/* 7C*/ int32_t field_78;  // ----------------------------  /* auto */
 /* 80*/ int32_t field_7C;  // ----------------------------  /* auto */
-/* 84*/ int8_t gap_84[4];  // ----------------------------  /* auto */
+/* 84*/ int32_t field_80;  // ----------------------------  /* auto */
 /* 88*/ char field_84;  // -------------------------------  /* auto */
-/* 89*/ char field_85;  // -------------------------------  /* auto */
+/* 89*/ int8_t f85_count;  // ----------------------------  /* auto */
 /* 8A*/ int8_t gap_8A[14];  // ---------------------------  /* auto */
 /* 98*/ char field_94;  // -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
@@ -58,7 +58,7 @@ struct CEngineAnimMesh : CEngineWorldPrimitive {  // -----  /* auto */
 /*---*/ // super CEngine2DPrimitive  ---------------------  /* auto */
 /*---*/ // super CEngineWorldPrimitive  ------------------  /* auto */
 /*  8*/ // virtual void v_appendToSceneObject2EList(int32_t);  // = 00584900  /* auto */
-/*  C*/ // virtual int32_t v_fun_57F1C0(int32_t, int32_t, int32_t, int32_t *, int32_t);  // = 00585AD0  /* auto */
+/*  C*/ // virtual int32_t v_fun_57F1C0(float, float, int32_t, int32_t *, int32_t);  // = 00585AD0  /* auto */
 /* 10*/ // virtual int32_t *v_fun_5785E0(int32_t *, int32_t);  // = 005835E0  /* auto */
 /* 14*/ // virtual int32_t v_f14();  // = 00583680  ------  /* auto */
 /* 18*/ // virtual int32_t v_f18(int32_t);  // = 005783A0   /* auto */
@@ -70,6 +70,8 @@ struct CEngineAnimMesh : CEngineWorldPrimitive {  // -----  /* auto */
 /*00583CA0*/ void sub_583CA0(float, SceneObject2E *);       /* auto */
 /*00583DC0*/ void sub_583DC0(int32_t, SceneObject2E *);     /* auto */
 /*005848B0*/ void fun_5848B0(int32_t, SceneObject2E *);     /* auto */
+/*00584900*/ void appendToSceneObject2EList(int32_t);       /* auto */
+/*005855E0*/ int32_t sub_5855E0(int32_t, int32_t);  // ---  /* auto */
 /*00585ED0*/ void sub_585ED0();  // ----------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

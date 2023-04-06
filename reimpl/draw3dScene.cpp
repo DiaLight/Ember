@@ -103,7 +103,7 @@ void reimpl_draw3dScene() {
                 holders[j] = surfh->curReduction->holder_parent;
             }
             dk2::SceneObject30 *obj30 = SceneObject30_findFromO2E(obj2E, holders);
-            if (obj30 && (obj2E.props_surfWidth8 + obj30->props_surfWidth8_triangles) > 256) {
+            if (obj30 && (obj2E.lod__triangleCount + obj30->props_surfWidth8_triangles) > 256) {
                 obj30 = nullptr;
             }
             if (!obj30) {
@@ -116,14 +116,14 @@ void reimpl_draw3dScene() {
 
             obj2E.next = obj30->pobj2E;
             obj30->pobj2E = &obj2E;
-            obj30->props_surfWidth8_triangles += obj2E.props_surfWidth8;
-            obj30->props_surfHeight8_vertices += obj2E.props_surfHeight8;
+            obj30->props_surfWidth8_triangles += obj2E.lod__triangleCount;
+            obj30->props_surfHeight8_vertices += obj2E.numVertsEx;
         }
     }
     for (dk2::SceneObject30 *obj30 = last; obj30; obj30 = obj30->next) {
         addObjectToScene(obj30);
         for (auto *obj2E = obj30->pobj2E; obj2E; obj2E = obj2E->next) {
-            obj2E->onj__meshSprite->v___addRenderObj((unsigned __int16) obj2E->f2C_, obj2E);
+            obj2E->mesh->v___addRenderObj((unsigned __int16) obj2E->f2C_, obj2E);
         }
         drawTexToSurfTriangles();
         obj30->holders[0]->SceneObject30 = nullptr;
