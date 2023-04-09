@@ -557,6 +557,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*006CD0F0*/ int32_t &dk2::myDdSurface_end = _myDdSurface_end;  /* auto */
 /*--------*/ relink_glob MyDdSurfaceEx _my_surf;  // -----  /* auto */
 /*006CE850*/ MyDdSurfaceEx &dk2::my_surf = _my_surf;  // -  /* auto */
+/*--------*/ relink_glob int32_t _idx;  // ---------------  /* auto */
+/*006CE8A0*/ int32_t &dk2::idx = _idx;  // ---------------  /* auto */
 /*--------*/ relink_glob CDefaultPlayerInterface _CDefaultPlayerInterface_instance;  /* auto */
 /*006CEA10*/ CDefaultPlayerInterface &dk2::CDefaultPlayerInterface_instance = _CDefaultPlayerInterface_instance;  /* auto */
 /*--------*/ relink_glob wchar_t _S2;  // ----------------  /* auto */
@@ -747,12 +749,32 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00760B44*/ int32_t &dk2::g2_sceneHeight = _g2_sceneHeight;  /* auto */
 /*--------*/ relink_glob float _g_cullTo;  // ------------  /* auto */
 /*00760B4C*/ float &dk2::g_cullTo = _g_cullTo;  // -------  /* auto */
+/*--------*/ relink_glob int32_t _g_sceneWidth;  // ------  /* auto */
+/*00760B54*/ int32_t &dk2::g_sceneWidth = _g_sceneWidth;    /* auto */
+/*--------*/ relink_glob int32_t _g2_sceneLeft;  // ------  /* auto */
+/*00760B5C*/ int32_t &dk2::g2_sceneLeft = _g2_sceneLeft;    /* auto */
 /*--------*/ relink_glob Vec3f _g_vec_760B70;  // --------  /* auto */
 /*00760B70*/ Vec3f &dk2::g_vec_760B70 = _g_vec_760B70;      /* auto */
-/*--------*/ relink_glob MyDirectDraw _mydd_main;  // ----  /* auto */
-/*00764B90*/ MyDirectDraw &dk2::mydd_main = _mydd_main;     /* auto */
+/*--------*/ relink_glob int32_t _g_sceneHeight;  // -----  /* auto */
+/*00760B88*/ int32_t &dk2::g_sceneHeight = _g_sceneHeight;  /* auto */
+/*--------*/ relink_glob MyDirectDraw _mydd_scene;  // ---  /* auto */
+/*00764B90*/ MyDirectDraw &dk2::mydd_scene = _mydd_scene;   /* auto */
+/*--------*/ relink_glob int32_t _g2_sceneTop;  // -------  /* auto */
+/*00764BBC*/ int32_t &dk2::g2_sceneTop = _g2_sceneTop;      /* auto */
+/*--------*/ relink_glob int32_t _EngineTestCross_a31x400_idx;  /* auto */
+/*00764BC0*/ int32_t &dk2::EngineTestCross_a31x400_idx = _EngineTestCross_a31x400_idx;  /* auto */
+/*--------*/ relink_glob int32_t _EngineTestLight_a31x400_idx;  /* auto */
+/*00764BC4*/ int32_t &dk2::EngineTestLight_a31x400_idx = _EngineTestLight_a31x400_idx;  /* auto */
+/*--------*/ relink_glob int32_t _EngineTextureWhite_a31x400_idx;  /* auto */
+/*00764BC8*/ int32_t &dk2::EngineTextureWhite_a31x400_idx = _EngineTextureWhite_a31x400_idx;  /* auto */
 /*--------*/ relink_glob DDGAMMARAMP _gamma_ramp;  // ----  /* auto */
 /*00764BE8*/ DDGAMMARAMP &dk2::gamma_ramp = _gamma_ramp;    /* auto */
+/*--------*/ relink_glob char _g_isCurDdSurfLost;  // ----  /* auto */
+/*007651F4*/ char &dk2::g_isCurDdSurfLost = _g_isCurDdSurfLost;  /* auto */
+/*--------*/ relink_glob int32_t _is3dInitialized;  // ---  /* auto */
+/*007651FC*/ int32_t &dk2::is3dInitialized = _is3dInitialized;  /* auto */
+/*--------*/ relink_glob int32_t _mgsr_initialized;  // --  /* auto */
+/*00765200*/ int32_t &dk2::mgsr_initialized = _mgsr_initialized;  /* auto */
 /*--------*/ relink_glob CEnginePrimitiveBase *_g_pCEngine2DPrimitive;  /* auto */
 /*00765224*/ CEnginePrimitiveBase *&dk2::g_pCEngine2DPrimitive = _g_pCEngine2DPrimitive;  /* auto */
 /*--------*/ relink_glob MyStringHashMap_MyScaledSurface _MyStringHashMap_MyScaledSurface_instance;  /* auto */
@@ -773,6 +795,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00766660*/ MyStringHashMap_MyMeshResourceHolder &dk2::MyStringHashMap_MyMeshResourceHolder_instance = _MyStringHashMap_MyMeshResourceHolder_instance;  /* auto */
 /*--------*/ relink_glob MyMeshResourceHolder *_g_meshHolderList_last;  /* auto */
 /*00766A70*/ MyMeshResourceHolder *&dk2::g_meshHolderList_last = _g_meshHolderList_last;  /* auto */
+/*--------*/ relink_glob Vec3f _g_vec_766A78;  // --------  /* auto */
+/*00766A78*/ Vec3f &dk2::g_vec_766A78 = _g_vec_766A78;      /* auto */
 /*--------*/ relink_glob ScreenObjectArr _ScreenObjectArr_instance;  /* auto */
 /*00769A78*/ ScreenObjectArr &dk2::ScreenObjectArr_instance = _ScreenObjectArr_instance;  /* auto */
 /*--------*/ relink_glob Vec3s _DrawTriangleList_lpwIndices[1024];  /* auto */
@@ -837,6 +861,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0077F8F8*/ MyDirectDraw &dk2::mydd_uvs = _mydd_uvs;       /* auto */
 /*--------*/ relink_glob Idx3b _g_Idx3b_arr_instance[1024];  /* auto */
 /*0077F938*/ Idx3b (&dk2::g_Idx3b_arr_instance)[1024] = _g_Idx3b_arr_instance;  /* auto */
+/*--------*/ relink_glob const void *_shadows_lpSurface;    /* auto */
+/*0078095C*/ const void *&dk2::shadows_lpSurface = _shadows_lpSurface;  /* auto */
 /*--------*/ relink_glob int32_t _g_MyEntryBuf_MyScaledSurface_idxs[64];  /* auto */
 /*00780960*/ int32_t (&dk2::g_MyEntryBuf_MyScaledSurface_idxs)[64] = _g_MyEntryBuf_MyScaledSurface_idxs;  /* auto */
 /*--------*/ relink_glob SceneObject2EList _SceneObject2EList_instance;  /* auto */
@@ -855,18 +881,20 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*007920D8*/ MyTextures &dk2::MyTextures_instance = _MyTextures_instance;  /* auto */
 /*--------*/ relink_glob MyCESurfHandle *_g_surfh_first;    /* auto */
 /*0079291C*/ MyCESurfHandle *&dk2::g_surfh_first = _g_surfh_first;  /* auto */
-/*--------*/ relink_glob MySurfDesc _MySurfDesc_792920;     /* auto */
-/*00792920*/ MySurfDesc &dk2::MySurfDesc_792920 = _MySurfDesc_792920;  /* auto */
+/*--------*/ relink_glob MySurfDesc _g_surfDesc_8a8r8g8b;   /* auto */
+/*00792920*/ MySurfDesc &dk2::g_surfDesc_8a8r8g8b = _g_surfDesc_8a8r8g8b;  /* auto */
 /*--------*/ relink_glob MyStringHashMap_MyCESurfHandle _MyStringHashMap_MyCESurfHandle_instance;  /* auto */
 /*00792938*/ MyStringHashMap_MyCESurfHandle &dk2::MyStringHashMap_MyCESurfHandle_instance = _MyStringHashMap_MyCESurfHandle_instance;  /* auto */
-/*--------*/ relink_glob Obj792D48 _Obj792D48_instance;     /* auto */
-/*00792D48*/ Obj792D48 &dk2::Obj792D48_instance = _Obj792D48_instance;  /* auto */
+/*--------*/ relink_glob CEngineSurfaceScaler _CEngineSurfaceScaler_instance;  /* auto */
+/*00792D48*/ CEngineSurfaceScaler &dk2::CEngineSurfaceScaler_instance = _CEngineSurfaceScaler_instance;  /* auto */
 /*--------*/ relink_glob SurfHashList *_pSurfHashList;      /* auto */
 /*00792D60*/ SurfHashList *&dk2::pSurfHashList = _pSurfHashList;  /* auto */
-/*--------*/ relink_glob MyDirectDraw _mydd_cpy3;  // ----  /* auto */
-/*00792D68*/ MyDirectDraw &dk2::mydd_cpy3 = _mydd_cpy3;     /* auto */
+/*--------*/ relink_glob MyDirectDraw _mydd_devTexture;     /* auto */
+/*00792D68*/ MyDirectDraw &dk2::mydd_devTexture = _mydd_devTexture;  /* auto */
 /*--------*/ relink_glob MyCEngineSurfDesc _MyCEngineSurfDesc_argb32_instance;  /* auto */
 /*00792D98*/ MyCEngineSurfDesc &dk2::MyCEngineSurfDesc_argb32_instance = _MyCEngineSurfDesc_argb32_instance;  /* auto */
+/*--------*/ relink_glob MyCEngineSurfDesc _g_surfDesc_8a8r8g8b_0;  /* auto */
+/*00792DFD*/ MyCEngineSurfDesc &dk2::g_surfDesc_8a8r8g8b_0 = _g_surfDesc_8a8r8g8b_0;  /* auto */
 /*--------*/ relink_glob MyCEngineSurfDesc _MyCEngineSurfDesc_unk16_instance;  /* auto */
 /*00792E62*/ MyCEngineSurfDesc &dk2::MyCEngineSurfDesc_unk16_instance = _MyCEngineSurfDesc_unk16_instance;  /* auto */
 /*--------*/ relink_glob int32_t _sizeHashTable_257[257];   /* auto */
@@ -913,20 +941,22 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0079D078*/ My32BitTexture &dk2::My32BitTexture_instance = _My32BitTexture_instance;  /* auto */
 /*--------*/ relink_glob char _PathName[300];  // --------  /* auto */
 /*0079D0A8*/ char (&dk2::PathName)[300] = _PathName;  // -  /* auto */
-/*--------*/ relink_glob IDirectDrawSurface *_lpDDAttachedSurface;  /* auto */
-/*0079D1D4*/ IDirectDrawSurface *&dk2::lpDDAttachedSurface = _lpDDAttachedSurface;  /* auto */
-/*--------*/ relink_glob MyDdSurfaceEx _g_fullscreen_ddSurf;  /* auto */
-/*0079D200*/ MyDdSurfaceEx &dk2::g_fullscreen_ddSurf = _g_fullscreen_ddSurf;  /* auto */
+/*--------*/ relink_glob IDirectDrawSurface *_g_dd_primaryAttachedSurf;  /* auto */
+/*0079D1D4*/ IDirectDrawSurface *&dk2::g_dd_primaryAttachedSurf = _g_dd_primaryAttachedSurf;  /* auto */
+/*--------*/ relink_glob MySurface _g_mySurf_unused;  // -  /* auto */
+/*0079D1D8*/ MySurface &dk2::g_mySurf_unused = _g_mySurf_unused;  /* auto */
+/*--------*/ relink_glob MyDdSurfaceEx _g_primarySurf;      /* auto */
+/*0079D200*/ MyDdSurfaceEx &dk2::g_primarySurf = _g_primarySurf;  /* auto */
 /*--------*/ relink_glob DdModeList _DdModeList_instance;   /* auto */
 /*0079D250*/ DdModeList &dk2::DdModeList_instance = _DdModeList_instance;  /* auto */
 /*--------*/ relink_glob char _bullfrogClassName[260];      /* auto */
 /*0079D260*/ char (&dk2::bullfrogClassName)[260] = _bullfrogClassName;  /* auto */
-/*--------*/ relink_glob MyDdSurfaceEx *_g_pDdSurface_windowed;  /* auto */
-/*0079D364*/ MyDdSurfaceEx *&dk2::g_pDdSurface_windowed = _g_pDdSurface_windowed;  /* auto */
+/*--------*/ relink_glob MyDdSurfaceEx *_g_pCurOffScreen;   /* auto */
+/*0079D364*/ MyDdSurfaceEx *&dk2::g_pCurOffScreen = _g_pCurOffScreen;  /* auto */
 /*--------*/ relink_glob FPUControlWordWithState _FPUControlWordWithState_instance;  /* auto */
 /*0079D368*/ FPUControlWordWithState &dk2::FPUControlWordWithState_instance = _FPUControlWordWithState_instance;  /* auto */
-/*--------*/ relink_glob MyDdSurfaceEx _g_dd_surface2;      /* auto */
-/*0079D378*/ MyDdSurfaceEx &dk2::g_dd_surface2 = _g_dd_surface2;  /* auto */
+/*--------*/ relink_glob MyDdSurfaceEx _g_offScreen;  // -  /* auto */
+/*0079D378*/ MyDdSurfaceEx &dk2::g_offScreen = _g_offScreen;  /* auto */
 /*--------*/ relink_glob HWND__ *_hWnd;  // --------------  /* auto */
 /*0079D3C8*/ HWND__ *&dk2::hWnd = _hWnd;  // -------------  /* auto */
 /*--------*/ relink_glob HWND__ *_hBullfrogWindow;  // ---  /* auto */
@@ -1057,6 +1087,12 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*007A7020*/ int32_t *&dk2::grpoly_mydd_buf = _grpoly_mydd_buf;  /* auto */
 /*--------*/ relink_glob int16_t *_grpoly_mydd_buf2;  // -  /* auto */
 /*007A7024*/ int16_t *&dk2::grpoly_mydd_buf2 = _grpoly_mydd_buf2;  /* auto */
+/*--------*/ relink_glob int32_t _mgsr_buf_width;  // ----  /* auto */
+/*007A7028*/ int32_t &dk2::mgsr_buf_width = _mgsr_buf_width;  /* auto */
+/*--------*/ relink_glob int32_t _mgsr_buf2_width;  // ---  /* auto */
+/*007A702C*/ int32_t &dk2::mgsr_buf2_width = _mgsr_buf2_width;  /* auto */
+/*--------*/ relink_glob int32_t *_mgsr_lockedBuf_dw256x256;  /* auto */
+/*007A7034*/ int32_t *&dk2::mgsr_lockedBuf_dw256x256 = _mgsr_lockedBuf_dw256x256;  /* auto */
 /*--------*/ relink_glob int32_t (__stdcall *_mgsr_pDrawFun)();  /* auto */
 /*007A7040*/ int32_t (__stdcall *&dk2::mgsr_pDrawFun)() = _mgsr_pDrawFun;  /* auto */
 /*--------*/ relink_glob Pos2p _mgsr_pos_dst;  // --------  /* auto */

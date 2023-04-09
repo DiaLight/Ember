@@ -29,10 +29,13 @@ struct Mat3x3f {  // -------------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0041C580*/ int32_t sub_41C580(int32_t, float);  // -----  /* auto */
 /*0042F480*/ int32_t constructor(float, float, float, float, float, float, float, float, float);  /* auto */
+/*00582140*/ int32_t *copy_constructor(Mat3x3f *);  // ---  /* auto */
 /*00594CB0*/ Mat3x3f *sub_594CB0(Mat3x3f *, Mat3x3f *);     /* auto */
 /*00594DB0*/ Vec3f *sub_594DB0(Vec3f *, Vec3f *);  // ----  /* auto */
 /*00594E10*/ Vec3f *sub_594E10(Vec3f *, Vec3f *);  // ----  /* auto */
 /*00594ED0*/ Mat3x3f *multiply(Mat3x3f *, float);  // ----  /* auto */
+/*00594F30*/ Mat3x3f *sub_594F30(Mat3x3f *);  // ---------  /* auto */
+/*00599260*/ int32_t *sub_599260(int32_t);  // -----------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

@@ -15,6 +15,7 @@
 #include <dk2/Vec3f.h>  // -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 namespace dk2 {  // --------------------------------------  /* auto */
+  struct CAnimMeshResource;  // --------------------------  /* auto */
   struct CEngineAnimMesh;  // ----------------------------  /* auto */
   struct SceneObject2E;  // ------------------------------  /* auto */
 }  // namespace dk2  -------------------------------------  /* auto */
@@ -71,7 +72,7 @@ struct CEngineAnimMesh : CEngineWorldPrimitive {  // -----  /* auto */
 /*00583DC0*/ void sub_583DC0(int32_t, SceneObject2E *);     /* auto */
 /*005848B0*/ void fun_5848B0(int32_t, SceneObject2E *);     /* auto */
 /*00584900*/ void appendToSceneObject2EList(int32_t);       /* auto */
-/*005855E0*/ int32_t sub_5855E0(int32_t, int32_t);  // ---  /* auto */
+/*005855E0*/ int32_t sub_5855E0(CAnimMeshResource *, int32_t);  /* auto */
 /*00585ED0*/ void sub_585ED0();  // ----------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */

@@ -16,6 +16,8 @@
 // -------------------------------------------------------  /* auto */
 namespace dk2 {  // --------------------------------------  /* auto */
   struct CEngineDynamicMesh;  // -------------------------  /* auto */
+  struct CPolyMeshResource;  // --------------------------  /* auto */
+  struct MyMeshResourceHolder;  // -----------------------  /* auto */
   struct SceneObject2E;  // ------------------------------  /* auto */
 }  // namespace dk2  -------------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
@@ -30,7 +32,7 @@ struct CEngineDynamicMesh : CEngineWorldPrimitive {  // --  /* auto */
 // -------------------------------------------------------  /* auto */
 /*  8*/ Vec3f field_4;  // -------------------------------  /* auto */
 /* 14*/ Mat3x3f f10_mat;  // -----------------------------  /* auto */
-/* 38*/ int32_t field_34;  // ----------------------------  /* auto */
+/* 38*/ MyMeshResourceHolder *f34_pobj;  // --------------  /* auto */
 /* 3C*/ Vec3f f38_vec;  // -------------------------------  /* auto */
 /* 48*/ int32_t field_44;  // ----------------------------  /* auto */
 /* 4C*/ int32_t field_48;  // ----------------------------  /* auto */
@@ -45,8 +47,9 @@ struct CEngineDynamicMesh : CEngineWorldPrimitive {  // --  /* auto */
 /* 70*/ int32_t field_6C;  // ----------------------------  /* auto */
 /* 74*/ int32_t field_70;  // ----------------------------  /* auto */
 /* 78*/ int32_t field_74;  // ----------------------------  /* auto */
-/* 7C*/ char field_78;  // -------------------------------  /* auto */
-/* 7D*/ char field_79;  // -------------------------------  /* auto */
+/* 7C*/ int32_t field_78;  // ----------------------------  /* auto */
+/* 80*/ int8_t f7c_gap[12];  // --------------------------  /* auto */
+/* 8C*/ char field_88;  // -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066FD1C*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CEnginePrimitiveBase  -------------------  /* auto */
@@ -64,6 +67,7 @@ struct CEngineDynamicMesh : CEngineWorldPrimitive {  // --  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005801E0*/ CEngineDynamicMesh *constructor2(int32_t, int32_t, float, float, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, Vec3f *, int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*00580480*/ CEngineDynamicMesh *constructor(int32_t, int32_t, float, float, float, float, float, float, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, char, int32_t, int32_t);  /* auto */
+/*005808E0*/ int32_t shadow_sub_5808E0(CPolyMeshResource *, int32_t);  /* auto */
 /*00580EC0*/ void appendToSceneObject2EList(int32_t);       /* auto */
 /*00581BE0*/ void sub_581BE0(int32_t, SceneObject2E *);     /* auto */
 /*00582180*/ void fun_582180(float, SceneObject2E *);       /* auto */
@@ -77,7 +81,7 @@ struct CEngineDynamicMesh : CEngineWorldPrimitive {  // --  /* auto */
 // ---------------  end_of_block  ------------------------  /* auto */
 };  // ---------------------------------------------------  /* auto */
 #pragma pack(pop)  // ------------------------------------  /* auto */
-static_assert(sizeof(CEngineDynamicMesh) == 0x7E);  // ---  /* auto */
+static_assert(sizeof(CEngineDynamicMesh) == 0x8D);  // ---  /* auto */
 }  // namespace dk2  -------------------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */
 

@@ -28,8 +28,8 @@ struct CEngineDDSurface : CEngineSurfaceBase {  // -------  /* auto */
 // -------------------------------------------------------  /* auto */
 /* 14*/ int32_t f14;  // ---------------------------------  /* auto */
 /* 18*/ IDirectDrawSurface4 *ddSurf;  // -----------------  /* auto */
-/* 1C*/ IDirect3DTexture2 *d3dTex;  // -------------------  /* auto */
-/* 20*/ int32_t f20;  // ---------------------------------  /* auto */
+/* 1C*/ IDirect3DTexture2 *devTex;  // -------------------  /* auto */
+/* 20*/ int32_t surfCreated;  // -------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*006703C4*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // super CEngineSurfaceBase  ---------------------  /* auto */

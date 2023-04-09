@@ -128,7 +128,7 @@ namespace {
         if ( (initFlags & DK2IF_3DSURF) != 0 ) {
             surfaceDesc.ddsCaps.dwCaps |= DDSCAPS_3DDEVICE;  // can query d3device from surface
         }
-        hr = dk2::dk2dd->CreateSurface(&surfaceDesc, &dk2::g_fullscreen_ddSurf.dd_surf.dd_surface, nullptr);
+        hr = dk2::dk2dd->CreateSurface(&surfaceDesc, &dk2::g_primarySurf.dd_surf.dd_surface, nullptr);
         if (FAILED(hr)) {
             dk2::dk2dd->SetCooperativeLevel(dk2::hWnd, DDSCL_NORMAL);
             if (hr == DDERR_PRIMARYSURFACEALREADYEXISTS) {
@@ -136,9 +136,9 @@ namespace {
             }
             return hr;
         }
-        hr = dk2::g_fullscreen_ddSurf.dd_surf.dd_surface->GetSurfaceDesc(&surfaceDesc);
+        hr = dk2::g_primarySurf.dd_surf.dd_surface->GetSurfaceDesc(&surfaceDesc);
         if (FAILED(hr)) {
-            dk2::g_fullscreen_ddSurf.dd_surf.dd_surface->Release();
+            dk2::g_primarySurf.dd_surf.dd_surface->Release();
             return hr;
         }
         dk2::isSurfModeX = (surfaceDesc.ddsCaps.dwCaps & DDSCAPS_MODEX) != 0;
@@ -152,7 +152,7 @@ namespace {
         surfaceDesc.dwFlags = DDSD_BACKBUFFERCOUNT | DDSD_CAPS;
         surfaceDesc.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE | DDSCAPS_FLIP | DDSCAPS_COMPLEX;
         surfaceDesc.dwBackBufferCount = 1;
-        hr = dk2::dk2dd->CreateSurface(&surfaceDesc, &dk2::g_fullscreen_ddSurf.dd_surf.dd_surface, nullptr);
+        hr = dk2::dk2dd->CreateSurface(&surfaceDesc, &dk2::g_primarySurf.dd_surf.dd_surface, nullptr);
         if (FAILED(hr)) {
 
             return hr;
@@ -217,23 +217,23 @@ namespace {
 
         hr = createPrimarySurf(initFlags);
         if (FAILED(hr)) {
-            dk2::g_fullscreen_ddSurf.dd_surf.dd_surface = nullptr;
+            dk2::g_primarySurf.dd_surf.dd_surface = nullptr;
             dk2::dk2dd_destroy();
             return hr;
         }
         if ( dk2::isSurfModeX && (initFlags & DK2IF_SCREEN_SWAP) != 0 ) {
-            dk2::g_fullscreen_ddSurf.dd_surf.dd_surface->Release();
-            dk2::g_fullscreen_ddSurf.dd_surf.dd_surface = nullptr;
+            dk2::g_primarySurf.dd_surf.dd_surface->Release();
+            dk2::g_primarySurf.dd_surf.dd_surface = nullptr;
             hr = createPrimarySurf2();
             if (FAILED(hr)) {
-                dk2::g_fullscreen_ddSurf.dd_surf.dd_surface = nullptr;
+                dk2::g_primarySurf.dd_surf.dd_surface = nullptr;
                 dk2::dk2dd_destroy();
                 return hr;
             }
             DDSCAPS caps;
             caps.dwCaps = DDSCAPS_BACKBUFFER;
-            hr = dk2::g_fullscreen_ddSurf.dd_surf.dd_surface->GetAttachedSurface(
-                    &caps, &dk2::lpDDAttachedSurface);
+            hr = dk2::g_primarySurf.dd_surf.dd_surface->GetAttachedSurface(
+                    &caps, &dk2::g_dd_primaryAttachedSurf);
             if (FAILED(hr)) {
                 // why no destroy? devs failure?
                 return hr;
@@ -243,8 +243,8 @@ namespace {
         if ( (initFlags & DK2IF_USE_BACKBUFFER) != 0 ) {
             DDSCAPS caps;
             caps.dwCaps = DDSCAPS_BACKBUFFER;
-            hr = dk2::g_fullscreen_ddSurf.dd_surf.dd_surface->GetAttachedSurface(
-                    &caps, &dk2::g_dd_surface2.dd_surf.dd_surface);
+            hr = dk2::g_primarySurf.dd_surf.dd_surface->GetAttachedSurface(
+                    &caps, &dk2::g_offScreen.dd_surf.dd_surface);
             if (FAILED(hr)) {
                 // why no destroy? devs failure?
                 return hr;
@@ -264,11 +264,11 @@ namespace {
             if ((initFlags & DK2IF_3DSURF) != 0) {
                 surfaceDesc.ddsCaps.dwCaps |= DDSCAPS_3DDEVICE;
             }
-            hr = dk2::dk2dd->CreateSurface(&surfaceDesc, &dk2::g_dd_surface2.dd_surf.dd_surface, nullptr);
+            hr = dk2::dk2dd->CreateSurface(&surfaceDesc, &dk2::g_offScreen.dd_surf.dd_surface, nullptr);
         }
-        if ( !dk2::g_dd_surface2.dd_surf.dd_surface ) {
-            dk2::g_fullscreen_ddSurf.dd_surf.dd_surface->Release();
-            dk2::g_fullscreen_ddSurf.dd_surf.dd_surface = nullptr;
+        if ( !dk2::g_offScreen.dd_surf.dd_surface ) {
+            dk2::g_primarySurf.dd_surf.dd_surface->Release();
+            dk2::g_primarySurf.dd_surf.dd_surface = nullptr;
             if ( displayBitness == 8 ) {
                 dk2::lpDDPalette->Release();
                 dk2::lpDDPalette = nullptr;
@@ -277,21 +277,21 @@ namespace {
             return hr;
         }
         if ((initFlags & DK2IF_WINDOWED) != 0) {
-            dk2::g_fullscreen_ddSurf.dd_surf.dd_surface->SetClipper(dk2::lpDDClipper);
+            dk2::g_primarySurf.dd_surf.dd_surface->SetClipper(dk2::lpDDClipper);
             if ( displayBitness == 8 ) {
                 HDC hdc2;
-                if ( dk2::g_fullscreen_ddSurf.dd_surf.dd_surface->GetDC(&hdc2) >= 0 ) {
+                if ( dk2::g_primarySurf.dd_surf.dd_surface->GetDC(&hdc2) >= 0 ) {
                     GetSystemPaletteEntries(hdc2, 0, 256, dk2::palleteEntries);
-                    dk2::g_fullscreen_ddSurf.dd_surf.dd_surface->ReleaseDC(hdc2);
+                    dk2::g_primarySurf.dd_surf.dd_surface->ReleaseDC(hdc2);
                 }
             }
         }
         if (displayBitness == 8) {
-            dk2::g_fullscreen_ddSurf.dd_surf.dd_surface->SetPalette(dk2::lpDDPalette);
+            dk2::g_primarySurf.dd_surf.dd_surface->SetPalette(dk2::lpDDPalette);
         }
-        MyDdSurface_constructor(&dk2::g_fullscreen_ddSurf.dd_surf, width, height, displayBitness, initFlags);
-        MyDdSurface_constructor(&dk2::g_dd_surface2.dd_surf, width, height, displayBitness, initFlags);
-        dk2::g_pDdSurface_windowed = &dk2::g_dd_surface2;
+        MyDdSurface_constructor(&dk2::g_primarySurf.dd_surf, width, height, displayBitness, initFlags);
+        MyDdSurface_constructor(&dk2::g_offScreen.dd_surf, width, height, displayBitness, initFlags);
+        dk2::g_pCurOffScreen = &dk2::g_offScreen;
         // send window shown event
         dk2::Event0_winShown7 ev;
         ev.eventType = 7;

@@ -28,11 +28,16 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0044A370*/ char CCamera::sub_44A370(int32_t, int32_t, int32_t, int32_t) { relink_stub(CCamera::sub_44A370); }  /* auto */
 /*0044A5D0*/ int32_t CCamera::sub_44A5D0(int32_t, int32_t) { relink_stub(CCamera::sub_44A5D0); }  /* auto */
 /*0044A9E0*/ int32_t CCamera::sub_44A9E0(int32_t, int32_t) { relink_stub(CCamera::sub_44A9E0); }  /* auto */
+/*0044AA20*/ int32_t CCamera::sub_44AA20() { relink_stub(CCamera::sub_44AA20); }  /* auto */
+/*0044AA80*/ int32_t CCamera::sub_44AA80() { relink_stub(CCamera::sub_44AA80); }  /* auto */
+/*0044AB60*/ int32_t CCamera::sub_44AB60() { relink_stub(CCamera::sub_44AB60); }  /* auto */
+/*0044AC80*/ int32_t CCamera::sub_44AC80() { relink_stub(CCamera::sub_44AC80); }  /* auto */
 /*0044ACE0*/ int32_t CCamera::sub_44ACE0(int32_t, int16_t) { relink_stub(CCamera::sub_44ACE0); }  /* auto */
 /*0044BD70*/ __int16 CCamera::sub_44BD70(int32_t) { relink_stub(CCamera::sub_44BD70); }  /* auto */
 /*0044BED0*/ int32_t CCamera::sub_44BED0(int32_t) { relink_stub(CCamera::sub_44BED0); }  /* auto */
 /*0044CFB0*/ int32_t CCamera::fun_44CFB0(int32_t) { relink_stub(CCamera::fun_44CFB0); }  /* auto */
 /*0044D320*/ int32_t CCamera::fun_44D320(int32_t) { relink_stub(CCamera::fun_44D320); }  /* auto */
+/*0044D550*/ double CCamera::sub_44D550() { relink_stub(CCamera::sub_44D550); }  /* auto */
 /*0044D590*/ BOOL CCamera::fun_44D590() { relink_stub(CCamera::fun_44D590); }  /* auto */
 /*0044D6D0*/ Mat3x3f *CCamera::fun_44D6D0() { relink_stub(CCamera::fun_44D6D0); }  /* auto */
 /*0044D8F0*/ int32_t CCamera::sub_44D8F0() { relink_stub(CCamera::sub_44D8F0); }  /* auto */

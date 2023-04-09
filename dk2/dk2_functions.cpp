@@ -325,7 +325,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00450470*/ int32_t __fastcall dk2::sub_450470(int32_t, int32_t, int32_t, int32_t, int8_t) { relink_stub(dk2::sub_450470); }  /* auto */
 /*004526C0*/ int8_t __fastcall dk2::sub_4526C0(int32_t *, int32_t, int32_t, int32_t, int32_t, int8_t) { relink_stub(dk2::sub_4526C0); }  /* auto */
 /*00452970*/ BOOL dk2::sub_452970(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_452970); }  /* auto */
-/*00452AB0*/ int32_t __cdecl dk2::sub_452AB0(int32_t, float, float, float, float, float, float, float) { relink_stub(dk2::sub_452AB0); }  /* auto */
+/*00452AB0*/ Vec3f *__cdecl dk2::static_Vec3f_sub_452AB0(Vec3f *, float, float, float, float, float, float, float) { relink_stub(dk2::static_Vec3f_sub_452AB0); }  /* auto */
 /*00452B20*/ int32_t dk2::sub_452B20() { relink_stub(dk2::sub_452B20); }  /* auto */
 /*00452F20*/ BOOL dk2::sub_452F20(char, int32_t) { relink_stub(dk2::sub_452F20); }  /* auto */
 /*00454FD0*/ const char *dk2::sub_454FD0(int32_t, int32_t, char) { relink_stub(dk2::sub_454FD0); }  /* auto */
@@ -1089,7 +1089,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00557AF0*/ int32_t dk2::sub_557AF0(int32_t, int32_t, int32_t, MyVideoSettings *) { relink_stub(dk2::sub_557AF0); }  /* auto */
 /*00557EE0*/ BOOL dk2::MyGame_enum_DDEnumCB(GUID *, const char *, const char *, MyGame *) { relink_stub(dk2::MyGame_enum_DDEnumCB); }  /* auto */
 /*00557FD0*/ BOOL dk2::isOsVersionGE(int32_t, int32_t, int16_t) { relink_stub(dk2::isOsVersionGE); }  /* auto */
-/*005587E0*/ MyDdSurfaceEx *dk2::Obj6723A0_getDdSurface1() { relink_stub(dk2::Obj6723A0_getDdSurface1); }  /* auto */
+/*005587E0*/ MyDdSurfaceEx *dk2::Obj6723A0_getPrimarySurf() { relink_stub(dk2::Obj6723A0_getPrimarySurf); }  /* auto */
 /*00558A00*/ void dk2::MyInputManagerCb_static_setMousePos_(Pos2i *) { relink_stub(dk2::MyInputManagerCb_static_setMousePos_); }  /* auto */
 /*00558C70*/ LRESULT dk2::myCustomDefWindowProcA(HWND__ *, int32_t, WPARAM, LPARAM) { relink_stub(dk2::myCustomDefWindowProcA); }  /* auto */
 /*00558DD0*/ int32_t dk2::MyGame_D3DENUMDEVICESCALLBACK(GUID *, const char *, const char *, _D3DDeviceDesc *, _D3DDeviceDesc *, MyGame *) { relink_stub(dk2::MyGame_D3DENUMDEVICESCALLBACK); }  /* auto */
@@ -1189,9 +1189,9 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00572F60*/ int32_t __cdecl dk2::sub_572F60(int32_t, int32_t, int32_t **, int32_t) { relink_stub(dk2::sub_572F60); }  /* auto */
 /*005735A0*/ void __cdecl dk2::MyDLVec2i_static_sub_5735A0(MyDLVec2i *) { relink_stub(dk2::MyDLVec2i_static_sub_5735A0); }  /* auto */
 /*005737E0*/ int32_t *__cdecl dk2::MyDLVec2i_static_sub_5737E0(MyDLVec2i *) { relink_stub(dk2::MyDLVec2i_static_sub_5737E0); }  /* auto */
-/*00573C20*/ IDirectDraw4 *dk2::dk2_cleanup3d() { relink_stub(dk2::dk2_cleanup3d); }  /* auto */
+/*00573C20*/ IDirectDraw4 *dk2::mydd_scene_destroy() { relink_stub(dk2::mydd_scene_destroy); }  /* auto */
 /*00573CF0*/ int32_t dk2::configureFlagsAndTexturesCount() { relink_stub(dk2::configureFlagsAndTexturesCount); }  /* auto */
-/*00573ED0*/ int32_t __cdecl dk2::dk2_init3d(IDirectDraw *, IDirectDrawSurface *, IDirectDrawSurface *, GUID *, __int16, int32_t) { relink_stub(dk2::dk2_init3d); }  /* auto */
+/*00573ED0*/ int32_t __cdecl dk2::mydd_scene_init(IDirectDraw *, IDirectDrawSurface *, IDirectDrawSurface *, GUID *, __int16, int32_t) { relink_stub(dk2::mydd_scene_init); }  /* auto */
 /*005741D0*/ HRESULT dk2::sub_5741D0() { relink_stub(dk2::sub_5741D0); }  /* auto */
 /*00574200*/ HRESULT __cdecl dk2::setGammaRamp(const void *) { relink_stub(dk2::setGammaRamp); }  /* auto */
 /*00574240*/ CEngineSprite *__cdecl dk2::sub_574240(float) { relink_stub(dk2::sub_574240); }  /* auto */
@@ -1199,12 +1199,12 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00574310*/ SceneObject30 *__cdecl dk2::LoadCachedTextures(int32_t, int32_t, const char *, int32_t) { relink_stub(dk2::LoadCachedTextures); }  /* auto */
 /*005747B0*/ int32_t __cdecl dk2::sub_5747B0(int32_t) { relink_stub(dk2::sub_5747B0); }  /* auto */
 /*005747C0*/ int32_t __cdecl dk2::setPmeshReductionLevel(int32_t) { relink_stub(dk2::setPmeshReductionLevel); }  /* auto */
-/*005747D0*/ int32_t __cdecl dk2::sub_5747D0(int32_t) { relink_stub(dk2::sub_5747D0); }  /* auto */
+/*005747D0*/ int32_t __cdecl dk2::setShadowLevel(int32_t) { relink_stub(dk2::setShadowLevel); }  /* auto */
 /*005747E0*/ void __cdecl dk2::sub_5747E0(float, float, float) { relink_stub(dk2::sub_5747E0); }  /* auto */
 /*00574820*/ MyDLVec2i *dk2::MyDLVec2i_generate() { relink_stub(dk2::MyDLVec2i_generate); }  /* auto */
 /*00575700*/ void dk2::sub_575700() { relink_stub(dk2::sub_575700); }  /* auto */
 /*00575780*/ bool __cdecl dk2::drawScene(char) { relink_stub(dk2::drawScene); }  /* auto */
-/*00575A00*/ void __cdecl dk2::sub_575A00(int32_t, float) { relink_stub(dk2::sub_575A00); }  /* auto */
+/*00575A00*/ void __cdecl dk2::sub_575A00(Vec3f *, float) { relink_stub(dk2::sub_575A00); }  /* auto */
 /*00575D70*/ int32_t __cdecl dk2::Vec3f_static_sub_575D70(Vec3f *, float, int32_t *) { relink_stub(dk2::Vec3f_static_sub_575D70); }  /* auto */
 /*00575F10*/ Vec3f *__cdecl dk2::Vec3f_static_sub_575F10(Vec3f *, float, Vec3f *, const float *) { relink_stub(dk2::Vec3f_static_sub_575F10); }  /* auto */
 /*00575FA0*/ void __cdecl dk2::sub_575FA0(int32_t) { relink_stub(dk2::sub_575FA0); }  /* auto */
@@ -1219,7 +1219,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00578E50*/ int32_t __cdecl dk2::sub_578E50(int32_t, int32_t) { relink_stub(dk2::sub_578E50); }  /* auto */
 /*00578E80*/ CEnginePrimitiveBase *dk2::sub_578E80() { relink_stub(dk2::sub_578E80); }  /* auto */
 /*00578EC0*/ void __cdecl dk2::CEngine2DRotatableSprite_create(__int16, __int16, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, float, int32_t) { relink_stub(dk2::CEngine2DRotatableSprite_create); }  /* auto */
-/*00579180*/ int32_t __cdecl dk2::CEngine2DSprite_create(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, float, int32_t) { relink_stub(dk2::CEngine2DSprite_create); }  /* auto */
+/*00579180*/ int32_t __cdecl dk2::static_CEngine2DSprite_sub_579180(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, float, int32_t) { relink_stub(dk2::static_CEngine2DSprite_sub_579180); }  /* auto */
 /*005794B0*/ int32_t __cdecl dk2::CEngine2DMeshSurface_create(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, float, int32_t) { relink_stub(dk2::CEngine2DMeshSurface_create); }  /* auto */
 /*00579730*/ CEngine2DStaticMesh *__cdecl dk2::CEngine2DStaticMesh_create(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, Vec3f *, float, int32_t, int32_t) { relink_stub(dk2::CEngine2DStaticMesh_create); }  /* auto */
 /*00579A10*/ CEngine2DAnimMesh *__cdecl dk2::CEngine2DAnimMesh_create(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, float, int32_t, int32_t) { relink_stub(dk2::CEngine2DAnimMesh_create); }  /* auto */
@@ -1232,7 +1232,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0057C7B0*/ int32_t dk2::MyEntryBuf_MyScaledSurface_static_alloc() { relink_stub(dk2::MyEntryBuf_MyScaledSurface_static_alloc); }  /* auto */
 /*0057C7E0*/ void dk2::sub_57C7E0() { relink_stub(dk2::sub_57C7E0); }  /* auto */
 /*0057C850*/ int32_t __cdecl dk2::MyEntryBuf_MyScaledSurface_create(MyDblNamedSurface *, char) { relink_stub(dk2::MyEntryBuf_MyScaledSurface_create); }  /* auto */
-/*0057C920*/ MyCESurfHandle *__cdecl dk2::CPCEngineInterface_57C920(int32_t, MySurface *, char) { relink_stub(dk2::CPCEngineInterface_57C920); }  /* auto */
+/*0057C920*/ MyCESurfHandle *__cdecl dk2::static_CPCEngineInterface_57C920(int32_t, MySurface *, char) { relink_stub(dk2::static_CPCEngineInterface_57C920); }  /* auto */
 /*0057C950*/ void __cdecl dk2::MyScaledSurface_resolveById(int16_t) { relink_stub(dk2::MyScaledSurface_resolveById); }  /* auto */
 /*0057C970*/ MyScaledSurface *__cdecl dk2::MyDblNamedSurface_createPrescaled(int32_t, int32_t, int32_t) { relink_stub(dk2::MyDblNamedSurface_createPrescaled); }  /* auto */
 /*0057CBE0*/ int32_t __cdecl dk2::MyHeap_static_init(int32_t) { relink_stub(dk2::MyHeap_static_init); }  /* auto */
@@ -1292,7 +1292,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0058A4E0*/ void dk2::nullsub_39() { relink_stub(dk2::nullsub_39); }  /* auto */
 /*0058A4F0*/ int32_t __cdecl dk2::sub_58A4F0(int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_58A4F0); }  /* auto */
 /*0058A520*/ Uv2f_arr1024 *__cdecl dk2::mydd_uvs_init(MyDirectDraw *) { relink_stub(dk2::mydd_uvs_init); }  /* auto */
-/*0058A550*/ void dk2::mydd_flags_destroy() { relink_stub(dk2::mydd_flags_destroy); }  /* auto */
+/*0058A550*/ void dk2::mydd_uvs_destroy() { relink_stub(dk2::mydd_uvs_destroy); }  /* auto */
 /*0058A570*/ void __cdecl dk2::sub_58A570(int32_t, float, float, float, float, int32_t) { relink_stub(dk2::sub_58A570); }  /* auto */
 /*0058A6F0*/ int32_t __cdecl dk2::sub_58A6F0(int32_t *) { relink_stub(dk2::sub_58A6F0); }  /* auto */
 /*0058A970*/ char __cdecl dk2::__renderFun_setSceneObject2E(SceneObject2E *, int32_t, int32_t, int32_t, float, int32_t) { relink_stub(dk2::__renderFun_setSceneObject2E); }  /* auto */
@@ -1320,12 +1320,12 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0058D990*/ int32_t __cdecl dk2::applyScale_sub_58D990(int32_t, int32_t) { relink_stub(dk2::applyScale_sub_58D990); }  /* auto */
 /*0058DB70*/ int32_t __cdecl dk2::applyScale_sub_58DB70(int32_t, int32_t) { relink_stub(dk2::applyScale_sub_58DB70); }  /* auto */
 /*0058DD40*/ int32_t *dk2::sub_58DD40() { relink_stub(dk2::sub_58DD40); }  /* auto */
-/*0058E080*/ int32_t __cdecl dk2::sub_58E080(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_58E080); }  /* auto */
+/*0058E080*/ int32_t __cdecl dk2::shadows_process_58E080(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::shadows_process_58E080); }  /* auto */
 /*0058E2C0*/ int32_t __cdecl dk2::MyEntryBuf_MyScaledSurface_addFormatEnfineShadow(const char *, int32_t) { relink_stub(dk2::MyEntryBuf_MyScaledSurface_addFormatEnfineShadow); }  /* auto */
 /*0058E330*/ int32_t dk2::shadows_init() { relink_stub(dk2::shadows_init); }  /* auto */
-/*0058E3E0*/ int32_t dk2::sub_58E3E0() { relink_stub(dk2::sub_58E3E0); }  /* auto */
-/*0058E440*/ int32_t __cdecl dk2::sub_58E440(int32_t) { relink_stub(dk2::sub_58E440); }  /* auto */
-/*0058E470*/ MyCESurfHandle *dk2::sub_58E470() { relink_stub(dk2::sub_58E470); }  /* auto */
+/*0058E3E0*/ int32_t dk2::shadows_begin_ge23() { relink_stub(dk2::shadows_begin_ge23); }  /* auto */
+/*0058E440*/ int32_t __cdecl dk2::shadows_begin_lt23(int32_t) { relink_stub(dk2::shadows_begin_lt23); }  /* auto */
+/*0058E470*/ MyCESurfHandle *dk2::shadows_end_58E470() { relink_stub(dk2::shadows_end_58E470); }  /* auto */
 /*0058E580*/ void __cdecl dk2::sub_58E580(int32_t) { relink_stub(dk2::sub_58E580); }  /* auto */
 /*0058E640*/ void __cdecl dk2::sub_58E640(SceneObject2E *, int32_t, float, int32_t, int32_t, float, int32_t) { relink_stub(dk2::sub_58E640); }  /* auto */
 /*0058EE40*/ void dk2::nullsub_40() { relink_stub(dk2::nullsub_40); }  /* auto */
@@ -1338,6 +1338,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0058F5F0*/ void dk2::SceneObject2EList_SceneObject30List_static_destroy() { relink_stub(dk2::SceneObject2EList_SceneObject30List_static_destroy); }  /* auto */
 /*0058F640*/ void dk2::draw3dScene() { relink_stub(dk2::draw3dScene); }  /* auto */
 /*0058F980*/ int32_t *dk2::sub_58F980() { relink_stub(dk2::sub_58F980); }  /* auto */
+/*0058F9A0*/ void dk2::__cfltcvt_init_5() { relink_stub(dk2::__cfltcvt_init_5); }  /* auto */
 /*0058F9E0*/ int32_t dk2::MyStringHashMap_MyCESurfHandle_static_constructor() { relink_stub(dk2::MyStringHashMap_MyCESurfHandle_static_constructor); }  /* auto */
 /*0058FA00*/ void __cdecl dk2::MyStringHashMap_MyCESurfHandle_static_destructor() { relink_stub(dk2::MyStringHashMap_MyCESurfHandle_static_destructor); }  /* auto */
 /*0058FA20*/ int32_t dk2::MyTextures_static_constructor() { relink_stub(dk2::MyTextures_static_constructor); }  /* auto */
@@ -1349,14 +1350,13 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0058FF70*/ int32_t __cdecl dk2::MySurface_58FF70(MySurface *, MySurface *) { relink_stub(dk2::MySurface_58FF70); }  /* auto */
 /*00590000*/ MySurface *__cdecl dk2::MySurface_590000(MySurface *, MySurface *) { relink_stub(dk2::MySurface_590000); }  /* auto */
 /*00590240*/ int32_t __cdecl dk2::sub_590240(int32_t) { relink_stub(dk2::sub_590240); }  /* auto */
-/*005915A0*/ int32_t __cdecl dk2::sub_5915A0(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5915A0); }  /* auto */
+/*005915A0*/ int32_t __cdecl dk2::scaleImg(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::scaleImg); }  /* auto */
 /*00591DA0*/ SurfaceHolder *__cdecl dk2::SurfaceHolder_create(int32_t, MyCEngineSurfDesc *, int32_t) { relink_stub(dk2::SurfaceHolder_create); }  /* auto */
-/*00591FF0*/ const void *__cdecl dk2::SurfaceHolder_draw() { relink_stub(dk2::SurfaceHolder_draw); }  // assembly  /* auto */
 /*005924A0*/ int32_t __cdecl dk2::MySurfaceWrapper_createPrescaled(MySurfaceWrapper *, char) { relink_stub(dk2::MySurfaceWrapper_createPrescaled); }  /* auto */
 /*00592720*/ const char *__cdecl dk2::MyTextures_resetCacheDir(const char *) { relink_stub(dk2::MyTextures_resetCacheDir); }  /* auto */
-/*00592950*/ void dk2::destroySurfHashLists() { relink_stub(dk2::destroySurfHashLists); }  /* auto */
-/*00592B80*/ const void *__cdecl dk2::SurfaceHolder_setTexture(SurfaceHolder *, int32_t) { relink_stub(dk2::SurfaceHolder_setTexture); }  /* auto */
-/*00592EA0*/ int32_t __cdecl dk2::mydd_cpy3_initSurfHashLists(MyDirectDraw *) { relink_stub(dk2::mydd_cpy3_initSurfHashLists); }  /* auto */
+/*00592950*/ void dk2::mydd_devTexture_destroy() { relink_stub(dk2::mydd_devTexture_destroy); }  /* auto */
+/*00592B80*/ int32_t *__cdecl dk2::renderer_setSurfaceHolder(SurfaceHolder *, int32_t) { relink_stub(dk2::renderer_setSurfaceHolder); }  /* auto */
+/*00592EA0*/ int32_t __cdecl dk2::mydd_devTexture_init(MyDirectDraw *) { relink_stub(dk2::mydd_devTexture_init); }  /* auto */
 /*00593280*/ int32_t dk2::surfaces_cleanup() { relink_stub(dk2::surfaces_cleanup); }  /* auto */
 /*00593350*/ int32_t dk2::D3DENUMPIXELFORMATSCALLBACK_proc(DDPIXELFORMAT *, int32_t) { relink_stub(dk2::D3DENUMPIXELFORMATSCALLBACK_proc); }  /* auto */
 /*005934C0*/ int32_t dk2::MyCESurfHandle_cleanup() { relink_stub(dk2::MyCESurfHandle_cleanup); }  /* auto */
@@ -1395,7 +1395,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0059C720*/ CEngineQuadPlane *dk2::sub_59C720(int32_t, const float *, int32_t) { relink_stub(dk2::sub_59C720); }  /* auto */
 /*0059D010*/ CEngineDynamicMesh *dk2::sub_59D010(int32_t *, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_59D010); }  /* auto */
 /*0059D4B0*/ int32_t dk2::sub_59D4B0(int32_t, int32_t *, int32_t *) { relink_stub(dk2::sub_59D4B0); }  /* auto */
-/*0059D5F0*/ int32_t __cdecl dk2::sub_59D5F0(int32_t, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float) { relink_stub(dk2::sub_59D5F0); }  /* auto */
+/*0059D5F0*/ Mat3x3f *__cdecl dk2::Mat3x3f_sub_59D5F0(Mat3x3f *, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float) { relink_stub(dk2::Mat3x3f_sub_59D5F0); }  /* auto */
 /*0059D8D0*/ IDirectDraw4 *__cdecl dk2::CPCEngineInterface_WM_ACTIVATE_cb(int32_t, int32_t, int32_t, CPCEngineInterface *) { relink_stub(dk2::CPCEngineInterface_WM_ACTIVATE_cb); }  /* auto */
 /*0059DAD0*/ int32_t __cdecl dk2::sub_59DAD0(int32_t, int32_t, int32_t, int32_t, int32_t, float, float, float) { relink_stub(dk2::sub_59DAD0); }  /* auto */
 /*0059DB70*/ int32_t __cdecl dk2::sub_59DB70(int32_t, float, float, float, float, float, float) { relink_stub(dk2::sub_59DB70); }  /* auto */
@@ -1440,9 +1440,9 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005A73F0*/ int32_t __cdecl dk2::drawTriangle34_impl2(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::drawTriangle34_impl2); }  /* auto */
 /*005A74B0*/ int32_t __cdecl dk2::drawTriangle34_impl1(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::drawTriangle34_impl1); }  /* auto */
 /*005A7550*/ int32_t __cdecl dk2::drawTriangle34_impl3(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::drawTriangle34_impl3); }  /* auto */
-/*005A7600*/ const void *__cdecl dk2::init_mgsr(int32_t *, int32_t *, int32_t, int32_t) { relink_stub(dk2::init_mgsr); }  /* auto */
-/*005A78E0*/ int32_t __cdecl dk2::sub_5A78E0(int32_t) { relink_stub(dk2::sub_5A78E0); }  /* auto */
-/*005A7900*/ int32_t __cdecl dk2::sub_5A7900(int32_t) { relink_stub(dk2::sub_5A7900); }  /* auto */
+/*005A7600*/ int32_t *__cdecl dk2::init_mgsr(IDirectDrawSurface *, int16_t **, int32_t, int32_t) { relink_stub(dk2::init_mgsr); }  /* auto */
+/*005A78E0*/ int32_t __cdecl dk2::getBitCount(int32_t) { relink_stub(dk2::getBitCount); }  /* auto */
+/*005A7900*/ int32_t __cdecl dk2::getBitsShift(int32_t) { relink_stub(dk2::getBitsShift); }  /* auto */
 /*005A7920*/ int32_t dk2::mgsr_initBuffers() { relink_stub(dk2::mgsr_initBuffers); }  /* auto */
 /*005A7980*/ const void *__cdecl dk2::mgsr_alloc_buf(int32_t, int32_t) { relink_stub(dk2::mgsr_alloc_buf); }  /* auto */
 /*005A79C0*/ const char *__cdecl dk2::mgsr_alloc_buf2(int32_t, int32_t) { relink_stub(dk2::mgsr_alloc_buf2); }  /* auto */
@@ -1633,7 +1633,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005B3F10*/ MySurface *dk2::sub_5B3F10() { relink_stub(dk2::sub_5B3F10); }  /* auto */
 /*005B3F20*/ MySurface *dk2::sub_5B3F20() { relink_stub(dk2::sub_5B3F20); }  /* auto */
 /*005B3F50*/ MySurface *dk2::j_g_dd_surface1_init() { relink_stub(dk2::j_g_dd_surface1_init); }  /* auto */
-/*005B3F60*/ MySurface *dk2::g_dd_surface1_static_init() { relink_stub(dk2::g_dd_surface1_static_init); }  /* auto */
+/*005B3F60*/ MySurface *dk2::g_primarySurf_static_init() { relink_stub(dk2::g_primarySurf_static_init); }  /* auto */
 /*005B3F90*/ MySurface *dk2::sub_5B3F90() { relink_stub(dk2::sub_5B3F90); }  /* auto */
 /*005B3FA0*/ MySurface *dk2::sub_5B3FA0() { relink_stub(dk2::sub_5B3FA0); }  /* auto */
 /*005B3FD0*/ int32_t dk2::sub_5B3FD0() { relink_stub(dk2::sub_5B3FD0); }  /* auto */
@@ -1648,7 +1648,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005B4260*/ int32_t __cdecl dk2::BullfrogWindow_create(int32_t, GUID *, int32_t, HWND__ *, int32_t) { relink_stub(dk2::BullfrogWindow_create); }  /* auto */
 /*005B4330*/ int32_t dk2::static_isNeedBlt() { relink_stub(dk2::static_isNeedBlt); }  /* auto */
 /*005B4340*/ void __cdecl dk2::showTodoMessageBox(const char *, ...) { relink_stub(dk2::showTodoMessageBox); }  /* auto */
-/*005B4390*/ void __cdecl dk2::dk2dd_init(int32_t *, int32_t, int32_t, int32_t, int32_t, tagPALETTEENTRY *) { relink_stub(dk2::dk2dd_init); }  /* auto */
+/*005B4390*/ int32_t *__cdecl dk2::dk2dd_init(int32_t *, int32_t, int32_t, int32_t, int32_t, tagPALETTEENTRY *) { relink_stub(dk2::dk2dd_init); }  /* auto */
 /*005B4AE0*/ int32_t *__cdecl dk2::dk2wnd_cleanup(int32_t *) { relink_stub(dk2::dk2wnd_cleanup); }  /* auto */
 /*005B4B00*/ int32_t *__cdecl dk2::__sub_5B4B00_ev1(int32_t *, int32_t) { relink_stub(dk2::__sub_5B4B00_ev1); }  /* auto */
 /*005B4D40*/ IDirectDrawPalette *__cdecl dk2::sub_5B4D40(tagPALETTEENTRY *, int32_t, int32_t) { relink_stub(dk2::sub_5B4D40); }  /* auto */
@@ -1659,12 +1659,12 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005B4FC0*/ ATOM dk2::BullfrogWindow_registerClass() { relink_stub(dk2::BullfrogWindow_registerClass); }  /* auto */
 /*005B5070*/ LRESULT dk2::BullfrogWindow_proc(HWND__ *, int32_t, WPARAM, LPARAM) { relink_stub(dk2::BullfrogWindow_proc); }  /* auto */
 /*005B5160*/ HICON__ *__cdecl dk2::setAppActivatedStatus(int32_t) { relink_stub(dk2::setAppActivatedStatus); }  /* auto */
-/*005B5180*/ MyDdSurfaceEx *__cdecl dk2::MyDdSurfaceEx_setInstance(MyDdSurfaceEx *) { relink_stub(dk2::MyDdSurfaceEx_setInstance); }  /* auto */
+/*005B5180*/ MyDdSurfaceEx *__cdecl dk2::setCurOffScreen(MyDdSurfaceEx *) { relink_stub(dk2::setCurOffScreen); }  /* auto */
 /*005B5410*/ void __cdecl dk2::setSurfaceDD(IDirectDraw *) { relink_stub(dk2::setSurfaceDD); }  /* auto */
 /*005B5420*/ MyDdSurface *__cdecl dk2::MyDdSurface_constructor(MyDdSurface *, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::MyDdSurface_constructor); }  /* auto */
 /*005B5460*/ BOOL __cdecl dk2::MyDdSurfaceEx_restoreSurf_if_unk(MyDdSurfaceEx *) { relink_stub(dk2::MyDdSurfaceEx_restoreSurf_if_unk); }  /* auto */
 /*005B5490*/ int32_t *__cdecl dk2::__surface_init_blt(int32_t *, MyDdSurfaceEx *, tagRECT *, int32_t, int8_t, int32_t) { relink_stub(dk2::__surface_init_blt); }  /* auto */
-/*005B5700*/ int32_t *__cdecl dk2::createSurface(int32_t *, int32_t, int32_t, int32_t, MyDdSurface *) { relink_stub(dk2::createSurface); }  /* auto */
+/*005B5700*/ int32_t *__cdecl dk2::MyDdSurface_createOffScreenSurface(int32_t *, int32_t, int32_t, int32_t, MyDdSurface *) { relink_stub(dk2::MyDdSurface_createOffScreenSurface); }  /* auto */
 /*005B57C0*/ int32_t *__cdecl dk2::MyDdSurface_release(int32_t *, MyDdSurface *) { relink_stub(dk2::MyDdSurface_release); }  /* auto */
 /*005B57F0*/ int32_t *__cdecl dk2::static_MyDdSurfaceEx_BltWait(int32_t *, MyDdSurfaceEx *, int32_t, int32_t, MyDdSurfaceEx *, AABB *, int32_t) { relink_stub(dk2::static_MyDdSurfaceEx_BltWait); }  /* auto */
 /*005B5970*/ tagPOINT *__cdecl dk2::sub_5B5970(int32_t *, MyDdSurfaceEx *, int32_t *, int32_t, int32_t *, int32_t) { relink_stub(dk2::sub_5B5970); }  /* auto */
@@ -1861,7 +1861,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005D7C70*/ int32_t dk2::sub_5D7C70(const wchar_t *, size_t, const wchar_t *) { relink_stub(dk2::sub_5D7C70); }  /* auto */
 /*005D8B00*/ int32_t *dk2::MyWadDirectory_sub_5D8B00(int32_t *, int32_t) { relink_stub(dk2::MyWadDirectory_sub_5D8B00); }  /* auto */
 /*005D9470*/ int32_t dk2::MyFileInfo_constructor(MyFileInfo *, _WIN32_FIND_DATAA *) { relink_stub(dk2::MyFileInfo_constructor); }  /* auto */
-/*005D9910*/ MyDdSurfaceEx *dk2::Obj6723A0_getDdSurface2() { relink_stub(dk2::Obj6723A0_getDdSurface2); }  /* auto */
+/*005D9910*/ MyDdSurfaceEx *dk2::Obj6723A0_getCurOffScreen() { relink_stub(dk2::Obj6723A0_getCurOffScreen); }  /* auto */
 /*005D9980*/ int32_t dk2::Obj6723A0_isSurfaceFlag() { relink_stub(dk2::Obj6723A0_isSurfaceFlag); }  /* auto */
 /*005DA300*/ AsyncThing *__fastcall dk2::AsyncThing_constructor(AsyncThing *) { relink_stub(dk2::AsyncThing_constructor); }  /* auto */
 /*005DA3E0*/ int32_t dk2::AsyncThing_thread_proc(AsyncThing *) { relink_stub(dk2::AsyncThing_thread_proc); }  /* auto */

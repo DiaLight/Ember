@@ -33,14 +33,14 @@ namespace {
         HRESULT hr;
         dk2::MyDdSurfaceEx *rootSurfEx;
         if (game->isFullscreen) {
-            rootSurfEx = game->c_window_test.getSurface();
+            rootSurfEx = game->c_window_test.getCurOffScreenSurf();
         } else {
-            rootSurfEx = dk2::g_pDdSurface_windowed;
+            rootSurfEx = dk2::g_pCurOffScreen;
         }
         if (!rootSurfEx) return false;
         LPDIRECTDRAWSURFACE rootDdSurf = dk2::MyDdSurface_addRef(&rootSurfEx->dd_surf, 0);
         if (!rootDdSurf) return false;
-        hr = rootDdSurf->AddAttachedSurface(game->ddsurf);
+        hr = rootDdSurf->AddAttachedSurface(game->zbufferSurf);
         if (FAILED(hr)) return false;
         return true;
     }
@@ -57,14 +57,14 @@ namespace {
         desc.dwWidth = _this->dwWidth;
         desc.dwHeight = _this->dwHeight;
         desc.dwMipMapCount = mipMapCount;
-        hr = dk2::dk2dd_get(0)->CreateSurface(&desc, &_this->ddsurf, NULL);
+        hr = dk2::dk2dd_get(0)->CreateSurface(&desc, &_this->zbufferSurf, NULL);
         if (FAILED(hr)) {
-            _this->ddsurf = nullptr;
+            _this->zbufferSurf = nullptr;
             return false;
         }
         if(!attachToRoot(_this)) {
-            _this->ddsurf->Release();
-            _this->ddsurf = nullptr;
+            _this->zbufferSurf->Release();
+            _this->zbufferSurf = nullptr;
             return false;
         }
         return true;
@@ -74,10 +74,9 @@ namespace {
 
 bool reimpl::dk2dd_misc() {
 
-//    if (!api::replaceXrefs(&dk2::dk2dd_init, reimpl_fun)) return false;
     write_jump(&dk2::showMessageBox, reimpl_showMessageBox);
     write_jump(&dk2::dk2dd_get, reimpl_dk2dd_get);
-    write_jump(u8ptr<&dk2::MyGame::createSurface>(), reimpl_MyGame_createSurface);
+    write_jump(u8ptr<&dk2::MyGame::createZBufferSurf>(), reimpl_MyGame_createSurface);
 
     return true;
 }

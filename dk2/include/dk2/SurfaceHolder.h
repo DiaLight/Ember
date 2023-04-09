@@ -38,7 +38,8 @@ struct SurfaceHolder {  // -------------------------------  /* auto */
 /* 1C*/ float _1divSize;  // -----------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00591ED0*/ int32_t calcWeight();  // -------------------  /* auto */
-/*00592380*/ int32_t draw_mgsr(float, float);  // --------  /* auto */
+/*00591FF0*/ void drawSpecial_128x128(float, float);  // -  /* auto */
+/*00592380*/ int32_t drawSpecial_128x128_mgsr(float, float);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

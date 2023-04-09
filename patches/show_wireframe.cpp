@@ -25,7 +25,7 @@ bool patch::show_wireframe() {
         switch (keyCode) {
             case DIK_F12:
                 if (isPressed) {
-                    IDirect3DDevice3 *dev3 = pMydd_cpy_instance->d3d_hal_device;
+                    IDirect3DDevice3 *dev3 = pMydd_cpy_instance->d3d3_halDevice;
                     if (dev3 != nullptr) {  // use gog_patch
                         dev3->SetRenderState(D3DRENDERSTATE_FILLMODE, g_modes[g_modes_idx++ % ARRAYSIZE(g_modes)]);
                     }

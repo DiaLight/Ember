@@ -13,7 +13,6 @@
 // -------------------------------------------------------  /* auto */
 namespace dk2 {  // --------------------------------------  /* auto */
   struct AABB;  // ---------------------------------------  /* auto */
-  struct MyDdSurface;  // --------------------------------  /* auto */
   struct MyDdSurfaceEx;  // ------------------------------  /* auto */
   struct Obj6723B8;  // ----------------------------------  /* auto */
 }  // namespace dk2  -------------------------------------  /* auto */
@@ -31,13 +30,13 @@ struct Obj6723B8 {  // -----------------------------------  /* auto */
 /*006723B8*/ static void **vftable();  // ----------------  /* auto */
 /*---*/ // Obj6723B8  ------------------------------------  /* auto */
 /*  0*/ virtual const void *v_scalar_destructor(char);  // = 005BAF20  /* auto */
-/*  4*/ virtual MyDdSurface *v_getDdSurface1();  // = 00634D60  /* auto */
-/*  8*/ virtual MyDdSurfaceEx *v_getDdSurface2();  // = 00634D60  /* auto */
-/*  C*/ virtual AABB *v_getAabb(AABB *);  // = 00634D60  -  /* auto */
+/*  4*/ virtual MyDdSurfaceEx *v_getPrimarySurf();  // = 00634D60  /* auto */
+/*  8*/ virtual MyDdSurfaceEx *v_getCurOffScreenSurf();  // = 00634D60  /* auto */
+/*  C*/ virtual AABB *v_getOffScreenAabb(AABB *);  // = 00634D60  /* auto */
 /* 10*/ virtual const void *v_isSurfaceFlag();  // = 00634D60  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005BAF10*/ void Obj6723A0_destructor();  // ------------  /* auto */
-/*005D9920*/ AABB *Obj6723A0_getAabb(AABB *);  // --------  /* auto */
+/*005D9920*/ AABB *Obj6723A0_getOffScreenAabb(AABB *);      /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

@@ -21,6 +21,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*005801E0*/ CEngineDynamicMesh *CEngineDynamicMesh::constructor2(int32_t, int32_t, float, float, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, Vec3f *, int32_t, int32_t, int32_t, int32_t) { relink_stub(CEngineDynamicMesh::constructor2); }  /* auto */
 /*00580480*/ CEngineDynamicMesh *CEngineDynamicMesh::constructor(int32_t, int32_t, float, float, float, float, float, float, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, char, int32_t, int32_t) { relink_stub(CEngineDynamicMesh::constructor); }  /* auto */
+/*005808E0*/ int32_t CEngineDynamicMesh::shadow_sub_5808E0(CPolyMeshResource *, int32_t) { relink_stub(CEngineDynamicMesh::shadow_sub_5808E0); }  /* auto */
 /*00580EC0*/ void CEngineDynamicMesh::appendToSceneObject2EList(int32_t) { relink_stub(CEngineDynamicMesh::appendToSceneObject2EList); }  /* auto */
 /*00581BE0*/ void CEngineDynamicMesh::sub_581BE0(int32_t, SceneObject2E *) { relink_stub(CEngineDynamicMesh::sub_581BE0); }  /* auto */
 /*00582180*/ void CEngineDynamicMesh::fun_582180(float, SceneObject2E *) { relink_stub(CEngineDynamicMesh::fun_582180); }  /* auto */

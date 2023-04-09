@@ -23,7 +23,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005982A0*/ CPCEngineInterface *CPCEngineInterface::constructor() { relink_stub(CPCEngineInterface::constructor); }  /* auto */
 /*005983C0*/ int32_t CPCEngineInterface::fun_5983C0(int32_t) { relink_stub(CPCEngineInterface::fun_5983C0); }  /* auto */
 /*005986F0*/ int32_t CPCEngineInterface::fun_5986F0(int32_t *) { relink_stub(CPCEngineInterface::fun_5986F0); }  /* auto */
-/*00598880*/ int32_t CPCEngineInterface::fun_598880(int32_t *) { relink_stub(CPCEngineInterface::fun_598880); }  /* auto */
+/*00598880*/ int32_t CPCEngineInterface::maybe_cameraFun(int32_t *) { relink_stub(CPCEngineInterface::maybe_cameraFun); }  /* auto */
 /*0059A650*/ int32_t CPCEngineInterface::createMyScaledSurface(int32_t, int32_t, int32_t, int32_t, int32_t *) { relink_stub(CPCEngineInterface::createMyScaledSurface); }  /* auto */
 /*0059A6A0*/ int32_t CPCEngineInterface::fun_59A6A0(const char *, char, int32_t, int32_t *, int32_t, char) { relink_stub(CPCEngineInterface::fun_59A6A0); }  /* auto */
 /*0059AE10*/ bool CPCEngineInterface::sub_59AE10() { relink_stub(CPCEngineInterface::sub_59AE10); }  /* auto */

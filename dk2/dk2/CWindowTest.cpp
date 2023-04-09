@@ -23,10 +23,10 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00555CC0*/ int32_t *CWindowTest::create(int32_t *, AABB *) { relink_stub(CWindowTest::create); }  /* auto */
 /*00555F30*/ int32_t *CWindowTest::recreateBullfrog(int32_t *) { relink_stub(CWindowTest::recreateBullfrog); }  /* auto */
 /*00555FF0*/ AABB *CWindowTest::getClientRect(AABB *) { relink_stub(CWindowTest::getClientRect); }  /* auto */
-/*00556030*/ int32_t *CWindowTest::createSurface() { relink_stub(CWindowTest::createSurface); }  /* auto */
+/*00556030*/ int32_t *CWindowTest::createBackSurface() { relink_stub(CWindowTest::createBackSurface); }  /* auto */
 /*00556180*/ int32_t *CWindowTest::sub_556180(int32_t *, int32_t *, int32_t) { relink_stub(CWindowTest::sub_556180); }  /* auto */
 /*00556260*/ void CWindowTest::sub_556260_ev1() { relink_stub(CWindowTest::sub_556260_ev1); }  /* auto */
-/*005565E0*/ MyDdSurfaceEx *CWindowTest::getSurface() { relink_stub(CWindowTest::getSurface); }  /* auto */
+/*005565E0*/ MyDdSurfaceEx *CWindowTest::getCurOffScreenSurf() { relink_stub(CWindowTest::getCurOffScreenSurf); }  /* auto */
 /*005565F0*/ int32_t CWindowTest::recreate() { relink_stub(CWindowTest::recreate); }  /* auto */
 /*005567F0*/ int32_t CWindowTest::isNeedBlt() { relink_stub(CWindowTest::isNeedBlt); }  /* auto */
 // -------------------------------------------------------  /* auto */

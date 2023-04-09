@@ -54,6 +54,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
   struct FloatObjThing;  // ------------------------------  /* auto */
   struct FontObj;  // ------------------------------------  /* auto */
   struct Idx3b;  // --------------------------------------  /* auto */
+  struct Mat3x3f;  // ------------------------------------  /* auto */
   struct MyCESurfHandle;  // -----------------------------  /* auto */
   struct MyCEngineSurfDesc;  // --------------------------  /* auto */
   struct MyCRCtx;  // ------------------------------------  /* auto */
@@ -437,7 +438,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*00450470*/ int32_t __fastcall sub_450470(int32_t, int32_t, int32_t, int32_t, int8_t);  /* auto */
 /*004526C0*/ int8_t __fastcall sub_4526C0(int32_t *, int32_t, int32_t, int32_t, int32_t, int8_t);  /* auto */
 /*00452970*/ BOOL sub_452970(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
-/*00452AB0*/ int32_t __cdecl sub_452AB0(int32_t, float, float, float, float, float, float, float);  /* auto */
+/*00452AB0*/ Vec3f *__cdecl static_Vec3f_sub_452AB0(Vec3f *, float, float, float, float, float, float, float);  /* auto */
 /*00452B20*/ int32_t sub_452B20();  // -------------------  /* auto */
 /*00452F20*/ BOOL sub_452F20(char, int32_t);  // ---------  /* auto */
 /*00454FD0*/ const char *sub_454FD0(int32_t, int32_t, char);  /* auto */
@@ -1201,7 +1202,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*00557AF0*/ int32_t sub_557AF0(int32_t, int32_t, int32_t, MyVideoSettings *);  /* auto */
 /*00557EE0*/ BOOL MyGame_enum_DDEnumCB(GUID *, const char *, const char *, MyGame *);  /* auto */
 /*00557FD0*/ BOOL isOsVersionGE(int32_t, int32_t, int16_t);  /* auto */
-/*005587E0*/ MyDdSurfaceEx *Obj6723A0_getDdSurface1();      /* auto */
+/*005587E0*/ MyDdSurfaceEx *Obj6723A0_getPrimarySurf();     /* auto */
 /*00558A00*/ void MyInputManagerCb_static_setMousePos_(Pos2i *);  /* auto */
 /*00558C70*/ LRESULT myCustomDefWindowProcA(HWND__ *, int32_t, WPARAM, LPARAM);  /* auto */
 /*00558DD0*/ int32_t MyGame_D3DENUMDEVICESCALLBACK(GUID *, const char *, const char *, _D3DDeviceDesc *, _D3DDeviceDesc *, MyGame *);  /* auto */
@@ -1301,9 +1302,9 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*00572F60*/ int32_t __cdecl sub_572F60(int32_t, int32_t, int32_t **, int32_t);  /* auto */
 /*005735A0*/ void __cdecl MyDLVec2i_static_sub_5735A0(MyDLVec2i *);  /* auto */
 /*005737E0*/ int32_t *__cdecl MyDLVec2i_static_sub_5737E0(MyDLVec2i *);  /* auto */
-/*00573C20*/ IDirectDraw4 *dk2_cleanup3d();  // ----------  /* auto */
+/*00573C20*/ IDirectDraw4 *mydd_scene_destroy();  // -----  /* auto */
 /*00573CF0*/ int32_t configureFlagsAndTexturesCount();      /* auto */
-/*00573ED0*/ int32_t __cdecl dk2_init3d(IDirectDraw *, IDirectDrawSurface *, IDirectDrawSurface *, GUID *, __int16, int32_t);  /* auto */
+/*00573ED0*/ int32_t __cdecl mydd_scene_init(IDirectDraw *, IDirectDrawSurface *, IDirectDrawSurface *, GUID *, __int16, int32_t);  /* auto */
 /*005741D0*/ HRESULT sub_5741D0();  // -------------------  /* auto */
 /*00574200*/ HRESULT __cdecl setGammaRamp(const void *);    /* auto */
 /*00574240*/ CEngineSprite *__cdecl sub_574240(float);      /* auto */
@@ -1311,12 +1312,12 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*00574310*/ SceneObject30 *__cdecl LoadCachedTextures(int32_t, int32_t, const char *, int32_t);  /* auto */
 /*005747B0*/ int32_t __cdecl sub_5747B0(int32_t);  // ----  /* auto */
 /*005747C0*/ int32_t __cdecl setPmeshReductionLevel(int32_t);  /* auto */
-/*005747D0*/ int32_t __cdecl sub_5747D0(int32_t);  // ----  /* auto */
+/*005747D0*/ int32_t __cdecl setShadowLevel(int32_t);       /* auto */
 /*005747E0*/ void __cdecl sub_5747E0(float, float, float);  /* auto */
 /*00574820*/ MyDLVec2i *MyDLVec2i_generate();  // --------  /* auto */
 /*00575700*/ void sub_575700();  // ----------------------  /* auto */
 /*00575780*/ bool __cdecl drawScene(char);  // -----------  /* auto */
-/*00575A00*/ void __cdecl sub_575A00(int32_t, float);       /* auto */
+/*00575A00*/ void __cdecl sub_575A00(Vec3f *, float);       /* auto */
 /*00575D70*/ int32_t __cdecl Vec3f_static_sub_575D70(Vec3f *, float, int32_t *);  /* auto */
 /*00575F10*/ Vec3f *__cdecl Vec3f_static_sub_575F10(Vec3f *, float, Vec3f *, const float *);  /* auto */
 /*00575FA0*/ void __cdecl sub_575FA0(int32_t);  // -------  /* auto */
@@ -1331,7 +1332,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*00578E50*/ int32_t __cdecl sub_578E50(int32_t, int32_t);  /* auto */
 /*00578E80*/ CEnginePrimitiveBase *sub_578E80();  // -----  /* auto */
 /*00578EC0*/ void __cdecl CEngine2DRotatableSprite_create(__int16, __int16, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, float, int32_t);  /* auto */
-/*00579180*/ int32_t __cdecl CEngine2DSprite_create(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, float, int32_t);  /* auto */
+/*00579180*/ int32_t __cdecl static_CEngine2DSprite_sub_579180(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, float, int32_t);  /* auto */
 /*005794B0*/ int32_t __cdecl CEngine2DMeshSurface_create(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, float, int32_t);  /* auto */
 /*00579730*/ CEngine2DStaticMesh *__cdecl CEngine2DStaticMesh_create(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, Vec3f *, float, int32_t, int32_t);  /* auto */
 /*00579A10*/ CEngine2DAnimMesh *__cdecl CEngine2DAnimMesh_create(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, float, int32_t, int32_t);  /* auto */
@@ -1344,7 +1345,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0057C7B0*/ int32_t MyEntryBuf_MyScaledSurface_static_alloc();  /* auto */
 /*0057C7E0*/ void sub_57C7E0();  // ----------------------  /* auto */
 /*0057C850*/ int32_t __cdecl MyEntryBuf_MyScaledSurface_create(MyDblNamedSurface *, char);  /* auto */
-/*0057C920*/ MyCESurfHandle *__cdecl CPCEngineInterface_57C920(int32_t, MySurface *, char);  /* auto */
+/*0057C920*/ MyCESurfHandle *__cdecl static_CPCEngineInterface_57C920(int32_t, MySurface *, char);  /* auto */
 /*0057C950*/ void __cdecl MyScaledSurface_resolveById(int16_t);  /* auto */
 /*0057C970*/ MyScaledSurface *__cdecl MyDblNamedSurface_createPrescaled(int32_t, int32_t, int32_t);  /* auto */
 /*0057CBE0*/ int32_t __cdecl MyHeap_static_init(int32_t);   /* auto */
@@ -1404,7 +1405,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0058A4E0*/ void nullsub_39();  // ----------------------  /* auto */
 /*0058A4F0*/ int32_t __cdecl sub_58A4F0(int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*0058A520*/ Uv2f_arr1024 *__cdecl mydd_uvs_init(MyDirectDraw *);  /* auto */
-/*0058A550*/ void mydd_flags_destroy();  // --------------  /* auto */
+/*0058A550*/ void mydd_uvs_destroy();  // ----------------  /* auto */
 /*0058A570*/ void __cdecl sub_58A570(int32_t, float, float, float, float, int32_t);  /* auto */
 /*0058A6F0*/ int32_t __cdecl sub_58A6F0(int32_t *);  // --  /* auto */
 /*0058A970*/ char __cdecl __renderFun_setSceneObject2E(SceneObject2E *, int32_t, int32_t, int32_t, float, int32_t);  /* auto */
@@ -1432,12 +1433,12 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0058D990*/ int32_t __cdecl applyScale_sub_58D990(int32_t, int32_t);  /* auto */
 /*0058DB70*/ int32_t __cdecl applyScale_sub_58DB70(int32_t, int32_t);  /* auto */
 /*0058DD40*/ int32_t *sub_58DD40();  // ------------------  /* auto */
-/*0058E080*/ int32_t __cdecl sub_58E080(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
+/*0058E080*/ int32_t __cdecl shadows_process_58E080(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*0058E2C0*/ int32_t __cdecl MyEntryBuf_MyScaledSurface_addFormatEnfineShadow(const char *, int32_t);  /* auto */
 /*0058E330*/ int32_t shadows_init();  // -----------------  /* auto */
-/*0058E3E0*/ int32_t sub_58E3E0();  // -------------------  /* auto */
-/*0058E440*/ int32_t __cdecl sub_58E440(int32_t);  // ----  /* auto */
-/*0058E470*/ MyCESurfHandle *sub_58E470();  // -----------  /* auto */
+/*0058E3E0*/ int32_t shadows_begin_ge23();  // -----------  /* auto */
+/*0058E440*/ int32_t __cdecl shadows_begin_lt23(int32_t);   /* auto */
+/*0058E470*/ MyCESurfHandle *shadows_end_58E470();  // ---  /* auto */
 /*0058E580*/ void __cdecl sub_58E580(int32_t);  // -------  /* auto */
 /*0058E640*/ void __cdecl sub_58E640(SceneObject2E *, int32_t, float, int32_t, int32_t, float, int32_t);  /* auto */
 /*0058EE40*/ void nullsub_40();  // ----------------------  /* auto */
@@ -1450,6 +1451,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0058F5F0*/ void SceneObject2EList_SceneObject30List_static_destroy();  /* auto */
 /*0058F640*/ void draw3dScene();  // ---------------------  /* auto */
 /*0058F980*/ int32_t *sub_58F980();  // ------------------  /* auto */
+/*0058F9A0*/ void __cfltcvt_init_5();  // ----------------  /* auto */
 /*0058F9E0*/ int32_t MyStringHashMap_MyCESurfHandle_static_constructor();  /* auto */
 /*0058FA00*/ void __cdecl MyStringHashMap_MyCESurfHandle_static_destructor();  /* auto */
 /*0058FA20*/ int32_t MyTextures_static_constructor();       /* auto */
@@ -1461,14 +1463,13 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0058FF70*/ int32_t __cdecl MySurface_58FF70(MySurface *, MySurface *);  /* auto */
 /*00590000*/ MySurface *__cdecl MySurface_590000(MySurface *, MySurface *);  /* auto */
 /*00590240*/ int32_t __cdecl sub_590240(int32_t);  // ----  /* auto */
-/*005915A0*/ int32_t __cdecl sub_5915A0(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
+/*005915A0*/ int32_t __cdecl scaleImg(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*00591DA0*/ SurfaceHolder *__cdecl SurfaceHolder_create(int32_t, MyCEngineSurfDesc *, int32_t);  /* auto */
-/*00591FF0*/ const void *__cdecl SurfaceHolder_draw();  // assembly  /* auto */
 /*005924A0*/ int32_t __cdecl MySurfaceWrapper_createPrescaled(MySurfaceWrapper *, char);  /* auto */
 /*00592720*/ const char *__cdecl MyTextures_resetCacheDir(const char *);  /* auto */
-/*00592950*/ void destroySurfHashLists();  // ------------  /* auto */
-/*00592B80*/ const void *__cdecl SurfaceHolder_setTexture(SurfaceHolder *, int32_t);  /* auto */
-/*00592EA0*/ int32_t __cdecl mydd_cpy3_initSurfHashLists(MyDirectDraw *);  /* auto */
+/*00592950*/ void mydd_devTexture_destroy();  // ---------  /* auto */
+/*00592B80*/ int32_t *__cdecl renderer_setSurfaceHolder(SurfaceHolder *, int32_t);  /* auto */
+/*00592EA0*/ int32_t __cdecl mydd_devTexture_init(MyDirectDraw *);  /* auto */
 /*00593280*/ int32_t surfaces_cleanup();  // -------------  /* auto */
 /*00593350*/ int32_t D3DENUMPIXELFORMATSCALLBACK_proc(DDPIXELFORMAT *, int32_t);  /* auto */
 /*005934C0*/ int32_t MyCESurfHandle_cleanup();  // -------  /* auto */
@@ -1507,7 +1508,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0059C720*/ CEngineQuadPlane *sub_59C720(int32_t, const float *, int32_t);  /* auto */
 /*0059D010*/ CEngineDynamicMesh *sub_59D010(int32_t *, int32_t, int32_t, int32_t);  /* auto */
 /*0059D4B0*/ int32_t sub_59D4B0(int32_t, int32_t *, int32_t *);  /* auto */
-/*0059D5F0*/ int32_t __cdecl sub_59D5F0(int32_t, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float);  /* auto */
+/*0059D5F0*/ Mat3x3f *__cdecl Mat3x3f_sub_59D5F0(Mat3x3f *, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float);  /* auto */
 /*0059D8D0*/ IDirectDraw4 *__cdecl CPCEngineInterface_WM_ACTIVATE_cb(int32_t, int32_t, int32_t, CPCEngineInterface *);  /* auto */
 /*0059DAD0*/ int32_t __cdecl sub_59DAD0(int32_t, int32_t, int32_t, int32_t, int32_t, float, float, float);  /* auto */
 /*0059DB70*/ int32_t __cdecl sub_59DB70(int32_t, float, float, float, float, float, float);  /* auto */
@@ -1552,9 +1553,9 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*005A73F0*/ int32_t __cdecl drawTriangle34_impl2(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*005A74B0*/ int32_t __cdecl drawTriangle34_impl1(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*005A7550*/ int32_t __cdecl drawTriangle34_impl3(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
-/*005A7600*/ const void *__cdecl init_mgsr(int32_t *, int32_t *, int32_t, int32_t);  /* auto */
-/*005A78E0*/ int32_t __cdecl sub_5A78E0(int32_t);  // ----  /* auto */
-/*005A7900*/ int32_t __cdecl sub_5A7900(int32_t);  // ----  /* auto */
+/*005A7600*/ int32_t *__cdecl init_mgsr(IDirectDrawSurface *, int16_t **, int32_t, int32_t);  /* auto */
+/*005A78E0*/ int32_t __cdecl getBitCount(int32_t);  // ---  /* auto */
+/*005A7900*/ int32_t __cdecl getBitsShift(int32_t);  // --  /* auto */
 /*005A7920*/ int32_t mgsr_initBuffers();  // -------------  /* auto */
 /*005A7980*/ const void *__cdecl mgsr_alloc_buf(int32_t, int32_t);  /* auto */
 /*005A79C0*/ const char *__cdecl mgsr_alloc_buf2(int32_t, int32_t);  /* auto */
@@ -1745,7 +1746,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*005B3F10*/ MySurface *sub_5B3F10();  // ----------------  /* auto */
 /*005B3F20*/ MySurface *sub_5B3F20();  // ----------------  /* auto */
 /*005B3F50*/ MySurface *j_g_dd_surface1_init();  // ------  /* auto */
-/*005B3F60*/ MySurface *g_dd_surface1_static_init();  // -  /* auto */
+/*005B3F60*/ MySurface *g_primarySurf_static_init();  // -  /* auto */
 /*005B3F90*/ MySurface *sub_5B3F90();  // ----------------  /* auto */
 /*005B3FA0*/ MySurface *sub_5B3FA0();  // ----------------  /* auto */
 /*005B3FD0*/ int32_t sub_5B3FD0();  // -------------------  /* auto */
@@ -1760,7 +1761,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*005B4260*/ int32_t __cdecl BullfrogWindow_create(int32_t, GUID *, int32_t, HWND__ *, int32_t);  /* auto */
 /*005B4330*/ int32_t static_isNeedBlt();  // -------------  /* auto */
 /*005B4340*/ void __cdecl showTodoMessageBox(const char *, ...);  /* auto */
-/*005B4390*/ void __cdecl dk2dd_init(int32_t *, int32_t, int32_t, int32_t, int32_t, tagPALETTEENTRY *);  /* auto */
+/*005B4390*/ int32_t *__cdecl dk2dd_init(int32_t *, int32_t, int32_t, int32_t, int32_t, tagPALETTEENTRY *);  /* auto */
 /*005B4AE0*/ int32_t *__cdecl dk2wnd_cleanup(int32_t *);    /* auto */
 /*005B4B00*/ int32_t *__cdecl __sub_5B4B00_ev1(int32_t *, int32_t);  /* auto */
 /*005B4D40*/ IDirectDrawPalette *__cdecl sub_5B4D40(tagPALETTEENTRY *, int32_t, int32_t);  /* auto */
@@ -1771,12 +1772,12 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*005B4FC0*/ ATOM BullfrogWindow_registerClass();  // ----  /* auto */
 /*005B5070*/ LRESULT BullfrogWindow_proc(HWND__ *, int32_t, WPARAM, LPARAM);  /* auto */
 /*005B5160*/ HICON__ *__cdecl setAppActivatedStatus(int32_t);  /* auto */
-/*005B5180*/ MyDdSurfaceEx *__cdecl MyDdSurfaceEx_setInstance(MyDdSurfaceEx *);  /* auto */
+/*005B5180*/ MyDdSurfaceEx *__cdecl setCurOffScreen(MyDdSurfaceEx *);  /* auto */
 /*005B5410*/ void __cdecl setSurfaceDD(IDirectDraw *);      /* auto */
 /*005B5420*/ MyDdSurface *__cdecl MyDdSurface_constructor(MyDdSurface *, int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*005B5460*/ BOOL __cdecl MyDdSurfaceEx_restoreSurf_if_unk(MyDdSurfaceEx *);  /* auto */
 /*005B5490*/ int32_t *__cdecl __surface_init_blt(int32_t *, MyDdSurfaceEx *, tagRECT *, int32_t, int8_t, int32_t);  /* auto */
-/*005B5700*/ int32_t *__cdecl createSurface(int32_t *, int32_t, int32_t, int32_t, MyDdSurface *);  /* auto */
+/*005B5700*/ int32_t *__cdecl MyDdSurface_createOffScreenSurface(int32_t *, int32_t, int32_t, int32_t, MyDdSurface *);  /* auto */
 /*005B57C0*/ int32_t *__cdecl MyDdSurface_release(int32_t *, MyDdSurface *);  /* auto */
 /*005B57F0*/ int32_t *__cdecl static_MyDdSurfaceEx_BltWait(int32_t *, MyDdSurfaceEx *, int32_t, int32_t, MyDdSurfaceEx *, AABB *, int32_t);  /* auto */
 /*005B5970*/ tagPOINT *__cdecl sub_5B5970(int32_t *, MyDdSurfaceEx *, int32_t *, int32_t, int32_t *, int32_t);  /* auto */
@@ -1973,7 +1974,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*005D7C70*/ int32_t sub_5D7C70(const wchar_t *, size_t, const wchar_t *);  /* auto */
 /*005D8B00*/ int32_t *MyWadDirectory_sub_5D8B00(int32_t *, int32_t);  /* auto */
 /*005D9470*/ int32_t MyFileInfo_constructor(MyFileInfo *, _WIN32_FIND_DATAA *);  /* auto */
-/*005D9910*/ MyDdSurfaceEx *Obj6723A0_getDdSurface2();      /* auto */
+/*005D9910*/ MyDdSurfaceEx *Obj6723A0_getCurOffScreen();    /* auto */
 /*005D9980*/ int32_t Obj6723A0_isSurfaceFlag();  // ------  /* auto */
 /*005DA300*/ AsyncThing *__fastcall AsyncThing_constructor(AsyncThing *);  /* auto */
 /*005DA3E0*/ int32_t AsyncThing_thread_proc(AsyncThing *);  /* auto */

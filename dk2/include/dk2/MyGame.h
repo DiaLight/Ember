@@ -45,7 +45,7 @@ struct MyGame {  // --------------------------------------  /* auto */
 /* 6D*/ IDirect3D2 *pIDirect3D2;  // ---------------------  /* auto */
 /* 71*/ MyD3DevInfo d3devArr[16];  // --------------------  /* auto */
 /*271*/ int8_t gap271[4];  // ----------------------------  /* auto */
-/*275*/ IDirectDrawSurface *ddsurf;  // ------------------  /* auto */
+/*275*/ IDirectDrawSurface *zbufferSurf;  // -------------  /* auto */
 /*279*/ StaticListeners static_listeners;  // ------------  /* auto */
 /*28D*/ int32_t f28D;  // --------------------------------  /* auto */
 /*291*/ int32_t f291;  // --------------------------------  /* auto */
@@ -93,14 +93,14 @@ struct MyGame {  // --------------------------------------  /* auto */
 /*005585C0*/ int32_t fun_5585C0(int32_t);  // ------------  /* auto */
 /*005586E0*/ int32_t selectSurfToRender();  // -----------  /* auto */
 /*00558770*/ int32_t getSurf_unlock();  // ---------------  /* auto */
-/*005587C0*/ MyDdSurfaceEx *getScreenSurf();  // ---------  /* auto */
+/*005587C0*/ MyDdSurfaceEx *getCurOffScreenSurf();  // ---  /* auto */
 /*005587F0*/ void prepareScreen();  // -------------------  /* auto */
 /*005588A0*/ int32_t *surf_Blt();  // --------------------  /* auto */
 /*00558A40*/ int32_t takeScreenshot();  // ---------------  /* auto */
 /*00558BD0*/ int32_t sub_558BD0();  // -------------------  /* auto */
 /*00558E40*/ int32_t collect3dDevices();  // -------------  /* auto */
 /*00558F40*/ int32_t sub_558F40(int32_t, MyD3DevInfo *);    /* auto */
-/*00558F70*/ void createSurface(int32_t);  // ------------  /* auto */
+/*00558F70*/ int32_t createZBufferSurf(int32_t);  // -----  /* auto */
 /*00559140*/ int32_t sub_559140(const char *, int32_t, const char *, const char *);  /* auto */
 /*00559670*/ int32_t isNeedBlt();  // --------------------  /* auto */
 /*00559690*/ int32_t addWmActivateCallback(void (__cdecl *)(int32_t, int32_t, int32_t, const void *), const void *);  /* auto */

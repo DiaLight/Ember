@@ -15,6 +15,7 @@
 #include <dk2/ButtonCfg.h>  // ---------------------------  /* auto */
 #include <dk2/CBridge.h>  // -----------------------------  /* auto */
 #include <dk2/CDefaultPlayerInterface.h>  // -------------  /* auto */
+#include <dk2/CEngineSurfaceScaler.h>  // ----------------  /* auto */
 #include <dk2/CEntryComponent.h>  // ---------------------  /* auto */
 #include <dk2/CFrontEndComponent.h>  // ------------------  /* auto */
 #include <dk2/CGameComponent.h>  // ----------------------  /* auto */
@@ -53,7 +54,6 @@
 #include <dk2/MySurface.h>  // ---------------------------  /* auto */
 #include <dk2/MyTextures.h>  // --------------------------  /* auto */
 #include <dk2/NameCfg.h>  // -----------------------------  /* auto */
-#include <dk2/Obj792D48.h>  // ---------------------------  /* auto */
 #include <dk2/Obj79DC68.h>  // ---------------------------  /* auto */
 #include <dk2/PathStr.h>  // -----------------------------  /* auto */
 #include <dk2/Pos2p.h>  // -------------------------------  /* auto */
@@ -401,6 +401,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*006CCA60*/ extern MyDdSurfaceEx (&myDdSurfaceArr_x15)[21];  /* auto */
 /*006CD0F0*/ extern int32_t &myDdSurface_end;  // --------  /* auto */
 /*006CE850*/ extern MyDdSurfaceEx &my_surf;  // ----------  /* auto */
+/*006CE8A0*/ extern int32_t &idx;  // --------------------  /* auto */
 /*006CEA10*/ extern CDefaultPlayerInterface &CDefaultPlayerInterface_instance;  /* auto */
 /*006D3954*/ extern wchar_t &S2;  // ---------------------  /* auto */
 /*006D3CC8*/ extern CBridge &CBridge_instance;  // -------  /* auto */
@@ -496,9 +497,19 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*00760B38*/ extern Vec3f &g_vec_760B38;  // -------------  /* auto */
 /*00760B44*/ extern int32_t &g2_sceneHeight;  // ---------  /* auto */
 /*00760B4C*/ extern float &g_cullTo;  // -----------------  /* auto */
+/*00760B54*/ extern int32_t &g_sceneWidth;  // -----------  /* auto */
+/*00760B5C*/ extern int32_t &g2_sceneLeft;  // -----------  /* auto */
 /*00760B70*/ extern Vec3f &g_vec_760B70;  // -------------  /* auto */
-/*00764B90*/ extern MyDirectDraw &mydd_main;  // ---------  /* auto */
+/*00760B88*/ extern int32_t &g_sceneHeight;  // ----------  /* auto */
+/*00764B90*/ extern MyDirectDraw &mydd_scene;  // --------  /* auto */
+/*00764BBC*/ extern int32_t &g2_sceneTop;  // ------------  /* auto */
+/*00764BC0*/ extern int32_t &EngineTestCross_a31x400_idx;   /* auto */
+/*00764BC4*/ extern int32_t &EngineTestLight_a31x400_idx;   /* auto */
+/*00764BC8*/ extern int32_t &EngineTextureWhite_a31x400_idx;  /* auto */
 /*00764BE8*/ extern DDGAMMARAMP &gamma_ramp;  // ---------  /* auto */
+/*007651F4*/ extern char &g_isCurDdSurfLost;  // ---------  /* auto */
+/*007651FC*/ extern int32_t &is3dInitialized;  // --------  /* auto */
+/*00765200*/ extern int32_t &mgsr_initialized;  // -------  /* auto */
 /*00765224*/ extern CEnginePrimitiveBase *&g_pCEngine2DPrimitive;  /* auto */
 /*007656E8*/ extern MyStringHashMap_MyScaledSurface &MyStringHashMap_MyScaledSurface_instance;  /* auto */
 /*00765AF8*/ extern MyEntryBuf_MyScaledSurface &MyEntryBuf_MyScaledSurface_instance;  /* auto */
@@ -509,6 +520,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*00766658*/ extern MyMeshResourceHolder *&g_meshHolderList_first;  /* auto */
 /*00766660*/ extern MyStringHashMap_MyMeshResourceHolder &MyStringHashMap_MyMeshResourceHolder_instance;  /* auto */
 /*00766A70*/ extern MyMeshResourceHolder *&g_meshHolderList_last;  /* auto */
+/*00766A78*/ extern Vec3f &g_vec_766A78;  // -------------  /* auto */
 /*00769A78*/ extern ScreenObjectArr &ScreenObjectArr_instance;  /* auto */
 /*0076AA80*/ extern Vec3s (&DrawTriangleList_lpwIndices)[1024];  /* auto */
 /*0076C280*/ extern MyEntryBuf_Triangle24 &MyEntryBuf_Triangle24_instance;  /* auto */
@@ -541,6 +553,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0077F4F8*/ extern int8_t (&g_idxFlags)[1024];  // ------  /* auto */
 /*0077F8F8*/ extern MyDirectDraw &mydd_uvs;  // ----------  /* auto */
 /*0077F938*/ extern Idx3b (&g_Idx3b_arr_instance)[1024];    /* auto */
+/*0078095C*/ extern const void *&shadows_lpSurface;  // --  /* auto */
 /*00780960*/ extern int32_t (&g_MyEntryBuf_MyScaledSurface_idxs)[64];  /* auto */
 /*007820A8*/ extern SceneObject2EList &SceneObject2EList_instance;  /* auto */
 /*007820B8*/ extern SceneObject30List &SceneObject30List_instance;  /* auto */
@@ -550,12 +563,13 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*007920D4*/ extern SurfHashList2 *&pSurfHashList2;  // --  /* auto */
 /*007920D8*/ extern MyTextures &MyTextures_instance;  // -  /* auto */
 /*0079291C*/ extern MyCESurfHandle *&g_surfh_first;  // --  /* auto */
-/*00792920*/ extern MySurfDesc &MySurfDesc_792920;  // ---  /* auto */
+/*00792920*/ extern MySurfDesc &g_surfDesc_8a8r8g8b;  // -  /* auto */
 /*00792938*/ extern MyStringHashMap_MyCESurfHandle &MyStringHashMap_MyCESurfHandle_instance;  /* auto */
-/*00792D48*/ extern Obj792D48 &Obj792D48_instance;  // ---  /* auto */
+/*00792D48*/ extern CEngineSurfaceScaler &CEngineSurfaceScaler_instance;  /* auto */
 /*00792D60*/ extern SurfHashList *&pSurfHashList;  // ----  /* auto */
-/*00792D68*/ extern MyDirectDraw &mydd_cpy3;  // ---------  /* auto */
+/*00792D68*/ extern MyDirectDraw &mydd_devTexture;  // ---  /* auto */
 /*00792D98*/ extern MyCEngineSurfDesc &MyCEngineSurfDesc_argb32_instance;  /* auto */
+/*00792DFD*/ extern MyCEngineSurfDesc &g_surfDesc_8a8r8g8b_0;  /* auto */
 /*00792E62*/ extern MyCEngineSurfDesc &MyCEngineSurfDesc_unk16_instance;  /* auto */
 /*00792EC8*/ extern int32_t (&sizeHashTable_257)[257];      /* auto */
 /*007932CC*/ extern MyCESurfHandle *&g_surfh_last;  // ---  /* auto */
@@ -579,13 +593,14 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0079D074*/ extern My24BitTexture &My24BitTexture_instance;  /* auto */
 /*0079D078*/ extern My32BitTexture &My32BitTexture_instance;  /* auto */
 /*0079D0A8*/ extern char (&PathName)[300];  // -----------  /* auto */
-/*0079D1D4*/ extern IDirectDrawSurface *&lpDDAttachedSurface;  /* auto */
-/*0079D200*/ extern MyDdSurfaceEx &g_fullscreen_ddSurf;     /* auto */
+/*0079D1D4*/ extern IDirectDrawSurface *&g_dd_primaryAttachedSurf;  /* auto */
+/*0079D1D8*/ extern MySurface &g_mySurf_unused;  // ------  /* auto */
+/*0079D200*/ extern MyDdSurfaceEx &g_primarySurf;  // ----  /* auto */
 /*0079D250*/ extern DdModeList &DdModeList_instance;  // -  /* auto */
 /*0079D260*/ extern char (&bullfrogClassName)[260];  // --  /* auto */
-/*0079D364*/ extern MyDdSurfaceEx *&g_pDdSurface_windowed;  /* auto */
+/*0079D364*/ extern MyDdSurfaceEx *&g_pCurOffScreen;  // -  /* auto */
 /*0079D368*/ extern FPUControlWordWithState &FPUControlWordWithState_instance;  /* auto */
-/*0079D378*/ extern MyDdSurfaceEx &g_dd_surface2;  // ----  /* auto */
+/*0079D378*/ extern MyDdSurfaceEx &g_offScreen;  // ------  /* auto */
 /*0079D3C8*/ extern HWND__ *&hWnd;  // -------------------  /* auto */
 /*0079D3CC*/ extern HWND__ *&hBullfrogWindow;  // --------  /* auto */
 /*0079D3D0*/ extern IDirectDraw *&dk2dd;  // -------------  /* auto */
@@ -651,6 +666,9 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*007A6DC0*/ extern size_t &Count;  // -------------------  /* auto */
 /*007A7020*/ extern int32_t *&grpoly_mydd_buf;  // -------  /* auto */
 /*007A7024*/ extern int16_t *&grpoly_mydd_buf2;  // ------  /* auto */
+/*007A7028*/ extern int32_t &mgsr_buf_width;  // ---------  /* auto */
+/*007A702C*/ extern int32_t &mgsr_buf2_width;  // --------  /* auto */
+/*007A7034*/ extern int32_t *&mgsr_lockedBuf_dw256x256;     /* auto */
 /*007A7040*/ extern int32_t (__stdcall *&mgsr_pDrawFun)();  /* auto */
 /*007A7208*/ extern Pos2p &mgsr_pos_dst;  // -------------  /* auto */
 /*007A7210*/ extern Pos2p &mgsr_qword_src;  // -----------  /* auto */

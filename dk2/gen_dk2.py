@@ -43,6 +43,8 @@ def gen_structures(
             f.write(line)
             f.write("\n")
       visited_struct_h.add(id)
+      if file.name != f"{struct.name}.h":
+        file.rename(include_dir / f"{struct.name}.h")
     
     # generate new structures
     for struct in structs_map.values():
@@ -76,6 +78,8 @@ def gen_structures(
             f.write(line)
             f.write("\n")
       visited_struct_cpp.add(id)
+      if file.name != f"{struct.name}.cpp":
+        file.rename(include_dir / f"{struct.name}.cpp")
 
     # generate new structures
     for struct in structs_map.values():

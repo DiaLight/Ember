@@ -45,8 +45,8 @@ struct CPCEngineInterface : CEngineInterface {  // -------  /* auto */
 /* A6*/ CWorldEntry world_entry1;  // --------------------  /* auto */
 /* C1*/ int32_t fC1;  // ---------------------------------  /* auto */
 /* C5*/ int32_t fC5;  // ---------------------------------  /* auto */
-/* C9*/ int32_t fC9;  // ---------------------------------  /* auto */
-/* CD*/ int32_t fCD;  // ---------------------------------  /* auto */
+/* C9*/ int32_t updateCount;  // -------------------------  /* auto */
+/* CD*/ int32_t init3dResult;  // ------------------------  /* auto */
 /* D1*/ int8_t gap_D1[20];  // ---------------------------  /* auto */
 /* E5*/ int8_t fE5;  // ----------------------------------  /* auto */
 /* E6*/ int8_t fE6;  // ----------------------------------  /* auto */
@@ -145,7 +145,7 @@ struct CPCEngineInterface : CEngineInterface {  // -------  /* auto */
 /*005982A0*/ CPCEngineInterface *constructor();  // ------  /* auto */
 /*005983C0*/ int32_t fun_5983C0(int32_t);  // ------------  /* auto */
 /*005986F0*/ int32_t fun_5986F0(int32_t *);  // ----------  /* auto */
-/*00598880*/ int32_t fun_598880(int32_t *);  // ----------  /* auto */
+/*00598880*/ int32_t maybe_cameraFun(int32_t *);  // -----  /* auto */
 /*0059A650*/ int32_t createMyScaledSurface(int32_t, int32_t, int32_t, int32_t, int32_t *);  /* auto */
 /*0059A6A0*/ int32_t fun_59A6A0(const char *, char, int32_t, int32_t *, int32_t, char);  /* auto */
 /*0059AE10*/ bool sub_59AE10();  // ----------------------  /* auto */

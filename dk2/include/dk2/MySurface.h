@@ -28,13 +28,13 @@ namespace dk2 {  // --------------------------------------  /* auto */
 struct MySurface {  // -----------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*  0*/ MySurfDesc desc;  // -----------------------------  /* auto */
-/* 18*/ int32_t lpSurface;  // ---------------------------  /* auto */
+/* 18*/ const void *lpSurface;  // -----------------------  /* auto */
 /* 1C*/ int32_t dwWidth;  // -----------------------------  /* auto */
 /* 20*/ int32_t dwHeight;  // ----------------------------  /* auto */
 /* 24*/ int32_t lPitch;  // ------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005B5250*/ MySurface *MySurface_empty();  // -----------  /* auto */
-/*005B5270*/ MySurface *constructor(Pos2i *, MySurfDesc *, int32_t, int32_t);  /* auto */
+/*005B5270*/ MySurface *constructor(Pos2i *, MySurfDesc *, const void *, int32_t);  /* auto */
 /*005B52C0*/ int32_t *allocSurfaceIfNot(int32_t *);  // --  /* auto */
 /*005B5330*/ int32_t *copyAreaTo(int32_t *, MySurface *, AABB *);  /* auto */
 // -------------------------------------------------------  /* auto */

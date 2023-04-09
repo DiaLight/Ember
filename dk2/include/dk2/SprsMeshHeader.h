@@ -29,8 +29,8 @@ struct SprsMeshHeader {  // ------------------------------  /* auto */
 /*  4*/ Triangle *pvertice_list[16];  // -----------------  /* auto */
 /* 44*/ int8_t triangleCount_list[16];  // ---------------  /* auto */
 /* 54*/ MeshVertEx *MeshVertEx_base;  // -----------------  /* auto */
-/* 58*/ __int16 MyScaledSurface_idx;  // -----------------  /* auto */
-/* 5A*/ __int16 numVertsEx;  // --------------------------  /* auto */
+/* 58*/ int16_t MyScaledSurface_idx;  // -----------------  /* auto */
+/* 5A*/ int16_t numVertsEx;  // --------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

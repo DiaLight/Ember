@@ -40,6 +40,7 @@ set(SOURCES
         dk2/CEngineStaticMesh.cpp
         dk2/CEngineSurface.cpp
         dk2/CEngineSurfaceBase.cpp
+        dk2/CEngineSurfaceScaler.cpp
         dk2/CEngineUnlitProceduralMesh.cpp
         dk2/CEngineVirtualPerspective2DAnimMesh.cpp
         dk2/CEngineWorldPrimitive.cpp
@@ -264,7 +265,6 @@ set(SOURCES
         dk2/Obj672844.cpp
         dk2/Obj672E70.cpp
         dk2/Obj672E80.cpp
-        dk2/Obj792D48.cpp
         dk2/Obj79DC68.cpp
         dk2/PathStr.cpp
         dk2/PixelMask.cpp

@@ -995,11 +995,7 @@ struct: id=constructor_00449470,name=CCamera,size=3794
   field: name=field_EAE
     type: kind=int,size=4,signed=True
   field: name=field_EB2
-    type: kind=float,size=4
-  field: name=field_EB6
-    type: kind=float,size=4
-  field: name=fEBA
-    type: kind=int,size=4,signed=True
+    type: kind=struct,id=vecf_xyz
   field: name=field_EBE
     type: kind=int,size=4,signed=True
   field: name=field_EC2
@@ -2483,10 +2479,10 @@ struct: id=vtbl_006703C4,name=CEngineDDSurface,size=36,vtable=instance_006703C4,
   field: name=f18_ddSurf
     type: kind=ptr
       type: kind=winapi,name=IDirectDrawSurface4,size=4
-  field: name=f1C_d3dTex
+  field: name=f1C_devTex
     type: kind=ptr
       type: kind=winapi,name=IDirect3DTexture2,size=4
-  field: name=field_20
+  field: name=f20_surfCreated
     type: kind=int,size=4,signed=True
   vtable_value: va=005909C0
   vtable_value: va=0062A210
@@ -2545,13 +2541,14 @@ struct: id=instance_0066FDDC,name=CEngineDynamicHeightField_vtbl,size=32,super=i
       type: kind=function,declspec=stdcall
         ret: kind=void
         arg: kind=int,size=4,signed=True
-struct: id=vtbl_0066FD1C,name=CEngineDynamicMesh,size=126,vtable=instance_0066FD1C,super=vtbl_0066FD44
+struct: id=vtbl_0066FD1C,name=CEngineDynamicMesh,size=141,vtable=instance_0066FD1C,super=vtbl_0066FD44
   field: name=field_4
     type: kind=struct,id=vecf_xyz
   field: name=f10_mat
     type: kind=struct,id=constructor_0042F480
-  field: name=field_34
-    type: kind=int,size=4
+  field: name=f34_pobj
+    type: kind=ptr
+      type: kind=struct,id=call_new_0057EF64
   field: name=f38_vec
     type: kind=struct,id=vecf_xyz
   field: name=field_44
@@ -2577,12 +2574,15 @@ struct: id=vtbl_0066FD1C,name=CEngineDynamicMesh,size=126,vtable=instance_0066FD
   field: name=field_6C
     type: kind=int,size=4,signed=True
   field: name=field_70
-    type: kind=int,size=4
+    type: kind=int,size=4,signed=True
   field: name=field_74
     type: kind=int,size=4,signed=True
   field: name=field_78
-    type: kind=char,size=1
-  field: name=field_79
+    type: kind=int,size=4,signed=True
+  field: name=f7c_gap
+    type: kind=array,count=12
+      type: kind=int,size=1
+  field: name=field_88
     type: kind=char,size=1
   vtable_value: va=005769D0
   vtable_value: va=00582CE0
@@ -3740,6 +3740,19 @@ struct: id=instance_00670374,name=CEngineSurfaceBase_vtbl,size=36
           type: kind=void
         arg: kind=ptr
           type: kind=int,size=4
+struct: id=instance_00792D48,name=CEngineSurfaceScaler,size=17
+  field: name=f0_isScaled
+    type: kind=char,size=1
+  field: name=f1_orig_128x128_8a8r8g8b
+    type: kind=ptr
+      type: kind=struct,id=vtbl_0067034C
+  field: name=f5_scaled_128x128_8a8r8g8b
+    type: kind=ptr
+      type: kind=struct,id=vtbl_0067034C
+  field: name=f9_prescaleWigth
+    type: kind=int,size=4,signed=True
+  field: name=fD_prescaleHeight
+    type: kind=int,size=4,signed=True
 struct: id=instance_0067034C,name=CEngineSurface_vtbl,size=36,super=instance_00670374
 struct: id=vtbl_0066FE04,name=CEngineUnlitProceduralMesh,size=92,vtable=instance_0066FE04,super=vtbl_0066FA9C
   field: name=f8_a2
@@ -5382,9 +5395,9 @@ struct: id=vtbl_00670574,name=CPCEngineInterface,size=561,vtable=instance_006705
     type: kind=int,size=4,signed=True
   field: name=field_C5
     type: kind=int,size=4,signed=True
-  field: name=field_C9
+  field: name=fC9_updateCount
     type: kind=int,size=4
-  field: name=field_CD
+  field: name=fCD_init3dResult
     type: kind=int,size=4
   field: name=gap_D1
     type: kind=array,count=20
@@ -6976,9 +6989,9 @@ struct: id=vtbl_0066F20C,name=CWindowTest,size=96,vtable=instance_0066F20C
   field: name=f4_hWnd
     type: kind=ptr
       type: kind=winapi,name=HWND__,size=4
-  field: name=f8_surface
+  field: name=f8_offScreenSurf
     type: kind=struct,id=instance_0079D200
-  field: name=f58_pSurface
+  field: name=f58_pCurOffScreenSurf
     type: kind=ptr
       type: kind=struct,id=instance_0079D200
   field: name=f5C
@@ -11802,19 +11815,19 @@ struct: id=instance_00764B90,name=MyDirectDraw,size=42
   field: name=dd4
     type: kind=ptr
       type: kind=winapi,name=IDirectDraw4,size=4
-  field: name=ddsurf4_screen
+  field: name=ddsurf4_offScreen
     type: kind=ptr
       type: kind=winapi,name=IDirectDrawSurface4,size=4
-  field: name=ddsurf4
+  field: name=ddsurf4_primarySurf
     type: kind=ptr
       type: kind=winapi,name=IDirectDrawSurface4,size=4
-  field: name=d3d_hal_device
+  field: name=d3d3_halDevice
     type: kind=ptr
       type: kind=winapi,name=IDirect3DDevice3,size=4
   field: name=d3d3
     type: kind=ptr
       type: kind=winapi,name=IDirect3D3,size=4
-  field: name=d3d_viewport3
+  field: name=d3d3_viewport
     type: kind=ptr
       type: kind=winapi,name=IDirect3DViewport3,size=4
   field: name=f18_buf
@@ -12523,7 +12536,7 @@ struct: id=constructor_00557B70,name=MyGame,size=3923
   field: name=gap271
     type: kind=array,count=4
       type: kind=int,size=1
-  field: name=f275_ddsurf
+  field: name=f275_zbufferSurf
     type: kind=ptr
       type: kind=winapi,name=IDirectDrawSurface,size=4
   field: name=f279_static_listeners
@@ -14087,7 +14100,8 @@ struct: id=constructor_005B5270,name=MySurface,size=40
   field: name=desc
     type: kind=struct,id=constructor_0052D3E0
   field: name=lpSurface
-    type: kind=int,size=4,signed=True
+    type: kind=ptr
+      type: kind=void
   field: name=dwWidth
     type: kind=int,size=4,signed=True
   field: name=dwHeight
@@ -14931,21 +14945,21 @@ struct: id=instance_006723B8,name=Obj6723B8_vtbl,size=20
         arg: kind=ptr
           type: kind=void
         arg: kind=char,size=1
-  field: name=getDdSurface1
-    type: kind=ptr
-      type: kind=function,declspec=thiscall
-        ret: kind=ptr
-          type: kind=struct,id=constructor_005B5420
-        arg: kind=ptr
-          type: kind=struct,id=vtbl_006723B8
-  field: name=getDdSurface2
+  field: name=getPrimarySurf
     type: kind=ptr
       type: kind=function,declspec=thiscall
         ret: kind=ptr
           type: kind=struct,id=instance_0079D200
         arg: kind=ptr
           type: kind=struct,id=vtbl_006723B8
-  field: name=getAabb
+  field: name=getCurOffScreenSurf
+    type: kind=ptr
+      type: kind=function,declspec=thiscall
+        ret: kind=ptr
+          type: kind=struct,id=instance_0079D200
+        arg: kind=ptr
+          type: kind=struct,id=vtbl_006723B8
+  field: name=getOffScreenAabb
     type: kind=ptr
       type: kind=function,declspec=thiscall
         ret: kind=ptr
@@ -15281,19 +15295,6 @@ struct: id=instance_00672E80,name=Obj672E80_vtbl,size=12
         arg: kind=int,size=4,signed=True
         arg: kind=int,size=4,signed=True
         arg: kind=int,size=4,signed=True
-struct: id=instance_00792D48,name=Obj792D48,size=17
-  field: name=f0_aBool
-    type: kind=char,size=1
-  field: name=f1_cEngineSurf
-    type: kind=ptr
-      type: kind=struct,id=vtbl_0067034C
-  field: name=f5_cEngineSurf
-    type: kind=ptr
-      type: kind=int,size=4
-  field: name=f9_prescaleWigth
-    type: kind=int,size=4,signed=True
-  field: name=fD_prescaleHeight
-    type: kind=int,size=4,signed=True
 struct: id=constructor_005D2520,name=Obj79DC68,size=16
   field: name=f0_Obj672520Interface
     type: kind=ptr
@@ -15568,9 +15569,9 @@ struct: id=construct_0057E9B0,name=SprsMeshHeader,size=92
     type: kind=ptr
       type: kind=struct,id=construct_0057D91E
   field: name=f58_MyScaledSurface_idx
-    type: kind=winapi,name=__int16,size=2
+    type: kind=int,size=2
   field: name=f5A_numVertsEx
-    type: kind=winapi,name=__int16,size=2
+    type: kind=int,size=2
 struct: id=construct_0052F04A,name=StaticListeners,size=20
   field: name=f0_onKeyboardAction
     type: kind=ptr
@@ -16196,13 +16197,13 @@ struct: id=construct_00588C1A,name=Triangle34,size=52
         type: kind=struct,id=call_new_00591E8D
   field: name=f14_surfhCount
     type: kind=int,size=4,signed=True
-  field: name=f18_posX
+  field: name=f18_srcX
     type: kind=int,size=4,signed=True
-  field: name=f1C_posY
+  field: name=f1C_srcY
     type: kind=int,size=4,signed=True
-  field: name=f20_sposX
+  field: name=f20_dstX
     type: kind=int,size=4,signed=True
-  field: name=f24_sposY
+  field: name=f24_dstY
     type: kind=int,size=4,signed=True
   field: name=f28_width
     type: kind=int,size=4,signed=True
@@ -22011,26 +22012,26 @@ global: va=0044A9E0,name=CCamera_sub_44A9E0
       type: kind=struct,id=constructor_00449470
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
-global: va=0044AA20,name=sub_44AA20
+global: va=0044AA20,name=CCamera_sub_44AA20
   type: kind=function,declspec=thiscall
     ret: kind=int,size=4,signed=True
     arg: kind=ptr
-      type: kind=int,size=4
-global: va=0044AA80,name=sub_44AA80
+      type: kind=struct,id=constructor_00449470
+global: va=0044AA80,name=CCamera_sub_44AA80
   type: kind=function,declspec=thiscall
     ret: kind=int,size=4,signed=True
     arg: kind=ptr
-      type: kind=int,size=4
-global: va=0044AB60,name=sub_44AB60
+      type: kind=struct,id=constructor_00449470
+global: va=0044AB60,name=CCamera_sub_44AB60
   type: kind=function,declspec=thiscall
     ret: kind=int,size=4,signed=True
     arg: kind=ptr
-      type: kind=int,size=4
-global: va=0044AC80,name=sub_44AC80
+      type: kind=struct,id=constructor_00449470
+global: va=0044AC80,name=CCamera_sub_44AC80
   type: kind=function,declspec=thiscall
     ret: kind=int,size=4,signed=True
     arg: kind=ptr
-      type: kind=int,size=4
+      type: kind=struct,id=constructor_00449470
 global: va=0044ACE0,name=CCamera_sub_44ACE0
   type: kind=function,declspec=thiscall
     ret: kind=int,size=4,signed=True
@@ -22097,11 +22098,11 @@ global: va=0044D320,name=CCamera_fun_44D320
     arg: kind=ptr
       type: kind=struct,id=constructor_00449470
     arg: kind=int,size=4,signed=True
-global: va=0044D550,name=sub_44D550
+global: va=0044D550,name=CCamera_sub_44D550
   type: kind=function,declspec=thiscall
     ret: kind=float,size=8
     arg: kind=ptr
-      type: kind=int,size=4
+      type: kind=struct,id=constructor_00449470
 global: va=0044D590,name=CCamera_fun_44D590
   type: kind=function,declspec=thiscall
     ret: kind=winapi,name=BOOL,size=4
@@ -22669,10 +22670,12 @@ global: va=004529A0,name=sub_4529A0
       type: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=int,size=4,signed=True
-global: va=00452AB0,name=sub_452AB0
+global: va=00452AB0,name=static_Vec3f_sub_452AB0
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4,signed=True
-    arg: kind=int,size=4,signed=True
+    ret: kind=ptr
+      type: kind=struct,id=vecf_xyz
+    arg: kind=ptr
+      type: kind=struct,id=vecf_xyz
     arg: kind=float,size=4
     arg: kind=float,size=4
     arg: kind=float,size=4
@@ -41450,7 +41453,7 @@ global: va=00555FF0,name=CWindowTest_getClientRect
       type: kind=struct,id=vtbl_0066F20C
     arg: kind=ptr
       type: kind=struct,id=constructor_00404DB0
-global: va=00556030,name=CWindowTest::createSurface
+global: va=00556030,name=CWindowTest_createBackSurface
   type: kind=function,declspec=thiscall
     ret: kind=ptr
       type: kind=int,size=4,signed=True
@@ -41506,7 +41509,7 @@ global: va=00556590,name=AABB_appendPoint
       type: kind=struct,id=constructor_00404DB0
     arg: kind=ptr
       type: kind=winapi,name=tagPOINT,size=8
-global: va=005565E0,name=CWindowTest::getSurface
+global: va=005565E0,name=CWindowTest_getCurOffScreenSurf
   type: kind=function,declspec=thiscall
     ret: kind=ptr
       type: kind=struct,id=instance_0079D200
@@ -41765,13 +41768,13 @@ global: va=00558770,name=MyGame_getSurf_unlock
     ret: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=struct,id=constructor_00557B70
-global: va=005587C0,name=MyGame_getScreenSurf
+global: va=005587C0,name=MyGame_getCurOffScreenSurf
   type: kind=function,declspec=thiscall
     ret: kind=ptr
       type: kind=struct,id=instance_0079D200
     arg: kind=ptr
       type: kind=struct,id=constructor_00557B70
-global: va=005587E0,name=Obj6723A0_getDdSurface1
+global: va=005587E0,name=Obj6723A0_getPrimarySurf
   type: kind=function,declspec=stdcall
     ret: kind=ptr
       type: kind=struct,id=instance_0079D200
@@ -41860,9 +41863,9 @@ global: va=00558F40,name=MyGame_sub_558F40
     arg: kind=int,size=4
     arg: kind=ptr
       type: kind=struct,id=construct_00558DF2
-global: va=00558F70,name=MyGame_createSurface
+global: va=00558F70,name=MyGame_createZBufferSurf
   type: kind=function,declspec=thiscall
-    ret: kind=void
+    ret: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=struct,id=constructor_00557B70
     arg: kind=int,size=4,signed=True
@@ -44834,14 +44837,14 @@ global: va=00573BF0,name=MyLLVec3f_destroy
     arg: kind=ptr
       type: kind=ptr
         type: kind=struct,id=call_new_00575135
-global: va=00573C20,name=dk2_cleanup3d
+global: va=00573C20,name=mydd_scene_destroy
   type: kind=function,declspec=stdcall
     ret: kind=ptr
       type: kind=winapi,name=IDirectDraw4,size=4
 global: va=00573CF0,name=configureFlagsAndTexturesCount
   type: kind=function,declspec=stdcall
     ret: kind=int,size=4,signed=True
-global: va=00573ED0,name=dk2_init3d
+global: va=00573ED0,name=mydd_scene_init
   type: kind=function,declspec=cdecl
     ret: kind=int,size=4,signed=True
     arg: kind=ptr
@@ -44914,7 +44917,7 @@ global: va=005747C0,name=setPmeshReductionLevel
   type: kind=function,declspec=cdecl
     ret: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
-global: va=005747D0,name=sub_5747D0
+global: va=005747D0,name=setShadowLevel
   type: kind=function,declspec=cdecl
     ret: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
@@ -44979,7 +44982,8 @@ global: va=00575780,name=drawScene
 global: va=00575A00,name=sub_575A00
   type: kind=function,declspec=cdecl
     ret: kind=void
-    arg: kind=int,size=4,signed=True
+    arg: kind=ptr
+      type: kind=struct,id=vecf_xyz
     arg: kind=float,size=4
 global: va=00575D20,name=sub_575D20
   type: kind=function,declspec=thiscall
@@ -45317,7 +45321,7 @@ global: va=00579170,name=CEngine2DPrimitive_constructor
       type: kind=struct,id=vtbl_0066FB14
     arg: kind=ptr
       type: kind=struct,id=vtbl_0066FB14
-global: va=00579180,name=CEngine2DSprite_create
+global: va=00579180,name=static_CEngine2DSprite_sub_579180
   type: kind=function,declspec=cdecl
     ret: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
@@ -45790,7 +45794,7 @@ global: va=0057C850,name=MyEntryBuf_MyScaledSurface_create
     arg: kind=ptr
       type: kind=struct,id=constructor_0057C2D0
     arg: kind=char,size=1
-global: va=0057C920,name=CPCEngineInterface_57C920
+global: va=0057C920,name=static_CPCEngineInterface_57C920
   type: kind=function,declspec=cdecl
     ret: kind=ptr
       type: kind=struct,id=constructor_00590BF0
@@ -46215,11 +46219,13 @@ global: va=00580480,name=CEngineDynamicMesh_constructor
     arg: kind=char,size=1
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
-global: va=005808E0,name=sub_5808E0
+global: va=005808E0,name=CEngineDynamicMesh_shadow_sub_5808E0
   type: kind=function,declspec=thiscall
     ret: kind=int,size=4,signed=True
-    arg: kind=int,size=4,signed=True
-    arg: kind=int,size=4,signed=True
+    arg: kind=ptr
+      type: kind=struct,id=vtbl_0066FD1C
+    arg: kind=ptr
+      type: kind=struct,id=vtbl_0066FBDC
     arg: kind=int,size=4,signed=True
 global: va=00580DF0,name=CEngineDynamicMesh::fun_580DF0
   type: kind=function,declspec=thiscall
@@ -46266,14 +46272,14 @@ global: va=00581BE0,name=CEngineDynamicMesh_sub_581BE0
     arg: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=struct,id=construct_00586B96
-global: va=00582140,name=sub_582140
+global: va=00582140,name=Mat3x3f_copy_constructor
   type: kind=function,declspec=thiscall
     ret: kind=ptr
       type: kind=int,size=4
     arg: kind=ptr
-      type: kind=int,size=4
+      type: kind=struct,id=constructor_0042F480
     arg: kind=ptr
-      type: kind=int,size=4
+      type: kind=struct,id=constructor_0042F480
 global: va=00582180,name=CEngineDynamicMesh_fun_582180
   type: kind=function,declspec=thiscall
     ret: kind=void
@@ -46393,7 +46399,8 @@ global: va=005855E0,name=CEngineAnimMesh_sub_5855E0
     ret: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=struct,id=vtbl_0066FD64
-    arg: kind=int,size=4,signed=True
+    arg: kind=ptr
+      type: kind=struct,id=vtbl_0066FBBC
     arg: kind=int,size=4,signed=True
 global: va=00585AD0,name=CEngineAnimMesh::fun_585AD0
   type: kind=function,declspec=thiscall
@@ -46747,7 +46754,7 @@ global: va=0058A520,name=mydd_uvs_init
       type: kind=struct,id=call_new_arr_0058A539
     arg: kind=ptr
       type: kind=struct,id=instance_00764B90
-global: va=0058A550,name=mydd_flags_destroy
+global: va=0058A550,name=mydd_uvs_destroy
   type: kind=function,declspec=stdcall
     ret: kind=void
 global: va=0058A570,name=sub_58A570
@@ -46945,7 +46952,7 @@ global: va=0058E000,name=MyEntryBuf_MyStringHashMap_entry_resize
     arg: kind=ptr
       type: kind=struct,id=construct_0058DE28
     arg: kind=int,size=4
-global: va=0058E080,name=sub_58E080
+global: va=0058E080,name=shadows_process_58E080
   type: kind=function,declspec=cdecl
     ret: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
@@ -46963,14 +46970,14 @@ global: va=0058E2C0,name=MyEntryBuf_MyScaledSurface_addFormatEnfineShadow
 global: va=0058E330,name=shadows_init
   type: kind=function,declspec=stdcall
     ret: kind=int,size=4,signed=True
-global: va=0058E3E0,name=sub_58E3E0
+global: va=0058E3E0,name=shadows_begin_ge23
   type: kind=function,declspec=stdcall
     ret: kind=int,size=4,signed=True
-global: va=0058E440,name=sub_58E440
+global: va=0058E440,name=shadows_begin_lt23
   type: kind=function,declspec=cdecl
     ret: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
-global: va=0058E470,name=sub_58E470
+global: va=0058E470,name=shadows_end_58E470
   type: kind=function,declspec=stdcall
     ret: kind=ptr
       type: kind=struct,id=constructor_00590BF0
@@ -47068,6 +47075,9 @@ global: va=0058F980,name=sub_58F980
   type: kind=function,declspec=stdcall
     ret: kind=ptr
       type: kind=int,size=4
+global: va=0058F9A0,name=__cfltcvt_init_5
+  type: kind=function,declspec=stdcall
+    ret: kind=void
 global: va=0058F9E0,name=MyStringHashMap_MyCESurfHandle_static_constructor
   type: kind=function,declspec=stdcall
     ret: kind=int,size=4,signed=True
@@ -47351,16 +47361,16 @@ global: va=005911E0,name=MyCESurfHandle_loadPrescaled
       type: kind=struct,id=constructor_00590BF0
     arg: kind=ptr
       type: kind=struct,id=constructor_00590BF0
-global: va=005914E0,name=Obj792D48_convertCopyFrom
+global: va=005914E0,name=CEngineSurfaceScaler_convertCopyFrom
   type: kind=function,declspec=thiscall
     ret: kind=void
     arg: kind=ptr
       type: kind=struct,id=instance_00792D48
     arg: kind=ptr
       type: kind=struct,id=constructor_005B5270
-global: va=005915A0,name=sub_5915A0
+global: va=005915A0,name=scaleImg
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4,signed=True
+    ret: kind=int,size=4
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
@@ -47369,7 +47379,7 @@ global: va=005915A0,name=sub_5915A0
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
-global: va=00591820,name=Obj792D48_createCEngineCompressedSurface
+global: va=00591820,name=CEngineSurfaceScaler_copyScaledWithType
   type: kind=function,declspec=thiscall
     ret: kind=ptr
       type: kind=struct,id=vtbl_00670374
@@ -47427,11 +47437,14 @@ global: va=00591F90,name=SurfHashListItem_recursive_scalar_delete
     arg: kind=ptr
       type: kind=struct,id=call_new_0059425F
     arg: kind=char,size=1
-global: va=00591FF0,name=SurfaceHolder_draw
-  type: kind=function,declspec=assembly
-    ret: kind=ptr
-      type: kind=void
-global: va=00592380,name=SurfaceHolder_draw_mgsr
+global: va=00591FF0,name=SurfaceHolder_drawSpecial_128x128
+  type: kind=function,declspec=thiscall
+    ret: kind=void
+    arg: kind=ptr
+      type: kind=struct,id=call_new_00591E8D
+    arg: kind=float,size=4
+    arg: kind=float,size=4
+global: va=00592380,name=SurfaceHolder_drawSpecial_128x128_mgsr
   type: kind=function,declspec=thiscall
     ret: kind=int,size=4,signed=True
     arg: kind=ptr
@@ -47457,13 +47470,13 @@ global: va=00592890,name=SurfHashList_clear
         type: kind=struct,id=call_new_0059425F
     arg: kind=ptr
       type: kind=struct,id=constructor_00592DB0
-global: va=00592950,name=destroySurfHashLists
+global: va=00592950,name=mydd_devTexture_destroy
   type: kind=function,declspec=stdcall
     ret: kind=void
-global: va=00592B80,name=SurfaceHolder_setTexture
+global: va=00592B80,name=renderer_setSurfaceHolder
   type: kind=function,declspec=cdecl
     ret: kind=ptr
-      type: kind=void
+      type: kind=int,size=4
     arg: kind=ptr
       type: kind=struct,id=call_new_00591E8D
     arg: kind=int,size=4,signed=True
@@ -47490,7 +47503,7 @@ global: va=00592DB0,name=SurfHashList_constructor
     arg: kind=ptr
       type: kind=struct,id=constructor_00590360
     arg: kind=int,size=4,signed=True
-global: va=00592EA0,name=mydd_cpy3_initSurfHashLists
+global: va=00592EA0,name=mydd_devTexture_init
   type: kind=function,declspec=cdecl
     ret: kind=int,size=4,signed=True
     arg: kind=ptr
@@ -47536,9 +47549,9 @@ global: va=00593670,name=SurfHashList2_sub_593670
     arg: kind=ptr
       type: kind=struct,id=constructor_00592BD0
     arg: kind=int,size=4,signed=True
-    arg: kind=int,size=4,signed=True
     arg: kind=float,size=4
-    arg: kind=int,size=4,signed=True
+    arg: kind=float,size=4
+    arg: kind=float,size=4
     arg: kind=float,size=4
 global: va=00593720,name=MyCESurfHandle_static_addToHashList
   type: kind=function,declspec=cdecl
@@ -47678,12 +47691,14 @@ global: va=00594ED0,name=Mat3x3f_multiply
     arg: kind=ptr
       type: kind=struct,id=constructor_0042F480
     arg: kind=float,size=4
-global: va=00594F30,name=sub_594F30
+global: va=00594F30,name=Mat3x3f_sub_594F30
   type: kind=function,declspec=thiscall
-    ret: kind=int,size=4,signed=True
+    ret: kind=ptr
+      type: kind=struct,id=constructor_0042F480
     arg: kind=ptr
-      type: kind=float,size=4
-    arg: kind=int,size=4,signed=True
+      type: kind=struct,id=constructor_0042F480
+    arg: kind=ptr
+      type: kind=struct,id=constructor_0042F480
 global: va=00594FA0,name=sub_594FA0
   type: kind=function,declspec=thiscall
     ret: kind=winapi,name=BOOL,size=4
@@ -47893,19 +47908,19 @@ global: va=00598800,name=CPCEngineInterface::fun_598800
     ret: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=winapi,name=__int16,size=2
-global: va=00598880,name=CPCEngineInterface::fun_598880
+global: va=00598880,name=CPCEngineInterface_maybe_cameraFun
   type: kind=function,declspec=thiscall
     ret: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=struct,id=vtbl_00670574
     arg: kind=ptr
       type: kind=int,size=4,signed=True
-global: va=00599260,name=sub_599260
+global: va=00599260,name=Mat3x3f_sub_599260
   type: kind=function,declspec=thiscall
     ret: kind=ptr
       type: kind=int,size=4
     arg: kind=ptr
-      type: kind=int,size=4
+      type: kind=struct,id=constructor_0042F480
     arg: kind=int,size=4,signed=True
 global: va=005992B0,name=CPCEngineInterface::fun_5992B0
   type: kind=function,declspec=thiscall
@@ -48305,10 +48320,12 @@ global: va=0059D5E0,name=CPCEngineInterface::fun_59D5E0
       type: kind=char,size=1
     arg: kind=ptr
       type: kind=char,size=1
-global: va=0059D5F0,name=sub_59D5F0
+global: va=0059D5F0,name=Mat3x3f_sub_59D5F0
   type: kind=function,declspec=cdecl
-    ret: kind=int,size=4,signed=True
-    arg: kind=int,size=4,signed=True
+    ret: kind=ptr
+      type: kind=struct,id=constructor_0042F480
+    arg: kind=ptr
+      type: kind=struct,id=constructor_0042F480
     arg: kind=float,size=4
     arg: kind=float,size=4
     arg: kind=float,size=4
@@ -48858,18 +48875,19 @@ global: va=005A7550,name=drawTriangle34_impl3
 global: va=005A7600,name=init_mgsr
   type: kind=function,declspec=cdecl
     ret: kind=ptr
-      type: kind=void
-    arg: kind=ptr
-      type: kind=int,size=4,signed=True
-    arg: kind=ptr
       type: kind=int,size=4
+    arg: kind=ptr
+      type: kind=winapi,name=IDirectDrawSurface,size=4
+    arg: kind=ptr
+      type: kind=ptr
+        type: kind=int,size=2
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
-global: va=005A78E0,name=sub_5A78E0
+global: va=005A78E0,name=getBitCount
   type: kind=function,declspec=cdecl
     ret: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
-global: va=005A7900,name=sub_5A7900
+global: va=005A7900,name=getBitsShift
   type: kind=function,declspec=cdecl
     ret: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
@@ -50190,7 +50208,7 @@ global: va=005B3F50,name=j_g_dd_surface1_init
   type: kind=function,declspec=stdcall
     ret: kind=ptr
       type: kind=struct,id=constructor_005B5270
-global: va=005B3F60,name=g_dd_surface1_static_init
+global: va=005B3F60,name=g_primarySurf_static_init
   type: kind=function,declspec=stdcall
     ret: kind=ptr
       type: kind=struct,id=constructor_005B5270
@@ -50263,7 +50281,8 @@ global: va=005B4340,name=showTodoMessageBox
       type: kind=char,size=1
 global: va=005B4390,name=dk2dd_init
   type: kind=function,declspec=cdecl
-    ret: kind=void
+    ret: kind=ptr
+      type: kind=int,size=4,signed=True
     arg: kind=ptr
       type: kind=int,size=4,signed=True
     arg: kind=int,size=4
@@ -50350,7 +50369,7 @@ global: va=005B5160,name=setAppActivatedStatus
     ret: kind=ptr
       type: kind=winapi,name=HICON__,size=4
     arg: kind=int,size=4,signed=True
-global: va=005B5180,name=MyDdSurfaceEx::setInstance
+global: va=005B5180,name=setCurOffScreen
   type: kind=function,declspec=cdecl
     ret: kind=ptr
       type: kind=struct,id=instance_0079D200
@@ -50398,7 +50417,8 @@ global: va=005B5270,name=MySurface_constructor
       type: kind=struct,id=pos_xy
     arg: kind=ptr
       type: kind=struct,id=constructor_0052D3E0
-    arg: kind=int,size=4,signed=True
+    arg: kind=ptr
+      type: kind=void
     arg: kind=int,size=4
 global: va=005B52C0,name=MySurface_allocSurfaceIfNot
   type: kind=function,declspec=thiscall
@@ -50459,7 +50479,7 @@ global: va=005B5490,name=__surface_init_blt
     arg: kind=int,size=4
     arg: kind=int,size=1
     arg: kind=int,size=4,signed=True
-global: va=005B5700,name=createSurface
+global: va=005B5700,name=MyDdSurface_createOffScreenSurface
   type: kind=function,declspec=cdecl
     ret: kind=ptr
       type: kind=int,size=4
@@ -50968,14 +50988,14 @@ global: va=005B7E60,name=sub_5B7E60
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
     arg: kind=int,size=4,signed=True
-global: va=005B80F0,name=MyDdSurfaceEx::fillDesc
+global: va=005B80F0,name=MyDdSurfaceEx_fillDesc
   type: kind=function,declspec=thiscall
     ret: kind=void
     arg: kind=ptr
       type: kind=struct,id=instance_0079D200
     arg: kind=ptr
       type: kind=winapi,name=_DDSURFACEDESC,size=108
-global: va=005B8150,name=MyDdSurfaceEx::updateDesc
+global: va=005B8150,name=MyDdSurfaceEx_updateDesc
   type: kind=function,declspec=thiscall
     ret: kind=ptr
       type: kind=struct,id=constructor_005B5270
@@ -53842,11 +53862,11 @@ global: va=005D9860,name=MyDiskDirectory_sub_5D9860
       type: kind=char,size=1
     arg: kind=ptr
       type: kind=char,size=1
-global: va=005D9910,name=Obj6723A0_getDdSurface2
+global: va=005D9910,name=Obj6723A0_getCurOffScreen
   type: kind=function,declspec=stdcall
     ret: kind=ptr
       type: kind=struct,id=instance_0079D200
-global: va=005D9920,name=Obj6723A0_getAabb
+global: va=005D9920,name=Obj6723A0_getOffScreenAabb
   type: kind=function,declspec=thiscall
     ret: kind=ptr
       type: kind=struct,id=constructor_00404DB0
@@ -68831,6 +68851,8 @@ global: va=006CD0F0,name=myDdSurface_end
   type: kind=int,size=4,signed=True
 global: va=006CE850,name=my_surf
   type: kind=struct,id=instance_0079D200
+global: va=006CE8A0,name=idx
+  type: kind=int,size=4,signed=True
 global: va=006CEA10,name=CDefaultPlayerInterface_instance
   type: kind=struct,id=vtbl_0066C4A4
 global: va=006D3954,name=S2
@@ -69075,12 +69097,32 @@ global: va=00760B44,name=g2_sceneHeight
   type: kind=int,size=4,signed=True
 global: va=00760B4C,name=g_cullTo
   type: kind=float,size=4
+global: va=00760B54,name=g_sceneWidth
+  type: kind=int,size=4,signed=True
+global: va=00760B5C,name=g2_sceneLeft
+  type: kind=int,size=4,signed=True
 global: va=00760B70,name=g_vec_760B70
   type: kind=struct,id=vecf_xyz
-global: va=00764B90,name=mydd_main
+global: va=00760B88,name=g_sceneHeight
+  type: kind=int,size=4,signed=True
+global: va=00764B90,name=mydd_scene
   type: kind=struct,id=instance_00764B90
+global: va=00764BBC,name=g2_sceneTop
+  type: kind=int,size=4,signed=True
+global: va=00764BC0,name=EngineTestCross_a31x400_idx
+  type: kind=int,size=4,signed=True
+global: va=00764BC4,name=EngineTestLight_a31x400_idx
+  type: kind=int,size=4,signed=True
+global: va=00764BC8,name=EngineTextureWhite_a31x400_idx
+  type: kind=int,size=4,signed=True
 global: va=00764BE8,name=gamma_ramp
   type: kind=winapi,name=DDGAMMARAMP,size=1536
+global: va=007651F4,name=g_isCurDdSurfLost
+  type: kind=char,size=1
+global: va=007651FC,name=is3dInitialized
+  type: kind=int,size=4,signed=True
+global: va=00765200,name=mgsr_initialized
+  type: kind=int,size=4,signed=True
 global: va=00765224,name=g_pCEngine2DPrimitive
   type: kind=ptr
     type: kind=struct,id=vtbl_0066FA9C
@@ -69110,6 +69152,8 @@ global: va=00766660,name=MyStringHashMap_MyMeshResourceHolder_instance
 global: va=00766A70,name=g_meshHolderList_last
   type: kind=ptr
     type: kind=struct,id=call_new_0057EF64
+global: va=00766A78,name=g_vec_766A78
+  type: kind=struct,id=vecf_xyz
 global: va=00769A78,name=ScreenObjectArr_instance
   type: kind=struct,id=instance_00769A78
 global: va=0076AA80,name=DrawTriangleList_lpwIndices
@@ -69210,6 +69254,9 @@ global: va=0077F8F8,name=mydd_uvs
 global: va=0077F938,name=g_Idx3b_arr_instance
   type: kind=array,count=1024
     type: kind=struct,id=instance_arr_0077F938
+global: va=0078095C,name=shadows_lpSurface
+  type: kind=ptr
+    type: kind=void
 global: va=00780960,name=g_MyEntryBuf_MyScaledSurface_idxs
   type: kind=array,count=64
     type: kind=int,size=4,signed=True
@@ -69233,18 +69280,20 @@ global: va=007920D8,name=MyTextures_instance
 global: va=0079291C,name=g_surfh_first
   type: kind=ptr
     type: kind=struct,id=constructor_00590BF0
-global: va=00792920,name=MySurfDesc_792920
+global: va=00792920,name=g_surfDesc_8a8r8g8b
   type: kind=struct,id=constructor_0052D3E0
 global: va=00792938,name=MyStringHashMap_MyCESurfHandle_instance
   type: kind=struct,id=instance_00792938
-global: va=00792D48,name=Obj792D48_instance
+global: va=00792D48,name=CEngineSurfaceScaler_instance
   type: kind=struct,id=instance_00792D48
 global: va=00792D60,name=pSurfHashList
   type: kind=ptr
     type: kind=struct,id=constructor_00592DB0
-global: va=00792D68,name=mydd_cpy3
+global: va=00792D68,name=mydd_devTexture
   type: kind=struct,id=instance_00764B90
 global: va=00792D98,name=MyCEngineSurfDesc_argb32_instance
+  type: kind=struct,id=constructor_00590360
+global: va=00792DFD,name=g_surfDesc_8a8r8g8b_0
   type: kind=struct,id=constructor_00590360
 global: va=00792E62,name=MyCEngineSurfDesc_unk16_instance
   type: kind=struct,id=constructor_00590360
@@ -69306,22 +69355,24 @@ global: va=0079D078,name=My32BitTexture_instance
 global: va=0079D0A8,name=PathName
   type: kind=array,count=300
     type: kind=char,size=1
-global: va=0079D1D4,name=lpDDAttachedSurface
+global: va=0079D1D4,name=g_dd_primaryAttachedSurf
   type: kind=ptr
     type: kind=winapi,name=IDirectDrawSurface,size=4
-global: va=0079D200,name=g_fullscreen_ddSurf
+global: va=0079D1D8,name=g_mySurf_unused
+  type: kind=struct,id=constructor_005B5270
+global: va=0079D200,name=g_primarySurf
   type: kind=struct,id=instance_0079D200
 global: va=0079D250,name=DdModeList_instance
   type: kind=struct,id=constructor_005D1230
 global: va=0079D260,name=bullfrogClassName
   type: kind=array,count=260
     type: kind=char,size=1
-global: va=0079D364,name=g_pDdSurface_windowed
+global: va=0079D364,name=g_pCurOffScreen
   type: kind=ptr
     type: kind=struct,id=instance_0079D200
 global: va=0079D368,name=FPUControlWordWithState_instance
   type: kind=struct,id=instance_0079D368
-global: va=0079D378,name=g_dd_surface2
+global: va=0079D378,name=g_offScreen
   type: kind=struct,id=instance_0079D200
 global: va=0079D3C8,name=hWnd
   type: kind=ptr
@@ -69508,6 +69559,13 @@ global: va=007A7020,name=grpoly_mydd_buf
 global: va=007A7024,name=grpoly_mydd_buf2
   type: kind=ptr
     type: kind=int,size=2
+global: va=007A7028,name=mgsr_buf_width
+  type: kind=int,size=4,signed=True
+global: va=007A702C,name=mgsr_buf2_width
+  type: kind=int,size=4,signed=True
+global: va=007A7034,name=mgsr_lockedBuf_dw256x256
+  type: kind=ptr
+    type: kind=int,size=4
 global: va=007A7040,name=mgsr_pDrawFun
   type: kind=ptr
     type: kind=function,declspec=stdcall

@@ -27,8 +27,8 @@ namespace dk2 {  // --------------------------------------  /* auto */
 struct CWindowTest {  // ---------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*  4*/ HWND__ *hWnd;  // --------------------------------  /* auto */
-/*  8*/ MyDdSurfaceEx surface;  // -----------------------  /* auto */
-/* 58*/ MyDdSurfaceEx *pSurface;  // ---------------------  /* auto */
+/*  8*/ MyDdSurfaceEx offScreenSurf;  // -----------------  /* auto */
+/* 58*/ MyDdSurfaceEx *pCurOffScreenSurf;  // ------------  /* auto */
 /* 5C*/ int32_t f5C;  // ---------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066F20C*/ static void **vftable();  // ----------------  /* auto */
@@ -39,10 +39,10 @@ struct CWindowTest {  // ---------------------------------  /* auto */
 /*00555CC0*/ int32_t *create(int32_t *, AABB *);  // -----  /* auto */
 /*00555F30*/ int32_t *recreateBullfrog(int32_t *);  // ---  /* auto */
 /*00555FF0*/ AABB *getClientRect(AABB *);  // ------------  /* auto */
-/*00556030*/ int32_t *createSurface();  // ---------------  /* auto */
+/*00556030*/ int32_t *createBackSurface();  // -----------  /* auto */
 /*00556180*/ int32_t *sub_556180(int32_t *, int32_t *, int32_t);  /* auto */
 /*00556260*/ void sub_556260_ev1();  // ------------------  /* auto */
-/*005565E0*/ MyDdSurfaceEx *getSurface();  // ------------  /* auto */
+/*005565E0*/ MyDdSurfaceEx *getCurOffScreenSurf();  // ---  /* auto */
 /*005565F0*/ int32_t recreate();  // ---------------------  /* auto */
 /*005567F0*/ int32_t isNeedBlt();  // --------------------  /* auto */
 // -------------------------------------------------------  /* auto */

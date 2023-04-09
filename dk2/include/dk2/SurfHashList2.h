@@ -40,7 +40,7 @@ struct SurfHashList2 {  // -------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*00592BD0*/ char constructor(MyCEngineSurfDesc *, int32_t, int32_t);  /* auto */
 /*00593600*/ MyCESurfHandle *deleteHolders(SurfaceHolder *);  /* auto */
-/*00593670*/ SurfaceHolder *sub_593670(int32_t, int32_t, float, int32_t, float);  /* auto */
+/*00593670*/ SurfaceHolder *sub_593670(int32_t, float, float, float, float);  /* auto */
 /*00593880*/ int32_t sub_593880(SurfaceHolder *, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*00593E10*/ int32_t calcHandleCountToFitHolder();  // ---  /* auto */
 /*00593E90*/ int32_t sub_593E90(int32_t);  // ------------  /* auto */
