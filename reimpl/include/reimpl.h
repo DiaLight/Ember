@@ -10,7 +10,9 @@ namespace reimpl {
     bool SurfHashList__probablySort();
     bool draw3dScene();
     bool dk2dd_init();
+    bool mydd_scene_init();
     bool dk2dd_misc();
+    bool SurfaceHolder();
 
 }
 
