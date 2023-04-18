@@ -8,6 +8,7 @@
 #include <cstdint>  // -----------------------------------  /* auto */
 #include <cstdio>  // ------------------------------------  /* auto */
 #include <dinput.h>  // ----------------------------------  /* auto */
+#include <dsound.h>  // ----------------------------------  /* auto */
 #include <ddraw.h>  // -----------------------------------  /* auto */
 #include <d3d.h>  // -------------------------------------  /* auto */
 #include <dk2/AABB.h>  // --------------------------------  /* auto */
@@ -335,6 +336,8 @@ struct CFrontEndComponent : CComponent {  // -------------  /* auto */
 /*00536850*/ int32_t sub_536850();  // -------------------  /* auto */
 /*00536E20*/ char sub_536E20(int32_t, int32_t);  // ------  /* auto */
 /*00539E00*/ char saveAddressBookWinsock(char);  // ------  /* auto */
+/*0053B980*/ char do_smth_and_showOutro(int32_t);  // ----  /* auto */
+/*0053BCD0*/ void showMovie(const char *);  // -----------  /* auto */
 /*0053BFD0*/ int32_t showIntro();  // --------------------  /* auto */
 /*005478B0*/ CButton *sub_5478B0();  // ------------------  /* auto */
 /*00547B20*/ int32_t sub_547B20();  // -------------------  /* auto */

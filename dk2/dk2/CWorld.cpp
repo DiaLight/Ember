@@ -248,7 +248,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 /*0066E3EC*/ void **CWorld::vftable() { return dk2::CWorld_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
-/*00504F00*/ __int16 CWorld::sub_504F00() { relink_stub(CWorld::sub_504F00); }  /* auto */
+/*00504F00*/ int16_t CWorld::sub_504F00() { relink_stub(CWorld::sub_504F00); }  /* auto */
 /*00504FB0*/ __int16 CWorld::sub_504FB0(int32_t) { relink_stub(CWorld::sub_504FB0); }  /* auto */
 /*00508A10*/ CWorld *CWorld::constructor() { relink_stub(CWorld::constructor); }  /* auto */
 /*00508C10*/ BOOL CWorld::fun_508C10(int32_t) { relink_stub(CWorld::fun_508C10); }  /* auto */

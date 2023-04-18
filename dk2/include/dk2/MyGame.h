@@ -8,6 +8,7 @@
 #include <cstdint>  // -----------------------------------  /* auto */
 #include <cstdio>  // ------------------------------------  /* auto */
 #include <dinput.h>  // ----------------------------------  /* auto */
+#include <dsound.h>  // ----------------------------------  /* auto */
 #include <ddraw.h>  // -----------------------------------  /* auto */
 #include <d3d.h>  // -------------------------------------  /* auto */
 #include <dk2/CWindowTest.h>  // -------------------------  /* auto */
@@ -34,7 +35,7 @@ struct MyGame {  // --------------------------------------  /* auto */
 /*  4*/ int32_t dwWidth;  // -----------------------------  /* auto */
 /*  8*/ int32_t dwHeight;  // ----------------------------  /* auto */
 /*  C*/ int32_t dwRGBBitCount;  // -----------------------  /* auto */
-/* 10*/ int32_t isFullscreen;  // ------------------------  /* auto */
+/* 10*/ int32_t isWindowed;  // --------------------------  /* auto */
 /* 14*/ int32_t _prepareScreen_a6;  // -------------------  /* auto */
 /* 18*/ int32_t f18;  // ---------------------------------  /* auto */
 /* 1C*/ int32_t _prepareScreen_a7;  // -------------------  /* auto */
@@ -90,7 +91,7 @@ struct MyGame {  // --------------------------------------  /* auto */
 /*00557FB0*/ int32_t isOsCompatible();  // ---------------  /* auto */
 /*005580E0*/ int32_t *release();  // ---------------------  /* auto */
 /*005581B0*/ int32_t prepareScreenEx(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
-/*005585C0*/ int32_t fun_5585C0(int32_t);  // ------------  /* auto */
+/*005585C0*/ int32_t createWindow(int32_t);  // ----------  /* auto */
 /*005586E0*/ int32_t selectSurfToRender();  // -----------  /* auto */
 /*00558770*/ int32_t getSurf_unlock();  // ---------------  /* auto */
 /*005587C0*/ MyDdSurfaceEx *getCurOffScreenSurf();  // ---  /* auto */

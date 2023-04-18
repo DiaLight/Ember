@@ -8,6 +8,7 @@
 #include <cstdint>  // -----------------------------------  /* auto */
 #include <cstdio>  // ------------------------------------  /* auto */
 #include <dinput.h>  // ----------------------------------  /* auto */
+#include <dsound.h>  // ----------------------------------  /* auto */
 #include <ddraw.h>  // -----------------------------------  /* auto */
 #include <d3d.h>  // -------------------------------------  /* auto */
 #include <dk2/MyTbAudioSystem.h>  // ---------------------  /* auto */
@@ -58,7 +59,7 @@ struct CSoundSystem {  // --------------------------------  /* auto */
 /* 2C*/ virtual int32_t v_fun_567AF0(int32_t);  // = 00567AF0  /* auto */
 /* 30*/ virtual int32_t v_fun_567A70(int32_t, int32_t *);  // = 00567A70  /* auto */
 /* 34*/ virtual int32_t v_fun_567A10(int32_t, int32_t, int32_t);  // = 00567A10  /* auto */
-/* 38*/ virtual int32_t *v_fun_567A40(int32_t *, void (__thiscall ***)(int32_t, int32_t, const void *));  // = 00567A40  /* auto */
+/* 38*/ virtual int32_t *v_fun_567A40(int32_t *, const void *);  // = 00567A40  /* auto */
 /* 3C*/ virtual int32_t v_update_room_ambience(void (__thiscall **)(int32_t, int32_t, const void *), void (__thiscall **)(int32_t, int32_t, const void *), void (__thiscall **)(int32_t, int32_t, const void *), int32_t);  // = 00567B30  /* auto */
 /* 40*/ virtual int32_t v_sub_567220(int32_t);  // = 00567220  /* auto */
 /* 44*/ virtual void v_sub_567230();  // = 00567230  -----  /* auto */
@@ -81,6 +82,7 @@ struct CSoundSystem {  // --------------------------------  /* auto */
 /*00567300*/ int32_t set_number_of_channels(int32_t);       /* auto */
 /*005677D0*/ int32_t *fun_5677D0();  // ------------------  /* auto */
 /*00567810*/ int32_t fun_567810(int32_t, int32_t, int32_t);  /* auto */
+/*00567A40*/ int32_t *fun_567A40(int32_t *, const void *);  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

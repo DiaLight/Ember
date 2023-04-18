@@ -31,6 +31,7 @@
 #include <dk2/Idx3b.h>  // -------------------------------  /* auto */
 #include <dk2/KeyEntry.h>  // ----------------------------  /* auto */
 #include <dk2/Mat3x3f.h>  // -----------------------------  /* auto */
+#include <dk2/MovieRenderer.h>  // -----------------------  /* auto */
 #include <dk2/My16BitTexture.h>  // ----------------------  /* auto */
 #include <dk2/My24BitTexture.h>  // ----------------------  /* auto */
 #include <dk2/My32BitTexture.h>  // ----------------------  /* auto */
@@ -430,10 +431,9 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0070D6D8*/ extern CFrontEndComponent &CFrontEndComponent_instance;  /* auto */
 /*0073E9A0*/ extern char &b73E9A0_x30;  // ---------------  /* auto */
 /*0073E9D8*/ extern MySurface *&g_mySurface_p2;  // ------  /* auto */
-/*0073EDD4*/ extern IDirectDraw *&movieDd_ignore;  // ----  /* auto */
-/*0073EDDC*/ extern IDirectDrawSurface2 *&p_IDirectDrawSurface2;  /* auto */
-/*0073EDE0*/ extern IDirectDrawSurface2 *&p_IDirectDrawSurface2_2;  /* auto */
-/*0073F580*/ extern StaticListeners &CFrontEndComponent_ShowMovie_static_listeners;  /* auto */
+/*0073EDC8*/ extern MovieRenderer &MovieRenderer_instance;  /* auto */
+/*0073F580*/ extern StaticListeners &CFrontEndComponent_MovieRenderer_static_listeners;  /* auto */
+/*0073F594*/ extern MovieRenderer *&g_pMovieRenderer;       /* auto */
 /*0073FC24*/ extern wchar_t &SrcStr;  // -----------------  /* auto */
 /*0073FE78*/ extern const void *&Block;  // --------------  /* auto */
 /*0074033C*/ extern const char *&lpMultiByteStr;  // -----  /* auto */
@@ -479,6 +479,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*00756EC8*/ extern tagRECT &client_rect;  // ------------  /* auto */
 /*00756EE8*/ extern MyGame &MyGame_instance;  // ---------  /* auto */
 /*00758048*/ extern int32_t &ddraw_device_count;  // -----  /* auto */
+/*0075804C*/ extern int32_t &dd_index;  // ---------------  /* auto */
 /*00758050*/ extern DxDeviceInfo *&ddraw_devices;  // ----  /* auto */
 /*00758160*/ extern int32_t (&pMldPlay_instance)[3];  // -  /* auto */
 /*00758340*/ extern MyResources &MyResources_instance;      /* auto */
@@ -580,6 +581,8 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*007956D0*/ extern Vec3f (&g_vec_arr_7956D0)[4];  // ----  /* auto */
 /*00795700*/ extern CBridge *&g_pCBridge;  // ------------  /* auto */
 /*00796170*/ extern int32_t (&mpeg2_dc_dct_pred)[3];  // -  /* auto */
+/*007962AC*/ extern int32_t &cmd_flag_DDD;  // -----------  /* auto */
+/*007962B0*/ extern int32_t &cmd_flag_DDD_value;  // -----  /* auto */
 /*00797B74*/ extern const void *&mgsr_buf_25635;  // -----  /* auto */
 /*00797B7C*/ extern const void *&mgsr_buf2_12835;  // ----  /* auto */
 /*0079CF90*/ extern MyInputManagerCb &MyInputManagerCb_instance;  /* auto */

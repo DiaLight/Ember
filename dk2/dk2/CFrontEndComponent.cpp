@@ -37,6 +37,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00536850*/ int32_t CFrontEndComponent::sub_536850() { relink_stub(CFrontEndComponent::sub_536850); }  /* auto */
 /*00536E20*/ char CFrontEndComponent::sub_536E20(int32_t, int32_t) { relink_stub(CFrontEndComponent::sub_536E20); }  /* auto */
 /*00539E00*/ char CFrontEndComponent::saveAddressBookWinsock(char) { relink_stub(CFrontEndComponent::saveAddressBookWinsock); }  /* auto */
+/*0053B980*/ char CFrontEndComponent::do_smth_and_showOutro(int32_t) { relink_stub(CFrontEndComponent::do_smth_and_showOutro); }  /* auto */
+/*0053BCD0*/ void CFrontEndComponent::showMovie(const char *) { relink_stub(CFrontEndComponent::showMovie); }  /* auto */
 /*0053BFD0*/ int32_t CFrontEndComponent::showIntro() { relink_stub(CFrontEndComponent::showIntro); }  /* auto */
 /*005478B0*/ CButton *CFrontEndComponent::sub_5478B0() { relink_stub(CFrontEndComponent::sub_5478B0); }  /* auto */
 /*00547B20*/ int32_t CFrontEndComponent::sub_547B20() { relink_stub(CFrontEndComponent::sub_547B20); }  /* auto */

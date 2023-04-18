@@ -8,6 +8,7 @@
 #include <cstdint>  // -----------------------------------  /* auto */
 #include <cstdio>  // ------------------------------------  /* auto */
 #include <dinput.h>  // ----------------------------------  /* auto */
+#include <dsound.h>  // ----------------------------------  /* auto */
 #include <ddraw.h>  // -----------------------------------  /* auto */
 #include <d3d.h>  // -------------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
@@ -52,7 +53,7 @@ struct MyStr {  // ---------------------------------------  /* auto */
 /*005B88C0*/ void destructor();  // ----------------------  /* auto */
 /*005B88E0*/ MyStr *assignChar(int8_t *);  // ------------  /* auto */
 /*005B8920*/ MyStr *assign(const char *);  // ------------  /* auto */
-/*005B8970*/ int32_t assignMyStr(MyStr *);  // -----------  /* auto */
+/*005B8970*/ const void *assignMyStr(MyStr *);  // -------  /* auto */
 /*005B89B0*/ MyStr *assignMySubStr_0(MySubStr *);  // ----  /* auto */
 /*005B8A00*/ MyStr *append(const char *);  // ------------  /* auto */
 /*005B8A40*/ MyStr *appendChar(int8_t *);  // ------------  /* auto */

@@ -8,6 +8,7 @@
 #include <cstdint>  // -----------------------------------  /* auto */
 #include <cstdio>  // ------------------------------------  /* auto */
 #include <dinput.h>  // ----------------------------------  /* auto */
+#include <dsound.h>  // ----------------------------------  /* auto */
 #include <ddraw.h>  // -----------------------------------  /* auto */
 #include <d3d.h>  // -------------------------------------  /* auto */
 // -------------------------------------------------------  /* auto */
@@ -40,16 +41,16 @@ struct DiscFileBase {  // --------------------------------  /* auto */
 /* 20*/ virtual int32_t *v_flush(int32_t *);  // = 005B6F70  /* auto */
 // -------------------------------------------------------  /* auto */
 /*005B6E40*/ DiscFileBase *constructor_empty();  // ------  /* auto */
-/*005B6EA0*/ size_t readBytes(const void *, int32_t);       /* auto */
-/*005B6EC0*/ size_t writeBytes(int32_t, int32_t);  // ----  /* auto */
-/*005B6EE0*/ size_t seek(int32_t, int32_t);  // ----------  /* auto */
-/*005B6F00*/ size_t getOffs();  // -----------------------  /* auto */
+/*005B6EA0*/ int32_t readBytes(const void *, int32_t);      /* auto */
+/*005B6EC0*/ int32_t writeBytes(int32_t, int32_t);  // ---  /* auto */
+/*005B6EE0*/ int32_t seek(int32_t, int32_t);  // ---------  /* auto */
+/*005B6F00*/ int32_t getOffs();  // ----------------------  /* auto */
 /*005B6F10*/ MyInputStream *getStream();  // -------------  /* auto */
 /*005B6F50*/ int32_t mapToBuf();  // ---------------------  /* auto */
 /*005B6F70*/ int32_t *flush(int32_t *);  // --------------  /* auto */
 /*005B9F70*/ int32_t *TbDiscFile_openStream(int32_t *, const char *, int32_t);  /* auto */
 /*005D6850*/ int32_t DiscFileBaseEx_openStream(int32_t, int32_t, size_t);  /* auto */
-/*005FDE70*/ size_t getSize();  // -----------------------  /* auto */
+/*005FDE70*/ int32_t getSize();  // ----------------------  /* auto */
 // -------------------------------------------------------  /* auto */
 // ---------------  block: body_user_code  ---------------  /* auto */
 

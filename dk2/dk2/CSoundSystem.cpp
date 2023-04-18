@@ -29,7 +29,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /* 2C*/ int32_t CSoundSystem::v_fun_567AF0(int32_t) { relink_stub(CSoundSystem::v_fun_567AF0); }  /* auto */
 /* 30*/ int32_t CSoundSystem::v_fun_567A70(int32_t, int32_t *) { relink_stub(CSoundSystem::v_fun_567A70); }  /* auto */
 /* 34*/ int32_t CSoundSystem::v_fun_567A10(int32_t, int32_t, int32_t) { relink_stub(CSoundSystem::v_fun_567A10); }  /* auto */
-/* 38*/ int32_t *CSoundSystem::v_fun_567A40(int32_t *, void (__thiscall ***)(int32_t, int32_t, const void *)) { relink_stub(CSoundSystem::v_fun_567A40); }  /* auto */
+/* 38*/ int32_t *CSoundSystem::v_fun_567A40(int32_t *, const void *) { relink_stub(CSoundSystem::v_fun_567A40); }  /* auto */
 /* 3C*/ int32_t CSoundSystem::v_update_room_ambience(void (__thiscall **)(int32_t, int32_t, const void *), void (__thiscall **)(int32_t, int32_t, const void *), void (__thiscall **)(int32_t, int32_t, const void *), int32_t) { relink_stub(CSoundSystem::v_update_room_ambience); }  /* auto */
 /* 40*/ int32_t CSoundSystem::v_sub_567220(int32_t) { relink_stub(CSoundSystem::v_sub_567220); }  /* auto */
 /* 44*/ void CSoundSystem::v_sub_567230() { relink_stub(CSoundSystem::v_sub_567230); }  /* auto */
@@ -54,6 +54,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00567300*/ int32_t CSoundSystem::set_number_of_channels(int32_t) { relink_stub(CSoundSystem::set_number_of_channels); }  /* auto */
 /*005677D0*/ int32_t *CSoundSystem::fun_5677D0() { relink_stub(CSoundSystem::fun_5677D0); }  /* auto */
 /*00567810*/ int32_t CSoundSystem::fun_567810(int32_t, int32_t, int32_t) { relink_stub(CSoundSystem::fun_567810); }  /* auto */
+/*00567A40*/ int32_t *CSoundSystem::fun_567A40(int32_t *, const void *) { relink_stub(CSoundSystem::fun_567A40); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

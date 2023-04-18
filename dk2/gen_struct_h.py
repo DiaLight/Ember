@@ -20,6 +20,7 @@ def format_struct_h(
     yield f"#include <cstdint>"
     yield f"#include <cstdio>"
     yield f"#include <dinput.h>"
+    yield f"#include <dsound.h>"
     yield f"#include <ddraw.h>"
     yield f"#include <d3d.h>"
     complete_types = set()

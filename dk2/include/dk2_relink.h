@@ -42,8 +42,16 @@ struct xrefs_t {
     const char *name;
 
     explicit xrefs_t(uint32_t dk2_rva, SymKind kind, const char *name) : dk2_rva(dk2_rva), kind(kind), name(name) {}
+
+    void setDst(uint32_t dst);
 };
 
 bool ember_runtime_relink();
+
+namespace api {
+
+    bool replaceEmberXrefs(void *pfun, void *proxy);
+
+}
 
 #endif //EMBER_DK2_RELINK_H

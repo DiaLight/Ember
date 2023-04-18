@@ -130,6 +130,8 @@ set(SOURCES
         dk2/MouseRgbDxActionList.cpp
         dk2/MouseXyzDxAction.cpp
         dk2/MouseXyzDxActionList.cpp
+        dk2/MovieCtx.cpp
+        dk2/MovieRenderer.cpp
         dk2/My16BitTexture.cpp
         dk2/My24BitTexture.cpp
         dk2/My32BitTexture.cpp

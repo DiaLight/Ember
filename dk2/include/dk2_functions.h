@@ -55,6 +55,8 @@ namespace dk2 {  // --------------------------------------  /* auto */
   struct FontObj;  // ------------------------------------  /* auto */
   struct Idx3b;  // --------------------------------------  /* auto */
   struct Mat3x3f;  // ------------------------------------  /* auto */
+  struct MovieCtx;  // -----------------------------------  /* auto */
+  struct MovieRenderer;  // ------------------------------  /* auto */
   struct MyCESurfHandle;  // -----------------------------  /* auto */
   struct MyCEngineSurfDesc;  // --------------------------  /* auto */
   struct MyCRCtx;  // ------------------------------------  /* auto */
@@ -939,14 +941,13 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0053AF80*/ int32_t __cdecl sub_53AF80(CButton *, int32_t);  /* auto */
 /*0053B5F0*/ __int16 sub_53B5F0();  // -------------------  /* auto */
 /*0053B810*/ CButton *__cdecl sub_53B810(int32_t, const void *);  /* auto */
-/*0053B840*/ CWindow *__cdecl show_cond_movie(int32_t, int32_t, int32_t *);  /* auto */
-/*0053BCD0*/ const void *__cdecl CFrontEndComponent_showMovie();  // assembly  /* auto */
+/*0053B840*/ CWindow *__cdecl show_cond_movie(int32_t, int32_t, CFrontEndComponent *);  /* auto */
 /*0053C070*/ int32_t *__cdecl sub_53C070(CButton *, int32_t);  /* auto */
 /*0053C120*/ int32_t __cdecl sub_53C120(int32_t, int32_t);  /* auto */
-/*0053C270*/ int32_t __cdecl CFrontEndComponent_ShowMovie_onKeyboardAction(int32_t, int32_t, CComponent *);  /* auto */
-/*0053C2A0*/ int32_t __cdecl CFrontEndComponent_ShowMovie_onMouseAction(int32_t, int32_t, int32_t, int32_t, CComponent *);  /* auto */
+/*0053C270*/ int32_t __cdecl CFrontEndComponent_MovieRenderer_onKeyboardAction(int32_t, int32_t, CComponent *);  /* auto */
+/*0053C2A0*/ int32_t __cdecl CFrontEndComponent_MovieRenderer_onMouseAction(int32_t, int32_t, int32_t, int32_t, CComponent *);  /* auto */
 /*0053C2C0*/ int32_t sub_53C2C0();  // -------------------  /* auto */
-/*0053C2E0*/ int32_t __cdecl CFrontEndComponent_WM_ACTIVATE_cb(int32_t);  /* auto */
+/*0053C2E0*/ int32_t __cdecl CFrontEndComponent_WM_ACTIVATE_cb(int32_t, int32_t, int32_t, const void *);  /* auto */
 /*0053C320*/ int32_t sub_53C320(int32_t);  // ------------  /* auto */
 /*0053C3C0*/ int8_t *__cdecl sub_53C3C0(int32_t, int32_t);  /* auto */
 /*0053CAF0*/ const char *__cdecl sub_53CAF0(CButton *, int32_t);  /* auto */
@@ -1194,13 +1195,13 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*00557390*/ int32_t MyGame_static_init();  // -----------  /* auto */
 /*005573B0*/ void __cdecl MyGame_static_destroy();  // ---  /* auto */
 /*005573C0*/ BOOL collect_devices_DDEnumCB(GUID *, const char *, const char *, const void *);  /* auto */
-/*005575F0*/ int32_t Direct3DEnumCallback(GUID *, const char *, const char *, _D3DDeviceDesc **, _D3DDeviceDesc **, int32_t);  /* auto */
-/*00557820*/ DxD3dInfo *__cdecl sub_557820(int32_t);  // -  /* auto */
-/*005578E0*/ int32_t collect_ddraw_devices();  // --------  /* auto */
-/*00557980*/ BOOL hWindow_enum_DDEnumCB(GUID *, const char *, const char *, const void *);  /* auto */
-/*00557A10*/ int32_t ___DDEnumModesCB(DDSURFACEDESC *, int32_t);  /* auto */
+/*005575F0*/ int32_t collect_devices_DDEnumDevicesCB(GUID *, const char *, const char *, _D3DDeviceDesc **, _D3DDeviceDesc **, int32_t);  /* auto */
+/*00557820*/ DxD3dInfo *__cdecl isDevSupports_D3DPTFILTERCAPS_LINEARMIPNEAREST(int32_t);  /* auto */
+/*005578E0*/ int32_t getDevIdxSupportsLinearPerspective();  /* auto */
+/*00557980*/ BOOL collect_displayModes_DDEnumCB(GUID *, const char *, const char *, const void *);  /* auto */
+/*00557A10*/ int32_t collect_displayModes_DDEnumModesCB(DDSURFACEDESC *, int32_t);  /* auto */
 /*00557AF0*/ int32_t sub_557AF0(int32_t, int32_t, int32_t, MyVideoSettings *);  /* auto */
-/*00557EE0*/ BOOL MyGame_enum_DDEnumCB(GUID *, const char *, const char *, MyGame *);  /* auto */
+/*00557EE0*/ BOOL collect_namesAndDescs_DDEnumCB(GUID *, const char *, const char *, MyGame *);  /* auto */
 /*00557FD0*/ BOOL isOsVersionGE(int32_t, int32_t, int16_t);  /* auto */
 /*005587E0*/ MyDdSurfaceEx *Obj6723A0_getPrimarySurf();     /* auto */
 /*00558A00*/ void MyInputManagerCb_static_setMousePos_(Pos2i *);  /* auto */
@@ -1209,7 +1210,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*00559050*/ int32_t __cdecl MyGame_static_559050_parse(const char *);  /* auto */
 /*005594E0*/ int32_t __cdecl sub_5594E0(int32_t, int32_t, int32_t);  /* auto */
 /*005595C0*/ void __cdecl MyGame_debugMsg(MyGame *, const char *, ...);  /* auto */
-/*00559710*/ int32_t MyGame_static_callback(int32_t, Event0_winShown7 *, MyGame *);  /* auto */
+/*00559710*/ int32_t static_MyGame_Event07_cb(int32_t, Event0_winShown7 *, MyGame *);  /* auto */
 /*00559770*/ __int16 __fastcall MyGame_sub_559770(__int16);  /* auto */
 /*00559B90*/ int32_t sub_559B90();  // -------------------  /* auto */
 /*00559BB0*/ void __cdecl unknown_libname_38();  // ------  /* auto */
@@ -1223,10 +1224,10 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*0055BE80*/ int32_t *__cdecl CFileManager_readAndParseWad(int32_t *, CFileManager *, const char *, ...);  /* auto */
 /*0055BF40*/ int32_t __cdecl CFileManager_setPathFormat(int32_t, CFileManager *, const char *, ...);  /* auto */
 /*0055C940*/ int32_t sub_55C940(int32_t);  // ------------  /* auto */
-/*0055CE80*/ int32_t sub_55CE80(int32_t);  // ------------  /* auto */
+/*0055CE80*/ int32_t RegKey_initKeys(int32_t);  // -------  /* auto */
 /*0055D530*/ int32_t sub_55D530();  // -------------------  /* auto */
 /*0055DD70*/ HKEY__ *___sub_55DD70_newCampagin(int8_t);     /* auto */
-/*0055DDF0*/ int32_t sub_55DDF0();  // -------------------  /* auto */
+/*0055DDF0*/ int32_t RegKey_initNewCampagin();  // -------  /* auto */
 /*0055E1B0*/ int32_t sub_55E1B0(int32_t);  // ------------  /* auto */
 /*0055EBE0*/ int32_t __fastcall sub_55EBE0(int32_t);  // -  /* auto */
 /*0055EC10*/ const char *sub_55EC10();  // ---------------  /* auto */
@@ -1562,47 +1563,47 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*005A7A00*/ void release_mgsr();  // --------------------  /* auto */
 /*005A7A20*/ void mgsr_free_buf();  // -------------------  /* auto */
 /*005A7A50*/ void mgsr_free_buf2();  // ------------------  /* auto */
-/*005A7A80*/ int32_t __cdecl sub_5A7A80(const char *, int32_t, int32_t);  /* auto */
-/*005A7B10*/ int32_t __fastcall sub_5A7B10(const char *, int32_t *);  /* auto */
-/*005A82D0*/ int32_t __fastcall sub_5A82D0(int32_t, int32_t, int32_t);  /* auto */
-/*005A83B0*/ int32_t __fastcall sub_5A83B0(int32_t *, int32_t);  /* auto */
-/*005A8430*/ int32_t __fastcall sub_5A8430(int32_t *, int32_t);  /* auto */
-/*005A87F0*/ int32_t __fastcall sub_5A87F0(int32_t *, int32_t);  /* auto */
-/*005A8980*/ int32_t __cdecl sub_5A8980(int32_t ***);       /* auto */
-/*005A8A60*/ int32_t __cdecl sub_5A8A60(const void *);      /* auto */
-/*005A8AE0*/ void __cdecl StartAddress(const void *);       /* auto */
+/*005A7A80*/ MovieRenderer *__cdecl static_MovieRenderer_initialize(const char *, int32_t, MovieRenderer *);  /* auto */
+/*005A7B10*/ int32_t __fastcall static_MovieCtx_openAndRead(const char *, MovieCtx *);  /* auto */
+/*005A82D0*/ int32_t __fastcall MovieCtx_sub_5A82D0(MovieCtx *, int32_t, int32_t);  /* auto */
+/*005A83B0*/ int32_t __fastcall MovieCtx_sub_5A83B0(MovieCtx *, int32_t);  /* auto */
+/*005A8430*/ int32_t __fastcall MovieCtx_sub_5A8430(MovieCtx *, int32_t);  /* auto */
+/*005A87F0*/ int32_t __fastcall MovieCtx_sub_5A87F0(MovieCtx *, int32_t);  /* auto */
+/*005A8980*/ int32_t __cdecl static_MovieRenderer_sub_5A8980(MovieRenderer *);  /* auto */
+/*005A8A60*/ int32_t __cdecl MovieRenderer_startThread(MovieRenderer *);  /* auto */
+/*005A8AE0*/ void __cdecl MovieRenderer_threadProc(MovieRenderer *);  /* auto */
 /*005A8F60*/ int32_t sub_5A8F60();  // -------------------  /* auto */
-/*005A8F70*/ const void *__cdecl sub_5A8F70(const char *, int32_t, int32_t);  /* auto */
-/*005A8FB0*/ BOOL __cdecl sub_5A8FB0(int32_t *);  // -----  /* auto */
-/*005A8FF0*/ int32_t __cdecl sub_5A8FF0(int32_t);  // ----  /* auto */
-/*005A94C0*/ int32_t __fastcall sub_5A94C0(int32_t *, int32_t);  /* auto */
-/*005A95B0*/ int32_t __fastcall sub_5A95B0(int32_t, int32_t *);  /* auto */
+/*005A8F70*/ MovieRenderer *__cdecl static_MovieRenderer_sub_5A8F70(const char *, HWND__ *, MovieRenderer *);  /* auto */
+/*005A8FB0*/ BOOL __cdecl static_MovieRenderer_sub_5A8FB0(MovieRenderer *);  /* auto */
+/*005A8FF0*/ int32_t __cdecl static_MovieRenderer_updateWindowActivated(MovieRenderer *);  /* auto */
+/*005A94C0*/ int32_t __fastcall MovieCtx_updateOverlay(MovieCtx *, int32_t);  /* auto */
+/*005A95B0*/ int32_t __fastcall sub_5A95B0(int32_t, MovieCtx *);  /* auto */
 /*005A9660*/ int32_t __fastcall sub_5A9660(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*005A97C0*/ int32_t __fastcall sub_5A97C0(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, char, char, char);  /* auto */
 /*005A9AE0*/ int32_t __fastcall sub_5A9AE0(int32_t, int32_t, int32_t, int32_t);  /* auto */
-/*005A9C60*/ void __fastcall sub_5A9C60(int32_t, int32_t *, int32_t *);  /* auto */
+/*005A9C60*/ void __fastcall getPixelFormat(IDirectDraw2 *, IDirectDrawSurface2 *, int32_t *);  /* auto */
 /*005A9D20*/ int32_t __fastcall sub_5A9D20(int32_t);  // -  /* auto */
 /*005A9D40*/ int32_t __fastcall sub_5A9D40(int32_t);  // -  /* auto */
-/*005A9DA0*/ int32_t __fastcall sub_5A9DA0(int32_t, int32_t);  /* auto */
-/*005AA2E0*/ int32_t __fastcall sub_5AA2E0(int32_t *, __int16 *);  /* auto */
-/*005AA520*/ int32_t __fastcall sub_5AA520(int32_t *, int32_t *, int32_t, int32_t, int32_t);  /* auto */
-/*005AA670*/ int32_t **__fastcall sub_5AA670(int32_t *, int32_t);  /* auto */
+/*005A9DA0*/ int32_t __fastcall sub_5A9DA0(int32_t, MovieCtx *);  /* auto */
+/*005AA2E0*/ int32_t __fastcall MovieCtx_sub_5AA2E0(MovieCtx *, __int16 *);  /* auto */
+/*005AA520*/ int32_t __fastcall createOverlaySurf(IDirectDraw2 *, IDirectDrawSurface2 **, int32_t, int32_t, int32_t);  /* auto */
+/*005AA670*/ void __fastcall MovieCtx_sub_5AA670(MovieCtx *, int32_t);  /* auto */
 /*005AAA50*/ int32_t __cdecl sub_5AAA50(int32_t);  // ----  /* auto */
 /*005AAB10*/ int32_t __cdecl sub_5AAB10(int32_t *, int32_t);  /* auto */
-/*005AAC80*/ int32_t __fastcall sub_5AAC80(int32_t *, const char *, int32_t, int32_t, int32_t);  /* auto */
+/*005AAC80*/ MovieRenderer *__fastcall MovieCtx_sub_5AAC80(MovieCtx *, const char *, int32_t, int32_t, int32_t);  /* auto */
 /*005AAD90*/ const void *__cdecl sub_5AAD90();  // assembly  /* auto */
-/*005AAF90*/ int32_t __fastcall sub_5AAF90(int32_t *, const char *, int32_t, int32_t, int32_t);  /* auto */
+/*005AAF90*/ MovieRenderer *__fastcall MovieCtx_sub_5AAF90(MovieCtx *, const char *, int32_t, int32_t, int32_t);  /* auto */
 /*005AB0A0*/ int32_t __cdecl sub_5AB0A0(char, char, char, char, char, char, const char *, int32_t);  /* auto */
-/*005AB250*/ int32_t __fastcall sub_5AB250(int32_t *, int32_t, int32_t, int32_t, int32_t);  /* auto */
-/*005AB2F0*/ int32_t __fastcall sub_5AB2F0(int32_t *, int32_t, int32_t, int32_t, int32_t);  /* auto */
-/*005AB390*/ int32_t __fastcall sub_5AB390(int32_t *, int32_t, int32_t, int32_t, int32_t);  /* auto */
-/*005AB700*/ int32_t __fastcall sub_5AB700(int32_t *, int32_t *, int32_t *, int32_t, int32_t, int32_t);  /* auto */
-/*005AB8F0*/ int32_t __fastcall sub_5AB8F0(int32_t *, int32_t **, int32_t, int32_t, int32_t);  /* auto */
+/*005AB250*/ MovieRenderer *__fastcall MovieCtx_sub_5AB250(MovieCtx *, int32_t, int32_t, int32_t, int32_t);  /* auto */
+/*005AB2F0*/ MovieRenderer *__fastcall MovieCtx_sub_5AB2F0(MovieCtx *, int32_t, int32_t, int32_t, int32_t);  /* auto */
+/*005AB390*/ MovieRenderer *__fastcall MovieCtx_sub_5AB390(MovieCtx *, int32_t, int32_t, int32_t, int32_t);  /* auto */
+/*005AB700*/ int32_t __fastcall createDoubleBuffered(IDirectDraw2 *, IDirectDrawSurface2 **, IDirectDrawSurface2 **, int32_t, int32_t, int32_t);  /* auto */
+/*005AB8F0*/ int32_t __fastcall createOffScrSurf(IDirectDraw2 *, IDirectDrawSurface2 **, int32_t, int32_t, int32_t);  /* auto */
 /*005ABAE0*/ int32_t *__cdecl sub_5ABAE0(int32_t, int32_t *, int32_t *, int32_t *, int32_t, int16_t **);  /* auto */
 /*005ABC60*/ int32_t __cdecl sub_5ABC60(int32_t, int32_t *, int32_t *, int32_t *, int32_t *, int32_t *, int32_t, int16_t **);  /* auto */
-/*005ABEF0*/ void __cdecl sub_5ABEF0(const void *);  // --  /* auto */
-/*005ABF70*/ int32_t __fastcall sub_5ABF70(int32_t *, int32_t);  /* auto */
-/*005AC360*/ HRESULT __fastcall sub_5AC360(IDirectSound **, HWND__ *);  /* auto */
+/*005ABEF0*/ void __cdecl MovieCtx_threadProc(MovieCtx *);  /* auto */
+/*005ABF70*/ int32_t __fastcall MovieCtx_sub_5ABF70(MovieCtx *, int32_t);  /* auto */
+/*005AC360*/ HRESULT __fastcall directSoundCreate(IDirectSound **, HWND__ *);  /* auto */
 /*005AC660*/ void __cdecl sub_5AC660(int32_t, int8_t *, int16_t *, int32_t, int32_t *, int32_t *);  /* auto */
 /*005AC703*/ void __cdecl sub_5AC703(int8_t *, int32_t, int32_t, int32_t *, int32_t *);  /* auto */
 /*005AC8B0*/ int32_t sub_5AC8B0();  // -------------------  /* auto */
@@ -1620,7 +1621,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*005AF310*/ const void *__cdecl sub_5AF310();  // assembly  /* auto */
 /*005AF7E0*/ const void *__cdecl sub_5AF7E0();  // assembly  /* auto */
 /*005AFCE0*/ const void *__cdecl sub_5AFCE0();  // assembly  /* auto */
-/*005AFEC8*/ const void *__cdecl sub_5AFEC8();  // assembly  /* auto */
+/*005AFEC8*/ int32_t __cdecl sub_5AFEC8(int32_t *, int32_t *, int32_t);  /* auto */
 /*005AFF0C*/ int32_t __cdecl sub_5AFF0C(int32_t *, int32_t *, int32_t);  /* auto */
 /*005B0020*/ const void *__cdecl sub_5B0020();  // assembly  /* auto */
 /*005B00AC*/ int32_t __cdecl sub_5B00AC(int32_t *, int32_t *, int32_t, int32_t);  /* auto */
@@ -1635,13 +1636,13 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*005B0B00*/ int32_t __fastcall sub_5B0B00(int32_t);  // -  /* auto */
 /*005B0B60*/ int32_t sub_5B0B60();  // -------------------  /* auto */
 /*005B0B90*/ int32_t __fastcall sub_5B0B90(int32_t *, int32_t);  /* auto */
-/*005B0BF0*/ int32_t __fastcall sub_5B0BF0(int32_t *, int32_t, int32_t, int32_t, int32_t);  /* auto */
-/*005B0D60*/ int32_t __fastcall sub_5B0D60(int32_t, int32_t *);  /* auto */
+/*005B0BF0*/ int32_t __fastcall MovieCtx_sub_5B0BF0(MovieCtx *, int32_t, int32_t, int32_t, int32_t);  /* auto */
+/*005B0D60*/ int32_t __fastcall MovieCtx_sub_5B0D60(MovieCtx *, int32_t *);  /* auto */
 /*005B1090*/ int32_t __fastcall sub_5B1090(int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*005B1110*/ void __fastcall sub_5B1110(int32_t, int8_t *, int32_t);  /* auto */
-/*005B1220*/ int32_t __fastcall sub_5B1220(const void **, int32_t);  /* auto */
-/*005B1380*/ int32_t __fastcall sub_5B1380(int32_t *);      /* auto */
-/*005B1430*/ const void *__cdecl sub_5B1430();  // assembly  /* auto */
+/*005B1220*/ int32_t __fastcall MovieCtx_sub_5B1220(MovieCtx *, int32_t);  /* auto */
+/*005B1380*/ MovieRenderer *__fastcall MovieCtx_sub_5B1380(MovieCtx *);  /* auto */
+/*005B1430*/ int8_t *__fastcall MovieCtx_sub_5B1430(MovieCtx *, const char *, int32_t, int32_t);  /* auto */
 /*005B1650*/ int32_t sub_5B1650();  // -------------------  /* auto */
 /*005B17FD*/ int32_t __cdecl sub_5B17FD(int8_t *, int8_t *, int32_t *, int32_t);  /* auto */
 /*005B1906*/ const void *__cdecl sub_5B1906();  // assembly  /* auto */
@@ -1663,8 +1664,8 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*005B2A50*/ int32_t MyInputManagerCb_static_buildControlFlags();  /* auto */
 /*005B2AE0*/ int32_t __cdecl MyInputManagerCb_static_processInputs_setStaticListenersAndHandleDxActions(StaticListeners *, int32_t, CComponent *, int32_t);  /* auto */
 /*005B2B10*/ int32_t unknown_libname_42();  // -----------  /* auto */
-/*005B2B20*/ int32_t __cdecl MyInputManagerCb_static_initKeyInputs(int32_t);  /* auto */
-/*005B2B60*/ int32_t __cdecl MyInputManagerCb_static_initCursorInputs(int32_t);  /* auto */
+/*005B2B20*/ int32_t *__cdecl MyInputManagerCb_static_initKeyInputs(int32_t *);  /* auto */
+/*005B2B60*/ int32_t *__cdecl MyInputManagerCb_static_initCursorInputs(int32_t *);  /* auto */
 /*005B2BA0*/ Pos2i *MyMouse_static_getPos();  // ---------  /* auto */
 /*005B2BB0*/ Pos2i *MyInputManagerCb_static_getMouseF14();  /* auto */
 /*005B2BC0*/ void __cdecl MyInputManagerCb_static_setMousePos(Pos2i *);  /* auto */
@@ -1825,7 +1826,7 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*005B8470*/ int32_t sub_5B8470(int32_t, const char *, const char *, int32_t);  /* auto */
 /*005B84D0*/ int32_t unknown_libname_48();  // -----------  /* auto */
 /*005B8500*/ int32_t *TbTQILoader_fun_5B8500(int32_t *, int32_t, int32_t *);  /* auto */
-/*005B8AB0*/ int32_t __cdecl MyStr_format(MyStr *, int32_t, ...);  /* auto */
+/*005B8AB0*/ size_t __cdecl MyStr_format(MyStr *, int32_t, ...);  /* auto */
 /*005B9270*/ int32_t __cdecl sub_5B9270(int32_t, int32_t, wchar_t);  /* auto */
 /*005B97A0*/ void WinEventHandlers_static_init();  // ----  /* auto */
 /*005B97B0*/ WinEventHandlers *WinEventHandlers_constructor();  /* auto */
@@ -1988,7 +1989,6 @@ namespace dk2 {  // --------------------------------------  /* auto */
 /*005DE020*/ int32_t *__cdecl PVoid_assign(int32_t *, int32_t *);  /* auto */
 /*005DE240*/ GUID *MySysKeyboard_getGuid();  // ----------  /* auto */
 /*005DE250*/ DIDATAFORMAT *MySysKeyboard_getDataFormat();   /* auto */
-/*005DE260*/ const void *__cdecl MyDxKeyboard_processKeyboardData();  // assembly  /* auto */
 /*005DE310*/ char sub_5DE310(int32_t *, AABB *, char, int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*005E0DA0*/ char sub_5E0DA0(int32_t *, AABB *, char, int32_t, int32_t, int32_t, int32_t);  /* auto */
 /*005E26E0*/ int8_t sub_5E26E0(int32_t *, int32_t *, char, int32_t, int32_t, int32_t);  /* auto */

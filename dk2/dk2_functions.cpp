@@ -826,14 +826,13 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0053AF80*/ int32_t __cdecl dk2::sub_53AF80(CButton *, int32_t) { relink_stub(dk2::sub_53AF80); }  /* auto */
 /*0053B5F0*/ __int16 dk2::sub_53B5F0() { relink_stub(dk2::sub_53B5F0); }  /* auto */
 /*0053B810*/ CButton *__cdecl dk2::sub_53B810(int32_t, const void *) { relink_stub(dk2::sub_53B810); }  /* auto */
-/*0053B840*/ CWindow *__cdecl dk2::show_cond_movie(int32_t, int32_t, int32_t *) { relink_stub(dk2::show_cond_movie); }  /* auto */
-/*0053BCD0*/ const void *__cdecl dk2::CFrontEndComponent_showMovie() { relink_stub(dk2::CFrontEndComponent_showMovie); }  // assembly  /* auto */
+/*0053B840*/ CWindow *__cdecl dk2::show_cond_movie(int32_t, int32_t, CFrontEndComponent *) { relink_stub(dk2::show_cond_movie); }  /* auto */
 /*0053C070*/ int32_t *__cdecl dk2::sub_53C070(CButton *, int32_t) { relink_stub(dk2::sub_53C070); }  /* auto */
 /*0053C120*/ int32_t __cdecl dk2::sub_53C120(int32_t, int32_t) { relink_stub(dk2::sub_53C120); }  /* auto */
-/*0053C270*/ int32_t __cdecl dk2::CFrontEndComponent_ShowMovie_onKeyboardAction(int32_t, int32_t, CComponent *) { relink_stub(dk2::CFrontEndComponent_ShowMovie_onKeyboardAction); }  /* auto */
-/*0053C2A0*/ int32_t __cdecl dk2::CFrontEndComponent_ShowMovie_onMouseAction(int32_t, int32_t, int32_t, int32_t, CComponent *) { relink_stub(dk2::CFrontEndComponent_ShowMovie_onMouseAction); }  /* auto */
+/*0053C270*/ int32_t __cdecl dk2::CFrontEndComponent_MovieRenderer_onKeyboardAction(int32_t, int32_t, CComponent *) { relink_stub(dk2::CFrontEndComponent_MovieRenderer_onKeyboardAction); }  /* auto */
+/*0053C2A0*/ int32_t __cdecl dk2::CFrontEndComponent_MovieRenderer_onMouseAction(int32_t, int32_t, int32_t, int32_t, CComponent *) { relink_stub(dk2::CFrontEndComponent_MovieRenderer_onMouseAction); }  /* auto */
 /*0053C2C0*/ int32_t dk2::sub_53C2C0() { relink_stub(dk2::sub_53C2C0); }  /* auto */
-/*0053C2E0*/ int32_t __cdecl dk2::CFrontEndComponent_WM_ACTIVATE_cb(int32_t) { relink_stub(dk2::CFrontEndComponent_WM_ACTIVATE_cb); }  /* auto */
+/*0053C2E0*/ int32_t __cdecl dk2::CFrontEndComponent_WM_ACTIVATE_cb(int32_t, int32_t, int32_t, const void *) { relink_stub(dk2::CFrontEndComponent_WM_ACTIVATE_cb); }  /* auto */
 /*0053C320*/ int32_t dk2::sub_53C320(int32_t) { relink_stub(dk2::sub_53C320); }  /* auto */
 /*0053C3C0*/ int8_t *__cdecl dk2::sub_53C3C0(int32_t, int32_t) { relink_stub(dk2::sub_53C3C0); }  /* auto */
 /*0053CAF0*/ const char *__cdecl dk2::sub_53CAF0(CButton *, int32_t) { relink_stub(dk2::sub_53CAF0); }  /* auto */
@@ -1081,13 +1080,13 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00557390*/ int32_t dk2::MyGame_static_init() { relink_stub(dk2::MyGame_static_init); }  /* auto */
 /*005573B0*/ void __cdecl dk2::MyGame_static_destroy() { relink_stub(dk2::MyGame_static_destroy); }  /* auto */
 /*005573C0*/ BOOL dk2::collect_devices_DDEnumCB(GUID *, const char *, const char *, const void *) { relink_stub(dk2::collect_devices_DDEnumCB); }  /* auto */
-/*005575F0*/ int32_t dk2::Direct3DEnumCallback(GUID *, const char *, const char *, _D3DDeviceDesc **, _D3DDeviceDesc **, int32_t) { relink_stub(dk2::Direct3DEnumCallback); }  /* auto */
-/*00557820*/ DxD3dInfo *__cdecl dk2::sub_557820(int32_t) { relink_stub(dk2::sub_557820); }  /* auto */
-/*005578E0*/ int32_t dk2::collect_ddraw_devices() { relink_stub(dk2::collect_ddraw_devices); }  /* auto */
-/*00557980*/ BOOL dk2::hWindow_enum_DDEnumCB(GUID *, const char *, const char *, const void *) { relink_stub(dk2::hWindow_enum_DDEnumCB); }  /* auto */
-/*00557A10*/ int32_t dk2::___DDEnumModesCB(DDSURFACEDESC *, int32_t) { relink_stub(dk2::___DDEnumModesCB); }  /* auto */
+/*005575F0*/ int32_t dk2::collect_devices_DDEnumDevicesCB(GUID *, const char *, const char *, _D3DDeviceDesc **, _D3DDeviceDesc **, int32_t) { relink_stub(dk2::collect_devices_DDEnumDevicesCB); }  /* auto */
+/*00557820*/ DxD3dInfo *__cdecl dk2::isDevSupports_D3DPTFILTERCAPS_LINEARMIPNEAREST(int32_t) { relink_stub(dk2::isDevSupports_D3DPTFILTERCAPS_LINEARMIPNEAREST); }  /* auto */
+/*005578E0*/ int32_t dk2::getDevIdxSupportsLinearPerspective() { relink_stub(dk2::getDevIdxSupportsLinearPerspective); }  /* auto */
+/*00557980*/ BOOL dk2::collect_displayModes_DDEnumCB(GUID *, const char *, const char *, const void *) { relink_stub(dk2::collect_displayModes_DDEnumCB); }  /* auto */
+/*00557A10*/ int32_t dk2::collect_displayModes_DDEnumModesCB(DDSURFACEDESC *, int32_t) { relink_stub(dk2::collect_displayModes_DDEnumModesCB); }  /* auto */
 /*00557AF0*/ int32_t dk2::sub_557AF0(int32_t, int32_t, int32_t, MyVideoSettings *) { relink_stub(dk2::sub_557AF0); }  /* auto */
-/*00557EE0*/ BOOL dk2::MyGame_enum_DDEnumCB(GUID *, const char *, const char *, MyGame *) { relink_stub(dk2::MyGame_enum_DDEnumCB); }  /* auto */
+/*00557EE0*/ BOOL dk2::collect_namesAndDescs_DDEnumCB(GUID *, const char *, const char *, MyGame *) { relink_stub(dk2::collect_namesAndDescs_DDEnumCB); }  /* auto */
 /*00557FD0*/ BOOL dk2::isOsVersionGE(int32_t, int32_t, int16_t) { relink_stub(dk2::isOsVersionGE); }  /* auto */
 /*005587E0*/ MyDdSurfaceEx *dk2::Obj6723A0_getPrimarySurf() { relink_stub(dk2::Obj6723A0_getPrimarySurf); }  /* auto */
 /*00558A00*/ void dk2::MyInputManagerCb_static_setMousePos_(Pos2i *) { relink_stub(dk2::MyInputManagerCb_static_setMousePos_); }  /* auto */
@@ -1096,7 +1095,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00559050*/ int32_t __cdecl dk2::MyGame_static_559050_parse(const char *) { relink_stub(dk2::MyGame_static_559050_parse); }  /* auto */
 /*005594E0*/ int32_t __cdecl dk2::sub_5594E0(int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5594E0); }  /* auto */
 /*005595C0*/ void __cdecl dk2::MyGame_debugMsg(MyGame *, const char *, ...) { relink_stub(dk2::MyGame_debugMsg); }  /* auto */
-/*00559710*/ int32_t dk2::MyGame_static_callback(int32_t, Event0_winShown7 *, MyGame *) { relink_stub(dk2::MyGame_static_callback); }  /* auto */
+/*00559710*/ int32_t dk2::static_MyGame_Event07_cb(int32_t, Event0_winShown7 *, MyGame *) { relink_stub(dk2::static_MyGame_Event07_cb); }  /* auto */
 /*00559770*/ __int16 __fastcall dk2::MyGame_sub_559770(__int16) { relink_stub(dk2::MyGame_sub_559770); }  /* auto */
 /*00559B90*/ int32_t dk2::sub_559B90() { relink_stub(dk2::sub_559B90); }  /* auto */
 /*00559BB0*/ void __cdecl dk2::unknown_libname_38() { relink_stub(dk2::unknown_libname_38); }  /* auto */
@@ -1110,10 +1109,10 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0055BE80*/ int32_t *__cdecl dk2::CFileManager_readAndParseWad(int32_t *, CFileManager *, const char *, ...) { relink_stub(dk2::CFileManager_readAndParseWad); }  /* auto */
 /*0055BF40*/ int32_t __cdecl dk2::CFileManager_setPathFormat(int32_t, CFileManager *, const char *, ...) { relink_stub(dk2::CFileManager_setPathFormat); }  /* auto */
 /*0055C940*/ int32_t dk2::sub_55C940(int32_t) { relink_stub(dk2::sub_55C940); }  /* auto */
-/*0055CE80*/ int32_t dk2::sub_55CE80(int32_t) { relink_stub(dk2::sub_55CE80); }  /* auto */
+/*0055CE80*/ int32_t dk2::RegKey_initKeys(int32_t) { relink_stub(dk2::RegKey_initKeys); }  /* auto */
 /*0055D530*/ int32_t dk2::sub_55D530() { relink_stub(dk2::sub_55D530); }  /* auto */
 /*0055DD70*/ HKEY__ *dk2::___sub_55DD70_newCampagin(int8_t) { relink_stub(dk2::___sub_55DD70_newCampagin); }  /* auto */
-/*0055DDF0*/ int32_t dk2::sub_55DDF0() { relink_stub(dk2::sub_55DDF0); }  /* auto */
+/*0055DDF0*/ int32_t dk2::RegKey_initNewCampagin() { relink_stub(dk2::RegKey_initNewCampagin); }  /* auto */
 /*0055E1B0*/ int32_t dk2::sub_55E1B0(int32_t) { relink_stub(dk2::sub_55E1B0); }  /* auto */
 /*0055EBE0*/ int32_t __fastcall dk2::sub_55EBE0(int32_t) { relink_stub(dk2::sub_55EBE0); }  /* auto */
 /*0055EC10*/ const char *dk2::sub_55EC10() { relink_stub(dk2::sub_55EC10); }  /* auto */
@@ -1449,47 +1448,47 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005A7A00*/ void dk2::release_mgsr() { relink_stub(dk2::release_mgsr); }  /* auto */
 /*005A7A20*/ void dk2::mgsr_free_buf() { relink_stub(dk2::mgsr_free_buf); }  /* auto */
 /*005A7A50*/ void dk2::mgsr_free_buf2() { relink_stub(dk2::mgsr_free_buf2); }  /* auto */
-/*005A7A80*/ int32_t __cdecl dk2::sub_5A7A80(const char *, int32_t, int32_t) { relink_stub(dk2::sub_5A7A80); }  /* auto */
-/*005A7B10*/ int32_t __fastcall dk2::sub_5A7B10(const char *, int32_t *) { relink_stub(dk2::sub_5A7B10); }  /* auto */
-/*005A82D0*/ int32_t __fastcall dk2::sub_5A82D0(int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5A82D0); }  /* auto */
-/*005A83B0*/ int32_t __fastcall dk2::sub_5A83B0(int32_t *, int32_t) { relink_stub(dk2::sub_5A83B0); }  /* auto */
-/*005A8430*/ int32_t __fastcall dk2::sub_5A8430(int32_t *, int32_t) { relink_stub(dk2::sub_5A8430); }  /* auto */
-/*005A87F0*/ int32_t __fastcall dk2::sub_5A87F0(int32_t *, int32_t) { relink_stub(dk2::sub_5A87F0); }  /* auto */
-/*005A8980*/ int32_t __cdecl dk2::sub_5A8980(int32_t ***) { relink_stub(dk2::sub_5A8980); }  /* auto */
-/*005A8A60*/ int32_t __cdecl dk2::sub_5A8A60(const void *) { relink_stub(dk2::sub_5A8A60); }  /* auto */
-/*005A8AE0*/ void __cdecl dk2::StartAddress(const void *) { relink_stub(dk2::StartAddress); }  /* auto */
+/*005A7A80*/ MovieRenderer *__cdecl dk2::static_MovieRenderer_initialize(const char *, int32_t, MovieRenderer *) { relink_stub(dk2::static_MovieRenderer_initialize); }  /* auto */
+/*005A7B10*/ int32_t __fastcall dk2::static_MovieCtx_openAndRead(const char *, MovieCtx *) { relink_stub(dk2::static_MovieCtx_openAndRead); }  /* auto */
+/*005A82D0*/ int32_t __fastcall dk2::MovieCtx_sub_5A82D0(MovieCtx *, int32_t, int32_t) { relink_stub(dk2::MovieCtx_sub_5A82D0); }  /* auto */
+/*005A83B0*/ int32_t __fastcall dk2::MovieCtx_sub_5A83B0(MovieCtx *, int32_t) { relink_stub(dk2::MovieCtx_sub_5A83B0); }  /* auto */
+/*005A8430*/ int32_t __fastcall dk2::MovieCtx_sub_5A8430(MovieCtx *, int32_t) { relink_stub(dk2::MovieCtx_sub_5A8430); }  /* auto */
+/*005A87F0*/ int32_t __fastcall dk2::MovieCtx_sub_5A87F0(MovieCtx *, int32_t) { relink_stub(dk2::MovieCtx_sub_5A87F0); }  /* auto */
+/*005A8980*/ int32_t __cdecl dk2::static_MovieRenderer_sub_5A8980(MovieRenderer *) { relink_stub(dk2::static_MovieRenderer_sub_5A8980); }  /* auto */
+/*005A8A60*/ int32_t __cdecl dk2::MovieRenderer_startThread(MovieRenderer *) { relink_stub(dk2::MovieRenderer_startThread); }  /* auto */
+/*005A8AE0*/ void __cdecl dk2::MovieRenderer_threadProc(MovieRenderer *) { relink_stub(dk2::MovieRenderer_threadProc); }  /* auto */
 /*005A8F60*/ int32_t dk2::sub_5A8F60() { relink_stub(dk2::sub_5A8F60); }  /* auto */
-/*005A8F70*/ const void *__cdecl dk2::sub_5A8F70(const char *, int32_t, int32_t) { relink_stub(dk2::sub_5A8F70); }  /* auto */
-/*005A8FB0*/ BOOL __cdecl dk2::sub_5A8FB0(int32_t *) { relink_stub(dk2::sub_5A8FB0); }  /* auto */
-/*005A8FF0*/ int32_t __cdecl dk2::sub_5A8FF0(int32_t) { relink_stub(dk2::sub_5A8FF0); }  /* auto */
-/*005A94C0*/ int32_t __fastcall dk2::sub_5A94C0(int32_t *, int32_t) { relink_stub(dk2::sub_5A94C0); }  /* auto */
-/*005A95B0*/ int32_t __fastcall dk2::sub_5A95B0(int32_t, int32_t *) { relink_stub(dk2::sub_5A95B0); }  /* auto */
+/*005A8F70*/ MovieRenderer *__cdecl dk2::static_MovieRenderer_sub_5A8F70(const char *, HWND__ *, MovieRenderer *) { relink_stub(dk2::static_MovieRenderer_sub_5A8F70); }  /* auto */
+/*005A8FB0*/ BOOL __cdecl dk2::static_MovieRenderer_sub_5A8FB0(MovieRenderer *) { relink_stub(dk2::static_MovieRenderer_sub_5A8FB0); }  /* auto */
+/*005A8FF0*/ int32_t __cdecl dk2::static_MovieRenderer_updateWindowActivated(MovieRenderer *) { relink_stub(dk2::static_MovieRenderer_updateWindowActivated); }  /* auto */
+/*005A94C0*/ int32_t __fastcall dk2::MovieCtx_updateOverlay(MovieCtx *, int32_t) { relink_stub(dk2::MovieCtx_updateOverlay); }  /* auto */
+/*005A95B0*/ int32_t __fastcall dk2::sub_5A95B0(int32_t, MovieCtx *) { relink_stub(dk2::sub_5A95B0); }  /* auto */
 /*005A9660*/ int32_t __fastcall dk2::sub_5A9660(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5A9660); }  /* auto */
 /*005A97C0*/ int32_t __fastcall dk2::sub_5A97C0(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, char, char, char) { relink_stub(dk2::sub_5A97C0); }  /* auto */
 /*005A9AE0*/ int32_t __fastcall dk2::sub_5A9AE0(int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5A9AE0); }  /* auto */
-/*005A9C60*/ void __fastcall dk2::sub_5A9C60(int32_t, int32_t *, int32_t *) { relink_stub(dk2::sub_5A9C60); }  /* auto */
+/*005A9C60*/ void __fastcall dk2::getPixelFormat(IDirectDraw2 *, IDirectDrawSurface2 *, int32_t *) { relink_stub(dk2::getPixelFormat); }  /* auto */
 /*005A9D20*/ int32_t __fastcall dk2::sub_5A9D20(int32_t) { relink_stub(dk2::sub_5A9D20); }  /* auto */
 /*005A9D40*/ int32_t __fastcall dk2::sub_5A9D40(int32_t) { relink_stub(dk2::sub_5A9D40); }  /* auto */
-/*005A9DA0*/ int32_t __fastcall dk2::sub_5A9DA0(int32_t, int32_t) { relink_stub(dk2::sub_5A9DA0); }  /* auto */
-/*005AA2E0*/ int32_t __fastcall dk2::sub_5AA2E0(int32_t *, __int16 *) { relink_stub(dk2::sub_5AA2E0); }  /* auto */
-/*005AA520*/ int32_t __fastcall dk2::sub_5AA520(int32_t *, int32_t *, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5AA520); }  /* auto */
-/*005AA670*/ int32_t **__fastcall dk2::sub_5AA670(int32_t *, int32_t) { relink_stub(dk2::sub_5AA670); }  /* auto */
+/*005A9DA0*/ int32_t __fastcall dk2::sub_5A9DA0(int32_t, MovieCtx *) { relink_stub(dk2::sub_5A9DA0); }  /* auto */
+/*005AA2E0*/ int32_t __fastcall dk2::MovieCtx_sub_5AA2E0(MovieCtx *, __int16 *) { relink_stub(dk2::MovieCtx_sub_5AA2E0); }  /* auto */
+/*005AA520*/ int32_t __fastcall dk2::createOverlaySurf(IDirectDraw2 *, IDirectDrawSurface2 **, int32_t, int32_t, int32_t) { relink_stub(dk2::createOverlaySurf); }  /* auto */
+/*005AA670*/ void __fastcall dk2::MovieCtx_sub_5AA670(MovieCtx *, int32_t) { relink_stub(dk2::MovieCtx_sub_5AA670); }  /* auto */
 /*005AAA50*/ int32_t __cdecl dk2::sub_5AAA50(int32_t) { relink_stub(dk2::sub_5AAA50); }  /* auto */
 /*005AAB10*/ int32_t __cdecl dk2::sub_5AAB10(int32_t *, int32_t) { relink_stub(dk2::sub_5AAB10); }  /* auto */
-/*005AAC80*/ int32_t __fastcall dk2::sub_5AAC80(int32_t *, const char *, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5AAC80); }  /* auto */
+/*005AAC80*/ MovieRenderer *__fastcall dk2::MovieCtx_sub_5AAC80(MovieCtx *, const char *, int32_t, int32_t, int32_t) { relink_stub(dk2::MovieCtx_sub_5AAC80); }  /* auto */
 /*005AAD90*/ const void *__cdecl dk2::sub_5AAD90() { relink_stub(dk2::sub_5AAD90); }  // assembly  /* auto */
-/*005AAF90*/ int32_t __fastcall dk2::sub_5AAF90(int32_t *, const char *, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5AAF90); }  /* auto */
+/*005AAF90*/ MovieRenderer *__fastcall dk2::MovieCtx_sub_5AAF90(MovieCtx *, const char *, int32_t, int32_t, int32_t) { relink_stub(dk2::MovieCtx_sub_5AAF90); }  /* auto */
 /*005AB0A0*/ int32_t __cdecl dk2::sub_5AB0A0(char, char, char, char, char, char, const char *, int32_t) { relink_stub(dk2::sub_5AB0A0); }  /* auto */
-/*005AB250*/ int32_t __fastcall dk2::sub_5AB250(int32_t *, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5AB250); }  /* auto */
-/*005AB2F0*/ int32_t __fastcall dk2::sub_5AB2F0(int32_t *, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5AB2F0); }  /* auto */
-/*005AB390*/ int32_t __fastcall dk2::sub_5AB390(int32_t *, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5AB390); }  /* auto */
-/*005AB700*/ int32_t __fastcall dk2::sub_5AB700(int32_t *, int32_t *, int32_t *, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5AB700); }  /* auto */
-/*005AB8F0*/ int32_t __fastcall dk2::sub_5AB8F0(int32_t *, int32_t **, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5AB8F0); }  /* auto */
+/*005AB250*/ MovieRenderer *__fastcall dk2::MovieCtx_sub_5AB250(MovieCtx *, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::MovieCtx_sub_5AB250); }  /* auto */
+/*005AB2F0*/ MovieRenderer *__fastcall dk2::MovieCtx_sub_5AB2F0(MovieCtx *, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::MovieCtx_sub_5AB2F0); }  /* auto */
+/*005AB390*/ MovieRenderer *__fastcall dk2::MovieCtx_sub_5AB390(MovieCtx *, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::MovieCtx_sub_5AB390); }  /* auto */
+/*005AB700*/ int32_t __fastcall dk2::createDoubleBuffered(IDirectDraw2 *, IDirectDrawSurface2 **, IDirectDrawSurface2 **, int32_t, int32_t, int32_t) { relink_stub(dk2::createDoubleBuffered); }  /* auto */
+/*005AB8F0*/ int32_t __fastcall dk2::createOffScrSurf(IDirectDraw2 *, IDirectDrawSurface2 **, int32_t, int32_t, int32_t) { relink_stub(dk2::createOffScrSurf); }  /* auto */
 /*005ABAE0*/ int32_t *__cdecl dk2::sub_5ABAE0(int32_t, int32_t *, int32_t *, int32_t *, int32_t, int16_t **) { relink_stub(dk2::sub_5ABAE0); }  /* auto */
 /*005ABC60*/ int32_t __cdecl dk2::sub_5ABC60(int32_t, int32_t *, int32_t *, int32_t *, int32_t *, int32_t *, int32_t, int16_t **) { relink_stub(dk2::sub_5ABC60); }  /* auto */
-/*005ABEF0*/ void __cdecl dk2::sub_5ABEF0(const void *) { relink_stub(dk2::sub_5ABEF0); }  /* auto */
-/*005ABF70*/ int32_t __fastcall dk2::sub_5ABF70(int32_t *, int32_t) { relink_stub(dk2::sub_5ABF70); }  /* auto */
-/*005AC360*/ HRESULT __fastcall dk2::sub_5AC360(IDirectSound **, HWND__ *) { relink_stub(dk2::sub_5AC360); }  /* auto */
+/*005ABEF0*/ void __cdecl dk2::MovieCtx_threadProc(MovieCtx *) { relink_stub(dk2::MovieCtx_threadProc); }  /* auto */
+/*005ABF70*/ int32_t __fastcall dk2::MovieCtx_sub_5ABF70(MovieCtx *, int32_t) { relink_stub(dk2::MovieCtx_sub_5ABF70); }  /* auto */
+/*005AC360*/ HRESULT __fastcall dk2::directSoundCreate(IDirectSound **, HWND__ *) { relink_stub(dk2::directSoundCreate); }  /* auto */
 /*005AC660*/ void __cdecl dk2::sub_5AC660(int32_t, int8_t *, int16_t *, int32_t, int32_t *, int32_t *) { relink_stub(dk2::sub_5AC660); }  /* auto */
 /*005AC703*/ void __cdecl dk2::sub_5AC703(int8_t *, int32_t, int32_t, int32_t *, int32_t *) { relink_stub(dk2::sub_5AC703); }  /* auto */
 /*005AC8B0*/ int32_t dk2::sub_5AC8B0() { relink_stub(dk2::sub_5AC8B0); }  /* auto */
@@ -1507,7 +1506,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005AF310*/ const void *__cdecl dk2::sub_5AF310() { relink_stub(dk2::sub_5AF310); }  // assembly  /* auto */
 /*005AF7E0*/ const void *__cdecl dk2::sub_5AF7E0() { relink_stub(dk2::sub_5AF7E0); }  // assembly  /* auto */
 /*005AFCE0*/ const void *__cdecl dk2::sub_5AFCE0() { relink_stub(dk2::sub_5AFCE0); }  // assembly  /* auto */
-/*005AFEC8*/ const void *__cdecl dk2::sub_5AFEC8() { relink_stub(dk2::sub_5AFEC8); }  // assembly  /* auto */
+/*005AFEC8*/ int32_t __cdecl dk2::sub_5AFEC8(int32_t *, int32_t *, int32_t) { relink_stub(dk2::sub_5AFEC8); }  /* auto */
 /*005AFF0C*/ int32_t __cdecl dk2::sub_5AFF0C(int32_t *, int32_t *, int32_t) { relink_stub(dk2::sub_5AFF0C); }  /* auto */
 /*005B0020*/ const void *__cdecl dk2::sub_5B0020() { relink_stub(dk2::sub_5B0020); }  // assembly  /* auto */
 /*005B00AC*/ int32_t __cdecl dk2::sub_5B00AC(int32_t *, int32_t *, int32_t, int32_t) { relink_stub(dk2::sub_5B00AC); }  /* auto */
@@ -1522,13 +1521,13 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005B0B00*/ int32_t __fastcall dk2::sub_5B0B00(int32_t) { relink_stub(dk2::sub_5B0B00); }  /* auto */
 /*005B0B60*/ int32_t dk2::sub_5B0B60() { relink_stub(dk2::sub_5B0B60); }  /* auto */
 /*005B0B90*/ int32_t __fastcall dk2::sub_5B0B90(int32_t *, int32_t) { relink_stub(dk2::sub_5B0B90); }  /* auto */
-/*005B0BF0*/ int32_t __fastcall dk2::sub_5B0BF0(int32_t *, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5B0BF0); }  /* auto */
-/*005B0D60*/ int32_t __fastcall dk2::sub_5B0D60(int32_t, int32_t *) { relink_stub(dk2::sub_5B0D60); }  /* auto */
+/*005B0BF0*/ int32_t __fastcall dk2::MovieCtx_sub_5B0BF0(MovieCtx *, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::MovieCtx_sub_5B0BF0); }  /* auto */
+/*005B0D60*/ int32_t __fastcall dk2::MovieCtx_sub_5B0D60(MovieCtx *, int32_t *) { relink_stub(dk2::MovieCtx_sub_5B0D60); }  /* auto */
 /*005B1090*/ int32_t __fastcall dk2::sub_5B1090(int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5B1090); }  /* auto */
 /*005B1110*/ void __fastcall dk2::sub_5B1110(int32_t, int8_t *, int32_t) { relink_stub(dk2::sub_5B1110); }  /* auto */
-/*005B1220*/ int32_t __fastcall dk2::sub_5B1220(const void **, int32_t) { relink_stub(dk2::sub_5B1220); }  /* auto */
-/*005B1380*/ int32_t __fastcall dk2::sub_5B1380(int32_t *) { relink_stub(dk2::sub_5B1380); }  /* auto */
-/*005B1430*/ const void *__cdecl dk2::sub_5B1430() { relink_stub(dk2::sub_5B1430); }  // assembly  /* auto */
+/*005B1220*/ int32_t __fastcall dk2::MovieCtx_sub_5B1220(MovieCtx *, int32_t) { relink_stub(dk2::MovieCtx_sub_5B1220); }  /* auto */
+/*005B1380*/ MovieRenderer *__fastcall dk2::MovieCtx_sub_5B1380(MovieCtx *) { relink_stub(dk2::MovieCtx_sub_5B1380); }  /* auto */
+/*005B1430*/ int8_t *__fastcall dk2::MovieCtx_sub_5B1430(MovieCtx *, const char *, int32_t, int32_t) { relink_stub(dk2::MovieCtx_sub_5B1430); }  /* auto */
 /*005B1650*/ int32_t dk2::sub_5B1650() { relink_stub(dk2::sub_5B1650); }  /* auto */
 /*005B17FD*/ int32_t __cdecl dk2::sub_5B17FD(int8_t *, int8_t *, int32_t *, int32_t) { relink_stub(dk2::sub_5B17FD); }  /* auto */
 /*005B1906*/ const void *__cdecl dk2::sub_5B1906() { relink_stub(dk2::sub_5B1906); }  // assembly  /* auto */
@@ -1550,8 +1549,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005B2A50*/ int32_t dk2::MyInputManagerCb_static_buildControlFlags() { relink_stub(dk2::MyInputManagerCb_static_buildControlFlags); }  /* auto */
 /*005B2AE0*/ int32_t __cdecl dk2::MyInputManagerCb_static_processInputs_setStaticListenersAndHandleDxActions(StaticListeners *, int32_t, CComponent *, int32_t) { relink_stub(dk2::MyInputManagerCb_static_processInputs_setStaticListenersAndHandleDxActions); }  /* auto */
 /*005B2B10*/ int32_t dk2::unknown_libname_42() { relink_stub(dk2::unknown_libname_42); }  /* auto */
-/*005B2B20*/ int32_t __cdecl dk2::MyInputManagerCb_static_initKeyInputs(int32_t) { relink_stub(dk2::MyInputManagerCb_static_initKeyInputs); }  /* auto */
-/*005B2B60*/ int32_t __cdecl dk2::MyInputManagerCb_static_initCursorInputs(int32_t) { relink_stub(dk2::MyInputManagerCb_static_initCursorInputs); }  /* auto */
+/*005B2B20*/ int32_t *__cdecl dk2::MyInputManagerCb_static_initKeyInputs(int32_t *) { relink_stub(dk2::MyInputManagerCb_static_initKeyInputs); }  /* auto */
+/*005B2B60*/ int32_t *__cdecl dk2::MyInputManagerCb_static_initCursorInputs(int32_t *) { relink_stub(dk2::MyInputManagerCb_static_initCursorInputs); }  /* auto */
 /*005B2BA0*/ Pos2i *dk2::MyMouse_static_getPos() { relink_stub(dk2::MyMouse_static_getPos); }  /* auto */
 /*005B2BB0*/ Pos2i *dk2::MyInputManagerCb_static_getMouseF14() { relink_stub(dk2::MyInputManagerCb_static_getMouseF14); }  /* auto */
 /*005B2BC0*/ void __cdecl dk2::MyInputManagerCb_static_setMousePos(Pos2i *) { relink_stub(dk2::MyInputManagerCb_static_setMousePos); }  /* auto */
@@ -1712,7 +1711,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005B8470*/ int32_t dk2::sub_5B8470(int32_t, const char *, const char *, int32_t) { relink_stub(dk2::sub_5B8470); }  /* auto */
 /*005B84D0*/ int32_t dk2::unknown_libname_48() { relink_stub(dk2::unknown_libname_48); }  /* auto */
 /*005B8500*/ int32_t *dk2::TbTQILoader_fun_5B8500(int32_t *, int32_t, int32_t *) { relink_stub(dk2::TbTQILoader_fun_5B8500); }  /* auto */
-/*005B8AB0*/ int32_t __cdecl dk2::MyStr_format(MyStr *, int32_t, ...) { relink_stub(dk2::MyStr_format); }  /* auto */
+/*005B8AB0*/ size_t __cdecl dk2::MyStr_format(MyStr *, int32_t, ...) { relink_stub(dk2::MyStr_format); }  /* auto */
 /*005B9270*/ int32_t __cdecl dk2::sub_5B9270(int32_t, int32_t, wchar_t) { relink_stub(dk2::sub_5B9270); }  /* auto */
 /*005B97A0*/ void dk2::WinEventHandlers_static_init() { relink_stub(dk2::WinEventHandlers_static_init); }  /* auto */
 /*005B97B0*/ WinEventHandlers *dk2::WinEventHandlers_constructor() { relink_stub(dk2::WinEventHandlers_constructor); }  /* auto */
@@ -1875,7 +1874,6 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005DE020*/ int32_t *__cdecl dk2::PVoid_assign(int32_t *, int32_t *) { relink_stub(dk2::PVoid_assign); }  /* auto */
 /*005DE240*/ GUID *dk2::MySysKeyboard_getGuid() { relink_stub(dk2::MySysKeyboard_getGuid); }  /* auto */
 /*005DE250*/ DIDATAFORMAT *dk2::MySysKeyboard_getDataFormat() { relink_stub(dk2::MySysKeyboard_getDataFormat); }  /* auto */
-/*005DE260*/ const void *__cdecl dk2::MyDxKeyboard_processKeyboardData() { relink_stub(dk2::MyDxKeyboard_processKeyboardData); }  // assembly  /* auto */
 /*005DE310*/ char dk2::sub_5DE310(int32_t *, AABB *, char, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5DE310); }  /* auto */
 /*005E0DA0*/ char dk2::sub_5E0DA0(int32_t *, AABB *, char, int32_t, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5E0DA0); }  /* auto */
 /*005E26E0*/ int8_t dk2::sub_5E26E0(int32_t *, int32_t *, char, int32_t, int32_t, int32_t) { relink_stub(dk2::sub_5E26E0); }  /* auto */

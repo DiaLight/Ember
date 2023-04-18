@@ -21,7 +21,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00557FB0*/ int32_t MyGame::isOsCompatible() { relink_stub(MyGame::isOsCompatible); }  /* auto */
 /*005580E0*/ int32_t *MyGame::release() { relink_stub(MyGame::release); }  /* auto */
 /*005581B0*/ int32_t MyGame::prepareScreenEx(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t) { relink_stub(MyGame::prepareScreenEx); }  /* auto */
-/*005585C0*/ int32_t MyGame::fun_5585C0(int32_t) { relink_stub(MyGame::fun_5585C0); }  /* auto */
+/*005585C0*/ int32_t MyGame::createWindow(int32_t) { relink_stub(MyGame::createWindow); }  /* auto */
 /*005586E0*/ int32_t MyGame::selectSurfToRender() { relink_stub(MyGame::selectSurfToRender); }  /* auto */
 /*00558770*/ int32_t MyGame::getSurf_unlock() { relink_stub(MyGame::getSurf_unlock); }  /* auto */
 /*005587C0*/ MyDdSurfaceEx *MyGame::getCurOffScreenSurf() { relink_stub(MyGame::getCurOffScreenSurf); }  /* auto */

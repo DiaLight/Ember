@@ -37,7 +37,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*005B88C0*/ void MyStr::destructor() { relink_stub(MyStr::destructor); }  /* auto */
 /*005B88E0*/ MyStr *MyStr::assignChar(int8_t *) { relink_stub(MyStr::assignChar); }  /* auto */
 /*005B8920*/ MyStr *MyStr::assign(const char *) { relink_stub(MyStr::assign); }  /* auto */
-/*005B8970*/ int32_t MyStr::assignMyStr(MyStr *) { relink_stub(MyStr::assignMyStr); }  /* auto */
+/*005B8970*/ const void *MyStr::assignMyStr(MyStr *) { relink_stub(MyStr::assignMyStr); }  /* auto */
 /*005B89B0*/ MyStr *MyStr::assignMySubStr_0(MySubStr *) { relink_stub(MyStr::assignMySubStr_0); }  /* auto */
 /*005B8A00*/ MyStr *MyStr::append(const char *) { relink_stub(MyStr::append); }  /* auto */
 /*005B8A40*/ MyStr *MyStr::appendChar(int8_t *) { relink_stub(MyStr::appendChar); }  /* auto */

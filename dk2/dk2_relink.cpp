@@ -129,22 +129,31 @@ void close_access_to_global_stubs(std::map<uint32_t, std::shared_ptr<xrefs_t>> &
 //    }
 //}
 
-void do_relink(std::map<uint32_t, std::shared_ptr<xrefs_t>> &xrefs_map) {
-    for(auto &e : xrefs_map) {
-        auto new_dst = (uint32_t) (e.second->dk2_rva - dk2_virtual_base + api::dk2_base);
-        for(auto &r : e.second->refs) {
-            write_protect prot(r.src, sizeof(uint32_t));
-            switch(r.kind) {
-                case VA32:
-                    *r.src = new_dst;
-                    break;
-                case REL32:
-                    *r.src = new_dst - (uint32_t) (r.src + 1);
-                    break;
-            }
+std::map<uint32_t, std::shared_ptr<xrefs_t>> ptr_xrefs_map;
+
+void xrefs_t::setDst(uint32_t dst) {
+    for(auto &r : this->refs) {
+        write_protect prot(r.src, sizeof(uint32_t));
+        switch(r.kind) {
+            case VA32:
+                *r.src = dst;
+                break;
+            case REL32:
+                *r.src = dst - (uint32_t) (r.src + 1);
+                break;
         }
     }
 }
+
+void do_relink(std::map<uint32_t, std::shared_ptr<xrefs_t>> &xrefs_map) {
+    for(auto &e : xrefs_map) {
+        auto new_dst = (uint32_t) (e.second->dk2_rva - dk2_virtual_base + api::dk2_base);
+        ptr_xrefs_map.insert(std::make_pair(new_dst, e.second));
+        e.second->setDst(new_dst);
+    }
+}
+
+
 bool ember_runtime_relink() {
     std::map<uint32_t, std::shared_ptr<xrefs_t>> xrefs_map;
     create_xrefs(xrefs_map);
@@ -164,5 +173,15 @@ bool ember_runtime_relink() {
 
     do_relink(xrefs_map);
     close_access_to_global_stubs(xrefs_map);
+    return true;
+}
+
+bool api::replaceEmberXrefs(void *pfun, void *proxy) {
+    auto it = ptr_xrefs_map.find((uint32_t) pfun);
+    if(it == ptr_xrefs_map.end()) {
+        printf("[ERROR]: xrefs to %p not found\n", pfun);
+        return false;
+    }
+    it->second->setDst((uint32_t) proxy);
     return true;
 }

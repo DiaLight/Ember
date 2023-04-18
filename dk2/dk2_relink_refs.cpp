@@ -97,6 +97,8 @@
 #include <dk2/MouseRgbDxActionList.h>  // ----------------  /* auto */
 #include <dk2/MouseXyzDxAction.h>  // --------------------  /* auto */
 #include <dk2/MouseXyzDxActionList.h>  // ----------------  /* auto */
+#include <dk2/MovieCtx.h>  // ----------------------------  /* auto */
+#include <dk2/MovieRenderer.h>  // -----------------------  /* auto */
 #include <dk2/My24BitTexture.h>  // ----------------------  /* auto */
 #include <dk2/My32BitTexture.h>  // ----------------------  /* auto */
 #include <dk2/My8BitTexture.h>  // -----------------------  /* auto */
@@ -541,10 +543,9 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x0070D6D8, &dk2::CFrontEndComponent_instance, "CFrontEndComponent_instance" },  /* auto */
   { 0x0073E9A0, &dk2::b73E9A0_x30, "b73E9A0_x30" },  // --  /* auto */
   { 0x0073E9D8, &dk2::g_mySurface_p2, "g_mySurface_p2" },   /* auto */
-  { 0x0073EDD4, &dk2::movieDd_ignore, "movieDd_ignore" },   /* auto */
-  { 0x0073EDDC, &dk2::p_IDirectDrawSurface2, "p_IDirectDrawSurface2" },  /* auto */
-  { 0x0073EDE0, &dk2::p_IDirectDrawSurface2_2, "p_IDirectDrawSurface2_2" },  /* auto */
-  { 0x0073F580, &dk2::CFrontEndComponent_ShowMovie_static_listeners, "CFrontEndComponent_ShowMovie_static_listeners" },  /* auto */
+  { 0x0073EDC8, &dk2::MovieRenderer_instance, "MovieRenderer_instance" },  /* auto */
+  { 0x0073F580, &dk2::CFrontEndComponent_MovieRenderer_static_listeners, "CFrontEndComponent_MovieRenderer_static_listeners" },  /* auto */
+  { 0x0073F594, &dk2::g_pMovieRenderer, "g_pMovieRenderer" },  /* auto */
   { 0x0073FC24, &dk2::SrcStr, "SrcStr" },  // ------------  /* auto */
   { 0x0073FE78, &dk2::Block, "Block" },  // --------------  /* auto */
   { 0x0074033C, &dk2::lpMultiByteStr, "lpMultiByteStr" },   /* auto */
@@ -590,6 +591,7 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x00756EC8, &dk2::client_rect, "client_rect" },  // --  /* auto */
   { 0x00756EE8, &dk2::MyGame_instance, "MyGame_instance" },  /* auto */
   { 0x00758048, &dk2::ddraw_device_count, "ddraw_device_count" },  /* auto */
+  { 0x0075804C, &dk2::dd_index, "dd_index" },  // --------  /* auto */
   { 0x00758050, &dk2::ddraw_devices, "ddraw_devices" },     /* auto */
   { 0x00758160, &dk2::pMldPlay_instance, "pMldPlay_instance" },  /* auto */
   { 0x00758340, &dk2::MyResources_instance, "MyResources_instance" },  /* auto */
@@ -691,6 +693,8 @@ entry_t global_relink_refs[] = {  // ---------------------  /* auto */
   { 0x007956D0, &dk2::g_vec_arr_7956D0, "g_vec_arr_7956D0" },  /* auto */
   { 0x00795700, &dk2::g_pCBridge, "g_pCBridge" },  // ----  /* auto */
   { 0x00796170, &dk2::mpeg2_dc_dct_pred, "mpeg2_dc_dct_pred" },  /* auto */
+  { 0x007962AC, &dk2::cmd_flag_DDD, "cmd_flag_DDD" },       /* auto */
+  { 0x007962B0, &dk2::cmd_flag_DDD_value, "cmd_flag_DDD_value" },  /* auto */
   { 0x00797B74, &dk2::mgsr_buf_25635, "mgsr_buf_25635" },   /* auto */
   { 0x00797B7C, &dk2::mgsr_buf2_12835, "mgsr_buf2_12835" },  /* auto */
   { 0x0079CF90, &dk2::MyInputManagerCb_instance, "MyInputManagerCb_instance" },  /* auto */
@@ -1611,11 +1615,10 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x0053B5F0, (void *) &dk2::sub_53B5F0, "sub_53B5F0" },  /* auto */
   { 0x0053B810, (void *) &dk2::sub_53B810, "sub_53B810" },  /* auto */
   { 0x0053B840, (void *) &dk2::show_cond_movie, "show_cond_movie" },  /* auto */
-  { 0x0053BCD0, (void *) &dk2::CFrontEndComponent_showMovie, "CFrontEndComponent_showMovie" },  /* auto */
   { 0x0053C070, (void *) &dk2::sub_53C070, "sub_53C070" },  /* auto */
   { 0x0053C120, (void *) &dk2::sub_53C120, "sub_53C120" },  /* auto */
-  { 0x0053C270, (void *) &dk2::CFrontEndComponent_ShowMovie_onKeyboardAction, "CFrontEndComponent_ShowMovie_onKeyboardAction" },  /* auto */
-  { 0x0053C2A0, (void *) &dk2::CFrontEndComponent_ShowMovie_onMouseAction, "CFrontEndComponent_ShowMovie_onMouseAction" },  /* auto */
+  { 0x0053C270, (void *) &dk2::CFrontEndComponent_MovieRenderer_onKeyboardAction, "CFrontEndComponent_MovieRenderer_onKeyboardAction" },  /* auto */
+  { 0x0053C2A0, (void *) &dk2::CFrontEndComponent_MovieRenderer_onMouseAction, "CFrontEndComponent_MovieRenderer_onMouseAction" },  /* auto */
   { 0x0053C2C0, (void *) &dk2::sub_53C2C0, "sub_53C2C0" },  /* auto */
   { 0x0053C2E0, (void *) &dk2::CFrontEndComponent_WM_ACTIVATE_cb, "CFrontEndComponent_WM_ACTIVATE_cb" },  /* auto */
   { 0x0053C320, (void *) &dk2::sub_53C320, "sub_53C320" },  /* auto */
@@ -1865,13 +1868,13 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x00557390, (void *) &dk2::MyGame_static_init, "MyGame_static_init" },  /* auto */
   { 0x005573B0, (void *) &dk2::MyGame_static_destroy, "MyGame_static_destroy" },  /* auto */
   { 0x005573C0, (void *) &dk2::collect_devices_DDEnumCB, "collect_devices_DDEnumCB" },  /* auto */
-  { 0x005575F0, (void *) &dk2::Direct3DEnumCallback, "Direct3DEnumCallback" },  /* auto */
-  { 0x00557820, (void *) &dk2::sub_557820, "sub_557820" },  /* auto */
-  { 0x005578E0, (void *) &dk2::collect_ddraw_devices, "collect_ddraw_devices" },  /* auto */
-  { 0x00557980, (void *) &dk2::hWindow_enum_DDEnumCB, "hWindow_enum_DDEnumCB" },  /* auto */
-  { 0x00557A10, (void *) &dk2::___DDEnumModesCB, "___DDEnumModesCB" },  /* auto */
+  { 0x005575F0, (void *) &dk2::collect_devices_DDEnumDevicesCB, "collect_devices_DDEnumDevicesCB" },  /* auto */
+  { 0x00557820, (void *) &dk2::isDevSupports_D3DPTFILTERCAPS_LINEARMIPNEAREST, "isDevSupports_D3DPTFILTERCAPS_LINEARMIPNEAREST" },  /* auto */
+  { 0x005578E0, (void *) &dk2::getDevIdxSupportsLinearPerspective, "getDevIdxSupportsLinearPerspective" },  /* auto */
+  { 0x00557980, (void *) &dk2::collect_displayModes_DDEnumCB, "collect_displayModes_DDEnumCB" },  /* auto */
+  { 0x00557A10, (void *) &dk2::collect_displayModes_DDEnumModesCB, "collect_displayModes_DDEnumModesCB" },  /* auto */
   { 0x00557AF0, (void *) &dk2::sub_557AF0, "sub_557AF0" },  /* auto */
-  { 0x00557EE0, (void *) &dk2::MyGame_enum_DDEnumCB, "MyGame_enum_DDEnumCB" },  /* auto */
+  { 0x00557EE0, (void *) &dk2::collect_namesAndDescs_DDEnumCB, "collect_namesAndDescs_DDEnumCB" },  /* auto */
   { 0x00557FD0, (void *) &dk2::isOsVersionGE, "isOsVersionGE" },  /* auto */
   { 0x005587E0, (void *) &dk2::Obj6723A0_getPrimarySurf, "Obj6723A0_getPrimarySurf" },  /* auto */
   { 0x00558A00, (void *) &dk2::MyInputManagerCb_static_setMousePos_, "MyInputManagerCb_static_setMousePos_" },  /* auto */
@@ -1880,7 +1883,7 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x00559050, (void *) &dk2::MyGame_static_559050_parse, "MyGame_static_559050_parse" },  /* auto */
   { 0x005594E0, (void *) &dk2::sub_5594E0, "sub_5594E0" },  /* auto */
   { 0x005595C0, (void *) &dk2::MyGame_debugMsg, "MyGame_debugMsg" },  /* auto */
-  { 0x00559710, (void *) &dk2::MyGame_static_callback, "MyGame_static_callback" },  /* auto */
+  { 0x00559710, (void *) &dk2::static_MyGame_Event07_cb, "static_MyGame_Event07_cb" },  /* auto */
   { 0x00559770, (void *) &dk2::MyGame_sub_559770, "MyGame_sub_559770" },  /* auto */
   { 0x00559B90, (void *) &dk2::sub_559B90, "sub_559B90" },  /* auto */
   { 0x00559BB0, (void *) &dk2::unknown_libname_38, "unknown_libname_38" },  /* auto */
@@ -1894,10 +1897,10 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x0055BE80, (void *) &dk2::CFileManager_readAndParseWad, "CFileManager_readAndParseWad" },  /* auto */
   { 0x0055BF40, (void *) &dk2::CFileManager_setPathFormat, "CFileManager_setPathFormat" },  /* auto */
   { 0x0055C940, (void *) &dk2::sub_55C940, "sub_55C940" },  /* auto */
-  { 0x0055CE80, (void *) &dk2::sub_55CE80, "sub_55CE80" },  /* auto */
+  { 0x0055CE80, (void *) &dk2::RegKey_initKeys, "RegKey_initKeys" },  /* auto */
   { 0x0055D530, (void *) &dk2::sub_55D530, "sub_55D530" },  /* auto */
   { 0x0055DD70, (void *) &dk2::___sub_55DD70_newCampagin, "___sub_55DD70_newCampagin" },  /* auto */
-  { 0x0055DDF0, (void *) &dk2::sub_55DDF0, "sub_55DDF0" },  /* auto */
+  { 0x0055DDF0, (void *) &dk2::RegKey_initNewCampagin, "RegKey_initNewCampagin" },  /* auto */
   { 0x0055E1B0, (void *) &dk2::sub_55E1B0, "sub_55E1B0" },  /* auto */
   { 0x0055EBE0, (void *) &dk2::sub_55EBE0, "sub_55EBE0" },  /* auto */
   { 0x0055EC10, (void *) &dk2::sub_55EC10, "sub_55EC10" },  /* auto */
@@ -2233,47 +2236,47 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x005A7A00, (void *) &dk2::release_mgsr, "release_mgsr" },  /* auto */
   { 0x005A7A20, (void *) &dk2::mgsr_free_buf, "mgsr_free_buf" },  /* auto */
   { 0x005A7A50, (void *) &dk2::mgsr_free_buf2, "mgsr_free_buf2" },  /* auto */
-  { 0x005A7A80, (void *) &dk2::sub_5A7A80, "sub_5A7A80" },  /* auto */
-  { 0x005A7B10, (void *) &dk2::sub_5A7B10, "sub_5A7B10" },  /* auto */
-  { 0x005A82D0, (void *) &dk2::sub_5A82D0, "sub_5A82D0" },  /* auto */
-  { 0x005A83B0, (void *) &dk2::sub_5A83B0, "sub_5A83B0" },  /* auto */
-  { 0x005A8430, (void *) &dk2::sub_5A8430, "sub_5A8430" },  /* auto */
-  { 0x005A87F0, (void *) &dk2::sub_5A87F0, "sub_5A87F0" },  /* auto */
-  { 0x005A8980, (void *) &dk2::sub_5A8980, "sub_5A8980" },  /* auto */
-  { 0x005A8A60, (void *) &dk2::sub_5A8A60, "sub_5A8A60" },  /* auto */
-  { 0x005A8AE0, (void *) &dk2::StartAddress, "StartAddress" },  /* auto */
+  { 0x005A7A80, (void *) &dk2::static_MovieRenderer_initialize, "static_MovieRenderer_initialize" },  /* auto */
+  { 0x005A7B10, (void *) &dk2::static_MovieCtx_openAndRead, "static_MovieCtx_openAndRead" },  /* auto */
+  { 0x005A82D0, (void *) &dk2::MovieCtx_sub_5A82D0, "MovieCtx_sub_5A82D0" },  /* auto */
+  { 0x005A83B0, (void *) &dk2::MovieCtx_sub_5A83B0, "MovieCtx_sub_5A83B0" },  /* auto */
+  { 0x005A8430, (void *) &dk2::MovieCtx_sub_5A8430, "MovieCtx_sub_5A8430" },  /* auto */
+  { 0x005A87F0, (void *) &dk2::MovieCtx_sub_5A87F0, "MovieCtx_sub_5A87F0" },  /* auto */
+  { 0x005A8980, (void *) &dk2::static_MovieRenderer_sub_5A8980, "static_MovieRenderer_sub_5A8980" },  /* auto */
+  { 0x005A8A60, (void *) &dk2::MovieRenderer_startThread, "MovieRenderer_startThread" },  /* auto */
+  { 0x005A8AE0, (void *) &dk2::MovieRenderer_threadProc, "MovieRenderer_threadProc" },  /* auto */
   { 0x005A8F60, (void *) &dk2::sub_5A8F60, "sub_5A8F60" },  /* auto */
-  { 0x005A8F70, (void *) &dk2::sub_5A8F70, "sub_5A8F70" },  /* auto */
-  { 0x005A8FB0, (void *) &dk2::sub_5A8FB0, "sub_5A8FB0" },  /* auto */
-  { 0x005A8FF0, (void *) &dk2::sub_5A8FF0, "sub_5A8FF0" },  /* auto */
-  { 0x005A94C0, (void *) &dk2::sub_5A94C0, "sub_5A94C0" },  /* auto */
+  { 0x005A8F70, (void *) &dk2::static_MovieRenderer_sub_5A8F70, "static_MovieRenderer_sub_5A8F70" },  /* auto */
+  { 0x005A8FB0, (void *) &dk2::static_MovieRenderer_sub_5A8FB0, "static_MovieRenderer_sub_5A8FB0" },  /* auto */
+  { 0x005A8FF0, (void *) &dk2::static_MovieRenderer_updateWindowActivated, "static_MovieRenderer_updateWindowActivated" },  /* auto */
+  { 0x005A94C0, (void *) &dk2::MovieCtx_updateOverlay, "MovieCtx_updateOverlay" },  /* auto */
   { 0x005A95B0, (void *) &dk2::sub_5A95B0, "sub_5A95B0" },  /* auto */
   { 0x005A9660, (void *) &dk2::sub_5A9660, "sub_5A9660" },  /* auto */
   { 0x005A97C0, (void *) &dk2::sub_5A97C0, "sub_5A97C0" },  /* auto */
   { 0x005A9AE0, (void *) &dk2::sub_5A9AE0, "sub_5A9AE0" },  /* auto */
-  { 0x005A9C60, (void *) &dk2::sub_5A9C60, "sub_5A9C60" },  /* auto */
+  { 0x005A9C60, (void *) &dk2::getPixelFormat, "getPixelFormat" },  /* auto */
   { 0x005A9D20, (void *) &dk2::sub_5A9D20, "sub_5A9D20" },  /* auto */
   { 0x005A9D40, (void *) &dk2::sub_5A9D40, "sub_5A9D40" },  /* auto */
   { 0x005A9DA0, (void *) &dk2::sub_5A9DA0, "sub_5A9DA0" },  /* auto */
-  { 0x005AA2E0, (void *) &dk2::sub_5AA2E0, "sub_5AA2E0" },  /* auto */
-  { 0x005AA520, (void *) &dk2::sub_5AA520, "sub_5AA520" },  /* auto */
-  { 0x005AA670, (void *) &dk2::sub_5AA670, "sub_5AA670" },  /* auto */
+  { 0x005AA2E0, (void *) &dk2::MovieCtx_sub_5AA2E0, "MovieCtx_sub_5AA2E0" },  /* auto */
+  { 0x005AA520, (void *) &dk2::createOverlaySurf, "createOverlaySurf" },  /* auto */
+  { 0x005AA670, (void *) &dk2::MovieCtx_sub_5AA670, "MovieCtx_sub_5AA670" },  /* auto */
   { 0x005AAA50, (void *) &dk2::sub_5AAA50, "sub_5AAA50" },  /* auto */
   { 0x005AAB10, (void *) &dk2::sub_5AAB10, "sub_5AAB10" },  /* auto */
-  { 0x005AAC80, (void *) &dk2::sub_5AAC80, "sub_5AAC80" },  /* auto */
+  { 0x005AAC80, (void *) &dk2::MovieCtx_sub_5AAC80, "MovieCtx_sub_5AAC80" },  /* auto */
   { 0x005AAD90, (void *) &dk2::sub_5AAD90, "sub_5AAD90" },  /* auto */
-  { 0x005AAF90, (void *) &dk2::sub_5AAF90, "sub_5AAF90" },  /* auto */
+  { 0x005AAF90, (void *) &dk2::MovieCtx_sub_5AAF90, "MovieCtx_sub_5AAF90" },  /* auto */
   { 0x005AB0A0, (void *) &dk2::sub_5AB0A0, "sub_5AB0A0" },  /* auto */
-  { 0x005AB250, (void *) &dk2::sub_5AB250, "sub_5AB250" },  /* auto */
-  { 0x005AB2F0, (void *) &dk2::sub_5AB2F0, "sub_5AB2F0" },  /* auto */
-  { 0x005AB390, (void *) &dk2::sub_5AB390, "sub_5AB390" },  /* auto */
-  { 0x005AB700, (void *) &dk2::sub_5AB700, "sub_5AB700" },  /* auto */
-  { 0x005AB8F0, (void *) &dk2::sub_5AB8F0, "sub_5AB8F0" },  /* auto */
+  { 0x005AB250, (void *) &dk2::MovieCtx_sub_5AB250, "MovieCtx_sub_5AB250" },  /* auto */
+  { 0x005AB2F0, (void *) &dk2::MovieCtx_sub_5AB2F0, "MovieCtx_sub_5AB2F0" },  /* auto */
+  { 0x005AB390, (void *) &dk2::MovieCtx_sub_5AB390, "MovieCtx_sub_5AB390" },  /* auto */
+  { 0x005AB700, (void *) &dk2::createDoubleBuffered, "createDoubleBuffered" },  /* auto */
+  { 0x005AB8F0, (void *) &dk2::createOffScrSurf, "createOffScrSurf" },  /* auto */
   { 0x005ABAE0, (void *) &dk2::sub_5ABAE0, "sub_5ABAE0" },  /* auto */
   { 0x005ABC60, (void *) &dk2::sub_5ABC60, "sub_5ABC60" },  /* auto */
-  { 0x005ABEF0, (void *) &dk2::sub_5ABEF0, "sub_5ABEF0" },  /* auto */
-  { 0x005ABF70, (void *) &dk2::sub_5ABF70, "sub_5ABF70" },  /* auto */
-  { 0x005AC360, (void *) &dk2::sub_5AC360, "sub_5AC360" },  /* auto */
+  { 0x005ABEF0, (void *) &dk2::MovieCtx_threadProc, "MovieCtx_threadProc" },  /* auto */
+  { 0x005ABF70, (void *) &dk2::MovieCtx_sub_5ABF70, "MovieCtx_sub_5ABF70" },  /* auto */
+  { 0x005AC360, (void *) &dk2::directSoundCreate, "directSoundCreate" },  /* auto */
   { 0x005AC660, (void *) &dk2::sub_5AC660, "sub_5AC660" },  /* auto */
   { 0x005AC703, (void *) &dk2::sub_5AC703, "sub_5AC703" },  /* auto */
   { 0x005AC8B0, (void *) &dk2::sub_5AC8B0, "sub_5AC8B0" },  /* auto */
@@ -2306,13 +2309,13 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x005B0B00, (void *) &dk2::sub_5B0B00, "sub_5B0B00" },  /* auto */
   { 0x005B0B60, (void *) &dk2::sub_5B0B60, "sub_5B0B60" },  /* auto */
   { 0x005B0B90, (void *) &dk2::sub_5B0B90, "sub_5B0B90" },  /* auto */
-  { 0x005B0BF0, (void *) &dk2::sub_5B0BF0, "sub_5B0BF0" },  /* auto */
-  { 0x005B0D60, (void *) &dk2::sub_5B0D60, "sub_5B0D60" },  /* auto */
+  { 0x005B0BF0, (void *) &dk2::MovieCtx_sub_5B0BF0, "MovieCtx_sub_5B0BF0" },  /* auto */
+  { 0x005B0D60, (void *) &dk2::MovieCtx_sub_5B0D60, "MovieCtx_sub_5B0D60" },  /* auto */
   { 0x005B1090, (void *) &dk2::sub_5B1090, "sub_5B1090" },  /* auto */
   { 0x005B1110, (void *) &dk2::sub_5B1110, "sub_5B1110" },  /* auto */
-  { 0x005B1220, (void *) &dk2::sub_5B1220, "sub_5B1220" },  /* auto */
-  { 0x005B1380, (void *) &dk2::sub_5B1380, "sub_5B1380" },  /* auto */
-  { 0x005B1430, (void *) &dk2::sub_5B1430, "sub_5B1430" },  /* auto */
+  { 0x005B1220, (void *) &dk2::MovieCtx_sub_5B1220, "MovieCtx_sub_5B1220" },  /* auto */
+  { 0x005B1380, (void *) &dk2::MovieCtx_sub_5B1380, "MovieCtx_sub_5B1380" },  /* auto */
+  { 0x005B1430, (void *) &dk2::MovieCtx_sub_5B1430, "MovieCtx_sub_5B1430" },  /* auto */
   { 0x005B1650, (void *) &dk2::sub_5B1650, "sub_5B1650" },  /* auto */
   { 0x005B17FD, (void *) &dk2::sub_5B17FD, "sub_5B17FD" },  /* auto */
   { 0x005B1906, (void *) &dk2::sub_5B1906, "sub_5B1906" },  /* auto */
@@ -2659,7 +2662,6 @@ entry_t function_relink_refs[] = {  // -------------------  /* auto */
   { 0x005DE020, (void *) &dk2::PVoid_assign, "PVoid_assign" },  /* auto */
   { 0x005DE240, (void *) &dk2::MySysKeyboard_getGuid, "MySysKeyboard_getGuid" },  /* auto */
   { 0x005DE250, (void *) &dk2::MySysKeyboard_getDataFormat, "MySysKeyboard_getDataFormat" },  /* auto */
-  { 0x005DE260, (void *) &dk2::MyDxKeyboard_processKeyboardData, "MyDxKeyboard_processKeyboardData" },  /* auto */
   { 0x005DE310, (void *) &dk2::sub_5DE310, "sub_5DE310" },  /* auto */
   { 0x005E0DA0, (void *) &dk2::sub_5E0DA0, "sub_5E0DA0" },  /* auto */
   { 0x005E26E0, (void *) &dk2::sub_5E26E0, "sub_5E26E0" },  /* auto */
@@ -3651,7 +3653,7 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x00557FB0, (funptr_t) &dk2::MyGame::isOsCompatible, "MyGame::isOsCompatible" },  /* auto */
   { 0x005580E0, (funptr_t) &dk2::MyGame::release, "MyGame::release" },  /* auto */
   { 0x005581B0, (funptr_t) &dk2::MyGame::prepareScreenEx, "MyGame::prepareScreenEx" },  /* auto */
-  { 0x005585C0, (funptr_t) &dk2::MyGame::fun_5585C0, "MyGame::fun_5585C0" },  /* auto */
+  { 0x005585C0, (funptr_t) &dk2::MyGame::createWindow, "MyGame::createWindow" },  /* auto */
   { 0x005586E0, (funptr_t) &dk2::MyGame::selectSurfToRender, "MyGame::selectSurfToRender" },  /* auto */
   { 0x00558770, (funptr_t) &dk2::MyGame::getSurf_unlock, "MyGame::getSurf_unlock" },  /* auto */
   { 0x005587C0, (funptr_t) &dk2::MyGame::getCurOffScreenSurf, "MyGame::getCurOffScreenSurf" },  /* auto */
@@ -3960,6 +3962,8 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x00536850, (funptr_t) &dk2::CFrontEndComponent::sub_536850, "CFrontEndComponent::sub_536850" },  /* auto */
   { 0x00536E20, (funptr_t) &dk2::CFrontEndComponent::sub_536E20, "CFrontEndComponent::sub_536E20" },  /* auto */
   { 0x00539E00, (funptr_t) &dk2::CFrontEndComponent::saveAddressBookWinsock, "CFrontEndComponent::saveAddressBookWinsock" },  /* auto */
+  { 0x0053B980, (funptr_t) &dk2::CFrontEndComponent::do_smth_and_showOutro, "CFrontEndComponent::do_smth_and_showOutro" },  /* auto */
+  { 0x0053BCD0, (funptr_t) &dk2::CFrontEndComponent::showMovie, "CFrontEndComponent::showMovie" },  /* auto */
   { 0x0053BFD0, (funptr_t) &dk2::CFrontEndComponent::showIntro, "CFrontEndComponent::showIntro" },  /* auto */
   { 0x005478B0, (funptr_t) &dk2::CFrontEndComponent::sub_5478B0, "CFrontEndComponent::sub_5478B0" },  /* auto */
   { 0x00547B20, (funptr_t) &dk2::CFrontEndComponent::sub_547B20, "CFrontEndComponent::sub_547B20" },  /* auto */
@@ -4053,6 +4057,7 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x00567300, (funptr_t) &dk2::CSoundSystem::set_number_of_channels, "CSoundSystem::set_number_of_channels" },  /* auto */
   { 0x005677D0, (funptr_t) &dk2::CSoundSystem::fun_5677D0, "CSoundSystem::fun_5677D0" },  /* auto */
   { 0x00567810, (funptr_t) &dk2::CSoundSystem::fun_567810, "CSoundSystem::fun_567810" },  /* auto */
+  { 0x00567A40, (funptr_t) &dk2::CSoundSystem::fun_567A40, "CSoundSystem::fun_567A40" },  /* auto */
   { 0x0056F850, (funptr_t) &dk2::My_sub_56F850::constructor, "My_sub_56F850::constructor" },  /* auto */
   { 0x00576940, (funptr_t) &dk2::CEngine2DSprite::constructor, "CEngine2DSprite::constructor" },  /* auto */
   { 0x00576A10, (funptr_t) &dk2::CEngine2DSprite::addVert1CTriangle, "CEngine2DSprite::addVert1CTriangle" },  /* auto */
@@ -4225,6 +4230,30 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x0059D760, (funptr_t) &dk2::CPCEngineInterface::fun_59D760, "CPCEngineInterface::fun_59D760" },  /* auto */
   { 0x0059D7F0, (funptr_t) &dk2::CPCEngineInterface::drawScene, "CPCEngineInterface::drawScene" },  /* auto */
   { 0x0059D900, (funptr_t) &dk2::CPCEngineInterface::init3d, "CPCEngineInterface::init3d" },  /* auto */
+  { 0x005A7CE0, (funptr_t) &dk2::MovieCtx::sub_5A7CE0, "MovieCtx::sub_5A7CE0" },  /* auto */
+  { 0x005A7EA0, (funptr_t) &dk2::MovieCtx::selectSmth, "MovieCtx::selectSmth" },  /* auto */
+  { 0x005A89E0, (funptr_t) &dk2::MovieCtx::cleanup, "MovieCtx::cleanup" },  /* auto */
+  { 0x005A8E10, (funptr_t) &dk2::MovieCtx::sub_5A8E10, "MovieCtx::sub_5A8E10" },  /* auto */
+  { 0x005A8F10, (funptr_t) &dk2::MovieCtx::sub_5A8F10, "MovieCtx::sub_5A8F10" },  /* auto */
+  { 0x005A9050, (funptr_t) &dk2::MovieCtx::sub_5A9050, "MovieCtx::sub_5A9050" },  /* auto */
+  { 0x005A95E0, (funptr_t) &dk2::MovieCtx::sub_5A95E0, "MovieCtx::sub_5A95E0" },  /* auto */
+  { 0x005A9620, (funptr_t) &dk2::MovieCtx::sub_5A9620, "MovieCtx::sub_5A9620" },  /* auto */
+  { 0x005A9B20, (funptr_t) &dk2::MovieCtx::sub_5A9B20, "MovieCtx::sub_5A9B20" },  /* auto */
+  { 0x005A9D50, (funptr_t) &dk2::MovieCtx::collectSurfSize, "MovieCtx::collectSurfSize" },  /* auto */
+  { 0x005AA0B0, (funptr_t) &dk2::MovieCtx::sub_5AA0B0, "MovieCtx::sub_5AA0B0" },  /* auto */
+  { 0x005AA160, (funptr_t) &dk2::MovieCtx::sub_5AA160, "MovieCtx::sub_5AA160" },  /* auto */
+  { 0x005AA2B0, (funptr_t) &dk2::MovieCtx::sub_5AA2B0, "MovieCtx::sub_5AA2B0" },  /* auto */
+  { 0x005AABF0, (funptr_t) &dk2::MovieCtx::sub_5AABF0, "MovieCtx::sub_5AABF0" },  /* auto */
+  { 0x005AB430, (funptr_t) &dk2::MovieCtx::createSurfaces, "MovieCtx::createSurfaces" },  /* auto */
+  { 0x005AB9F0, (funptr_t) &dk2::MovieCtx::sub_5AB9F0, "MovieCtx::sub_5AB9F0" },  /* auto */
+  { 0x005AC180, (funptr_t) &dk2::MovieCtx::sub_5AC180, "MovieCtx::sub_5AC180" },  /* auto */
+  { 0x005AC210, (funptr_t) &dk2::MovieCtx::createThread, "MovieCtx::createThread" },  /* auto */
+  { 0x005AC250, (funptr_t) &dk2::MovieCtx::sub_5AC250, "MovieCtx::sub_5AC250" },  /* auto */
+  { 0x005AC2A0, (funptr_t) &dk2::MovieCtx::initDirectSound, "MovieCtx::initDirectSound" },  /* auto */
+  { 0x005AC3E0, (funptr_t) &dk2::MovieCtx::sub_5AC3E0, "MovieCtx::sub_5AC3E0" },  /* auto */
+  { 0x005AC450, (funptr_t) &dk2::MovieCtx::initSound, "MovieCtx::initSound" },  /* auto */
+  { 0x005AC640, (funptr_t) &dk2::MovieCtx::sub_5AC640, "MovieCtx::sub_5AC640" },  /* auto */
+  { 0x005A8B20, (funptr_t) &dk2::MovieRenderer::sub_5A8B20, "MovieRenderer::sub_5A8B20" },  /* auto */
   { 0x005B51F0, (funptr_t) &dk2::FPUControlWord::destructor, "FPUControlWord::destructor" },  /* auto */
   { 0x005D1130, (funptr_t) &dk2::FPUControlWord::apply, "FPUControlWord::apply" },  /* auto */
   { 0x005D1180, (funptr_t) &dk2::FPUControlWord::restore, "FPUControlWord::restore" },  /* auto */
@@ -4542,6 +4571,7 @@ entry_t thiscall_function_relink_refs[] = {  // ----------  /* auto */
   { 0x005DDCD0, (funptr_t) &dk2::MouseRgbDxActionList::destructor, "MouseRgbDxActionList::destructor" },  /* auto */
   { 0x005DDF30, (funptr_t) &dk2::MouseRgbDxActionList::getOrCreateUnhandled, "MouseRgbDxActionList::getOrCreateUnhandled" },  /* auto */
   { 0x005DE050, (funptr_t) &dk2::MyDxKeyboard::constructor, "MyDxKeyboard::constructor" },  /* auto */
+  { 0x005DE260, (funptr_t) &dk2::MyDxKeyboard::processKeyboardData, "MyDxKeyboard::processKeyboardData" },  /* auto */
   { 0x005F8090, (funptr_t) &dk2::ControlSurf::constructor, "ControlSurf::constructor" },  /* auto */
   { 0x005F80F0, (funptr_t) &dk2::ControlSurf::destructor, "ControlSurf::destructor" },  /* auto */
   { 0x005F8100, (funptr_t) &dk2::ControlSurf::create, "ControlSurf::create" },  /* auto */

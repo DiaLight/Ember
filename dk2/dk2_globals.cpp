@@ -615,14 +615,12 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*0073E9A0*/ char &dk2::b73E9A0_x30 = _b73E9A0_x30;  // --  /* auto */
 /*--------*/ relink_glob MySurface *_g_mySurface_p2;  // -  /* auto */
 /*0073E9D8*/ MySurface *&dk2::g_mySurface_p2 = _g_mySurface_p2;  /* auto */
-/*--------*/ relink_glob IDirectDraw *_movieDd_ignore;      /* auto */
-/*0073EDD4*/ IDirectDraw *&dk2::movieDd_ignore = _movieDd_ignore;  /* auto */
-/*--------*/ relink_glob IDirectDrawSurface2 *_p_IDirectDrawSurface2;  /* auto */
-/*0073EDDC*/ IDirectDrawSurface2 *&dk2::p_IDirectDrawSurface2 = _p_IDirectDrawSurface2;  /* auto */
-/*--------*/ relink_glob IDirectDrawSurface2 *_p_IDirectDrawSurface2_2;  /* auto */
-/*0073EDE0*/ IDirectDrawSurface2 *&dk2::p_IDirectDrawSurface2_2 = _p_IDirectDrawSurface2_2;  /* auto */
-/*--------*/ relink_glob StaticListeners _CFrontEndComponent_ShowMovie_static_listeners;  /* auto */
-/*0073F580*/ StaticListeners &dk2::CFrontEndComponent_ShowMovie_static_listeners = _CFrontEndComponent_ShowMovie_static_listeners;  /* auto */
+/*--------*/ relink_glob MovieRenderer _MovieRenderer_instance;  /* auto */
+/*0073EDC8*/ MovieRenderer &dk2::MovieRenderer_instance = _MovieRenderer_instance;  /* auto */
+/*--------*/ relink_glob StaticListeners _CFrontEndComponent_MovieRenderer_static_listeners;  /* auto */
+/*0073F580*/ StaticListeners &dk2::CFrontEndComponent_MovieRenderer_static_listeners = _CFrontEndComponent_MovieRenderer_static_listeners;  /* auto */
+/*--------*/ relink_glob MovieRenderer *_g_pMovieRenderer;  /* auto */
+/*0073F594*/ MovieRenderer *&dk2::g_pMovieRenderer = _g_pMovieRenderer;  /* auto */
 /*--------*/ relink_glob wchar_t _SrcStr;  // ------------  /* auto */
 /*0073FC24*/ wchar_t &dk2::SrcStr = _SrcStr;  // ---------  /* auto */
 /*--------*/ relink_glob const void *_Block;  // ---------  /* auto */
@@ -713,6 +711,8 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00756EE8*/ MyGame &dk2::MyGame_instance = _MyGame_instance;  /* auto */
 /*--------*/ relink_glob int32_t _ddraw_device_count;       /* auto */
 /*00758048*/ int32_t &dk2::ddraw_device_count = _ddraw_device_count;  /* auto */
+/*--------*/ relink_glob int32_t _dd_index;  // ----------  /* auto */
+/*0075804C*/ int32_t &dk2::dd_index = _dd_index;  // -----  /* auto */
 /*--------*/ relink_glob DxDeviceInfo *_ddraw_devices;      /* auto */
 /*00758050*/ DxDeviceInfo *&dk2::ddraw_devices = _ddraw_devices;  /* auto */
 /*--------*/ relink_glob int32_t _pMldPlay_instance[3];     /* auto */
@@ -915,6 +915,10 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00795700*/ CBridge *&dk2::g_pCBridge = _g_pCBridge;       /* auto */
 /*--------*/ relink_glob int32_t _mpeg2_dc_dct_pred[3];     /* auto */
 /*00796170*/ int32_t (&dk2::mpeg2_dc_dct_pred)[3] = _mpeg2_dc_dct_pred;  /* auto */
+/*--------*/ relink_glob int32_t _cmd_flag_DDD;  // ------  /* auto */
+/*007962AC*/ int32_t &dk2::cmd_flag_DDD = _cmd_flag_DDD;    /* auto */
+/*--------*/ relink_glob int32_t _cmd_flag_DDD_value;       /* auto */
+/*007962B0*/ int32_t &dk2::cmd_flag_DDD_value = _cmd_flag_DDD_value;  /* auto */
 /*--------*/ relink_glob const void *_mgsr_buf_25635;       /* auto */
 /*00797B74*/ const void *&dk2::mgsr_buf_25635 = _mgsr_buf_25635;  /* auto */
 /*--------*/ relink_glob const void *_mgsr_buf2_12835;      /* auto */

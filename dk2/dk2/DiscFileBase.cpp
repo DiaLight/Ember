@@ -28,16 +28,16 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00671F80*/ void **DiscFileBase::vftable() { return dk2::DiscFileBase_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*005B6E40*/ DiscFileBase *DiscFileBase::constructor_empty() { relink_stub(DiscFileBase::constructor_empty); }  /* auto */
-/*005B6EA0*/ size_t DiscFileBase::readBytes(const void *, int32_t) { relink_stub(DiscFileBase::readBytes); }  /* auto */
-/*005B6EC0*/ size_t DiscFileBase::writeBytes(int32_t, int32_t) { relink_stub(DiscFileBase::writeBytes); }  /* auto */
-/*005B6EE0*/ size_t DiscFileBase::seek(int32_t, int32_t) { relink_stub(DiscFileBase::seek); }  /* auto */
-/*005B6F00*/ size_t DiscFileBase::getOffs() { relink_stub(DiscFileBase::getOffs); }  /* auto */
+/*005B6EA0*/ int32_t DiscFileBase::readBytes(const void *, int32_t) { relink_stub(DiscFileBase::readBytes); }  /* auto */
+/*005B6EC0*/ int32_t DiscFileBase::writeBytes(int32_t, int32_t) { relink_stub(DiscFileBase::writeBytes); }  /* auto */
+/*005B6EE0*/ int32_t DiscFileBase::seek(int32_t, int32_t) { relink_stub(DiscFileBase::seek); }  /* auto */
+/*005B6F00*/ int32_t DiscFileBase::getOffs() { relink_stub(DiscFileBase::getOffs); }  /* auto */
 /*005B6F10*/ MyInputStream *DiscFileBase::getStream() { relink_stub(DiscFileBase::getStream); }  /* auto */
 /*005B6F50*/ int32_t DiscFileBase::mapToBuf() { relink_stub(DiscFileBase::mapToBuf); }  /* auto */
 /*005B6F70*/ int32_t *DiscFileBase::flush(int32_t *) { relink_stub(DiscFileBase::flush); }  /* auto */
 /*005B9F70*/ int32_t *DiscFileBase::TbDiscFile_openStream(int32_t *, const char *, int32_t) { relink_stub(DiscFileBase::TbDiscFile_openStream); }  /* auto */
 /*005D6850*/ int32_t DiscFileBase::DiscFileBaseEx_openStream(int32_t, int32_t, size_t) { relink_stub(DiscFileBase::DiscFileBaseEx_openStream); }  /* auto */
-/*005FDE70*/ size_t DiscFileBase::getSize() { relink_stub(DiscFileBase::getSize); }  /* auto */
+/*005FDE70*/ int32_t DiscFileBase::getSize() { relink_stub(DiscFileBase::getSize); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */

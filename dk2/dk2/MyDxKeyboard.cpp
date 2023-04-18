@@ -19,6 +19,7 @@ using namespace dk2;  // ---------------------------------  /* auto */
 /*00672920*/ void **MyDxKeyboard::vftable() { return dk2::MyDxKeyboard_vftable; }  /* auto */
 // member functions  -------------------------------------  /* auto */
 /*005DE050*/ MyDxKeyboard *MyDxKeyboard::constructor() { relink_stub(MyDxKeyboard::constructor); }  /* auto */
+/*005DE260*/ int32_t MyDxKeyboard::processKeyboardData(int32_t) { relink_stub(MyDxKeyboard::processKeyboardData); }  /* auto */
 // -------------------------------------------------------  /* auto */
 #pragma optimize( "", on )  // ---------------------------  /* auto */
 // ---------------  block: tail_user_code  ---------------  /* auto */
