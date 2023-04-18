@@ -68,10 +68,7 @@ bool ember_initialize_impl(void *emberBase = nullptr) {
 
 //    if(!reimpl::draw3dScene()) return false;
 //    if(!reimpl::SurfHashList__probablySort()) return false;
-    if(!reimpl::dk2dd_init()) return false;
-    if(!reimpl::dk2dd_misc()) return false;
-    if(!reimpl::mydd_scene_init()) return false;
-    if(!reimpl::SurfaceHolder()) return false;
+    if(!reimpl::directx()) return false;
     if(!gog_patch_dll()) return false;
 
     if(!tools::unpack_texture_cache()) return false;

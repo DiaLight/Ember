@@ -52,6 +52,7 @@ namespace hook {
 // handling __thiscall though  __fastcall
 // __thiscall: ecx, esp[0], esp[1], esp[2], ...
 // __fastcall: ecx, edx, esp[0], esp[1], ...
+    decltype(&dk2::MyGame::prepareScreenEx) orig_MyGame_prepareScreenEx = nullptr;
     int __fastcall proxy_prepareScreen(dk2::MyGame *this_, void *edx, int dwWidth, int dwHeight, int dwRGBBitCount,
                                        int isWindowed, int a6, int a7) {
         api::g_width = dwWidth;
@@ -60,13 +61,14 @@ namespace hook {
         for (auto &F: BEFORE_PREPARE_SCREEN)
             if (!F(this_, dwWidth, dwHeight, dwRGBBitCount, isWindowed, a6, a7))
                 return FALSE;
-        return this_->prepareScreenEx(dwWidth, dwHeight, dwRGBBitCount, isWindowed, a6, a7);
+        return (this_->*orig_MyGame_prepareScreenEx)(dwWidth, dwHeight, dwRGBBitCount, isWindowed, a6, a7);
     }
+
 
     bool initWindow() {
         if (!api::replaceXrefs(u8ptr<&dk2::BullfrogWindow_proc>(), proxy_Bullfrog_proc)) return false;
         if (!api::replaceXrefs(u8ptr<&dk2::CWindowTest_proc>(), proxy_CWindow_proc)) return false;
-        if (!api::replaceXrefs(u8ptr<&dk2::MyGame::prepareScreenEx>(), proxy_prepareScreen)) return false;
+        orig_MyGame_prepareScreenEx = api::replaceAllXrefs<&dk2::MyGame::prepareScreenEx>(proxy_prepareScreen);
         return true;
     }
 

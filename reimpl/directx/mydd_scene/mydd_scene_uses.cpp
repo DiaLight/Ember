@@ -1,16 +1,18 @@
 //
-// Created by DiaLight on 06.04.2023.
+// Created by DiaLight on 17.04.2023.
 //
 #include <ddraw.h>
 #include <dk2_functions.h>
 #include <dk2_globals.h>
 #include <utils/patch.h>
+#include <utils/stacktrace.h>
 #include <reimpl.h>
 #include <dk2/MyDblNamedSurface.h>
 
+
 namespace {
 
-    BOOL __cdecl reimpl_fun(
+    BOOL __cdecl reimpl_mydd_scene_init(
             LPDIRECTDRAW dd,
             LPDIRECTDRAWSURFACE ddOffScreen,
             LPDIRECTDRAWSURFACE ddPrimarySurf,
@@ -96,9 +98,13 @@ namespace {
 
 }
 
-bool reimpl::mydd_scene_init() {
+bool reimpl_mydd_devTexture_uses();
 
-    write_jump(&dk2::mydd_scene_init, reimpl_fun);
+bool reimpl_mydd_scene_uses() {
+
+    write_jump(&dk2::mydd_scene_init, reimpl_mydd_scene_init);
+
+    if(!reimpl_mydd_devTexture_uses()) return false;
 
     return true;
 }

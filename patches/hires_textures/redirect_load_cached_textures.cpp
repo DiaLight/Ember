@@ -75,7 +75,7 @@ __fastcall replace_MyTextures_loadCompressed(dk2::MyTextures *_this, void *edx, 
     std::vector<unsigned char> buffer;
     error = lodepng::load_file(buffer, file);
     if (error) {
-        printf("failed to load %s from resources. using EngineTextures.dat\n", texName);
+//        printf("failed to load %s from resources. using EngineTextures.dat\n", texName);
         return MyTextures_loadCompressed(_this, edx, texName);
     }
     lodepng::State state;

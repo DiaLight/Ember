@@ -9,8 +9,10 @@
 #include <dk2/Event0_unk6.h>
 #include <reimpl.h>
 #include <dk2/Event0_winShown7.h>
-#include <dk2/Event0_winShown7.h>
 #include <sstream>
+
+IDirectDraw *reimpl::dk2dd = nullptr;
+IDirectDraw *reimpl::lpSurfaceDD = nullptr;
 
 namespace {
 
@@ -23,22 +25,11 @@ namespace {
 #define DK2IF_SETUP_FPU         0x40
 #define DK2IF_DOUBLE_BACKBUF    0x80
 
-    dk2::status_t &reimpl_createDirectDrawObject(dk2::status_t &status, GUID *lpGUID, LPDIRECTDRAW *lplpDD) {
-        if (DirectDrawCreate(lpGUID, lplpDD, NULL) != DD_OK) {
-            status = -1;
-            return status;
-        }
-        if (dk2::hBullfrogWindow != NULL) dk2::setHWindow(dk2::hBullfrogWindow);
-        status = DD_OK;
-        return status;
-    }
-
     dk2::status_t initDirectDraw(DWORD displayBitness, int initFlags) {
         HRESULT hr;
-        if (!dk2::dk2dd) {
+        if (!dk2_dk2dd) {
             int tmp;
-//            hr = *dk2::createDirectDrawObject(&tmp, dk2::selectedDDGuid, &dk2::dk2dd);
-            hr = reimpl_createDirectDrawObject(tmp, dk2::selectedDDGuid, &dk2::dk2dd);
+            hr = *dk2::createDirectDrawObject(&tmp, dk2::selectedDDGuid, &dk2_dk2dd);
             if (FAILED(hr)) {
                 dk2::dk2dd_destroy();
                 dk2::showTodoMessageBox("Failed to create Direct Draw object");
@@ -50,13 +41,13 @@ namespace {
             memset(&dispMode, 0, sizeof(dispMode));
             dispMode.dwSize = sizeof(DDSURFACEDESC);
             static_assert(sizeof(DDSURFACEDESC) == 108);
-            hr = dk2::dk2dd->GetDisplayMode(&dispMode);
+            hr = dk2_dk2dd->GetDisplayMode(&dispMode);
             if (FAILED(hr)) return hr;
             if ( dispMode.ddpfPixelFormat.dwRGBBitCount != displayBitness ) {
                 return -1;
             }
         }
-        dk2::setSurfaceDD(dk2::dk2dd);
+        dk2::setSurfaceDD(dk2_dk2dd);
         return S_OK;
     }
     dk2::status_t dd_proc(
@@ -72,15 +63,15 @@ namespace {
         if ( (initFlags & DK2IF_SETUP_FPU) != 0 ) {
             coopLvl |= DDSCL_FPUSETUP;
         }
-        hr = dk2::dk2dd->SetCooperativeLevel(dk2::hWnd, coopLvl);
+        hr = dk2_dk2dd->SetCooperativeLevel(dk2::hWnd, coopLvl);
         if (FAILED(hr)) return hr;
         if ( (initFlags & DK2IF_WINDOWED) != 0 ) {
-            hr = dk2::dk2dd->CreateClipper(0, &dk2::lpDDClipper, nullptr);
+            hr = dk2_dk2dd->CreateClipper(0, &dk2::lpDDClipper, nullptr);
             if (FAILED(hr)) return hr;
             hr = dk2::lpDDClipper->SetHWnd(0, dk2::hWnd);
             if (FAILED(hr)) return hr;
         } else {
-            hr = dk2::dk2dd->SetDisplayMode(width, height, displayBitness);
+            hr = dk2_dk2dd->SetDisplayMode(width, height, displayBitness);
             if (FAILED(hr)) return hr;
         }
         tagPALETTEENTRY *entries = palleteEntries;
@@ -99,7 +90,7 @@ namespace {
         if ( displayBitness == 8 ) {
             if ( !palleteEntries )
                 entries = dk2::palleteEntries;
-            hr = dk2::dk2dd->CreatePalette(DDPCAPS_ALLOW256 | DDPCAPS_8BIT, entries, &dk2::lpDDPalette, nullptr);
+            hr = dk2_dk2dd->CreatePalette(DDPCAPS_ALLOW256 | DDPCAPS_8BIT, entries, &dk2::lpDDPalette, nullptr);
             static_assert((DDPCAPS_ALLOW256 | DDPCAPS_8BIT) == 68);
             if (FAILED(hr)) return hr;
         } else {
@@ -128,9 +119,9 @@ namespace {
         if ( (initFlags & DK2IF_3DSURF) != 0 ) {
             surfaceDesc.ddsCaps.dwCaps |= DDSCAPS_3DDEVICE;  // can query d3device from surface
         }
-        hr = dk2::dk2dd->CreateSurface(&surfaceDesc, &dk2::g_primarySurf.dd_surf.dd_surface, nullptr);
+        hr = dk2_dk2dd->CreateSurface(&surfaceDesc, &dk2::g_primarySurf.dd_surf.dd_surface, nullptr);
         if (FAILED(hr)) {
-            dk2::dk2dd->SetCooperativeLevel(dk2::hWnd, DDSCL_NORMAL);
+            dk2_dk2dd->SetCooperativeLevel(dk2::hWnd, DDSCL_NORMAL);
             if (hr == DDERR_PRIMARYSURFACEALREADYEXISTS) {
                 printf("[error]: PRIMARYSURFACEALREADYEXISTS\n");  // additional line
             }
@@ -152,7 +143,7 @@ namespace {
         surfaceDesc.dwFlags = DDSD_BACKBUFFERCOUNT | DDSD_CAPS;
         surfaceDesc.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE | DDSCAPS_FLIP | DDSCAPS_COMPLEX;
         surfaceDesc.dwBackBufferCount = 1;
-        hr = dk2::dk2dd->CreateSurface(&surfaceDesc, &dk2::g_primarySurf.dd_surf.dd_surface, nullptr);
+        hr = dk2_dk2dd->CreateSurface(&surfaceDesc, &dk2::g_primarySurf.dd_surf.dd_surface, nullptr);
         if (FAILED(hr)) {
 
             return hr;
@@ -264,7 +255,7 @@ namespace {
             if ((initFlags & DK2IF_3DSURF) != 0) {
                 surfaceDesc.ddsCaps.dwCaps |= DDSCAPS_3DDEVICE;
             }
-            hr = dk2::dk2dd->CreateSurface(&surfaceDesc, &dk2::g_offScreen.dd_surf.dd_surface, nullptr);
+            hr = dk2_dk2dd->CreateSurface(&surfaceDesc, &dk2::g_offScreen.dd_surf.dd_surface, nullptr);
         }
         if ( !dk2::g_offScreen.dd_surf.dd_surface ) {
             dk2::g_primarySurf.dd_surf.dd_surface->Release();
@@ -319,10 +310,19 @@ namespace {
     }
 }
 
-bool reimpl::dk2dd_init() {
+bool reimpl_dk2dd_init() {
 
-//    if (!api::replaceXrefs(&dk2::dk2dd_init, reimpl_fun)) return false;
     write_jump(&dk2::dk2dd_init, reimpl_fun);
+
+    // produces objects:
+    // dk2dd - ok
+    // lpSurfaceDD - ok
+    // lpDDClipper
+    // palleteEntries - ?
+    // lpDDPalette
+    // g_primarySurf
+    // g_dd_primaryAttachedSurf
+    // g_offScreen
 
     return true;
 }

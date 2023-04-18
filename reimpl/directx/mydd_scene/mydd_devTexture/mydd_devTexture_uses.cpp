@@ -66,9 +66,9 @@ namespace {
             p_rhw->specular = 0;
         }
         WORD indices1[6] {
-            0, 1,
-            2, 0,
-            2, 3,
+                0, 1,
+                2, 0,
+                2, 3,
         };
         dk2::mydd_devTexture.d3d3_halDevice->DrawIndexedPrimitive(
                 D3DPT_TRIANGLELIST,
@@ -85,10 +85,10 @@ namespace {
         dk2::mydd_devTexture.d3d3_halDevice->SetRenderState(D3DRENDERSTATE_FILLMODE, D3DFILL_WIREFRAME);
         dk2::mydd_devTexture.d3d3_halDevice->SetRenderState(D3DRENDERSTATE_TEXTUREHANDLE, 0);
         WORD indices2[8] {
-            0, 1,
-            1, 2,
-            2, 3,
-            3, 0
+                0, 1,
+                1, 2,
+                2, 3,
+                3, 0
         };
         for (int i = 0; i < ARRAYSIZE(vertices); ++i) {
             vertices[0].sx -= 1.0;
@@ -118,7 +118,7 @@ namespace {
     }
 }
 
-bool reimpl::SurfaceHolder() {
+bool reimpl_mydd_devTexture_uses() {
 
     write_jump(u8ptr<&dk2::SurfaceHolder::drawSpecial_128x128>(), reimpl_fun);
 
