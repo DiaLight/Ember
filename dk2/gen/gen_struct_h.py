@@ -1,10 +1,10 @@
 import pathlib
-from gen_utils import *
+from .gen_utils import *
+from dk2cxx import *
 
 
 def format_struct_h(
     struct: dk2map.Struct,
-    thiscalls: list[dk2map.Global],
     vtable_map: dict[str, dk2map.Global],
     blocks: UserBlocks = None):
   yield format_id_line(struct.id)
@@ -26,18 +26,18 @@ def format_struct_h(
     complete_types = set()
     ref_types = set()
     if struct.super is not None:
-      complete_types.add(struct.super.name)
+      complete_types.add(struct.super)
     for field in struct.fields:
       collect_types(field.type, complete_types, ref_types, False)
     if struct.vtable:
       for field in struct.vtable.fields:
         collect_types(field.type, complete_types, ref_types, False)
-    for glob in thiscalls:
+    for glob in struct.functions:
       collect_types(glob.type, complete_types, ref_types, False)
-    for name in sorted(complete_types):
-      yield f"#include <dk2/{name}.h>"
-      if name in ref_types:
-        ref_types.remove(name)
+    for complete_struct in sorted(complete_types, key=lambda s: s.name):
+      yield f"#include <{build_struct_path(complete_struct, 'h')}>"
+      if complete_struct.name in ref_types:
+        ref_types.remove(complete_struct.name)
     if ref_types:
       yield empty_line
       yield f"namespace dk2 {{"
@@ -61,14 +61,15 @@ def format_struct_h(
       name_suffix = f" : {struct.super.name}"
     yield f"namespace dk2 {{"
     yield f"#pragma pack(push, 1)"
-    yield f"struct {struct.name}{name_suffix} {{"
+    yield f"{'union' if struct.is_union else 'struct'} {struct.name}{name_suffix} {{"
     yield empty_line
     offs = struct.calc_fields_offs()
     used_names = set()
     for field in struct.fields:
       yield f"/*{offs:-3X}*/ {format_type(field.type, try_get_clean_name(field, offs, used_names))};"
-      offs += field.type.get_size()
-    if offs != struct.size:
+      if not struct.is_union:
+        offs += field.type.get_size()
+    if not struct.is_union and offs != struct.size:
       raise Exception()
     yield empty_line
     if struct.vtable is not None:
@@ -96,13 +97,14 @@ def format_struct_h(
           cmt = "// " if is_super else ""
           suffix = f"  // = {vtable_values[offs // 4]:08X}" if vtable_values else ""
           yield f"/*{offs:-3X}*/ {cmt}virtual {format_function(fun_t, name)};{suffix}"
-          offs += field.type.get_size()
-        if offs != struct.vtable.size:
+          if not struct.is_union:
+            offs += field.type.get_size()
+        if not struct.is_union and offs != struct.vtable.size:
           raise Exception()
       yield from format_vtable(struct, struct.vtable_values)
       yield empty_line
-    if thiscalls:
-      for glob in thiscalls:
+    if struct.functions:
+      for glob in struct.functions:
         fun_t = glob.type  # type: dk2map.FunctionType
         name = glob.name
         name = name.replace('::', '_')

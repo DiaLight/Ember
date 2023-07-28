@@ -1,10 +1,10 @@
 import pathlib
-from gen_utils import *
+from .gen_utils import *
+from dk2cxx import *
 
 
 def format_relink_refs_cpp(
-    globals: list[dk2map.Global],
-    struct_members: list[dk2map.Struct, list[dk2map.Global]],
+    structs: list[dk2map.Struct], globals: list[dk2map.Global],
     blocks: UserBlocks = None):
   def format_cpp_head():
     yield format_middle(f"warning: file is managed by {pathlib.Path(__file__).name}")
@@ -15,10 +15,10 @@ def format_relink_refs_cpp(
     # yield f"using namespace dk2;"
     # yield empty_line
     complete_types = set()
-    for struct, globs in struct_members:
-      complete_types.add(struct.name)
-    for name in sorted(complete_types):
-      yield f"#include <dk2/{name}.h>"
+    for struct in structs:
+      complete_types.add(struct)
+    for complete_struct in sorted(complete_types, key=lambda s: s.name):
+      yield f"#include <{build_struct_path(complete_struct, 'h')}>"
     yield f"#include <cstdint>"
     yield f"#include <cstdio>"
     yield f"#include <dinput.h>"
@@ -65,8 +65,8 @@ def format_relink_refs_cpp(
     yield f"}};  // function_relink_refs[]"
     yield empty_line
     yield f"entry_t thiscall_function_relink_refs[] = {{"
-    for struct, globs in struct_members:
-      for glob in globs:
+    for struct in structs:
+      for glob in struct.functions:
         fun_t = glob.type  # type: dk2map.FunctionType
         name = glob.name
         name = name.replace('::', '_')

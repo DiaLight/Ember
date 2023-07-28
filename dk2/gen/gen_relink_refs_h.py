@@ -1,10 +1,9 @@
 import pathlib
-from gen_utils import *
+from .gen_utils import *
 
 
 def format_relink_refs_h(
-    globals: list[dk2map.Global],
-    struct_members: list[dk2map.Struct, list[dk2map.Global]],
+    structs: list[dk2map.Struct], globals: list[dk2map.Global],
     blocks: UserBlocks = None):
   define_name = f"DK2_RELINK_REFS_H"
 

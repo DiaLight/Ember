@@ -1,5 +1,6 @@
 import pathlib
-from gen_utils import *
+from .gen_utils import *
+from dk2cxx import *
 
 
 def format_functions_h(globals: list[dk2map.Global], blocks: UserBlocks = None):
@@ -24,10 +25,10 @@ def format_functions_h(globals: list[dk2map.Global], blocks: UserBlocks = None):
     ref_types = set()
     for glob in filter(filter_function_var, globals):
       collect_types(glob.type, complete_types, ref_types, False)
-    for name in sorted(complete_types):
-      yield f"#include <dk2/{name}.h>"
-      if name in ref_types:
-        ref_types.remove(name)
+    for complete_struct in sorted(complete_types, key=lambda s: s.name):
+      yield f"#include <{build_struct_path(complete_struct, 'h')}>"
+      if complete_struct.name in ref_types:
+        ref_types.remove(complete_struct.name)
     if ref_types:
       yield empty_line
       yield f"namespace dk2 {{"

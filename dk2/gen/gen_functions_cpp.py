@@ -1,5 +1,6 @@
 import pathlib
-from gen_utils import *
+from .gen_utils import *
+from dk2cxx import *
 
 
 def format_functions_cpp(globals: list[dk2map.Global], blocks: UserBlocks = None):

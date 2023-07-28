@@ -1,10 +1,10 @@
 import pathlib
-from gen_utils import *
+from .gen_utils import *
+from dk2cxx import *
 
 
 def format_struct_cpp(
     struct: dk2map.Struct,
-    thiscalls: list[dk2map.Global],
     vtable_map: dict[str, dk2map.Global],
     blocks: UserBlocks = None):
   yield format_id_line(struct.id)
@@ -12,7 +12,7 @@ def format_struct_cpp(
   def format_cpp_head():
     yield format_middle(f"warning: file is managed by {pathlib.Path(__file__).name}")
     yield format_middle(f"you can edit code only in *_user_code blocks")
-    yield f"#include <dk2/{struct.name}.h>"
+    yield f"#include <{build_struct_path(struct, 'h')}>"
     yield f"#include <dk2_globals.h>"
     yield empty_line
     yield f"using namespace dk2;"
@@ -53,9 +53,9 @@ def format_struct_cpp(
       vtable_glob = vtable_map.get(struct.vtable.id, None)
       if vtable_glob is not None:
         yield f"/*{vtable_glob.va:08X}*/ void **{struct.name}::vftable() {{ return dk2::{vtable_glob.name}; }}"
-    if thiscalls:
+    if struct.functions:
       yield f"// member functions"
-      for glob in thiscalls:
+      for glob in struct.functions:
         fun_t = glob.type  # type: dk2map.FunctionType
         name = glob.name
         name = name.replace('::', '_')

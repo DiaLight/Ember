@@ -140,7 +140,7 @@ class PtrType(Type):
       yield "  " + line
 
   def deserialize(self, it: ScopeLineIter, short_props: typing.Dict[str, str]):
-    self.is_const = bool(short_props.get("is_const", "False"))
+    self.is_const = short_props.get("is_const", "False").lower() == 'true'
     while True:
       key, short_props = _parse_short(next(it))
       if key is None:
@@ -220,7 +220,7 @@ class IntType(Type):
 
   def deserialize(self, it: ScopeLineIter, short_props: typing.Dict[str, str]):
     self.size = int(short_props["size"])
-    self.signed = bool(short_props.get("signed", "False"))
+    self.signed = short_props.get("signed", "False").lower() == 'true'
 
   @classmethod
   def create(cls, short_props: typing.Dict[str, str]):
@@ -275,6 +275,8 @@ class StructType(Type):
     self.struct = structs_map[self._struct_id]
 
   def get_size(self):
+    if self.struct.size is None:
+      self.struct.size = self.struct.calc_fields_size()
     return self.struct.size
 
 
@@ -429,6 +431,14 @@ ALL_TYPES = [
 NAME_TO_TYPE = {str(ty.kind): ty for ty in ALL_TYPES}
 
 
+def parse_type(it: ScopeLineIter, short_props: typing.Dict[str, str]):
+  cls = NAME_TO_TYPE.get(short_props["kind"])
+  ty = cls.create(short_props)
+  with it as subit:
+    ty.deserialize(subit, short_props)
+  return ty
+
+
 class Field:
 
   def __init__(self, name):
@@ -455,11 +465,7 @@ class Field:
       if key is None:
         break
       if key == "type":
-        cls = NAME_TO_TYPE.get(short_props["kind"])
-        ty = cls.create(short_props)
-        with it as subit:
-          ty.deserialize(subit, short_props)
-        self.type = ty
+        self.type = parse_type(it, short_props)
       else:
         raise Exception(f"invalid {key} at {it.line_num}")
 
@@ -468,10 +474,12 @@ class Struct:
 
   def __init__(self, name):
     self.id = None  # type: str
+    self.path = None  # type: str
     self.name = name  # type: str
     self.vtable = None  # type: Struct
     self.vtable_values = []  # type: list[int]
     self.fields = []  # type: list[Field]
+    self.functions = []  # type: list[Global]
     self.size = None  # type: int
     self.super = None  # type: Struct
     self.is_union = False
@@ -490,6 +498,12 @@ class Struct:
         offs += self.super.size
     return offs
 
+  def calc_fields_size(self):
+    size = 0
+    for field in self.fields:
+      size += field.type.get_size()
+    return size
+
   def serialize(self):
     yield f"{','.join(self.serialize_short())}"
     for line in self.serialize_detail():
@@ -497,6 +511,8 @@ class Struct:
 
   def serialize_short(self):
     yield f"id={self.id}"
+    if self.path:
+      yield f"path={self.path}"
     yield f"name={self.name}"
     yield f"size={self.size}"
     if self.is_union:
@@ -517,9 +533,10 @@ class Struct:
 
   def deserialize(self, it: ScopeLineIter, short_props: typing.Dict[str, str]):
     self.id = short_props["id"]
+    self.path = short_props.get("path", None)
     self.name = short_props["name"]
     self.size = int(short_props["size"])
-    self.is_union = bool(short_props.get("is_union", "False"))
+    self.is_union = short_props.get("is_union", "False").lower() == 'true'
     self._vtable_id = short_props.get("vtable", None)
     self._super_id = short_props.get("super", None)
     while True:
@@ -547,6 +564,13 @@ class Struct:
     for field in self.fields:
       field.type.link(structs_map)
 
+  def bake_links(self):
+    for glob in self.functions:
+      glob._member_of = self.id
+
+  def sort_links(self):
+    self.functions.sort(key=lambda glob: glob.va)
+
 
 class Global:
 
@@ -554,6 +578,7 @@ class Global:
     self.va = va  # type: int
     self.name = name  # type: str
     self.type = None  # type: Type
+    self._member_of = None # type: str
 
   def serialize(self):
     yield f"{','.join(self.serialize_short())}"
@@ -563,6 +588,8 @@ class Global:
   def serialize_short(self):
     yield f"va={self.va:08X}"
     yield f"name={self.name}"
+    if self._member_of:
+      yield f"member_of={self._member_of}"
 
   def serialize_detail(self):
     if self.type is not None:
@@ -573,18 +600,24 @@ class Global:
   def deserialize(self, it: ScopeLineIter, short_props: typing.Dict[str, str]):
     self.va = int(short_props["va"], 16)
     self.name = short_props["name"]
+    self._member_of = short_props.get("member_of", None)
     while True:
       key, short_props = _parse_short(next(it))
       if key is None:
         break
       if key == "type":
-        cls = NAME_TO_TYPE.get(short_props["kind"])
-        ty = cls.create(short_props)
-        with it as subit:
-          ty.deserialize(subit, short_props)
-        self.type = ty
+        self.type = parse_type(it, short_props)
       else:
         raise Exception(f"invalid {key} at {it.line_num}")
+
+  def clear_links(self):
+    self._member_of = None
+
+  def link(self, structs_map: dict[str, Struct]):
+    if self.type is not None:
+      self.type.link(structs_map)
+    if self._member_of:
+      structs_map[self._member_of].functions.append(self)
 
 
 def _parse_short(line):
@@ -627,14 +660,19 @@ def deserialize(lines: typing.Iterable[str]) -> typing.Tuple[typing.List[Struct]
     if struct.vtable is not None:
       vtables.add(struct.vtable.id)
   for glob in globs:
-    if glob.type is not None:
-      glob.type.link(structs_map)
+    glob.link(structs_map)
+  for struct in structs_map.values():
+    struct.sort_links()
 
   structs = list(sorted(structs_map.values(), key=lambda s: s.name))  # type: list[Struct]
   return structs, globs
 
 
 def serialize(structs: typing.Iterable[Struct], globals: typing.Iterable[Global]):
+  for glob in globals:  # type: Global
+    glob.clear_links()
+  for struct in structs:  # type: Struct
+    struct.bake_links()
   for struct in sorted(structs, key=lambda s: s.name):  # type: Struct
     yield f"struct: {','.join(struct.serialize_short())}"
     for line in struct.serialize_detail():
