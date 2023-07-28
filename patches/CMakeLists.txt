@@ -39,7 +39,7 @@ target_link_libraries(dk2_patches PRIVATE
         lodepng
         dk2_utils
         dk2_hooks
-        dk2_mapping
+        dk2_symbols
         win32_gui_layout
         )
 

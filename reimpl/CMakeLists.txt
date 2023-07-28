@@ -24,7 +24,7 @@ target_compile_definitions(dk2_reimpl PRIVATE DIRECTINPUT_VERSION=0x0500 DIRECT3
 target_link_libraries(dk2_reimpl PRIVATE
         lodepng
         dk2_utils
-        dk2_mapping
+        dk2_symbols
         )
 
 if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/dev")

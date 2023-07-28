@@ -8,7 +8,7 @@
 #include <dk2/MyDxMouse.h>
 #include <dk2/MouseRgbDxAction.h>
 #include <dk2/ControlKeysUpdater.h>
-#include <dk2/Pos2i.h>
+#include <dk2/utils/Pos2i.h>
 #include <utils/patch.h>
 #include <dk2_info.h>
 #include <utils/xrefs.h>

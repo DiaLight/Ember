@@ -34,5 +34,5 @@ target_link_libraries(gog_patch_dll PRIVATE Winmm Ddraw dxguid)
 target_link_libraries(gog_patch_dll PRIVATE
         dk2_utils
         dk2_hooks
-        dk2_mapping
+        dk2_symbols
         )

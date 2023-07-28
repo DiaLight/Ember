@@ -39,7 +39,7 @@ struct Rgba32 {
         rgba32._amask = 0xFF000000;
         rgba32.f2C = 0;
         rgba32.desc = {
-                0xFF, 0xFF00, 0xFF0000, (int) 0xFF000000, 0x20, 0
+                0xFF, 0xFF00, 0xFF0000, 0xFF000000, 0x20, 0
         };
         rgba32.ddPixFmt = {
                 0, 0, 0, 0x20, 0xFF, 0xFF00, 0xFF0000, 0xFF000000

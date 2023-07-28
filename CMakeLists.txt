@@ -126,7 +126,7 @@ target_compile_definitions(bootstrap_patcher PRIVATE DIRECTINPUT_VERSION=0x0500 
 target_link_libraries(bootstrap_patcher PRIVATE
         Dbghelp Shcore Comctl32
         win32_gui_layout
-        dk2_mapping
+        dk2_symbols
         dk2_utils
         dk2_reimpl
         dk2_patches

@@ -2,7 +2,7 @@
 // Created by DiaLight on 29.01.2023.
 //
 #include <dk2_patches.h>
-#include <dk2/CCreature.h>
+#include <dk2/entities/CCreature.h>
 #include <dk2_info.h>
 #include <utils/patch.h>
 

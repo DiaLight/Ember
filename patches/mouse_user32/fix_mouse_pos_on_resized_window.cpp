@@ -2,7 +2,7 @@
 // Created by DiaLight on 20.08.2022.
 //
 #include <dk2_patches.h>
-#include <dk2/Pos2i.h>
+#include <dk2/utils/Pos2i.h>
 #include <string>
 #include <dk2_info.h>
 #include <dk2_globals.h>

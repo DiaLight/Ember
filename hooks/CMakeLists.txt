@@ -11,5 +11,5 @@ target_compile_definitions(dk2_hooks PRIVATE DIRECTINPUT_VERSION=0x0500 DIRECT3D
 
 target_link_libraries(dk2_hooks PRIVATE
         dk2_utils
-        dk2_mapping
+        dk2_symbols
         )

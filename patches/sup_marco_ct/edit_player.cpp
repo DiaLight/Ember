@@ -2,8 +2,8 @@
 // Created by DiaLight on 27.01.2023.
 //
 #include <dk2_patches.h>
-#include <dk2/CPlayer.h>
-#include <dk2/CObject.h>
+#include <dk2/entities/CPlayer.h>
+#include <dk2/entities/CObject.h>
 #include <utils/patch.h>
 #include <dk2_info.h>
 
@@ -30,11 +30,11 @@ namespace {
     }
 
     void setMoneyInSelectedSquare(uint32_t value) {
-        *(uint32_t * ) & squareMoneyAddr::obj->objunion = value;
+        squareMoneyAddr::obj->unionData.l40_gold.goldHeld = value;
     }
 
     void setDungeonHeartHealth(uint32_t value) {
-        playerBase::pl2->dungeonHeartHealth = value;
+        playerBase::pl2->ownedArea2_dungeonHeartHealth = value;
     }
 
     void setMana(uint32_t value) {
@@ -46,7 +46,7 @@ namespace {
     }
 
     void setManaPerSecond(uint32_t value) {
-        playerBase::pl1->manaPerSecond = value;
+        playerBase::pl1->basicManaPerSecond = value;
     }
 
     void setManaPerSecondExtra(uint32_t value) {

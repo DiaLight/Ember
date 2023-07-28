@@ -10,7 +10,7 @@
 #include <dk2/SceneObject30.h>
 #include <dk2/SurfaceHolder.h>
 #include <dk2/MyCESurfHandle.h>
-#include <dk2/CEnginePrimitiveBase.h>
+#include <dk2/engine/primitive/CEnginePrimitiveBase.h>
 #include <dk2_info.h>
 #include <utils/xrefs.h>
 
@@ -38,8 +38,8 @@ dk2::SceneObject30 *SceneObject30_findFromO2E(
     for (; obj30; obj30 = obj30->prev) {
         if (obj30->texStageCountArrSize != obj2E.propsCount) continue;
         if (obj30->sceneObj2E_f21 != obj2E.f21) continue;
-        int32_t *propsArr30 = &obj30->props_flags;
-        int32_t *propsArr2E = &obj2E.props_flags;
+        uint32_t *propsArr30 = &obj30->props_flags;
+        uint32_t *propsArr2E = &obj2E.props_flags;
 
         // compare surf props?
         int k;
@@ -68,7 +68,7 @@ void SceneObject30_initFromO2E(
     for (int j = 0; j < obj2E.surfhCount; ++j) {
         obj30->holders[j] = holders[j];
     }
-    int32_t *propsArr30 = &obj30->props_flags;
+    uint32_t *propsArr30 = &obj30->props_flags;
     uint8_t *props2Arr30 = (uint8_t *) &obj30->d3dtexStageCount;
     uint32_t *propsArr2E = (uint32_t *) &obj2E.props_flags;
     uint8_t *props2Arr2E = (uint8_t *) &obj2E.trgObj;
