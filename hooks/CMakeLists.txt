@@ -3,7 +3,6 @@ add_library(dk2_hooks STATIC
         window.cpp
         game_loop.cpp
         direct_input.cpp
-#        api.cpp
         main.cpp
         )
 target_include_directories(dk2_hooks PUBLIC include)
