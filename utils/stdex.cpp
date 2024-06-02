@@ -5,7 +5,27 @@
 #include "stdex.h"
 #include <Windows.h>
 #include <stdexcept>
+#include <locale>
+#include <codecvt>
+#include <sstream>
 
+std::wstring utf8ToUtf16(const std::string &utf8Str) {
+    try {
+        std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> conv;
+        return conv.from_bytes(utf8Str);
+    } catch (...) {
+        std::wstringstream wss;
+//    wss << L"failed to convert len=" << utf8Str.size();
+//    for (int i = 0; i < utf8Str.length(); ++i) {
+//      wss << " " << hex8(utf8Str[i]);
+//    }
+//    wss << " ";
+        for (int i = 0; i < utf8Str.length(); ++i) {
+            wss << (char) utf8Str[i];
+        }
+        return wss.str();
+    }
+}
 
 std::string utf8_encode(const std::wstring &wstr) {
     if (wstr.empty()) return std::string();

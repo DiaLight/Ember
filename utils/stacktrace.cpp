@@ -3,19 +3,26 @@
 //
 #include <utils/stacktrace.h>
 #include <utils/parse.h>
-#include <vector>
 #include <Windows.h>
-#include <memory>
 #include <string>
 #include <DbgHelp.h>
 #include <utils/stacktrace_window.h>
 #include <sstream>
 #include <iomanip>
 #include <dk2_info.h>
+#include "stdex.h"
 
-#define hex32(val) std::hex << std::uppercase << std::setfill(L'0') << std::setw(8) << ((uint32_t) val) << std::dec
-#define hex16(val) std::hex << std::uppercase << std::setfill(L'0') << std::setw(4) << ((uint16_t) val) << std::dec
-#define hex8(val) std::hex << std::uppercase << std::setfill(L'0') << std::setw(2) << ((uint8_t) val) << std::dec
+#define hex32_(val, fill) std::hex << std::uppercase << std::setfill(fill) << std::setw(8) << ((uint32_t) (val)) << std::dec
+#define hex16_(val, fill) std::hex << std::uppercase << std::setfill(fill) << std::setw(4) << ((uint16_t) (val)) << std::dec
+#define hex8_(val, fill) std::hex << std::uppercase << std::setfill(fill) << std::setw(2) << ((uint8_t) (val)) << std::dec
+
+#define hex32(val) hex32_(val, L'0')
+#define hex16(val) hex16_(val, L'0')
+#define hex8(val) hex8_(val, L'0')
+
+#define hex32a(val) hex32_(val, '0')
+#define hex16a(val) hex16_(val, '0')
+#define hex8a(val) hex8_(val, '0')
 
 
 enum SpOpKind {
@@ -113,7 +120,7 @@ bool parse_stack_op(char *line, size_t line_len, uint32_t &out_va, SpOpKind &kin
     return true;
 }
 
-namespace stacktrace {
+struct stacktrace_t {
     struct Op {
         uint32_t rva;
         SpOpKind kind;
@@ -205,23 +212,30 @@ namespace stacktrace {
         stack.insert(it, value);
         return true;
     }
-}
+};
 
 #if EMBED_MAPPINGS
-bool getStack(std::string &out);
+bool getDk2Stack(std::string &out);
 #else
-bool getStack(std::string &out) {
-    std::wstring stackPath = api::g_curExeDir + L"/stack.map";
+bool getDk2Stack(std::string &out) {
+    std::wstring stackPath = api::g_curExeDir + L"/dk2_stack.map";
     if (!readFile(out, stackPath.c_str())) return false;
     return true;
 }
 #endif
 
-bool loadStack() {
-    std::string stackMap;
-    if (!getStack(stackMap)) return false;
+#if EMBED_MAPPINGS
+bool getWeanetrStack(std::string &out);
+#else
+bool getWeanetrStack(std::string &out) {
+    std::wstring stackPath = api::g_curExeDir + L"/weanetr_stack.map";
+    if (!readFile(out, stackPath.c_str())) return false;
+    return true;
+}
+#endif
 
-    std::shared_ptr<stacktrace::Area> curArea;
+bool loadStack(std::string &stackMap, stacktrace_t &stacktrace) {
+    std::shared_ptr<stacktrace_t::Area> curArea;
 //  bool trg = false;
     char *map_end = (char *) &stackMap[stackMap.size()];
     char *pos = (char *) &stackMap[0];
@@ -239,8 +253,8 @@ bool loadStack() {
             nameStr.append(name, name_len);
 //      trg = nameStr == "CGameComponent_mainGuiLoop";
 //      if(trg) printf("%08X %s\n", va, nameStr.c_str());
-            curArea = std::make_shared<stacktrace::Area>(va - dk2_virtual_base, nameStr);
-            stacktrace::visit(curArea);
+            curArea = std::make_shared<stacktrace_t::Area>(va - dk2_virtual_base, nameStr);
+            stacktrace.visit(curArea);
         } else {
             uint32_t va;
             SpOpKind kind;
@@ -259,23 +273,25 @@ bool loadStack() {
 //      if(trg) printf("  %08X %d %d\n", rva, kind, value);
         }
     }
-    printf("stack loaded. items.count=%d\n", stacktrace::stack.size());
+    printf("stack loaded. items.count=%d\n", stacktrace.stack.size());
     return true;
 }
 
+stacktrace_t dk2_stacktrace;
+stacktrace_t weanetr_stacktrace;
 
-struct StackLimits {
-    ULONG_PTR low;
-    ULONG_PTR high;
+bool loadStack() {
+    std::string dk2_stackMap;
+    if (!getDk2Stack(dk2_stackMap)) return false;
+    if(!loadStack(dk2_stackMap, dk2_stacktrace)) return false;
 
-    StackLimits() {
-        GetCurrentThreadStackLimits(&low, &high);
-    }
+    std::string weanetr_stackMap;
+    if (!getWeanetrStack(weanetr_stackMap)) return false;
+    if(!loadStack(weanetr_stackMap, weanetr_stacktrace)) return false;
 
-    bool contains(ULONG_PTR addr) {
-        return low <= addr && addr < high;
-    }
-};
+    return true;
+}
+
 
 struct ModuleExport {
     ULONG_PTR addr;
@@ -369,9 +385,6 @@ struct LoadedModule {
 class LoadedModules {
     std::vector<std::shared_ptr<LoadedModule>> modules;
 public:
-    LoadedModules() {
-        collect();
-    }
 
     bool _visitModule(std::shared_ptr<LoadedModule> &value) {
         auto it = _find_gt(value->base);
@@ -431,19 +444,79 @@ private:
     }
 };
 
-bool visit_dk2_frame(CONTEXT *ctx, StackLimits &limits, std::wstringstream &ss) {
+void StackFrame::formatOneLine(std::wstringstream &ss) {
+    if(isOld) {
+        uint32_t va = (uint8_t *) eip - api::dk2_base + dk2_virtual_base;
+        ss << "- old sp=" << hex32(esp) << " va=" << hex32(va) << " " << dk2Name.c_str();
+    } else {
+        ss << "- lib sp=" << hex32(esp) << " bp=" << hex32(ebp) << " ip=" << hex32(eip);
+        if (symAddr != 0) {
+            ss << " " << libName.c_str() << ":" << symName.c_str() << "+" << hex16(eip - symAddr);
+        } else {
+            ss << " " << libName.c_str() << "+" << hex16(eip - libBase);
+        }
+    }
+    if(error) ss << " (error)";
+}
+
+void StackFrame::format(std::wstringstream &ss) {
+    formatOneLine(ss);
+    ss << "\n";
+    if(error) {
+        ss << spinfo;
+    }
+}
+
+void formatError(std::wstringstream &iss, CONTEXT *ctx, StackLimits &limits) {
+    iss << "  dk2: [" << hex32(api::dk2_base) << "-" << hex32(api::dk2_base + api::dk2_size) << "]\n";
+    auto fmtAddr = [&limits](DWORD addr) -> std::wstring {
+        std::wstringstream fss;
+        fss << hex32(addr);
+        if((DWORD) api::dk2_base <= addr && addr < ((DWORD) api::dk2_base + api::dk2_size)) {
+            fss << " dk2 va=" << hex32(addr - (DWORD) api::dk2_base + dk2_virtual_base);
+        }
+        if(limits.contains(addr)) {
+            fss << " stack";
+        }
+        return fss.str();
+    };
+    iss << "  ip " << fmtAddr(ctx->Eip) << "\n";
+    auto *sp = (uint32_t *) ctx->Esp;
+    iss << "  sp " << hex32(sp) << "\n";
+    iss << "  sp[-6] " << fmtAddr(sp[-6]) << "\n";
+    iss << "  sp[-5] " << fmtAddr(sp[-5]) << "\n";
+    iss << "  sp[-4] " << fmtAddr(sp[-4]) << "\n";
+    iss << "  sp[-3] " << fmtAddr(sp[-3]) << "\n";
+    iss << "  sp[-2] " << fmtAddr(sp[-2]) << "\n";
+    iss << "  sp[-1] " << fmtAddr(sp[-1]) << "\n";
+    iss << "  sp[ 0] " << fmtAddr(sp[0]) << "\n";
+    iss << "  sp[ 1] " << fmtAddr(sp[1]) << "\n";
+    iss << "  sp[ 2] " << fmtAddr(sp[2]) << "\n";
+    iss << "  sp[ 3] " << fmtAddr(sp[3]) << "\n";
+    iss << "  sp[ 4] " << fmtAddr(sp[4]) << "\n";
+}
+
+bool visit_old_frame(stacktrace_t &stacktrace, CONTEXT *ctx, StackLimits &limits, std::vector<std::shared_ptr<StackFrame>> &frames) {
+    auto &frame = frames.emplace_back(new StackFrame());
+    frame->isOld = true;
+    frame->esp = ctx->Esp;
+    frame->eip = ctx->Eip;
+    std::wstringstream iss;
+
     uint32_t rva = (uint8_t *) ctx->Eip - api::dk2_base;
-    auto it = stacktrace::find_le(rva);
-    if (it == stacktrace::stack.end()) {
-        ss << "  area not found " << hex32(rva) << "\n";
+    auto it = stacktrace.find_le(rva);
+    if (it == stacktrace.stack.end()) {
+        std::stringstream ess;
+        iss << "  area not found " << hex32(rva) << "\n";
+        frame->onError(iss.str());
         return false;
     }
     auto &area = **it;
-    ss << "  - dk2 sp=" << hex32(ctx->Esp) << " va=" << hex32(rva + dk2_virtual_base) << " " << area.name.c_str()
-       << "\n";
+    frame->dk2Name = area.name;
     auto opit = area.find_ge(rva);
     if (opit == area.ops.end()) {
-        ss << "  va=" << hex32(rva + dk2_virtual_base) << " op not found" << "\n";
+        iss << "  va=" << hex32(rva + dk2_virtual_base) << " op not found" << "\n";
+        frame->onError(iss.str());
         return false;
     }
     uint32_t esp_start = ctx->Esp;
@@ -454,9 +527,9 @@ bool visit_dk2_frame(CONTEXT *ctx, StackLimits &limits, std::wstringstream &ss) 
         switch (op.kind) {
             case SP: {
                 if ((ctx->Esp - op.stack_offs) != sp_base) {
-                    ss << "    sp=" << hex32(ctx->Esp) << " spd=" << hex16(-op.stack_offs) << " va="
+                    iss << "    sp=" << hex32(ctx->Esp) << " spd=" << hex16(-op.stack_offs) << " va="
                        << hex32(op.rva + dk2_virtual_base);
-                    ss << " sp_base change " << hex32(ctx->Esp - op.stack_offs) << " " << hex32(sp_base) << "\n";
+                    iss << " sp_base change " << hex32(ctx->Esp - op.stack_offs) << " " << hex32(sp_base) << "\n";
                 }
                 if (op.se_kind == SE_POP_BP) {
                     uint32_t value = *(uint32_t *) (ctx->Esp + op.se_value);
@@ -478,107 +551,135 @@ bool visit_dk2_frame(CONTEXT *ctx, StackLimits &limits, std::wstringstream &ss) 
                 ctx->Eip = sp[0];
 //          printf("    sp=%08X spd=%04X va=%08X ret %d\n", ctx->Esp, -op.stack_offs, op.rva + dk2_virtual_base, op.value);
                 if ((ctx->Esp - esp_start) != -check_offs) {
-                    ss << "sp change " << hex16(ctx->Esp - esp_start) << "(" << (ctx->Esp - esp_start) << ") ";
-                    ss << hex16(-check_offs) << "(" << (-check_offs) << ")" << "\n";
+                    iss << "sp change " << hex16(ctx->Esp - esp_start) << "(" << (ctx->Esp - esp_start) << ") ";
+                    iss << hex16(-check_offs) << "(" << (-check_offs) << ")" << "\n";
                 }
                 if (ctx->Esp != sp_base) {
-                    ss << "sp_base change " << hex32(ctx->Esp) << " " << hex32(sp_base) << "\n";
+                    iss << "sp_base change " << hex32(ctx->Esp) << " " << hex32(sp_base) << "\n";
                 }
                 if (ctx->Eip < 0x10000 || ctx->Eip == 0xFFFFFFFF || !limits.contains(ctx->Esp)) {
-                    ss << "sp[-4] " << hex32(sp[-4]) << "\n";
-                    ss << "sp[-3] " << hex32(sp[-3]) << "\n";
-                    ss << "sp[-2] " << hex32(sp[-2]) << "\n";
-                    ss << "sp[-1] " << hex32(sp[-1]) << "\n";
-                    ss << "sp[0] " << hex32(sp[0]) << "\n";
-                    ss << "sp[1] " << hex32(sp[1]) << "\n";
-                    ss << "sp[2] " << hex32(sp[2]) << "\n";
-                    ss << "sp[3] " << hex32(sp[3]) << "\n";
-                    ss << "sp[4] " << hex32(sp[4]) << "\n";
+                    formatError(iss, ctx, limits);
+                    frame->onError(iss.str());
                     return false;
                 }
                 ctx->Esp += op.value + 4;
+                frame->onSuccess(iss.str());
+                frame->ebp = ctx->Ebp;
                 return true;
             }
             case JMP: {
-                ss << "    va=" << hex32(op.rva + dk2_virtual_base) << " jmp " << hex32((uint32_t) op.value) << "\n";
+                iss << "    va=" << hex32(op.rva + dk2_virtual_base) << " jmp " << hex32((uint32_t) op.value) << "\n";
                 if (op.value == 0) {
                     // force exit such frame
                     ctx->Esp -= op.stack_offs;
                     auto *sp = (uint32_t *) ctx->Esp;
                     ctx->Eip = sp[0];
                     ctx->Esp += op.value + 4;
+                    frame->onSuccess(iss.str());
+                    frame->ebp = ctx->Ebp;
                     return true;
                 }
                 uint32_t jmp_rva = (uint32_t) op.value - dk2_virtual_base;
                 ctx->Eip = (uint32_t) (api::dk2_base + jmp_rva);
-                return visit_dk2_frame(ctx, limits, ss);
+                frame->onSuccess(iss.str());
+                return visit_old_frame(stacktrace, ctx, limits, frames);
             }
             case SP_Invalid:
             default:
-                ss << "    va=" << hex32(op.rva + dk2_virtual_base) << " invalid op" << "\n";
+                iss << "    va=" << hex32(op.rva + dk2_virtual_base) << " invalid op" << "\n";
+                frame->onError(iss.str());
                 return false;
         }
         opit++;
         if (opit == area.ops.end()) {
-            ss << "    va=" << hex32(op.rva + dk2_virtual_base) << " ret not found" << "\n";
+            iss << "    va=" << hex32(op.rva + dk2_virtual_base) << " ret not found" << "\n";
             for (auto &op: area.ops) {
                 switch (op->kind) {
                     case SP:
-                        ss << "- " << hex32(op->rva) << " sp " << op->value << "\n";
+                        iss << "- " << hex32(op->rva) << " sp " << op->value << "\n";
                         break;
                     case RET:
-                        ss << "- " << hex32(op->rva) << " ret " << op->value << "\n";
+                        iss << "- " << hex32(op->rva) << " ret " << op->value << "\n";
                         break;
                     case JMP:
-                        ss << "- " << hex32(op->rva) << " jmp " << op->value << "\n";
+                        iss << "- " << hex32(op->rva) << " jmp " << op->value << "\n";
                         break;
                 }
             }
+            frame->onError(iss.str());
             return false;
         }
         op = **opit;
     }
 }
 
-bool trace_the_stack(CONTEXT *ctx, std::wstringstream &ss) {
-    StackLimits limits;
+bool visit_ebp_frame(
+        CONTEXT *ctx, StackLimits &limits,
+        std::vector<std::shared_ptr<StackFrame>> &frames,
+        LoadedModules &modules) {
+
+    auto &frame = frames.emplace_back(new StackFrame());
+    frame->isOld = false;
+    frame->esp = ctx->Esp;
+    frame->ebp = ctx->Ebp;
+    frame->eip = ctx->Eip;
+    if (auto *mod = modules.find(ctx->Eip)) {
+        frame->libName = mod->name;
+        frame->libBase = mod->base;
+        if (auto *exp = mod->find_export_le(ctx->Eip)) {
+            frame->symName = exp->name;
+            frame->symAddr = exp->addr;
+        }
+        if(mod->name == "bootstrap_patcher.exe") {
+        }
+    }
+    if (!limits.contains(ctx->Esp)) {
+        std::wstringstream iss;
+        iss << "bad esp=" << hex32(ctx->Esp) << "\n";
+        formatError(iss, ctx, limits);
+        frame->onError(iss.str());
+        return false;
+    }
+    if (!limits.contains(ctx->Ebp)) {
+        std::wstringstream iss;
+        iss << "bad ebp=" << hex32(ctx->Ebp) << "\n";
+        formatError(iss, ctx, limits);
+        frame->onError(iss.str());
+        return false;
+    }
+    auto *bp = (uint32_t *) ctx->Ebp;
+    ctx->Ebp = *bp++;
+    if (ctx->Ebp != 0 && !limits.contains(ctx->Ebp)) {
+        std::wstringstream iss;
+        iss << "bad ebp=" << hex32(ctx->Ebp) << "\n";
+        formatError(iss, ctx, limits);
+        frame->onError(iss.str());
+        return false;
+    }
+    ctx->Eip = *bp++;
+    ctx->Esp = (uint32_t) bp;
+    return true;
+}
+
+bool api::traceTheStack(CONTEXT *ctx, StackLimits &limits, std::vector<std::shared_ptr<StackFrame>> &frames) {
     LoadedModules modules;
-    ss << "stack limits: " << hex32(limits.low) << "-" << hex32(limits.high) << "\n";
+    if(!modules.collect()) return false;
     while (true) {
         if (api::dk2_contains((uint8_t *) ctx->Eip)) {
-            if (!visit_dk2_frame(ctx, limits, ss)) return false;
-            continue;
+            if (!visit_old_frame(dk2_stacktrace, ctx, limits, frames)) return false;
+        } else if (api::weanetr_contains((uint8_t *) ctx->Eip)) {
+            if (!visit_old_frame(weanetr_stacktrace, ctx, limits, frames)) return false;
+        } else {
+            if(!visit_ebp_frame(ctx, limits, frames, modules)) return false;
         }
-
-        {
-            if (auto *mod = modules.find(ctx->Eip)) {
-                if (auto *exp = mod->find_export_le(ctx->Eip)) {
-                    ss << "  - lib sp=" << hex32(ctx->Esp) << " bp=" << hex32(ctx->Ebp) << " ip=" << hex32(ctx->Eip);
-                    ss << " " << mod->name.c_str() << ":" << exp->name.c_str() << "+" << hex16(ctx->Eip - exp->addr)
-                       << "\n";
-                } else {
-                    ss << "  - lib sp=" << hex32(ctx->Esp) << " bp=" << hex32(ctx->Ebp) << " ip=" << hex32(ctx->Eip);
-                    ss << " " << mod->name.c_str() << "+" << hex16(ctx->Eip - mod->base) << "\n";
-                }
-            } else {
-                ss << "  - lib sp=" << hex32(ctx->Esp) << " bp=" << hex32(ctx->Ebp) << " ip=" << hex32(ctx->Eip);
-                ss << "\n";
-            }
-        }
-        if (!limits.contains(ctx->Esp)) {
-            ss << "bad esp=" << hex32(ctx->Esp) << "\n";
-            return false;
-        }
-        if (!limits.contains(ctx->Ebp)) {
-            ss << "bad ebp=" << hex32(ctx->Ebp) << "\n";
-            return false;
-        }
-        auto *bp = (uint32_t *) ctx->Ebp;
-        ctx->Ebp = *bp++;
-        ctx->Eip = *bp++;
-        ctx->Esp = (uint32_t) bp;
         if (ctx->Ebp == 0) break;
     }
+//    RtlUnwind()
+//    RtlLookupFunctionEntry()
+//    StackWalk()
+//    StackWalk64()
+//    StackWalkEx()
+// https://github.com/DavidKinder/Windows-Inform7/blob/master/Inform7/StackTrace.cpp#L18
     return true;
 }
 
@@ -610,7 +711,16 @@ LONG ExceptionFilter(PEXCEPTION_POINTERS pep) {
     ss << "  eip=" << hex32(pep->ContextRecord->Eip);
     ss << "\n";
     CONTEXT ctx = *pep->ContextRecord;  // make ctx copy
-    if (!trace_the_stack(&ctx, ss)) {
+    StackLimits limits;
+    limits.resolve();
+    ss << "stack limits: " << hex32(limits.low) << "-" << hex32(limits.high) << "\n";
+
+    std::vector<std::shared_ptr<StackFrame>> frames;
+    bool result = api::traceTheStack(&ctx, limits, frames);
+    for(auto &fr : frames) {
+        fr->format(ss);
+    }
+    if (!result) {
         ss << "  trace stack failed" << "\n";
     }
 
@@ -647,7 +757,18 @@ bool api::traceCurrentStack(std::wstringstream &ss) {
     ZeroMemory(&ctx, sizeof(ctx));
     ctx.ContextFlags = CONTEXT_FULL;
     RtlCaptureContext(&ctx);
-    return trace_the_stack(&ctx, ss);
+    StackLimits limits;
+    limits.resolve();
+    ss << "stack limits: " << hex32(limits.low) << "-" << hex32(limits.high) << "\n";
+    std::vector<std::shared_ptr<StackFrame>> frames;
+    bool result = traceTheStack(&ctx, limits, frames);
+    for(auto &fr : frames) {
+        fr->format(ss);
+    }
+    if (!result) {
+        ss << "  trace stack failed" << "\n";
+    }
+    return result;
 }
 
 bool api::initStacktrace() {

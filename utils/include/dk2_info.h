@@ -17,9 +17,17 @@ namespace api {
 
     extern uint8_t *dk2_base;
     extern size_t dk2_size;
+    extern uint32_t main_tid;
+
 #define dk2_virtual_base 0x00400000
     bool dk2_contains(uint8_t *pos);
     inline void *dk2_toVirt(void *pos) { return (void *) ((((uint8_t *) pos) - dk2_base) + dk2_virtual_base); }
+
+
+    extern uint8_t *weanetr_base;
+    extern size_t weanetr_size;
+
+    bool weanetr_contains(uint8_t *pos);
 
     extern std::vector<std::string> EMBER_ARGS;
     extern std::vector<std::string> DK2_ARGS;

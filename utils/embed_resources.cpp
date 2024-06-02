@@ -56,8 +56,16 @@ bool getReferences(std::string &out) {
     return true;
 }
 
-bool getStack(std::string &out) {
-    Resource stackRes(api::ember_base, IDR_STACK, "TEXT");
+bool getDk2Stack(std::string &out) {
+    Resource stackRes(api::ember_base, IDR_DK2_STACK, "TEXT");
+    if(!stackRes) return false;
+    auto stack = stackRes.GetResourceString();
+    out = stack;
+    return true;
+}
+
+bool getWeanetrStack(std::string &out) {
+    Resource stackRes(api::ember_base, IDR_WEANETR_STACK, "TEXT");
     if(!stackRes) return false;
     auto stack = stackRes.GetResourceString();
     out = stack;

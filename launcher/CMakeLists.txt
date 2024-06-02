@@ -15,7 +15,7 @@ add_executable(launcher WIN32
 )
 target_include_directories(launcher PRIVATE include)
 target_link_libraries(launcher Shcore Ddraw win32_gui_layout)
-add_dependencies(launcher bootstrap_patcher makedll dll_exports stack_map references_map)
+add_dependencies(launcher bootstrap_patcher makedll dll_exports dk2_stack_map references_map)
 set_target_properties(launcher PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/..")
 
 install(TARGETS launcher RUNTIME DESTINATION ".")

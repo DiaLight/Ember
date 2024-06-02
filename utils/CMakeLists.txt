@@ -18,6 +18,7 @@ add_library(dk2_utils STATIC
         xrefs.cpp
         reversemode_mimicry.cpp
         embed_resources.cpp
+        StackLimits.cpp
         )
 target_include_directories(dk2_utils PUBLIC include)
 target_compile_definitions(dk2_utils PRIVATE DIRECTINPUT_VERSION=0x0500 DIRECT3D_VERSION=0x0600)

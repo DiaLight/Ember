@@ -6,6 +6,7 @@
 #define EMBER_EMBED_RESOURCES_H
 
 #define IDR_REFERENCES                  101
-#define IDR_STACK                       102
+#define IDR_DK2_STACK                   102
+#define IDR_WEANETR_STACK               103
 
 #endif //EMBER_EMBED_RESOURCES_H

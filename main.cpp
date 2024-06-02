@@ -14,6 +14,9 @@
 #include <gog_patch_dll.h>
 #include <reimpl.h>
 
+namespace utils {
+    bool ThreadsStackTracer();
+}
 
 bool ember_initialize_impl(void *emberBase = nullptr) {
     if(!api::info_initialize(emberBase)) return false;
@@ -70,7 +73,10 @@ bool ember_initialize_impl(void *emberBase = nullptr) {
 //    if(!reimpl::SurfHashList__probablySort()) return false;
     if(!gog_patch_dll()) return false;
 
+//    if(!reimpl::directx12()) return false;
+
     if(!tools::unpack_texture_cache()) return false;
+//    if(!utils::ThreadsStackTracer()) return false;
     return true;
 }
 

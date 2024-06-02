@@ -16,11 +16,13 @@ find_package(Python REQUIRED)
 
 set(DK2_V170_SRC "${CMAKE_CURRENT_LIST_DIR}/mappings/v170.map")
 set(DK2_REFERENCES_SRC "${CMAKE_CURRENT_LIST_DIR}/mappings/references.map")
-set(DK2_STACK_SRC "${CMAKE_CURRENT_LIST_DIR}/mappings/stack.map")
+set(DK2_STACK_SRC "${CMAKE_CURRENT_LIST_DIR}/mappings/dk2_stack.map")
+set(WEANETR_STACK_SRC "${CMAKE_CURRENT_LIST_DIR}/mappings/weanetr_stack.map")
 
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 set(DK2_REFERENCES "${CMAKE_CURRENT_BINARY_DIR}/references.map")
-set(DK2_STACK "${CMAKE_CURRENT_BINARY_DIR}/stack.map")
+set(DK2_STACK "${CMAKE_CURRENT_BINARY_DIR}/dk2_stack.map")
+set(WEANETR_STACK "${CMAKE_CURRENT_BINARY_DIR}/weanetr_stack.map")
 set(DK2_EXPORTS "${CMAKE_CURRENT_BINARY_DIR}/exports.map")
 add_custom_command(
         OUTPUT ${DK2_REFERENCES}
@@ -33,9 +35,16 @@ add_custom_command(
         OUTPUT ${DK2_STACK}
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${DK2_STACK_SRC} ${DK2_STACK}
         DEPENDS ${DK2_STACK_SRC}
-        COMMENT "Copy stack.map"
+        COMMENT "Copy dk2_stack.map"
 )
-add_custom_target(stack_map DEPENDS ${DK2_STACK})
+add_custom_target(dk2_stack_map DEPENDS ${DK2_STACK})
+add_custom_command(
+        OUTPUT ${WEANETR_STACK}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${WEANETR_STACK_SRC} ${WEANETR_STACK}
+        DEPENDS ${WEANETR_STACK_SRC}
+        COMMENT "Copy weanetr_stack.map"
+)
+add_custom_target(weanetr_stack_map DEPENDS ${WEANETR_STACK})
 add_custom_command(
         OUTPUT ${DK2_EXPORTS}
         COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_LIST_DIR}/gen_exports.py ${DK2_V170_SRC} ${DK2_EXPORTS}
@@ -57,10 +66,12 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /GS-")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Gz")  # use __stdcall by default
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4477")
 #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /OPT:REF")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MAP")
 
 add_subdirectory(utils)
 add_subdirectory(dk2)
 add_subdirectory(reimpl)
+#add_subdirectory(tools)
 add_subdirectory(hooks)
 add_subdirectory(patches)
 
@@ -114,12 +125,12 @@ if(REVERSE_MODE)
         endif()
     endif()
 else()
-    add_executable(bootstrap_patcher WIN32
+    add_executable(bootstrap_patcher
             ${SOURCES}
             ${DK2_DLL}
     )
 endif()
-add_dependencies(bootstrap_patcher dll_exports stack_map references_map)
+add_dependencies(bootstrap_patcher dll_exports dk2_stack_map weanetr_stack_map references_map)
 target_include_directories(bootstrap_patcher PRIVATE include)
 target_compile_definitions(bootstrap_patcher PRIVATE DIRECTINPUT_VERSION=0x0500 DIRECT3D_VERSION=0x0600)
 
@@ -132,6 +143,9 @@ target_link_libraries(bootstrap_patcher PRIVATE
         dk2_patches
         dk2_hooks
         gog_patch_dll
+#        reimpl_directx12
+#        test_opengl
+#        tool_ThreadsStackTracer
 )
 
 install(TARGETS bootstrap_patcher RUNTIME DESTINATION ".")
@@ -151,7 +165,8 @@ if(EMBED_MAPPINGS)
     file(WRITE ${DK2_RC} "
 #include \"embed_resources.h\"
 IDR_REFERENCES TEXT \"references.map\"
-IDR_STACK TEXT \"stack.map\"
+IDR_DK2_STACK TEXT \"dk2_stack.map\"
+IDR_WEANETR_STACK TEXT \"weanetr_stack.map\"
     ")
     add_custom_command(OUTPUT mappings.res
             COMMAND ${CMAKE_RC_COMPILER}
@@ -166,3 +181,4 @@ IDR_STACK TEXT \"stack.map\"
     target_link_libraries(bootstrap_patcher PRIVATE ${DK2_RES})
     target_compile_definitions(bootstrap_patcher PRIVATE EMBED_MAPPINGS=1)
 endif()
+

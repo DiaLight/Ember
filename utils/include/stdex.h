@@ -9,6 +9,7 @@
 #include <string>
 #include <functional>
 
+std::wstring utf8ToUtf16(const std::string& utf8Str);
 std::string utf8_encode(const std::wstring &wstr);
 std::vector<std::string> split(const std::string &s, char separator);
 bool parse_int(const std::string &S, int &value, std::string &err);

@@ -16,10 +16,20 @@ uint8_t *api::ember_base = nullptr;
 
 uint8_t *api::dk2_base = nullptr;
 size_t api::dk2_size = 0;
+uint32_t api::main_tid = 0;
 
 bool api::dk2_contains(uint8_t *pos) {
     return api::dk2_base <= pos && pos < (api::dk2_base + dk2_size);
 }
+
+
+uint8_t *api::weanetr_base = nullptr;
+size_t api::weanetr_size = 0;
+
+bool api::weanetr_contains(uint8_t *pos) {
+    return api::weanetr_base <= pos && pos < (api::weanetr_base + weanetr_size);
+}
+
 
 std::vector<std::string> api::EMBER_ARGS;
 std::vector<std::string> api::DK2_ARGS;
@@ -166,6 +176,7 @@ bool api::info_initialize(void *emberBase) {
         auto *dos = (IMAGE_DOS_HEADER *) dk2_base;
         auto *nt = (IMAGE_NT_HEADERS *) (dk2_base + dos->e_lfanew);
         dk2_size = nt->OptionalHeader.SizeOfImage;
+        main_tid = GetCurrentThreadId();
     }
     printf("ember base: %p\n", ember_base);
     printf("dk2 base: %p\n", dk2_base);
@@ -177,6 +188,14 @@ bool api::info_initialize(void *emberBase) {
     printf("ember args:\n");
     for(auto &arg : EMBER_ARGS) {
         printf("  -ember:%s\n", arg.c_str());
+    }
+
+
+    weanetr_base = (uint8_t *) LoadLibraryA("WEANETR.dll");
+    if(weanetr_base == NULL) {
+        auto *dos = (IMAGE_DOS_HEADER *) weanetr_base;
+        auto *nt = (IMAGE_NT_HEADERS *) (weanetr_base + dos->e_lfanew);
+        weanetr_size = nt->OptionalHeader.SizeOfImage;
     }
 
     if(!ember_base || !dk2_base) return false;

@@ -12,6 +12,9 @@ target_link_libraries(dk2_reimpl PRIVATE
         dk2_symbols
         )
 
+#add_subdirectory(directx12)
+#add_subdirectory(opengl)
+
 if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/dev")
     add_subdirectory(dev)
 endif()
