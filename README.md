@@ -1,3 +1,6 @@
+### The project was closed due to development complexity and is no longer maintained
+(To move forward and apply complex patches, need to come up with a more convenient approach for changing the logic of the compiled code)
+
 Ember is Dungeon Keeper II patching launcher.
 
 Ember is trying to achieve several DKII patch/mod development goals:
