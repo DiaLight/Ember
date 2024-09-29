@@ -1,5 +1,4 @@
-### The project was closed due to development complexity and is no longer maintained
-(To move forward and apply complex patches, need to come up with a more convenient approach for changing the logic of the compiled code)
+### The project was closed due to development complexity and is no longer maintained. Development of Ember patches continues in the Flame project https://github.com/DiaLight/Flame
 
 Ember is Dungeon Keeper II patching launcher.
 
